@@ -23,4 +23,10 @@ export class ApiRestService {
     return this.http.post<Response>(environment.url + '/readXls', {"b64":input} , this.httpOptions);
 
   }
+
+  calcolo(input: any) : Observable<Response>{
+
+    return this.http.post<Response>('http://localhost:8043/esdebitami/esecuzione/calcolo', {input} , this.httpOptions);
+
+  }
 }
