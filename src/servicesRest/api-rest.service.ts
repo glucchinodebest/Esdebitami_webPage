@@ -26,7 +26,7 @@ export class ApiRestService {
 
   calcolo(input: any) : Observable<Response>{
 
-    return this.http.post<Response>('http://localhost:8043/esdebitami/esecuzione/calcolo', {input} , this.httpOptions);
+    return this.http.post<Response>('http://localhost:8043/esdebitami/esecuzione/calcolo', input , this.httpOptions);
 
   }
 }

@@ -362,199 +362,199 @@ export class EsdebitamiDashboardComponent implements OnInit {
 
 
   public onSubmitFrom() {
-    var json: String =
-      `{
+    var json =
+      {
     schedaCliente: {
       anagrafica: {
-        cf: ${this.dataForm.get('anagrafica_cf').value}
+        cf: this.dataForm.get('anagrafica_cf').value
       },
       datiEconomici: {
         cliente: {
-          nFamiliariCarico: ${this.dataForm.get('cliente_nFamiliariCarico').value},
-          nFigliConviventi: ${this.dataForm.get('cliente_nFigliConviventi').value},
-          nFigliConviventiMinori: ${this.dataForm.get('cliente_nFigliConviventiMinori').value},
-          nucleoFamiliare: ${this.dataForm.get('cliente_nucleoFamiliare').value},
-          regimePatrimoniale: ${this.dataForm.get('cliente_regimePatrimoniale').value},
-          statoCivile: ${this.dataForm.get('cliente_statoCivile').value}
+          nFamiliariCarico: this.dataForm.get('cliente_nFamiliariCarico').value,
+          nFigliConviventi: this.dataForm.get('cliente_nFigliConviventi').value,
+          nFigliConviventiMinori: this.dataForm.get('cliente_nFigliConviventiMinori').value,
+          nucleoFamiliare: this.dataForm.get('cliente_nucleoFamiliare').value,
+          regimePatrimoniale: this.dataForm.get('cliente_regimePatrimoniale').value,
+          statoCivile: this.dataForm.get('cliente_statoCivile').value
         },
         coniuge: {
-          cf: ${this.dataForm.get('coniuge_cf').value}
+          cf: this.dataForm.get('coniuge_cf').value
         },
         entrateUscite: {
           altreEntrate: [
             {
-              cifraMensileAltreEntrate: ${this.dataForm.get('altreEntrate_cifraMensileAltreEntrate').value},
-              descrizioneAltreEntrate: ${this.dataForm.get('altreEntrate_descrizioneAltreEntrate').value},
-              progressivoAltreEntrate: ${this.dataForm.get('altreEntrate_progressivoAltreEntrate').value}
+              cifraMensileAltreEntrate: this.dataForm.get('altreEntrate_cifraMensileAltreEntrate').value,
+              descrizioneAltreEntrate: this.dataForm.get('altreEntrate_descrizioneAltreEntrate').value,
+              progressivoAltreEntrate: this.dataForm.get('altreEntrate_progressivoAltreEntrate').value
             }
           ],
           altreUscite: [
             {
-              cifraMensileAltreUscite: ${this.dataForm.get('altreUscite_cifraMensileAltreUscite').value},
-              descrizioneAltreUscite: ${this.dataForm.get('altreUscite_descrizioneAltreUscite').value},
-              progressivoAltreUscite: ${this.dataForm.get('altreUscite_progressivoAltreUscite').value}
+              cifraMensileAltreUscite: this.dataForm.get('altreUscite_cifraMensileAltreUscite').value,
+              descrizioneAltreUscite: this.dataForm.get('altreUscite_descrizioneAltreUscite').value,
+              progressivoAltreUscite: this.dataForm.get('altreUscite_progressivoAltreUscite').value
             }
           ],
           assegniMantEntrata: [
             {
-              cifraMensileAssMantEntrata: ${this.dataForm.get('assegniMantEntrata_cifraMensileAssMantEntrata').value},
-              descrizioneAssMantEntrata: ${this.dataForm.get('assegniMantEntrata_descrizioneAssMantEntrata').value},
-              progressivoAssMantEntrata: ${this.dataForm.get('assegniMantEntrata_progressivoAssMantEntrata').value}
+              cifraMensileAssMantEntrata: this.dataForm.get('assegniMantEntrata_cifraMensileAssMantEntrata').value,
+              descrizioneAssMantEntrata: this.dataForm.get('assegniMantEntrata_descrizioneAssMantEntrata').value,
+              progressivoAssMantEntrata: this.dataForm.get('assegniMantEntrata_progressivoAssMantEntrata').value
             }
           ],
           assegniMantUscita: [
             {
-              cifraMensileAssMantUscita: ${this.dataForm.get('assegniMantUscita_cifraMensileAssMantUscita').value},
-              descrizioneAssMantUscita: ${this.dataForm.get('assegniMantUscita_descrizioneAssMantUscita').value},
-              progressivoAssMantUscita: ${this.dataForm.get('assegniMantUscita_progressivoAssMantUscita').value}
+              cifraMensileAssMantUscita: this.dataForm.get('assegniMantUscita_cifraMensileAssMantUscita').value,
+              descrizioneAssMantUscita: this.dataForm.get('assegniMantUscita_descrizioneAssMantUscita').value,
+              progressivoAssMantUscita: this.dataForm.get('assegniMantUscita_progressivoAssMantUscita').value
             }
           ],
           immobile: [
             {
-              bancaMutuante: ${this.dataForm.get('immobile_bancaMutuante').value},
-              dataDalProprietaImmobile: ${this.dataForm.get('immobile_dataDalProprietaImmobile').value},
-              descrizioneImmobile: ${this.dataForm.get('immobile_descrizioneImmobile').value},
-              flPrimaCasa: ${this.dataForm.get('immobile_flPrimaCasa').value},
-              localita: ${this.dataForm.get('immobile_localita').value},
-              mqImmobile: ${this.dataForm.get('immobile_mqImmobile').value},
-              mutuoOriginario: ${this.dataForm.get('immobile_mutuoOriginario').value},
-              rataMutuoMensile: ${this.dataForm.get('immobile_rataMutuoMensile').value},
-              renditaLocazioneMensile: ${this.dataForm.get('immobile_renditaLocazioneMensile').value},
-              residuoDebitoMutuo: ${this.dataForm.get('immobile_residuoDebitoMutuo').value},
-              scadenzaRata: ${this.dataForm.get('immobile_scadenzaRata').value},
-              tipoImmobile: ${this.dataForm.get('immobile_tipoImmobile').value},
-              valoreCommerciale: ${this.dataForm.get('immobile_valoreCommerciale').value}
+              bancaMutuante: this.dataForm.get('immobile_bancaMutuante').value,
+              dataDalProprietaImmobile: this.dataForm.get('immobile_dataDalProprietaImmobile').value,
+              descrizioneImmobile: this.dataForm.get('immobile_descrizioneImmobile').value,
+              flPrimaCasa: this.dataForm.get('immobile_flPrimaCasa').value,
+              localita: this.dataForm.get('immobile_localita').value,
+              mqImmobile: this.dataForm.get('immobile_mqImmobile').value,
+              mutuoOriginario: this.dataForm.get('immobile_mutuoOriginario').value,
+              rataMutuoMensile: this.dataForm.get('immobile_rataMutuoMensile').value,
+              renditaLocazioneMensile: this.dataForm.get('immobile_renditaLocazioneMensile').value,
+              residuoDebitoMutuo: this.dataForm.get('immobile_residuoDebitoMutuo').value,
+              scadenzaRata: this.dataForm.get('immobile_scadenzaRata').value,
+              tipoImmobile: this.dataForm.get('immobile_tipoImmobile').value,
+              valoreCommerciale: this.dataForm.get('immobile_valoreCommerciale').value
             }
           ],
-          totaleUscitePerAffitti: {
-            rataAffittoMensile: ${this.dataForm.get('totaleUscitePerAffitti_rataAffittoMensile').value},
-            rataCondominioMensile: ${this.dataForm.get('totaleUscitePerAffitti_rataCondominioMensile').value}
-          }
+          totaleUscitePerAffitti: [{
+            rataAffittoMensile: this.dataForm.get('totaleUscitePerAffitti_rataAffittoMensile').value,
+            rataCondominioMensile: this.dataForm.get('totaleUscitePerAffitti_rataCondominioMensile').value
+          }]
         },
         listaAltriFamiliari: [
           {
-            cfAltriF: ${this.dataForm.get('listaAltriFamiliari_cfAltriF').value},
-            cittaNascitaAltriF: ${this.dataForm.get('listaAltriFamiliari_cittaNascitaAltriF').value},
-            cognomeAltriF: ${this.dataForm.get('listaAltriFamiliari_cognomeAltriF').value},
-            dataNascitaAltriF: ${this.dataForm.get('listaAltriFamiliari_dataNascitaAltriF').value},
-            gradoParentelaAltriF: ${this.dataForm.get('listaAltriFamiliari_gradoParentelaAltriF').value},
-            nomeAltriF: ${this.dataForm.get('listaAltriFamiliari_nomeAltriF').value},
-            redditoMensileAltriF: ${this.dataForm.get('listaAltriFamiliari_redditoMensileAltriF').value}
+            cfAltriF: this.dataForm.get('listaAltriFamiliari_cfAltriF').value,
+            cittaNascitaAltriF: this.dataForm.get('listaAltriFamiliari_cittaNascitaAltriF').value,
+            cognomeAltriF: this.dataForm.get('listaAltriFamiliari_cognomeAltriF').value,
+            dataNascitaAltriF: this.dataForm.get('listaAltriFamiliari_dataNascitaAltriF').value,
+            gradoParentelaAltriF: this.dataForm.get('listaAltriFamiliari_gradoParentelaAltriF').value,
+            nomeAltriF: this.dataForm.get('listaAltriFamiliari_nomeAltriF').value,
+            redditoMensileAltriF:this.dataForm.get('listaAltriFamiliari_redditoMensileAltriF').value
           }
         ],
         listaAttivitaClienteAut: [
           {
-            attivitaCliAut: ${this.dataForm.get('listaAttivitaClienteAut_attivitaCliAut').value},
-            descrizioneAttivitaCliAut: ${this.dataForm.get('listaAttivitaClienteAut_descrizioneAttivitaCliAut').value},
-            numAnniAttivitaEsercitataCliAut: ${this.dataForm.get('listaAttivitaClienteAut_numAnniAttivitaEsercitataCliAut').value},
-            numAnniEsercizioAttivitaCliAut: ${this.dataForm.get('listaAttivitaClienteAut_numAnniEsercizioAttivitaCliAut').value},
-            redditoAnnuoCliAut: ${this.dataForm.get('listaAttivitaClienteAut_redditoAnnuoCliAut').value},
-            tipoLavoratoreCliAut: ${this.dataForm.get('listaAttivitaClienteAut_tipoLavoratoreCliAut').value}
+            attivitaCliAut: this.dataForm.get('listaAttivitaClienteAut_attivitaCliAut').value,
+            descrizioneAttivitaCliAut: this.dataForm.get('listaAttivitaClienteAut_descrizioneAttivitaCliAut').value,
+            numAnniAttivitaEsercitataCliAut: this.dataForm.get('listaAttivitaClienteAut_numAnniAttivitaEsercitataCliAut').value,
+            numAnniEsercizioAttivitaCliAut: this.dataForm.get('listaAttivitaClienteAut_numAnniEsercizioAttivitaCliAut').value,
+            redditoAnnuoCliAut: this.dataForm.get('listaAttivitaClienteAut_redditoAnnuoCliAut').value,
+            tipoLavoratoreCliAut: this.dataForm.get('listaAttivitaClienteAut_tipoLavoratoreCliAut').value
           }
         ],
         listaAttivitaClienteDis: [
           {
-            tipoLavoratoreCliDis: ${this.dataForm.get('listaAttivitaClienteDis_tipoLavoratoreCliDis').value}
+            tipoLavoratoreCliDis: this.dataForm.get('listaAttivitaClienteDis_tipoLavoratoreCliDis').value
           }
         ],
         listaAttivitaClienteSub: [
           {
-            attivitaCliSub: ${this.dataForm.get('listaAttivitaClienteSub_attivitaCliSub').value},
-            numMensilitaRetCliSub: ${this.dataForm.get('listaAttivitaClienteSub_numMensilitaRetCliSub').value},
-            redditoMensileCliSub: ${this.dataForm.get('listaAttivitaClienteSub_redditoMensileCliSub').value},
-            redditoMensileRettificato: ${this.dataForm.get('listaAttivitaClienteSub_redditoMensileRettificato').value},
-            tipoContrattoCliSub: ${this.dataForm.get('listaAttivitaClienteSub_tipoContrattoCliSub').value},
-            tipoLavoratoreCliSub: ${this.dataForm.get('listaAttivitaClienteSub_tipoLavoratoreCliSub').value}
+            attivitaCliSub: this.dataForm.get('listaAttivitaClienteSub_attivitaCliSub').value,
+            numMensilitaRetCliSub: this.dataForm.get('listaAttivitaClienteSub_numMensilitaRetCliSub').value,
+            redditoMensileCliSub:this.dataForm.get('listaAttivitaClienteSub_redditoMensileCliSub').value,
+            redditoMensileRettificato: this.dataForm.get('listaAttivitaClienteSub_redditoMensileRettificato').value,
+            tipoContrattoCliSub: this.dataForm.get('listaAttivitaClienteSub_tipoContrattoCliSub').value,
+            tipoLavoratoreCliSub: this.dataForm.get('listaAttivitaClienteSub_tipoLavoratoreCliSub').value
           }
         ],
         listaAttivitaConiugeAut: [
           {
-            attivitaConAut: ${this.dataForm.get('listaAttivitaConiugeAut_attivitaConAut').value},
-            descrizioneAttivitaConAut: ${this.dataForm.get('listaAttivitaConiugeAut_descrizioneAttivitaConAut').value},
-            numAnniAttivitaEsercitataConAut: ${this.dataForm.get('listaAttivitaConiugeAut_numAnniAttivitaEsercitataConAut').value},
-            numAnniEsercizioAttivitaConAut: ${this.dataForm.get('listaAttivitaConiugeAut_numAnniEsercizioAttivitaConAut').value},
-            redditoAnnuoConAut: ${this.dataForm.get('listaAttivitaConiugeAut_redditoAnnuoConAut').value},
-            tipoLavoratoreConAut: ${this.dataForm.get('listaAttivitaConiugeAut_tipoLavoratoreConAut').value}
+            attivitaConAut: this.dataForm.get('listaAttivitaConiugeAut_attivitaConAut').value,
+            descrizioneAttivitaConAut: this.dataForm.get('listaAttivitaConiugeAut_descrizioneAttivitaConAut').value,
+            numAnniAttivitaEsercitataConAut: this.dataForm.get('listaAttivitaConiugeAut_numAnniAttivitaEsercitataConAut').value,
+            numAnniEsercizioAttivitaConAut: this.dataForm.get('listaAttivitaConiugeAut_numAnniEsercizioAttivitaConAut').value,
+            redditoAnnuoConAut: this.dataForm.get('listaAttivitaConiugeAut_redditoAnnuoConAut').value,
+            tipoLavoratoreConAut: this.dataForm.get('listaAttivitaConiugeAut_tipoLavoratoreConAut').value
           }
         ],
         listaAttivitaConiugeDis: [
           {
-            tipoLavoratoreConDis: ${this.dataForm.get('listaAttivitaConiugeDis_tipoLavoratoreConDis').value}
+            tipoLavoratoreConDis: this.dataForm.get('listaAttivitaConiugeDis_tipoLavoratoreConDis').value
           }
         ],
         listaAttivitaConiugeSub: [
           {
-            attivitaConSub: ${this.dataForm.get('listaAttivitaConiugeSub_attivitaConSub').value},
-            numMensilitaRetConSub: ${this.dataForm.get('listaAttivitaConiugeSub_numMensilitaRetConSub').value},
-            redditoAnnuoConSub: ${this.dataForm.get('listaAttivitaConiugeSub_redditoAnnuoConSub').value},
-            tipoContrattoConSub: ${this.dataForm.get('listaAttivitaConiugeSub_tipoContrattoConSub').value},
-            tipoLavoratoreConSub: ${this.dataForm.get('listaAttivitaConiugeSub_tipoLavoratoreConSub').value}
+            attivitaConSub: this.dataForm.get('listaAttivitaConiugeSub_attivitaConSub').value,
+            numMensilitaRetConSub: this.dataForm.get('listaAttivitaConiugeSub_numMensilitaRetConSub').value,
+            redditoAnnuoConSub: this.dataForm.get('listaAttivitaConiugeSub_redditoAnnuoConSub').value,
+            tipoContrattoConSub: this.dataForm.get('listaAttivitaConiugeSub_tipoContrattoConSub').value,
+            tipoLavoratoreConSub: this.dataForm.get('listaAttivitaConiugeSub_tipoLavoratoreConSub').value
           }
         ],
-        redditiFamiliariMensili: ${this.dataForm.get('redditiFamiliariMensili').value},
+        redditiFamiliariMensili: this.dataForm.get('redditiFamiliariMensili').value,
         trattenutaBustaPagaCliente: {
           csqCliente: {
-            dataInizioCSQCli: ${this.dataForm.get('trattenutaBustaPagaCliente_csqCliente_dataInizioCSQCli').value},
-            dataScadenzaCSQCli: ${this.dataForm.get('trattenutaBustaPagaCliente_csqCliente_dataScadenzaCSQCli').value},
-            rataCSQCli: ${this.dataForm.get('trattenutaBustaPagaCliente_csqCliente_rataCSQCli').value}
+            dataInizioCSQCli: this.dataForm.get('trattenutaBustaPagaCliente_csqCliente_dataInizioCSQCli').value,
+            dataScadenzaCSQCli: this.dataForm.get('trattenutaBustaPagaCliente_csqCliente_dataScadenzaCSQCli').value,
+            rataCSQCli: this.dataForm.get('trattenutaBustaPagaCliente_csqCliente_rataCSQCli').value
           },
           delegaCliente: {
-            dataInizioDelegaCli: ${this.dataForm.get('trattenutaBustaPagaCliente_delegaCliente_dataInizioDelegaCli').value},
-            dataScadenzaDelegaCli: ${this.dataForm.get('trattenutaBustaPagaCliente_delegaCliente_dataScadenzaDelegaCli').value},
-            rataDelegaCli: ${this.dataForm.get('trattenutaBustaPagaCliente_delegaCliente_rataDelegaCli').value}
+            dataInizioDelegaCli: this.dataForm.get('trattenutaBustaPagaCliente_delegaCliente_dataInizioDelegaCli').value,
+            dataScadenzaDelegaCli: this.dataForm.get('trattenutaBustaPagaCliente_delegaCliente_dataScadenzaDelegaCli').value,
+            rataDelegaCli: this.dataForm.get('trattenutaBustaPagaCliente_delegaCliente_rataDelegaCli').value
           },
           pignoramentoCliente: {
-            dataInizioPignoramentoCli: ${this.dataForm.get('trattenutaBustaPagaCliente_pignoramentoCliente_dataInizioPignoramentoCli').value},
-            dataScadenzaPignoramentoCli: ${this.dataForm.get('trattenutaBustaPagaCliente_pignoramentoCliente_dataScadenzaPignoramentoCli').value},
-            rataPignoramentoCli: ${this.dataForm.get('trattenutaBustaPagaCliente_pignoramentoCliente_rataPignoramentoCli').value}
+            dataInizioPignoramentoCli: this.dataForm.get('trattenutaBustaPagaCliente_pignoramentoCliente_dataInizioPignoramentoCli').value,
+            dataScadenzaPignoramentoCli: this.dataForm.get('trattenutaBustaPagaCliente_pignoramentoCliente_dataScadenzaPignoramentoCli').value,
+            rataPignoramentoCli: this.dataForm.get('trattenutaBustaPagaCliente_pignoramentoCliente_rataPignoramentoCli').value
           }
         },
         trattenutaBustaPagaConiuge: {
           csqConiuge: {
-            dataInizioCSQCon: ${this.dataForm.get('trattenutaBustaPagaCon_csq_dataInizioCSQCon').value},
-            dataScadenzaCSQCon: ${this.dataForm.get('trattenutaBustaPagaCon_csq_dataScadenzaCSQCon').value},
-            rataCSQCon: ${this.dataForm.get('trattenutaBustaPagaCon_csq_rataCSQCon').value}
+            dataInizioCSQCon: this.dataForm.get('trattenutaBustaPagaCon_csq_dataInizioCSQCon').value,
+            dataScadenzaCSQCon: this.dataForm.get('trattenutaBustaPagaCon_csq_dataScadenzaCSQCon').value,
+            rataCSQCon: this.dataForm.get('trattenutaBustaPagaCon_csq_rataCSQCon').value
           },
           delegaConiuge: {
-            dataInizioDelegaCon: ${this.dataForm.get('trattenutaBustaPagaCon_delega_dataInizioDelegaCon').value},
-            dataScadenzaDelegaCon: ${this.dataForm.get('trattenutaBustaPagaCon_delega_dataScadenzaDelegaCon').value},
-            rataDelegaCon: ${this.dataForm.get('trattenutaBustaPagaCon_delega_rataDelegaCon').value}
+            dataInizioDelegaCon: this.dataForm.get('trattenutaBustaPagaCon_delega_dataInizioDelegaCon').value,
+            dataScadenzaDelegaCon: this.dataForm.get('trattenutaBustaPagaCon_delega_dataScadenzaDelegaCon').value,
+            rataDelegaCon: this.dataForm.get('trattenutaBustaPagaCon_delega_rataDelegaCon').value
           },
           pignoramentoConiuge: {
-            dataInizioPignoramentoCon: ${this.dataForm.get('trattenutaBustaPagaCon_pignoramento_dataInizioPignoramentoCon').value},
-            dataScadenzaPignoramentoCon:${this.dataForm.get('trattenutaBustaPagaCon_pignoramento_dataScadenzaPignoramentoCon').value},
-            rataPignoramentoCon: ${this.dataForm.get('trattenutaBustaPagaCon_pignoramento_rataPignoramentoCon').value}
+            dataInizioPignoramentoCon: this.dataForm.get('trattenutaBustaPagaCon_pignoramento_dataInizioPignoramentoCon').value,
+            dataScadenzaPignoramentoCon:this.dataForm.get('trattenutaBustaPagaCon_pignoramento_dataScadenzaPignoramentoCon').value,
+            rataPignoramentoCon: this.dataForm.get('trattenutaBustaPagaCon_pignoramento_rataPignoramentoCon').value
           }
         }
       },
       listaCreditori: [
         {
-          coefficiente: ${this.dataForm.get('listaCreditori_coefficiente').value},
-          formaTecnica: ${this.dataForm.get('listaCreditori_formaTecnica').value},
-          nomeCreditore: ${this.dataForm.get('listaCreditori_nomeCreditore').value},
-          obbligatorio: ${this.dataForm.get('listaCreditori_obbligatorio').value},
-          posizioneTecnica: ${this.dataForm.get('listaCreditori_posizioneTecnica').value},
-          rataMensile: ${this.dataForm.get('listaCreditori_rataMensile').value},
-          valoreDebito: ${this.dataForm.get('listaCreditori_valoreDebito').value}
+          coefficiente: this.dataForm.get('listaCreditori_coefficiente').value,
+          formaTecnica: this.dataForm.get('listaCreditori_formaTecnica').value,
+          nomeCreditore: this.dataForm.get('listaCreditori_nomeCreditore').value,
+          obbligatorio: this.dataForm.get('listaCreditori_obbligatorio').value,
+          posizioneTecnica: this.dataForm.get('listaCreditori_posizioneTecnica').value,
+          rataMensile: this.dataForm.get('listaCreditori_rataMensile').value,
+          valoreDebito: this.dataForm.get('listaCreditori_valoreDebito').value
         }
       ],
       riepilogoCreditori: {
-        montanteDebitorioComplessivo: ${this.dataForm.get('riepilogoCreditori_montanteDebitorioComplessivo').value},
-        montanteDebitorioSecured: ${this.dataForm.get('riepilogoCreditori_montanteDebitorioSecured').value},
-        montanteDebitorioUnsecured: ${this.dataForm.get('riepilogoCreditori_montanteDebitorioUnsecured').value},
-        totaleRataCreditore: ${this.dataForm.get('riepilogoCreditori_totaleRataCreditore').value}
+        montanteDebitorioComplessivo: this.dataForm.get('riepilogoCreditori_montanteDebitorioComplessivo').value,
+        montanteDebitorioSecured: this.dataForm.get('riepilogoCreditori_montanteDebitorioSecured').value,
+        montanteDebitorioUnsecured: this.dataForm.get('riepilogoCreditori_montanteDebitorioUnsecured').value,
+        totaleRataCreditore: this.dataForm.get('riepilogoCreditori_totaleRataCreditore').value
       }
     },
-    requestType:richiesta5,
-    requestKey:requestKey5,
-    applicationKey:appKeyOdoo
-  }`;
+    requestType:"SYNC",
+    requestKey:"requestKeySYNC101091",
+    applicationKey:"appKeyExt"
+  };
 
+    //var json = "{   'schedaCliente': {     'anagrafica': {       'cf': 'codice fiscale'     },     'datiEconomici': {       'cliente': {         'nFamiliariCarico': 0,         'nFigliConviventi': 0,         'nFigliConviventiMinori': 0,         'nucleoFamiliare': 0,         'regimePatrimoniale': true,         'statoCivile': true       },       'coniuge': {         'cf': 'string'       },       'entrateUscite': {         'altreEntrate': [           {             'cifraMensileAltreEntrate': 0,             'descrizioneAltreEntrate': 'string',             'progressivoAltreEntrate': 200           } 					, 					 {             'cifraMensileAltreEntrate': 0,             'descrizioneAltreEntrate': 'string',             'progressivoAltreEntrate': 300           }         ],         'altreUscite': [           {             'cifraMensileAltreUscite': 0,             'descrizioneAltreUscite': 'string',             'progressivoAltreUscite': 400           }         ],         'assegniMantEntrata': [           {             'cifraMensileAssMantEntrata': 0,             'descrizioneAssMantEntrata': 'string',             'progressivoAssMantEntrata': 0           }         ],         'assegniMantUscita': [           {             'cifraMensileAssMantUscita': 0,             'descrizioneAssMantUscita': 'string',             'progressivoAssMantUscita': 0           }         ],         'immobile': [           {             'bancaMutuante': 'string',             'dataDalProprietaImmobile': '2020-11-26T17:44:21.976Z',             'descrizioneImmobile': 'string',             'flPrimaCasa': true,             'localita': 'string',             'mqImmobile': 0,             'mutuoOriginario': 0,             'rataMutuoMensile': 0,             'renditaLocazioneMensile': 0,             'residuoDebitoMutuo': 0,             'scadenzaRata': '2020-11-26T17:44:21.976Z',             'tipoImmobile': 'string',             'valoreCommerciale': 0           }         ],         'totaleUscitePerAffitti': [           {             'rataAffittoMensile': 500,             'rataCondominioMensile': 10           }, 					 {             'rataAffittoMensile': 600,             'rataCondominioMensile': 50           }         ]       },       'listaAltriFamiliari': [         {           'cfAltriF': 'string',           'cittaNascitaAltriF': 'string',           'cognomeAltriF': 'string',           'dataNascitaAltriF': '2020-11-26T17:44:21.976Z',           'gradoParentelaAltriF': 'string',           'nomeAltriF': 'string',           'redditoMensileAltriF': 0         }       ],       'listaAttivitaClienteAut': [         {           'attivitaCliAut': 'string',           'descrizioneAttivitaCliAut': 'string',           'numAnniAttivitaEsercitataCliAut': 0,           'numAnniEsercizioAttivitaCliAut': 0,           'redditoMensileCliAut': 0,           'redditoMensileRettificato': 0,           'tipoLavoratoreCliAut': 0         }       ],       'listaAttivitaClienteDis': [         {           'tipoLavoratoreCliDis': 0         }       ],       'listaAttivitaClienteSub': [         {           'attivitaCliSub': 'string',           'numMensilitaRetCliSub': 16,           'redditoMensileCliSub': 1400,           'redditoMensileRettificato': 0,           'tipoContrattoCliSub': 'string',           'tipoLavoratoreCliSub': 0         }       ],       'listaAttivitaConiugeAut': [         {           'attivitaConAut': 'string',           'descrizioneAttivitaConAut': 'string',           'numAnniAttivitaEsercitataConAut': 0,           'numAnniEsercizioAttivitaConAut': 0,           'redditoMensileConAut': 0,           'tipoLavoratoreConAut': 0         }       ],       'listaAttivitaConiugeDis': [         {           'tipoLavoratoreConDis': 0         }       ],       'listaAttivitaConiugeSub': [         {           'attivitaConSub': 'string',           'numMensilitaRetConSub': 0,           'redditoMensileConSub': 0,           'tipoContrattoConSub': 'string',           'tipoLavoratoreConSub': 0         }       ],       'redditiFamiliariMensili': 900,       'trattenutaBustaPagaCliente': {         'csqCliente': {           'dataInizioCSQCli': '2020-11-26T17:44:21.976Z',           'dataScadenzaCSQCli': '2020-11-26T17:44:21.976Z',           'rataCSQCli': 0         },         'delegaCliente': {           'dataInizioDelegaCli': '2020-11-26T17:44:21.976Z',           'dataScadenzaDelegaCli': '2020-11-26T17:44:21.976Z',           'rataDelegaCli': 0         },         'pignoramentoCliente': {           'dataInizioPignoramentoCli': '2020-11-26T17:44:21.976Z',           'dataScadenzaPignoramentoCli': '2020-11-26T17:44:21.976Z',           'rataPignoramentoCli': 0         }       },       'trattenutaBustaPagaConiuge': {         'csqConiuge': {           'dataInizioCSQCon': '2020-11-26T17:44:21.976Z',           'dataScadenzaCSQCon': '2020-11-26T17:44:21.976Z',           'rataCSQCon': 0         },         'delegaConiuge': {           'dataInizioDelegaCon': '2020-11-26T17:44:21.976Z',           'dataScadenzaDelegaCon': '2020-11-26T17:44:21.976Z',           'rataDelegaCon': 0         },         'pignoramentoConiuge': {           'dataInizioPignoramentoCon': '2020-11-26T17:44:21.976Z',           'dataScadenzaPignoramentoCon': '2020-11-26T17:44:21.976Z',           'rataPignoramentoCon': 0         }       }     },     'listaCreditori': [       {         'coefficiente': 0,         'formaTecnica': 'string',         'nomeCreditore': 'string',         'obbligatorio': true,         'posizioneTecnica': 's',         'rataMensile': 70,         'valoreDebito': 80       }, 			 {         'coefficiente': 0,         'formaTecnica': 'string',         'nomeCreditore': 'string',         'obbligatorio': true,         'posizioneTecnica': 's',         'rataMensile': 90,         'valoreDebito': 990       }     ],     'riepilogoCreditori': {       'montanteDebitorioComplessivo': 0,       'montanteDebitorioSecured': 0,       'montanteDebitorioUnsecured': 0,       'totaleRataCreditore': 0     }   },   'requestType':'SYNC',   'requestKey':'requestKey11',   'applicationKey':'appKeyExt' }";
     console.log(json);
 
     this.api.calcolo(json).subscribe((data: any) => {
       console.log(data);
-      
     });
   }
 
