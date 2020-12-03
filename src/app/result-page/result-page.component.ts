@@ -9,7 +9,7 @@ export class ResultPageComponent implements OnInit {
   
 
 
-  headElements = ['Nome campo', "" ,  'Valore'];
+  headElements = ['Riferimento', 'Esito'];
 
   payload : any
   schedaCliente :any

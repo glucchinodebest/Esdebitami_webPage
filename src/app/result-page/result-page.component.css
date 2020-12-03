@@ -109,3 +109,16 @@ html,
             margin-left: 28%;
         }
     }
+    td, th {
+        width: 50rem;
+        height: 2rem;
+        border: 1px solid #ccc;
+        text-align: center;
+      }
+      th {
+        background: lightblue;
+        border-color: white; 
+      }
+      body {
+        padding: 1rem;
+      }
