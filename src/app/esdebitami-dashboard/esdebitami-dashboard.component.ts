@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, FormsModule, Validators } from '@angular/forms';
 import { ApiRestService } from '../../servicesRest/api-rest.service'
 import * as XLSX from 'xlsx';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-esdebitami-dashboard',
@@ -177,7 +178,8 @@ export class EsdebitamiDashboardComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private api: ApiRestService
+    private api: ApiRestService,
+    private router : Router
   ) {
     this.createForm();
   }
@@ -555,6 +557,8 @@ export class EsdebitamiDashboardComponent implements OnInit {
 
     this.api.calcolo(json).subscribe((data: any) => {
       console.log(data);
+      localStorage.setItem('valutazioneCliente', JSON.stringify(data["payload"]));
+      this.router.navigate(['/result'])
     });
   }
 

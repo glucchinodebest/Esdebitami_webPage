@@ -7,12 +7,14 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { EsdebitamiDashboardComponent } from './esdebitami-dashboard/esdebitami-dashboard.component';  
 import { HttpClientModule} from '@angular/common/http';
 import { LoginPageComponent } from './login-page/login-page.component';
+import { ResultPageComponent } from './result-page/result-page.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     EsdebitamiDashboardComponent,
     LoginPageComponent,
+    ResultPageComponent,
   ],
   imports: [
     BrowserModule,
