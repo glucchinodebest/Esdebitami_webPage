@@ -1,0 +1,76 @@
+package it.esdebitamiretake.retake_ticket.collection;
+
+import javax.xml.bind.annotation.XmlRootElement;
+
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import io.swagger.annotations.ApiModel;
+
+
+@Document(collection="templatesType")
+@JsonInclude(JsonInclude.Include.ALWAYS)
+@JsonFormat(with={com.fasterxml.jackson.annotation.JsonFormat.Feature.ACCEPT_SINGLE_VALUE_AS_ARRAY})
+@XmlRootElement
+@ApiModel(description = "Model of the type related to template")
+public class TemplateType {
+
+	 @Id
+	 @Field("_id")	
+	 @JsonProperty("templateTypeId")
+	 private String templateTypeId;
+	 
+	 @Field("nome")
+	 @JsonProperty("templateTypeName")
+	 private String templateTypeName;
+	 
+	 @Field("status")
+	 @JsonProperty("templateTypeStatus")
+	 private Integer status;
+
+	public TemplateType() {
+	}
+
+	public TemplateType(String templateTypeId, String templateTypeName, Integer status) {
+		this.templateTypeId=templateTypeId;
+		this.templateTypeName=templateTypeName;
+		this.status=status;
+		
+	}
+
+	public String getTemplateTypeId() {
+		return templateTypeId;
+	}
+
+	public void setTemplateTypeId(String templateTypeId) {
+		this.templateTypeId = templateTypeId;
+	}
+
+	public String getTemplateTypeName() {
+		return templateTypeName;
+	}
+
+	public void setTemplateTypeName(String templateTypeName) {
+		this.templateTypeName = templateTypeName;
+	}
+
+	public Integer getStatus() {
+		return status;
+	}
+
+	public void setStatus(Integer status) {
+		this.status = status;
+	}
+	 
+	 
+}
+
+/* Location:              C:\Users\dercolano\Desktop\VVA\vas-template\vas-template-1.0.0.jar!\BOOT-INF\classes\it\isspa\vas\template\db\collection\Template.class
+ * Java compiler version: 7 (51.0)
+ * JD-Core Version:       0.7.1
+ */

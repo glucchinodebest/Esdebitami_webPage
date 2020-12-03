@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Search Engine</title>
+<link rel="stylesheet" type="text/css" href="oracle.css">
+<script src="oracle.js"></script>
+</head>
+<body>
+
+	<h2>Search Engine Tester</h2>
+	<div class="input">
+		<table>
+			<tr>
+				<td><small>Dataset: <select id="template">
+							<option value="5a3a4edf07105e4ac0ea59d8">Portale
+								automobilista</option>
+					</select></small></td>
+				<td><small>Number of answers to return: <select
+						id="answers">
+							<option value="1">1</option>
+							<option value="2">2</option>
+							<option value="3" selected="selected">3</option>
+							<option value="5">5</option>
+					</select></small></td>
+			</tr>
+			<tr>
+				<td colspan="2"><textarea id="question" rows="6" cols="60"
+						placeholder="Enter here your question..."></textarea></td>
+			</tr>
+			<tr>
+				<td colspan="2"><a class="button" id="ask" onclick="ask()">ask</a></td>
+			</tr>
+		</table>
+	</div>
+	<div id="output" class="output"></div>
+</body>
+</html>

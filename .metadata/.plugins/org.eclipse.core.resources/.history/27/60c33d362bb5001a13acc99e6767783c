@@ -1,0 +1,87 @@
+package com.pccube.vvas.ai.service;
+
+
+import java.util.List;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.stereotype.Service;
+
+import com.pccube.vvas.ai.collection.Dataset;
+import com.pccube.vvas.ai.repo.DatasetRepository;
+
+@Service
+public class DatasetService {
+	
+	@Autowired
+	DatasetRepository datasetRepository;
+	
+	@Autowired
+	MongoTemplate mongoTemplate;
+	
+	
+	private static final Logger logger = LoggerFactory.getLogger( DatasetService.class );
+	
+	
+	
+	public Dataset findDatasetById( String theDatasetId ) {
+		logger.info( "[START] datasetService.findDatasetById" );
+		logger.info( "Searching dataset with id : " + theDatasetId );
+		Dataset dataset= this.mongoTemplate.findById( theDatasetId , Dataset.class );
+		logger.info( "[END] datasetService.findDatasetById" );
+		return dataset ;
+	}
+	
+	
+	
+	public void saveDataset( Dataset theDataset ) {
+		logger.info( "[START] datasetService.saveDataset" );
+		try{
+			this.mongoTemplate.save( theDataset );
+			logger.info( "Dataset " +theDataset.getId() + " correctly saved" );
+		}catch ( Throwable th ) {
+			logger.info( "Error during saving of dataset " );
+		}
+		logger.info( "[END] datasetService.saveDataset" );
+	}	
+	
+	
+	
+	public void deleteDataset( String datasetId ) {
+		logger.info( "[START] datasetService.deleteDataset" );
+		Dataset dataset = this.mongoTemplate.findById( datasetId , Dataset.class );
+		try{
+			this.mongoTemplate.remove( dataset );
+			logger.info( "Dataset " +dataset.getId()+" correctly deleted " );
+		}catch ( Throwable th ) {
+			logger.info( "Error during deletion of dataset " + datasetId );
+		}
+		logger.info( "[END] datasetService.deleteDataset" );
+	}	
+	
+	
+	
+	public List < Dataset > findDatasetByTemplateId( String templateId ){
+		logger.info( "[START] datasetService.findDatasetByTemplateId" );
+		logger.info( "Searching datasets of template " + templateId );
+		List< Dataset > datasets = this.datasetRepository.findDatasetByTemplateId( templateId );
+		logger.info( "Number of datasets found : " + datasets.size() );
+		logger.info( "[END] datasetService.findDatasetByTemplateId" );
+		return datasets;
+	}
+	
+	
+	public List < Dataset > findAllDatasets(){
+		logger.info( "[START] datasetService.findAllDatasets" );
+		List< Dataset > datasets = this.datasetRepository.findAll();
+		logger.info( "Number of elements found : " + datasets );
+		logger.info( "[END] datasetService.findAllDatasets" );
+		return datasets;
+	}
+	
+
+	
+	public void example() {}
+	}

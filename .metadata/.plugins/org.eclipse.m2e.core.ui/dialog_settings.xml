@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<section name="MavenProjectImportWizardPage">
+		<list key="rootDirectory">
+			<item value="C:\Users\magic\OneDrive\Desktop\esdebitami\DatasetScraping"/>
+			<item value="C:\Users\magic\OneDrive\Desktop\esdebitami\esdebitami_retake_ir"/>
+			<item value="C:\Users\magic\OneDrive\Desktop\esdebitami\esdebitami-retake-membership"/>
+			<item value="C:\Users\magic\OneDrive\Desktop\esdebitami\retake_ai"/>
+			<item value="C:\Users\magic\OneDrive\Desktop\esdebitami\esdemibami_retake_aai"/>
+			<item value="C:\Users\magic\OneDrive\Desktop\esdebitami\esdemibami_retake_ai"/>
+			<item value="C:\Users\magic\OneDrive\Desktop\esdebitami\esdemibami_retake_report"/>
+			<item value="C:\Users\magic\OneDrive\Desktop\esdebitami\retake_ticket"/>
+			<item value="C:\Users\magic\OneDrive\Desktop\esdebitami\vvas-template"/>
+			<item value="C:\Users\magic\OneDrive\Desktop\esdebitami\vvas-ticket"/>
+			<item value="C:\Users\magic\OneDrive\Desktop\esdebitami\esdebitami-retake"/>
+		</list>
+		<list key="projectNameTemplate">
+			<item value="[artifactId]"/>
+			<item value="[artifactId]-TRUNK"/>
+			<item value="[artifactId]-[version]"/>
+			<item value="[groupId].[artifactId]"/>
+			<item value="[groupId].[artifactId]-[version]"/>
+			<item value="[name]"/>
+		</list>
+	</section>
+	<section name="org.eclipse.m2e.core.pom.overview">
+		<list key="ciManagementUrl">
+		</list>
+		<list key="ciManagementSystem">
+		</list>
+		<list key="issueManagementSystem">
+		</list>
+		<list key="issueManagementUrl">
+		</list>
+	</section>
+	<section name="org.eclipse.m2e.core.pom.dependencies">
+	</section>
+</section>

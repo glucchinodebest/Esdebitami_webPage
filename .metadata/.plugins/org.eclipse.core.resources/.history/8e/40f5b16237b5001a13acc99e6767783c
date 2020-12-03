@@ -1,0 +1,26 @@
+package com.vvas.project.ir.scraping.nlp;
+
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import opennlp.tools.langdetect.LanguageDetectorME;
+import opennlp.tools.langdetect.LanguageDetectorModel;
+
+class LangDetector {
+
+
+	private final LanguageDetectorModel model;
+
+	LangDetector() throws IOException {
+	
+		try(InputStream inputStream=getClass().getClassLoader().getResourceAsStream("models/langdetect-183.bin")){
+			
+			model = new LanguageDetectorModel(inputStream);
+		} 
+	}
+
+	String detectLanguage(String text) {
+
+		return new LanguageDetectorME(model).predictLanguage(text).getLang();
+	}
+}

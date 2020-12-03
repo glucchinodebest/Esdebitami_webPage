@@ -1,0 +1,11 @@
+0000000000000000000000000000000000000000 ce1a9582c065c50b08430d8796742d5045e6ade3 Gian Marco Lucchino <glucchino@pccube.com> 1578049259 +0100	Branch: vvas-template_test created @ ce1a9582c065c50b08430d8796742d5045e6ade3
+ce1a9582c065c50b08430d8796742d5045e6ade3 44b046ca5ca732d1d88074a27d5743c4afb3a83d Gian Marco Lucchino <glucchino@pccube.com> 1578063513 +0100	reset: moving to 44b046ca5ca732d1d88074a27d5743c4afb3a83d
+44b046ca5ca732d1d88074a27d5743c4afb3a83d 2835a1a4e685024d2917d3e9f57f468fca960af9 Gian Marco Lucchino <glucchino@pccube.com> 1585667609 +0200	Fast forward branch vvas-template_test to branch vvas-template_test
+2835a1a4e685024d2917d3e9f57f468fca960af9 fc2cab3332da493af3917bfda3f2b26fd43f1a2b Gian Marco Lucchino <glucchino@pccube.com> 1585668567 +0200	commit (merge): Merge branch 'vas-template_dev' into vvas-template_test
+fc2cab3332da493af3917bfda3f2b26fd43f1a2b 95b2c257b046c6d41207fa5c100bde4b6806edbe Gian Marco Lucchino <glucchino@pccube.com> 1585743665 +0200	merge branch 'vvas-template_test' of http://gitlab.pccube.com:8081/gitlab/vvassistant/vvas-template.git: Fast-forward
+95b2c257b046c6d41207fa5c100bde4b6806edbe 7676d33e5739fafd665f6809a0298c7c0b656068 Gian Marco Lucchino <glucchino@pccube.com> 1585904056 +0200	Fast forward branch vvas-template_test to branch vvas-template_test
+7676d33e5739fafd665f6809a0298c7c0b656068 41f3979faa9597631b4c04891c59fe9a1f6cd521 Gian Marco Lucchino <glucchino@pccube.com> 1585907819 +0200	reset: moving to 41f3979faa9597631b4c04891c59fe9a1f6cd521
+41f3979faa9597631b4c04891c59fe9a1f6cd521 3f158771cca6af9388baab16822931bfb8891446 Gian Marco Lucchino <glucchino@pccube.com> 1585907956 +0200	Fast forward branch vvas-template_test to branch vvas-template_test
+3f158771cca6af9388baab16822931bfb8891446 f2a5ae2f5473a2b272af190ff65d3d87d77a1417 Gian Marco Lucchino <glucchino@pccube.com> 1585909002 +0200	Fast forward branch vvas-template_test to branch vvas-template_test
+f2a5ae2f5473a2b272af190ff65d3d87d77a1417 b7a9dca7e8a33d47edec4c985a084ce155e5fbef Gian Marco Lucchino <glucchino@pccube.com> 1587539718 +0200	Fast forward branch vvas-template_test to branch vvas-template_test
+b7a9dca7e8a33d47edec4c985a084ce155e5fbef 8b726b4a4a7572f272795402cb38a91a7ff450bd Gian Marco Lucchino <glucchino@pccube.com> 1588845850 +0200	branch: Reset to 8b726b4a4a7572f272795402cb38a91a7ff450bd

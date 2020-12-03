@@ -1,0 +1,80 @@
+/*     */ package com.pccube.vvas.ai.service;
+
+		  import java.util.ArrayList;
+/*     */ import java.util.List;
+		  import java.util.Set;
+
+/*     */ import org.slf4j.Logger;
+/*     */ import org.slf4j.LoggerFactory;
+/*     */ import org.springframework.beans.factory.annotation.Autowired;
+/*     */ import org.springframework.data.domain.PageRequest;
+/*     */ import org.springframework.data.mongodb.core.MongoTemplate;
+/*     */ import org.springframework.stereotype.Service;
+
+		  import com.pccube.vvas.ai.collection.Template;
+		  import com.pccube.vvas.ai.repo.TemplateRepository;
+
+		  
+		  @Service
+/*     */ public class TemplateService
+/*     */ {
+	
+			  
+			  
+/*     */   @Autowired
+/*     */   TemplateRepository templateRepository;
+
+/*     */   @Autowired
+/*     */   MongoTemplate mongoTemplate;
+
+
+/*  48 */   private static final Logger logger = LoggerFactory.getLogger(TemplateService.class);
+/*     */   
+/*     */   
+/*     */   
+/*     */   
+/*     */   public Template findTemplateById( String theTemplateId ) {
+/*  73 */     logger.info( "[START] templateService.findTemplateById : " + theTemplateId );
+/*  74 */     Template template = ( Template ) this.mongoTemplate.findById( theTemplateId, Template.class );
+			  logger.info( "[END] templateService.findTEmplateById : " + theTemplateId );
+/*  75 */     return template;
+/*     */   }
+/*     */   
+/*     */   public List< Template > findAll( Integer page, Integer pagesize )
+/*     */   {
+/*  57 */     @SuppressWarnings( "deprecation" )
+			  List<Template> templateList = this.templateRepository.findAll( new PageRequest( page.intValue(), pagesize.intValue() ) ).getContent();
+/*  58 */     return templateList;
+/*     */   }
+
+
+
+/*     */   public void example() {}
+
+
+
+			public List< Template > findTemplateAct(){
+				logger.info( "[START] templateService.findTemplateActive" );
+				List< Template > activeTemplate=new ArrayList< Template >();
+				activeTemplate=this.templateRepository.findActiveTemplate( 0 );
+				logger.info( "[END] templateService.findTemplateActive" );
+				return activeTemplate;
+			}
+			
+			
+			
+			public List< Template > findTemplatesByIdsAndStatus( Set< String > theTemplatesIds, Integer theStatus ) {
+				logger.info( "[START] templateService.findTemplatesByIdsAndStatus. Templates : " + theTemplatesIds.toString() + " , status : " + theStatus );
+				List < Template > templates = templateRepository.findByIdsAndStatus( theTemplatesIds, theStatus );
+				logger.info( "[END] templateService.findTemplatesByIdsAndStatus" );
+				return templates;
+			}
+
+
+/*     */ }
+
+
+
+
+
+

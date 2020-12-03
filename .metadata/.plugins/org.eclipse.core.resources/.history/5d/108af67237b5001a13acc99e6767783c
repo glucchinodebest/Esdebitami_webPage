@@ -1,0 +1,150 @@
+package it.esdebitamiretake.retake_ir.scraping;
+
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URL;
+import java.util.HashSet;
+import java.util.LinkedHashSet;
+import java.util.Set;
+import org.jsoup.Connection;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import com.vvas.project.ir.scraping.model.Content;
+import com.vvas.project.ir.scraping.model.Context;
+import com.vvas.project.ir.scraping.model.Resource;
+import com.vvas.project.ir.scraping.nlp.NLFactory;
+import com.vvas.project.ir.scraping.nlp.NLFactory.NLFactoryException;
+import com.vvas.project.ir.scraping.nlp.NLPipeline;
+
+public class Scraper {
+
+	private final Context context;
+	private final NLPipeline nlp;
+	private final ScrapingListener listener;
+	private final Set<String> cache;
+
+	public Scraper(Context context, ScrapingListener listener) throws IOException, NLFactoryException {
+
+		this.nlp = NLFactory.getInstance().loadPipeline(context.getLanguage());
+		this.context = context;
+		this.cache = new HashSet<>();
+		this.listener = listener;
+	}
+
+	public void execute() throws MalformedURLException {
+
+		search(new URL(context.getUri()));
+
+		cache.clear();
+	}
+
+	private void search(URL url) {
+
+		try {
+
+			Connection conn = Jsoup.connect(url.toString());
+			URL rurl = conn.execute().url();
+
+			if (cache.add(getPath(rurl)) && (rurl.equals(url) || cache.add(getPath(url)))) {
+
+				System.out.println(rurl);
+				Document doc = conn.get();
+
+				try {
+					
+					doc: for (Element element : doc.select(context.getCSSQuery())) {
+
+						String id = null;
+
+						Element res = element.selectFirst(context.getCSSRefQuery());
+
+						String reference = res != null ? res.text() : null;
+
+						String text = element.text().replaceAll("<[^>]*>", "").trim();
+
+						if (nlp.detectLanguage(text) == nlp.getLanguage()) {
+
+							for (String sentence : nlp.detectSentences(text)) {
+
+								CharSequence[] features = nlp.stem(nlp.stop(
+										nlp.tokenize(sentence.replaceAll("[^A-Za-z\\s]", "").trim().toLowerCase())));
+
+								if (features.length > 1) {
+
+									if (id == null) {
+
+										id = listener.onCreateResource(
+												new Resource(context.getID(), url.toString(), reference));
+
+										if (id == null)
+											break doc;
+									}
+
+									listener.onCreateContent(new Content(sentence.trim(), id));
+								}
+							}
+						}
+					}
+
+					for (URL link : searchLink(doc, url.getHost()))
+						if (!cache.contains(getPath(link)))
+							search(link);
+
+				} catch (Exception e) {
+
+					listener.onError(context, e.getMessage());
+				}
+			}
+
+		} catch (IOException e) {
+
+		}
+	}
+
+	private Set<URL> searchLink(Document resource, String host) {
+
+		Set<URL> urls = new LinkedHashSet<>();
+
+		for (Element element : resource.select("a[href]")) {
+
+			String href = element.attr("href");
+
+			if (!href.isEmpty()) {
+
+				try {
+
+					URI uri = new URI(element.attr("href"));
+
+					if (!uri.isAbsolute())
+						uri = new URI(context.getUri()
+								+ (uri.toString().startsWith("/") || context.getUri().endsWith("/") ? "" : "/")
+								+ uri.toString());
+
+					if (uri.getHost().equals(host))
+						urls.add(new URI(uri.getScheme(), uri.getHost(), uri.getPath(), null).toURL());
+
+				} catch (Exception e) {
+				}
+			}
+		}
+
+		return urls;
+	}
+
+	private String getPath(URL url) {
+
+		return url.getPath().replaceAll("//+", "/");
+	}
+
+	public interface ScrapingListener {
+
+		String onCreateResource(Resource resource);
+
+		void onCreateContent(Content content);
+
+		void onError(Context context, String message);
+	}
+
+}

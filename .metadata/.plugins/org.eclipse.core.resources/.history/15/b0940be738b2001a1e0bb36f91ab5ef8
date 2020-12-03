@@ -1,0 +1,510 @@
+package it.esdebitamiretake.retake_ticket.controller;
+
+
+
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
+import io.swagger.annotations.ApiResponses;
+import io.swagger.annotations.SwaggerDefinition;
+import io.swagger.annotations.Tag;
+import it.esdebitamiretake.retake_ticket.service.AttachementService;
+import it.esdebitamiretake.retake_ticket.service.ColorService;
+import it.esdebitamiretake.retake_ticket.service.MailService;
+import it.esdebitamiretake.retake_ticket.service.PushNotificationService;
+import it.esdebitamiretake.retake_ticket.service.SurveyService;
+import it.esdebitamiretake.retake_ticket.service.UserService;
+
+import java.net.URI;
+import java.rmi.RemoteException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
+import javax.validation.Valid;
+import org.apache.commons.lang3.StringUtils;
+import org.json.simple.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+import io.swagger.annotations.ApiResponse;
+import org.springframework.http.HttpStatus;
+
+@SwaggerDefinition(tags = { @Tag(name = "Survey", description = "Operations to manage tickets in VVAS") })
+@RestController
+@CrossOrigin(allowedHeaders = "*", origins = "*")
+public class SurveyController {
+	
+	@Autowired
+	SurveyService surveyService;
+	
+	@Autowired
+	AttachementService attachementService;
+
+	@Autowired
+	MailService mailService;
+	
+	@Autowired
+	PushNotificationService pushNotificationService;
+	
+	@Autowired
+	ColorService colorService;
+	
+	@Autowired
+	UserService userService;
+	
+	private static final Logger logger = LoggerFactory.getLogger(SurveyController.class);
+	
+	static SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+
+
+	//'TODO check new saveSurvey with attachement
+	@PostMapping(value = "/survey", produces = "application/json")
+	@ResponseStatus(HttpStatus.CREATED)
+	@ApiOperation(value = "Create a new survey by a specific userId", tags = "surveys")
+	@ApiResponses(value = { @ApiResponse(code = 201, message = "The survey has been successfully created"),
+			@ApiResponse(code = 404, message = "No userId found") })
+	@ResponseBody
+	public ResponseEntity<URI> saveSurvey(@ApiParam(value = "The object survey", required = true) @Valid @RequestBody Survey survey)
+			throws RemoteException, ResourceNotFoundException {
+		
+		Attachement attachement = survey.getAttachementFile();
+		
+		if (attachement != null) {
+			
+			String attachementId = attachementService.saveAttachement(attachement);
+			attachement.setAttachementId(attachementId);
+			attachement.setData("");
+			attachement.setNome(attachement.getNome());
+			attachement.setTipo(attachement.getTipo());
+			
+			survey.setAttachementFile(attachement);
+		}
+		
+		if(survey.getCounterWeight() != null || survey.getCounterScore() != null) {
+		
+			Integer average = survey.getCounterScore()/survey.getCounterWeight();
+			System.out.println("average " +average);
+			survey.setAverage(average);
+			//ADR
+			Color color = valutaQuestionarioADR(average);
+			survey.setColorObj(color);
+			survey.setColor(color.getColorCode());
+			System.out.println("color code " + color);
+			
+		}
+		
+		return ResponseEntity.created(ServletUriComponentsBuilder.fromCurrentRequest().pathSegment("{id}")
+				.buildAndExpand(surveyService.saveSurvey(survey)).toUri()).build();
+	}
+	
+	
+
+	//'TODO check new getAttachement
+	@GetMapping(value = "/survey/{surveyId}", produces = "application/json")
+	@ResponseStatus(HttpStatus.OK)
+	@ApiOperation(value = "Retrieve a survey by id", tags = "surveys")
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "The survey has been successfully retrieved"),
+			@ApiResponse(code = 404, message = "Survey not found") })
+	@ResponseBody
+	public Survey getSurvey(@ApiParam(value = "Survey Id", required = true) @PathVariable String surveyId) throws ResourceNotFoundException {
+		
+		logger.debug("GET survey [?]", surveyId);
+		
+		Survey survey = surveyService.findSurveyById(surveyId);
+		
+		List<Reply> repliesList = survey.getReplies();
+		Attachement att = survey.getAttachementFile();
+		
+		if( att != null ) {
+			
+			Attachement tempAtt = attachementService.findAttachementById(att.getAttachementId());
+			att.setData(tempAtt.getData());
+			survey.setAttachementFile(att);
+			
+		}
+		
+		if (repliesList != null) {
+			
+			for (Reply re : repliesList) {
+				logger.debug("Checking each reply to show the b64 of the attachements in the replies!");
+				List<Attachement> attachementReList = re.getAttachement();
+				if (attachementReList != null) {
+					logger.debug("Attachement List of replies retrieved ");
+					for (Attachement attRe : attachementReList) {
+						Attachement tempAttRe = attachementService
+								.findAttachementById(attRe.getAttachementId());
+						attRe.setData(tempAttRe.getData());
+					}
+					re.setAttachement(attachementReList);
+				}
+			}
+			survey.setReplies(repliesList);
+		}
+
+		return survey;
+	}
+
+
+	@GetMapping(value = "/surveysInfo", produces = "application/json")
+	@ResponseStatus(HttpStatus.OK)
+	@ApiOperation(value = "Retrieve the surveyInfo list", tags = "surveys")
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "The surveyInfo list has been successfully retrieved"),
+			@ApiResponse(code = 404, message = "SurveyInfo not found") })
+	@ResponseBody
+	public List<SurveyInfo> getSurveysInfoPerTemplate() throws ResourceNotFoundException, RemoteException {
+			
+		List<SurveyInfo> surveyInfoList = surveyService.findSurveysInfoPerTemplate();
+		
+		if (surveyInfoList.isEmpty())
+			throw new ResourceNotFoundException("Surveys informations");
+
+		return surveyInfoList;
+	}
+	
+
+	@GetMapping(value = "/feedbacksInfoPerTemplate", produces = "application/json")
+	@ResponseStatus(HttpStatus.OK)
+	@ApiOperation(value = "Retrieve the feedbacks info list per template", tags = "feedbacks")
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "The feedbacksinfo list has been successfully retrieved"),
+			@ApiResponse(code = 404, message = "Feedbacks info not found") })
+	@ResponseBody
+	public List<FeedbackInfo> getFeedbacksInfoPerTemplate() throws ResourceNotFoundException, RemoteException {
+			
+		List<FeedbackInfo> feedbackInfoList = surveyService.findFeedbacksInfoPerTemplate();
+		logger.debug("GET surveys: retrieved " + feedbackInfoList.size());
+		
+		if (feedbackInfoList.isEmpty())
+			throw new ResourceNotFoundException("Feedbacks");
+
+		return feedbackInfoList;
+	}
+	
+
+	@GetMapping(value = "/feedbacksByTemplate/{templateId}", produces = "application/json")
+	@ResponseStatus(HttpStatus.OK)
+	@ApiOperation(value = "Retrieve the survey list where feedback is not null by template id", tags = "surveys")
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "The survey list has been successfully retrieved"),
+			@ApiResponse(code = 404, message = "Survey not found") })
+	@ResponseBody
+	public List<Survey> getFeedbacksByTemplateAndInterval(@ApiParam(value = "The id of the template", required = true) @PathVariable String templateId,
+			@ApiParam(value = "The user id", required = false) @RequestParam(required = false) String userId, 
+			@ApiParam(value = "Start date", required = false) @RequestParam(required = false) String startDate,
+			@ApiParam(value = "End date", required = false) @RequestParam(required = false) String endDate, 
+			@ApiParam(value = "Zero-based page index", required = false) @RequestParam(required = false) Integer page,
+			@ApiParam(value = "The size of the page to be returned", required = false) @RequestParam(required = false) Integer pagesize) throws ResourceNotFoundException, RemoteException, ParseException  {
+		
+		logger.debug("JSON INPUT templateId=" + templateId + ", userId=" + userId + ", startDate=" + startDate
+				+ ", endDate=" + endDate + ", page=" + page + ", pagesize=" + pagesize);
+
+		pagesize = Integer
+				.valueOf((pagesize != null) && (pagesize.intValue() > 0) ? pagesize.intValue() : Integer.MAX_VALUE);
+		page = Integer.valueOf(
+				(page != null) && (page.intValue() > 0) ? (page = Integer.valueOf(page.intValue() - 1)).intValue() : 0);
+			
+		List<Survey> surveyList = surveyService.findFeedbacksByTemplate(templateId, userId, startDate,
+				endDate, page, pagesize);
+		logger.debug("GET surveys: retrieved " + surveyList.size());
+		
+		if (surveyList.isEmpty())
+			throw new ResourceNotFoundException("Surveys");
+
+		return surveyList;
+
+	}
+	
+	
+	//'TODO check new sendReplyToFeedback
+	@PatchMapping(value = "/reply", produces = "application/json")
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	@ApiOperation(value = "Send a new reply for a survey", tags = "surveys")
+	@ApiResponses(value = { @ApiResponse(code = 201, message = "The reply for the survey has been successfully sent"),
+			@ApiResponse(code = 404, message = "No survey found") })
+	@ResponseBody
+	public void sendReplyToFeedback(@ApiParam(value = "Survey Id and the Reply that has to be sent", required = true) @RequestBody ReplyInfo replyInfo) 
+			throws ResourceNotFoundException, RemoteException, UserTokenFcmNotFoundException {
+		
+		String trimmedSurveyId = replyInfo.getSurveyId().trim();
+		replyInfo.setSurveyId(trimmedSurveyId);
+
+		logger.debug("JSON INPUT Mail to surveyId=" + replyInfo.getSurveyId());
+		
+		if ((StringUtils.isEmpty(replyInfo.getSurveyId())) || (StringUtils.isEmpty(replyInfo.getReply().getUserEmail()))
+				|| (StringUtils.isEmpty(replyInfo.getReply().getEmailObject()))
+				|| (StringUtils.isEmpty(replyInfo.getReply().getEmailBody()))) {
+			
+			throw new ResourceNotFoundException("ReplyInfo", "surveyId, userEmail, emailObj or emailBody", replyInfo.getSurveyId());
+
+		} else {
+			
+			//try {
+				Reply reply = replyInfo.getReply();
+				List<Attachement> attachementList = reply.getAttachement();
+				if (attachementList != null) {
+					for (Attachement att : attachementList) {
+						String attachementId = attachementService.saveAttachement(att);
+						att.setAttachementId(attachementId);
+						att.setData("");
+					}
+					reply.setAttachement(attachementList);
+					replyInfo.setReply(reply);
+				}
+				surveyService.updateRepliesSurvey(replyInfo);
+				//mailService.sendSimpleMessage(replyInfo.getReply().getUserEmail(),
+				// replyInfo
+				// .getReply().getEmailObject(), replyInfo.getReply().getEmailBody());
+				//pushNotificationService.push(replyInfo);
+				logger.debug("JSON OUTPUT sendReplyToFeedback OK ");
+				
+			/*} catch (UserTokenFcmNotFoundException pne) {
+				
+				throw new UserTokenFcmNotFoundException("survey", replyInfo.getSurveyId());
+			}*/
+		}
+	}
+	
+
+
+	@PatchMapping(value = "/notification", produces = "application/json")
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	@ApiOperation(value = "Confirm the notification for a survey", tags = "surveys")
+	@ApiResponses(value = { @ApiResponse(code = 201, message = "The notification for the survey has been successfully confirmed"),
+			@ApiResponse(code = 404, message = "No survey found") })
+	@ResponseBody
+	public void confirmNotification(@ApiParam(value = "Survey Id and user Id", required = true) @RequestBody NotificationConfirm confirm)
+		throws ResourceNotFoundException, RemoteException {
+
+		logger.debug("JSON INPUT - " + confirm.toString());
+		Boolean success = surveyService.confirmNotification(confirm);
+		logger.debug("JSON OUTPUT - Success=" + success);
+		if (!success.booleanValue())
+			throw new ResourceNotFoundException("Survey", confirm.getSurveyId());
+			
+	}
+
+
+	@GetMapping(value = "/attachement/{attachementId}", produces = "application/json")
+	@ResponseStatus(HttpStatus.OK)
+	@ApiOperation(value = "Retrieve the attachement by id", tags = "attachements")
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "The attachement has been successfully retrieved"),
+			@ApiResponse(code = 404, message = "Attachement not found") })
+	@ResponseBody
+	public String getAttachement(@ApiParam(value = "The attachement id", required = true) @PathVariable String attachementId) 
+			throws ResourceNotFoundException {
+		
+		logger.debug("GET attachement [?]", attachementId);
+
+		Attachement attachement = attachementService.findAttachementById(attachementId);
+		logger.debug("GET attachement: retrieved " + attachement.getNome());
+		
+		return attachement.getData();
+	}
+
+	//'TODO check new delete
+	public void deleteSurveyAndAttachement(String surveyId) throws ResourceNotFoundException {
+		
+		logger.debug("JSON INPUT  Survey ObjectId = ?", surveyId);
+		
+		if (StringUtils.isEmpty(surveyId)) {
+			throw new ResourceNotFoundException("Survey", surveyId);
+			
+		} else {
+			
+			Survey survey = surveyService.findSurveyById(surveyId);
+			if ( survey.getAttachementFile() != null ) {
+				
+				String attachementId = survey.getAttachementFile().getAttachementId();
+				this.attachementService.deleteAttachement(attachementId);
+				
+			}
+			
+			List<Reply> repliesList = survey.getReplies();
+			if (repliesList != null) {
+				
+				for (Reply re : repliesList) {
+					List<Attachement> attachementListRe = re.getAttachement();
+					if (attachementListRe != null) {
+						int countAttachementRe = attachementListRe.size();
+						logger.debug("Number of Attachement to delete in Replies: ", countAttachementRe);
+						for (Attachement attRe : attachementListRe) {
+							String attachementReId = attRe.getAttachementId();
+							attachementService.deleteAttachement(attachementReId);
+							countAttachementRe--;
+						}
+						logger.debug("Number of Attachement to delete in Replies: ", countAttachementRe);
+					}
+				}
+			}
+			
+			surveyService.deleteSurvey(surveyId);
+			logger.debug("Survey Deleted!");
+		}
+		
+	}
+	
+	//'TODO : define the size and delete old settings
+	@GetMapping(value = "/surveysPWA", produces = "application/json")
+	@ResponseStatus(HttpStatus.OK)
+	@ApiOperation(value = "Retrieve the list of available surveys", tags = "surveys")
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "The list of surveys has been successfully retrieved"),
+			@ApiResponse(code = 404, message = "Survey not found")})
+	@ResponseBody
+	public List<Survey> getSurveysPWA(@ApiParam(value = "The id of the template", required = false) @RequestParam(required = false) String templateId,
+			@ApiParam(value = "The user id", required = false) @RequestParam(required = false) String userId,
+			@ApiParam(value = "Start date", required = false) @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
+			@ApiParam(value = "End date", required = false) @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate,
+			@ApiParam(value = "The status of the ticket", required = false) @RequestParam(required = false) Status status, 
+			@ApiParam(value = "Zero-based page index", required = false) @RequestParam(required = false) Integer page,
+			@ApiParam(value = "The size of the page to be returned", required = false) @RequestParam(required = false) Integer size,
+			@ApiParam(value = "Sort the collection in ascending order", required = false) @RequestParam(required = false, defaultValue = "false") boolean sortAsc) 
+					throws ResourceNotFoundException, ParseException {
+
+		logger.debug("GET surveys: start");
+
+		if (size == null)
+			size = Integer.valueOf((size != null) && (size.intValue() > 0) ? size.intValue() : 10);
+
+		if (page == null)
+			page = 0;
+
+		List<Survey> surveys = surveyService.findSurveys(templateId, userId, startDate, endDate, status, page,
+				size, sortAsc);
+		
+		if (surveys.isEmpty())
+			throw new ResourceNotFoundException("Surveys");
+
+		return surveys;
+	}
+	
+	 
+	@SuppressWarnings("unchecked")
+	@PostMapping(value = "/surveysHome", produces = "application/json")
+	@ResponseStatus(HttpStatus.OK)
+	@ApiOperation(value = "Retrieve the list of available surveys", tags = "surveys")
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "The list of surveys has been successfully retrieved"),
+			@ApiResponse(code = 404, message = "Survey not found")})
+	@ResponseBody
+	public JSONObject getSurveysHome(@ApiParam(value = "The list of template ids", required = true) @RequestBody(required = true) List<String> templateIds,
+			@ApiParam(value = "Zero-based page index", required = false) @RequestParam(required = false) Integer page,
+			@ApiParam(value = "The size of the page to be returned", required = false) @RequestParam(required = false) Integer size)
+					throws ResourceNotFoundException, ParseException {
+
+		logger.debug("GET surveys Home: start");
+		
+		JSONObject response = new JSONObject();
+		
+		List<Survey> surveysTot= new ArrayList<Survey>();
+		
+		int sizeTot;
+		
+		boolean sortAsc = false;
+		boolean sortColor = false;
+
+		if (size == null)
+			size = Integer.valueOf((size != null) && (size.intValue() > 0) ? size.intValue() : 10);
+
+		if (page == null)
+			page = 0;
+		
+		Calendar now = Calendar.getInstance();
+        now.set(Calendar.HOUR, 0);
+        now.set(Calendar.MINUTE, 0);
+        now.set(Calendar.SECOND, 0);
+        System.out.println(sdf.format(now.getTime()).getClass() );
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate date = LocalDate.parse(sdf.format(now.getTime()), formatter);
+        
+        //ADR find by color
+		
+		List<Survey> surveys = surveyService.findSurveysHome(templateIds, date, Status.OPEN, page,
+				size, sortAsc, sortColor);
+		
+		for(Survey s: surveys) 
+        	surveysTot.add(s);
+		
+		int surveySize = surveyService.findSurveysUnordered(templateIds, null, date, date, Status.OPEN, null);
+		
+		sizeTot = surveySize;
+		
+		response.put("surveys", surveysTot);
+
+		response.put("surveysSize", sizeTot);
+		
+		if (surveys.isEmpty())
+			throw new ResourceNotFoundException("Surveys");
+
+		return response;
+	}
+
+	
+	@SuppressWarnings("unchecked")
+	@PostMapping(value = "/surveys", produces = "application/json")
+	@ResponseStatus(HttpStatus.OK)
+	@ApiOperation(value = "Retrieve the list of available surveys", tags = "surveys")
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "The list of surveys has been successfully retrieved"),
+			@ApiResponse(code = 404, message = "Survey not found")})
+	@ResponseBody
+	public JSONObject getSurveys(@ApiParam(value = "The list of template ids", required = true) @RequestBody(required = true) List<String> templateIds,
+			@ApiParam(value = "The user id", required = false) @RequestParam(required = false) String userId,
+			@ApiParam(value = "Start date", required = false) @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
+			@ApiParam(value = "End date", required = false) @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate,
+			@ApiParam(value = "The status of the ticket", required = false) @RequestParam(required = false) Status status,
+			@ApiParam(value = "The color of the ticket", required = false) @RequestParam(required = false) Integer color,
+			@ApiParam(value = "Zero-based page index", required = false) @RequestParam(required = false) Integer page,
+			@ApiParam(value = "The size of the page to be returned", required = true) @RequestParam(required = true) Integer size,
+			@ApiParam(value = "Sort the collection for survey date", required = false) @RequestParam(required = false, defaultValue = "false") boolean sortDate,
+			@ApiParam(value = "Sort the collection for status", required = false) @RequestParam(required = false, defaultValue = "false") boolean sortStatus,
+			@ApiParam(value = "Sort the collection for color", required = false) @RequestParam(required = false, defaultValue = "false") boolean sortColor) 
+					throws ResourceNotFoundException, ParseException {
+
+		logger.debug("GET surveys: start");
+
+		JSONObject response = new JSONObject();
+
+		if (page == null)
+			page = 0;
+		
+		List<Survey> surveys = surveyService.findSurveysFilter(templateIds, userId, startDate, endDate, status, color, page, size, sortDate, sortStatus, sortColor);
+		
+		int surveySize = surveyService.findSurveysUnordered(templateIds, userId, startDate, endDate, status, color);
+		
+		response.put("surveys", surveys);
+		
+		response.put("surveysSize", surveySize);
+		
+		return response;
+	}
+	
+
+	private Color valutaQuestionarioADR(Integer score) throws ResourceNotFoundException {
+	  
+		Color color= new Color();
+		if (score >= 2) {
+			color=colorService.findByCode(2);
+		} else if (score.equals(1)) {
+			color=colorService.findByCode(1);
+		} else {
+			color=colorService.findByCode(0);
+		}
+		  
+		System.out.println("color"+color.getColorCode());
+		return color;
+	}
+  	
+	
+}

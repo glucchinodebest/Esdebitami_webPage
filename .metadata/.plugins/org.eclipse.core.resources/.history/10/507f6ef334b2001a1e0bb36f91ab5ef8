@@ -1,0 +1,96 @@
+package com.pccube.vvas.template.db.collection;
+
+import java.util.List;
+
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+
+import org.bson.types.ObjectId;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import io.swagger.annotations.ApiModel;
+
+@Document(collection="settings")
+@JsonInclude(JsonInclude.Include.ALWAYS)
+@ApiModel(description = "General model to create a setting")
+public class Setting {
+	
+	@Id
+	@Field("_id")
+	private ObjectId id;
+	
+	@Field("name")
+	@JsonProperty("name")
+	@NotNull
+	@NotEmpty
+	private String name;
+	
+	@Field("values")
+	@JsonProperty("values")
+	private List<Object> values;
+	
+	@Field("defaultValue")
+	@JsonProperty("defaultValue")
+	@NotNull
+	private Object defaultValue;
+	
+	public Setting() {}
+
+	public Setting(ObjectId id, String name, List<Object> values, Object defaultValue) {
+		this.id = id;
+		this.name = name;
+		this.values = values;
+		this.defaultValue = defaultValue;
+	}
+
+	public Setting(String name, List<Object> values, Object defaultValue) {
+		this.name = name;
+		this.values = values;
+		this.defaultValue = defaultValue;
+	}
+	
+	public Setting(String name, Object defaultValue) {
+		this.name = name;
+		this.defaultValue = defaultValue;
+	}
+
+	public String getId() {
+		return id.toString();
+	}
+
+	public void setId(ObjectId id) {
+		this.id = id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public List<Object> getValues() {
+		return values;
+	}
+
+	public void setValues(List<Object> values) {
+		this.values = values;
+	}
+
+	public Object getDefaultValue() {
+		return defaultValue;
+	}
+
+	public void setDefaultValue(Object defaultValue) {
+		this.defaultValue = defaultValue;
+	}
+	
+	
+
+
+}

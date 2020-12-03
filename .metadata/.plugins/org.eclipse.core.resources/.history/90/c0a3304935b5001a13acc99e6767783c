@@ -1,0 +1,6 @@
+package com.vvas.project.ir.search;
+
+public enum Language {
+	
+	EN, IT, DA, DE, NL, PT, SE
+}

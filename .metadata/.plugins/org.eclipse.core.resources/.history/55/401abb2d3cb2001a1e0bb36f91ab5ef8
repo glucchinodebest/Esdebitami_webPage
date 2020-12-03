@@ -1,0 +1,35 @@
+package it.esdebitamiretake.retake_ticket.controller;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.context.request.WebRequest;
+
+@ControllerAdvice(assignableTypes = {SettingsController.class})
+public class SettingsExceptionHandler  {
+
+	@ExceptionHandler(UnauthorizedException.class)
+	public ResponseEntity<?> unauthorizedException(UnauthorizedException ex, WebRequest request) {
+
+		return new ResponseEntity<>(ex.getMessage(), HttpStatus.UNAUTHORIZED);
+	}
+
+	@ExceptionHandler(ResourceNotFoundException.class)
+	public ResponseEntity<?> resourceNotFoundException(ResourceNotFoundException ex, WebRequest request) {
+
+		return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
+	}
+
+	@ExceptionHandler(ResourceAlreadyExistsException.class)
+	public ResponseEntity<?> duplicateKeyException(ResourceAlreadyExistsException ex, WebRequest request) {
+
+		return new ResponseEntity<>(ex.getMessage(), HttpStatus.CONFLICT);
+	}
+
+	@ExceptionHandler(Exception.class)
+	public ResponseEntity<?> excpetionHandler(Exception ex, WebRequest request) {
+
+		return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
+	}
+}

@@ -1,0 +1,60 @@
+package com.vvas.project.ir.service;
+
+import com.vvas.project.ir.controller.ResourceNotFoundException;
+import com.vvas.project.ir.db.collection.Content;
+import com.vvas.project.ir.db.repo.ContentRepository;
+
+import java.util.Collection;
+import java.util.List;
+
+import org.bson.types.ObjectId;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.stereotype.Service;
+
+@Service
+public class ContentService extends LoggerService {
+
+	@Autowired
+	ContentRepository contentRepository;
+
+	ContentService() {
+
+		super(ContentService.class);
+	}
+
+	public Content find(String id) throws ResourceNotFoundException {
+
+		return contentRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("content", id));
+	}
+
+	public List<Content> find(Integer page, Integer pagesize) {
+
+		return contentRepository.findAll(PageRequest.of(page, pagesize)).getContent();
+	}
+
+	public List<Content> findByResource(String resourceId) {
+
+		return contentRepository.findByResourceId(new ObjectId(resourceId));
+	}
+
+	public boolean existsByResource(String resourceId) {
+
+		return contentRepository.existsByResourceId(new ObjectId(resourceId));
+	}
+
+	public Content save(Content content) {
+
+		return contentRepository.save(content);
+	}
+
+	public void delete(String id) throws ResourceNotFoundException {
+
+		contentRepository.delete(find(id));
+	}
+
+	public void deleteAll(Collection<Content> contents) {
+
+		contentRepository.deleteAll(contents);
+	}
+}

@@ -1,0 +1,75 @@
+package it.esdebitamiretake.retake_ticket.service;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import com.pccube.vvas.template.db.collection.Report;
+import com.pccube.vvas.template.db.repo.ReportRepository;
+import com.pccube.vvas.template.controller.ResourceNotFoundException;
+
+
+
+
+@Service
+public class ReportService {
+
+	@Autowired
+	ReportRepository reportRepository;
+	
+	static SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+
+	public Report find(String id) throws ResourceNotFoundException {
+		
+		return reportRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("report",id));
+	}
+	
+	public Report saveReport(Report report) {
+		
+		/*Calendar now = Calendar.getInstance();
+        now.set(Calendar.HOUR, 0);
+        now.set(Calendar.MINUTE, 0);
+        now.set(Calendar.SECOND, 0);
+        System.out.println(sdf.format(now.getTime()).getClass() );
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate reportDate = LocalDate.parse(sdf.format(now.getTime()), formatter);*/
+		
+		Date reportDate = new Date();
+        
+        report.setReportDate(reportDate.getTime());
+		
+		return reportRepository.save(report);
+	}	
+	
+	public void delete(String id) throws ResourceNotFoundException {
+
+		reportRepository.delete(find(id));
+	}
+	
+	public List<Report> findReportsByDate(long startDate, long endDate, Integer code, List<String> ids){
+		
+		List<Report> reports = reportRepository.findByDate(startDate, endDate, code, ids);
+		
+		return reports;
+	}
+	
+	public List<Report> findReportsByTemplate(long startDate, long endDate, Integer code, String id){
+		
+		List<Report> reports = reportRepository.findByTemplate(startDate, endDate, code, id);
+		
+		return reports;
+	}
+	
+	public List<Report> findReportByTemplateId(String templateId){
+		
+		List<Report> reportList = reportRepository.findReportByTemplateId(templateId);
+		
+		return reportList;
+	}
+	
+	public List<Report> findReportsByDateAndColor(long startDate, long endDate, Integer code, Integer color) {
+	    List<Report> reports = reportRepository.findReportsByDateAndColor(startDate, endDate, code, color);
+	    return reports;
+	  }
+}

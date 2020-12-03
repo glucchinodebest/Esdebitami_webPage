@@ -1,0 +1,11 @@
+package com.pccube.vvastemplate.vastemplate;
+
+import org.junit.Test;
+
+public class VasTemplateApplicationTests {
+
+	@Test
+	public void contextLoads() {
+	}
+
+}

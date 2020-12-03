@@ -1,0 +1,82 @@
+/*package com.pccube.vvas.template.service;
+
+import java.util.List;
+import java.util.Optional;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.data.mongodb.gridfs.GridFsCriteria;
+import org.springframework.data.mongodb.gridfs.GridFsTemplate;
+import org.springframework.stereotype.Service;
+import com.mongodb.client.gridfs.model.GridFSFile;
+import com.pccube.vvas.template.db.collection.Settings;
+import com.pccube.vvas.template.db.repo.SettingsRepository;
+
+@Service
+public class SettingsServices {
+
+	@Autowired
+	SettingsRepository settingsRepository;
+
+	@Autowired
+	MongoTemplate mongoTemplate;
+
+	@Autowired
+	private final GridFsTemplate gridFsTemplate;
+
+	private static final Logger logger = LoggerFactory.getLogger(SettingsServices.class);
+
+	@Autowired
+	public SettingsServices(GridFsTemplate gridFsTemplate) {
+		this.gridFsTemplate = gridFsTemplate;
+	}
+
+	public Settings findSettingsById(String theSettingsId) {
+		logger.debug("JSON STRING = ?", theSettingsId);
+		Settings settings = (Settings) this.mongoTemplate.findById(theSettingsId, Settings.class);
+		return settings;
+	}
+
+	public String saveSettings(Settings theSettings) {
+		String settingsId = theSettings.getSettingsId();
+
+		((Settings) this.settingsRepository.save(theSettings)).getSettingsId();
+
+		settingsId = theSettings.getSettingsId();
+		Optional<GridFSFile> existing = maybeLoadFile(settingsId);
+		if (existing.isPresent()) {
+			this.gridFsTemplate.delete(getFilenameQuery(settingsId));
+		}
+
+		return theSettings.getSettingsId();
+	}
+
+	private Optional<GridFSFile> maybeLoadFile(String filename) {
+		com.mongodb.client.gridfs.model.GridFSFile file = this.gridFsTemplate.findOne(getFilenameQuery(filename));
+		return Optional.ofNullable(file);
+	}
+
+	private static Query getFilenameQuery(String filename) {
+		return Query.query(GridFsCriteria.whereFilename().is(filename));
+	}
+
+	public void deleteSettings(String settingsId) {
+		logger.debug("(Delete) Id = " + settingsId);
+		Settings settingsToDelete = (Settings) this.mongoTemplate.findById(settingsId, Settings.class);
+		if (settingsToDelete != null) {
+			this.settingsRepository.delete(settingsToDelete);
+		} else {
+			logger.debug("(Delete) Settings to Delete is NULL");
+		}
+		logger.debug("(Delete) Deleted = OK");
+	}
+
+	public List<Settings> findAll(Integer page, Integer pagesize) {
+		List<Settings> settingsList = this.settingsRepository
+				.findAll(PageRequest.of(page.intValue(), pagesize.intValue())).getContent();
+		return settingsList;
+	}
+}*/

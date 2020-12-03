@@ -1,0 +1,112 @@
+package it.esdebitamiretake.retake_ticket.controller;
+
+import java.net.URI;
+import java.rmi.RemoteException;
+import java.util.List;
+
+import javax.validation.Valid;
+
+import org.apache.axis2.client.Options;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+import org.tempuri.XSportService;
+import org.tempuri.XSportService.XSpGetApplication;
+import org.tempuri.XSportService.XSpIsCurrentSessionAuthenticate;
+import org.tempuri.XSportService.XSpIsCurrentSessionAuthenticateResponse;
+
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
+import io.swagger.annotations.SwaggerDefinition;
+import io.swagger.annotations.Tag;
+import it.esdebitamiretake.retake_ticket.anagrafica.Anagraphic;
+import it.esdebitamiretake.retake_ticket.service.AnagraphicService;
+
+@SwaggerDefinition(tags = { @Tag(name = "Anagraphic", description = "Operations pertaining to anagraphics in VVAS") })
+@RestController
+@CrossOrigin(allowedHeaders = "*", origins = "*")
+public class AnagraphicController {
+
+	//private static final Logger logger = LoggerFactory.getLogger(AnagraphicController.class);
+
+	private static final String MESSAGE_401 = "You are not authorized to perform this action";
+
+	@Autowired
+	private AnagraphicService anagraphicService;
+
+	@PostMapping(value = "/anagraphic", produces = "application/json")
+	@ResponseStatus(HttpStatus.CREATED)
+	@ApiOperation(value = "Create the anagraphic", tags = "anagraphics")
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "Anagraphic created"),
+			@ApiResponse(code = 401, message = MESSAGE_401),
+			@ApiResponse(code = 404, message = "No anagraphic found") })
+	@ResponseBody
+	public ResponseEntity<URI> postAnagraphic(@ApiParam(required = true) @RequestBody @Valid Anagraphic anagraphic,
+			@RequestHeader("Authorization") String accessToken) throws RemoteException, ResourceNotFoundException {
+
+		String applicationName = loadApplicationName(accessToken);
+		
+		anagraphic.setAppName(applicationName);
+
+		try {
+
+			return ResponseEntity.created(ServletUriComponentsBuilder.fromCurrentRequest().pathSegment("{id}")
+					.buildAndExpand(anagraphicService.saveAnagraphic(anagraphic).getId()).toUri()).build();
+
+		} catch (DuplicateKeyException e1) {
+
+			throw new ResourceAlreadyExistsException("Anagraphic", anagraphic.toString());
+			
+		}
+	}
+
+	@GetMapping(value = "/anagraphics", produces = "application/json")
+	@ResponseStatus(HttpStatus.OK)
+	@ApiOperation(value = "Get the list of anagraphics", tags = "anagraphics")
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "The anagraphics have been successfully retrieved"),
+			@ApiResponse(code = 401, message = MESSAGE_401),
+			@ApiResponse(code = 404, message = "No anagraphic found") })
+	@ResponseBody
+	public List<Anagraphic> getAnagraphics(@RequestHeader("Authorization") String accessToken) throws ResourceNotFoundException, RemoteException {
+		
+		List<Anagraphic> anagraphics = anagraphicService.findByapplication(loadApplicationName(accessToken));
+
+		if (anagraphics.isEmpty())
+			throw new ResourceNotFoundException("anagraphics");
+
+		return anagraphics;
+	}
+
+	private String loadApplicationName(String accessToken) throws RemoteException {
+
+		return loadXSportService(accessToken).xSpGetApplication(new XSpGetApplication()).getXSpGetApplicationResult();
+	}
+
+	private XSportService loadXSportService(String authToken) throws RemoteException {
+
+		XSportService xSportService = new XSportService();
+		Options options = xSportService._getServiceClient().getOptions();
+		options.setManageSession(true);
+		options.setProperty(org.apache.axis2.transport.http.HTTPConstants.COOKIE_STRING, authToken);
+
+		XSpIsCurrentSessionAuthenticateResponse xSpIsCurrentSessionAuthenticateResponse = xSportService
+				.xSpIsCurrentSessionAuthenticate(new XSpIsCurrentSessionAuthenticate());
+
+		if(!xSpIsCurrentSessionAuthenticateResponse.getXSpIsCurrentSessionAuthenticateResult())
+			throw new UnauthorizedException();
+		
+		return xSportService;
+	}
+}

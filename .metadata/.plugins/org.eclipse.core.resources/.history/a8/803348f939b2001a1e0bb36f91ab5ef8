@@ -1,0 +1,437 @@
+package it.esdebitamiretake.retake_ticket.service;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.pccube.vvas.template.controller.ResourceNotFoundException;
+import com.pccube.vvas.template.db.collection.Reply;
+import com.pccube.vvas.template.db.collection.Survey;
+import com.pccube.vvas.template.db.collection.Template;
+import com.pccube.vvas.template.db.filter.SurveyFilter;
+import com.pccube.vvas.template.db.repo.SurveyRepository;
+import com.pccube.vvas.template.db.repo.TemplateRepository;
+import com.pccube.vvas.template.fe.FeedbackInfo;
+import com.pccube.vvas.template.fe.NotificationConfirm;
+import com.pccube.vvas.template.fe.ReplyInfo;
+import com.pccube.vvas.template.fe.SurveyInfo;
+import com.pccube.vvas.template.utils.SmartDate;
+import java.text.ParseException;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import org.apache.commons.lang3.time.DateUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.aggregation.Aggregation;
+import org.springframework.data.mongodb.core.aggregation.AggregationOperation;
+import org.springframework.data.mongodb.core.aggregation.AggregationResults;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.stereotype.Service;
+import com.pccube.vvas.template.db.collection.Survey.Status;
+
+@Service
+public class SurveyService {
+
+	@Autowired
+	SurveyRepository surveyRepository;
+
+	@Autowired
+
+	TemplateRepository templateRepository;
+
+	@Autowired
+	MongoTemplate mongoTemplate;
+
+	@Autowired
+	ObjectMapper objectMapper;
+
+	private static final Logger logger = LoggerFactory.getLogger(SurveyService.class);
+
+	// 'TODO remove
+	/*public List<Survey> findAll() {
+
+		List<Survey> surveyList = this.surveyRepository.findAll(Sort.by(Sort.Direction.DESC, "surveyDate"));
+		Map<String, String> templateMap = new TreeMap<>();
+
+		for (Survey survey : surveyList) {
+			String title = null;
+			if (templateMap.containsKey(survey.getTemplateId()))
+				title = (String) templateMap.get(survey.getTemplateId());
+			else {
+				String templateId = survey.getTemplateId();
+				if (templateId != null) {
+					Template template = this.templateRepository.findByTemplateId(templateId);
+					if (template != null) {
+						title = template.getTitle();
+						templateMap.put(survey.getTemplateId(), title);
+					}
+				}
+			}
+			survey.setTemplateTitle(title);
+		}
+		return surveyList;
+	}*/
+
+	public Survey findSurveyById(String theSurveyId) throws ResourceNotFoundException {
+
+		try {
+			logger.debug("JSON STRING = ?", this.objectMapper.writeValueAsString(theSurveyId));
+		} catch (JsonProcessingException e) {
+			logger.error("Eccezione:: ", e);
+			e.printStackTrace();
+		}
+
+		Survey survey = (Survey) this.mongoTemplate.findById(theSurveyId, Survey.class);
+		String title = templateRepository.findByTemplateId(survey.getTemplateId()).getTitle();
+		survey.setTemplateTitle(title);
+
+		return survey;
+	}
+
+	public List<Survey> findSurveys(String templateId, String userId, LocalDate startDate, LocalDate endDate,
+			Status status, Integer page, Integer size, boolean sortAsc) throws ParseException {
+
+		SurveyFilter theSurveyFilter = new SurveyFilter(templateId, userId, startDate, endDate, status);
+
+		logger.debug("JSON INPUT - Date Interval between startDate=" + startDate + "and endDate=" + endDate);
+
+		List<Survey> surveyList = surveyRepository.findSurveys(theSurveyFilter,
+				PageRequest.of(page, size, Sort.by(sortAsc ? Sort.Direction.ASC : Sort.Direction.DESC, "surveyDate")));
+
+		Map<String, String> templates = new HashMap<>();
+
+		for (Survey survey : surveyList) {
+
+			templateId = survey.getTemplateId();
+			String title = templates.get(templateId);
+
+			if (title == null) {
+				title = templateRepository.findByTemplateId(templateId).getTitle();
+				templates.put(templateId, title);
+			}
+
+			survey.setTemplateTitle(title);
+		}
+
+		templates.clear();
+
+		return surveyList;
+	}
+
+	public List<SurveyInfo> findSurveysInfoPerTemplate() {
+		Aggregation aggregation = Aggregation.newAggregation(new AggregationOperation[] {
+				Aggregation.group(new String[] { "templateId" }).count().as("surveysCount"),
+				Aggregation.project(new String[] { "surveysCount" }).and("templateId").previousOperation() });
+
+		AggregationResults<SurveyInfo> groupResults = this.mongoTemplate.aggregate(aggregation, Survey.class,
+				SurveyInfo.class);
+
+		List<SurveyInfo> results = groupResults.getMappedResults();
+
+		List<String> templateIds = new ArrayList<>();
+		for (SurveyInfo info : results)
+			templateIds.add(info.getTemplateId());
+
+		List<Template> templateList = templateRepository.findByTemplateIdIn(templateIds);
+
+		Map<String, Template> templateMap = new HashMap<>();
+
+		for (Template templateItem : templateList)
+			templateMap.put(templateItem.getTemplateId(), templateItem);
+
+		for (SurveyInfo info : results) {
+			info.setTitle(((Template) templateMap.get(info.getTemplateId())).getTitle());
+			info.setDescription(((Template) templateMap.get(info.getTemplateId())).getDescription());
+			info.setStatus(((Template) templateMap.get(info.getTemplateId())).getStatus());
+		}
+
+		return results;
+	}
+
+	public String saveSurvey(Survey theSurvey) {
+
+		logger.debug("JSON STRING:", theSurvey.getTemplateId());
+
+		Date nowDate = new Date();
+		String surveyId = theSurvey.getTemplateId() + nowDate.getTime();
+		theSurvey.setSurveyId(surveyId);
+		theSurvey.setSurveyDate(nowDate);
+
+		List<Reply> replies = theSurvey.getReplies();
+		String feedback = theSurvey.getFeedback();
+		Integer color = theSurvey.getColor();
+		
+		//ADR
+		if(color != null) {
+			
+			if (color.equals(0)) {
+				Status status = Status.CLOSE;
+				theSurvey.setStatus(status);
+			} else {
+				Status status = Status.OPEN;
+				theSurvey.setStatus(status);
+			}
+		//
+		} else {
+		
+			if (feedback == null) {
+				Status status = Status.CLOSE;
+				theSurvey.setStatus(status);
+			} else if (replies.size() > 1) {
+				Status status = Status.CLOSE;
+				theSurvey.setStatus(status);
+			} else {
+				Status status = Status.OPEN;
+				theSurvey.setStatus(status);
+			}
+		}
+
+		return surveyRepository.save(theSurvey).getSurveyId();
+	}
+
+	public String updateRepliesSurvey(ReplyInfo theReplyInfo) {
+
+		try {
+			logger.debug("JSON STRING INPUT= " + this.objectMapper.writeValueAsString(theReplyInfo));
+		} catch (JsonProcessingException e) {
+			logger.error("Eccezione:: ", e);
+			e.printStackTrace();
+		}
+
+		if (theReplyInfo.getReply().getSentDate() == null) {
+			theReplyInfo.getReply().setSentDate(new Date());
+		}
+
+		Survey survey = surveyRepository.findBySurveyId(theReplyInfo.getSurveyId().trim());
+		survey.setShowNotification(Boolean.TRUE);
+		
+		//ADR
+		if(survey.getColor() != null && (survey.getColor().equals(1) || survey.getColor().equals(2))) 
+				survey.setStatus(Status.CLOSE);
+
+		if (survey.getStatus() == Status.OPEN || survey.getStatus() == null) 
+			survey.setStatus(Status.CLOSE);
+
+		survey.getReplies().add(theReplyInfo.getReply());
+		
+		this.surveyRepository.save(survey);
+
+		return survey.getSurveyId();
+	}
+
+	public List<FeedbackInfo> findFeedbacksInfoPerTemplate() {
+		Aggregation aggregation = Aggregation
+				.newAggregation(new AggregationOperation[] { Aggregation.match(Criteria.where("feedback").ne(null)),
+						Aggregation.group(new String[] { "templateId" }).count().as("feedbacksCount"),
+						Aggregation.project(new String[] { "feedbacksCount" }).and("templateId").previousOperation() });
+
+		AggregationResults<FeedbackInfo> groupResults = this.mongoTemplate.aggregate(aggregation, Survey.class,
+				FeedbackInfo.class);
+
+		List<FeedbackInfo> results = groupResults.getMappedResults();
+
+		List<String> templateIds = new ArrayList<>();
+		for (FeedbackInfo info : results) {
+			templateIds.add(info.getTemplateId());
+		}
+		List<Template> templateList = templateRepository.findByTemplateIdIn(templateIds);
+		Map<String, Template> templateMap = new HashMap<>();
+		for (Template templateItem : templateList) {
+			templateMap.put(templateItem.getTemplateId(), templateItem);
+		}
+		for (FeedbackInfo info : results) {
+			info.setTitle(((Template) templateMap.get(info.getTemplateId())).getTitle());
+			info.setDescription(((Template) templateMap.get(info.getTemplateId())).getDescription());
+			info.setStatus(((Template) templateMap.get(info.getTemplateId())).getStatus());
+		}
+		return results;
+	}
+
+	public List<Survey> findFeedbacksByTemplate(String theTemplateId, String theUserId, String theStartDate,
+			String theEndDate, Integer page, Integer pagesize) throws ParseException {
+
+		List<Survey> surveyList = new ArrayList<>();
+
+		Date localStartDate = theStartDate != null ? DateUtils.truncate(SmartDate.toDate(theStartDate, "ddMMyyyy"), 5)
+				: null;
+
+		Date localEndDate = theEndDate != null
+				? DateUtils.truncate(DateUtils.addDays(SmartDate.toDate(theEndDate, "ddMMyyyy"), 1), 5)
+				: null;
+
+		logger.debug("JSON INPUT theTemplateId=" + theTemplateId + ", theUserId=" + theUserId + ", theStartDate="
+				+ theStartDate + ", theEndDate=" + theEndDate);
+
+		if (theUserId == null) {
+			if ((theStartDate == null) && (theEndDate == null)) {
+				surveyList = surveyRepository.findFeedbacksByTemplate(theTemplateId,
+						PageRequest.of(page.intValue(), pagesize.intValue()));
+			} else if (theStartDate == null) {
+				surveyList = surveyRepository.findFeedbacksByTemplateLtDate(theTemplateId, localEndDate,
+						PageRequest.of(page.intValue(), pagesize.intValue()));
+			} else if (theEndDate == null) {
+				surveyList = surveyRepository.findFeedbacksByTemplateGteDate(theTemplateId, localStartDate,
+						PageRequest.of(page.intValue(), pagesize.intValue()));
+			} else {
+				surveyList = surveyRepository.findFeedbacksByTemplateAndInterval(theTemplateId, localStartDate,
+						localEndDate, PageRequest.of(page.intValue(), pagesize.intValue()));
+			}
+		} else if ((theStartDate == null) && (theEndDate == null)) {
+			surveyList = surveyRepository.findFeedbacksByTemplateAndUser(theTemplateId, theUserId,
+					PageRequest.of(page.intValue(), pagesize.intValue()));
+		} else if (theStartDate == null) {
+			surveyList = surveyRepository.findFeedbacksByTemplateAndUserLtDate(theTemplateId, theUserId,
+					localEndDate, PageRequest.of(page.intValue(), pagesize.intValue()));
+		} else if (theEndDate == null) {
+			surveyList = surveyRepository.findFeedbacksByTemplateAndUserGteDate(theTemplateId, theUserId,
+					localStartDate, PageRequest.of(page.intValue(), pagesize.intValue()));
+		} else {
+			surveyList = surveyRepository.findFeedbacksByTemplateAndUserAndInterval(theTemplateId, theUserId,
+					localStartDate, localEndDate, PageRequest.of(page.intValue(), pagesize.intValue()));
+		}
+
+		logger.debug("JSON INPUT templateId=" + theTemplateId + ", startDate=" + localStartDate + ", endDate="
+				+ localEndDate);
+
+		return surveyList;
+	}
+
+	public Boolean confirmNotification(NotificationConfirm theConfirm) {
+		try {
+			Survey survey = (Survey) this.mongoTemplate.findById(theConfirm.getSurveyId(), Survey.class);
+			survey.setShowNotification(Boolean.valueOf(false));
+			this.mongoTemplate.save(survey);
+		} catch (Throwable th) {
+			return Boolean.valueOf(false);
+		}
+		return Boolean.valueOf(true);
+	}
+
+	public void deleteSurvey(String surveyId) {
+
+		Survey surveyToDelete = (Survey) this.mongoTemplate.findById(surveyId, Survey.class);
+		if (surveyToDelete != null) {
+			surveyRepository.delete(surveyToDelete);
+		} else {
+			logger.debug("(Delete) Survey to Delete is NULL");
+		}
+		logger.debug("(Delete) Deleted = OK");
+	}
+	
+	public List<Survey> findSurveyByTemplateId(String templateId){
+		
+		List<Survey> surveyList = surveyRepository.findSurveyByTemplateId(templateId);
+		
+		return surveyList;
+	}
+	
+	/*public List<Survey> findSurveysNew(List<String> templateIds, String userId, LocalDate startDate, LocalDate endDate,
+			Status status, Integer page, Integer size, boolean sortAsc) throws ParseException {
+		
+		List<Survey> surveys = new ArrayList<Survey>();
+
+		for(String id: templateIds) {
+			
+			SurveyFilter theSurveyFilter = new SurveyFilter(id, userId, startDate, endDate, status);
+			
+			logger.debug("JSON INPUT - Date Interval between startDate=" + startDate + "and endDate=" + endDate);
+			
+			List<Survey> surveyList = surveyRepository.findSurveys(theSurveyFilter,
+					PageRequest.of(page, size, Sort.by(sortAsc ? Sort.Direction.ASC : Sort.Direction.DESC, "surveyDate")));
+			
+			for (Survey s: surveyList) 
+				surveys.add(s);
+			
+		}
+
+		Map<String, String> templates = new HashMap<>();
+
+		for (Survey survey : surveys) {
+
+			String templateId = survey.getTemplateId();
+			String title = templates.get(templateId);
+
+			if (title == null) {
+				title = templateRepository.findByTemplateId(templateId).getTitle();
+				templates.put(templateId, title);
+			}
+
+			survey.setTemplateTitle(title);
+		}
+
+		templates.clear();
+
+		return surveys;
+	}*/
+	
+	public List<Survey> findSurveysHome(List<String> templateIds, LocalDate nowDate, Status status, Integer page, Integer size, boolean sortAsc, boolean sortColor) throws ParseException {
+		
+		List<Survey> surveys = new ArrayList<Survey>();
+
+		surveys = surveyRepository.findSurveysHome(templateIds, nowDate , status, 
+				PageRequest.of(page, size, Sort.by(sortColor ? Sort.Direction.ASC : Sort.Direction.DESC, "color").and(Sort.by(sortAsc? Sort.Direction.ASC : Sort.Direction.DESC, "surveyDate"))));
+		
+		System.out.println("surveys today service: " + surveys.size());
+
+		Map<String, String> templates = new HashMap<>();
+
+		for (Survey survey : surveys) {
+
+			String templateId = survey.getTemplateId();
+			String title = templates.get(templateId);
+
+			if (title == null) {
+				title = templateRepository.findByTemplateId(templateId).getTitle();
+				templates.put(templateId, title);
+			}
+
+			survey.setTemplateTitle(title);
+		}
+
+		templates.clear();
+
+		return surveys;
+	}
+	
+	public List<Survey> findSurveysFilter(List<String> templateIds, String userId, LocalDate startDate, LocalDate endDate, Status status, Integer color,
+			Integer page, Integer size, boolean sortDate, boolean sortStatus, boolean sortColor) throws ParseException {
+		
+		List<Survey> surveys = surveyRepository.findSurveysFiltered(templateIds, userId, startDate, endDate, status, color, page, size, sortDate, sortStatus, sortColor);
+		
+		System.out.println("surveys size" + surveys.size());
+		
+		Map<String, String> templates = new HashMap<>();
+
+		for (Survey survey : surveys) {
+
+			String templateId = survey.getTemplateId();
+			String title = templates.get(templateId);
+
+			if (title == null) {
+				title = templateRepository.findByTemplateId(templateId).getTitle();
+				templates.put(templateId, title);
+			}
+
+			survey.setTemplateTitle(title);
+		}
+
+		templates.clear();
+
+		return surveys;
+	}
+	
+	public int findSurveysUnordered(List<String> templateIds, String userId, LocalDate startDate, LocalDate endDate, Status status, Integer color) throws ParseException {
+		
+		int size = surveyRepository.findSurveysUnordered(templateIds, userId, startDate, endDate, status, color);
+		
+		return size;
+	}
+	
+	
+}

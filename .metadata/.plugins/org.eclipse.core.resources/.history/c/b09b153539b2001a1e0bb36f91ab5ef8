@@ -1,0 +1,9 @@
+package it.esdebitamiretake.retake_ticket.repo;
+
+import org.springframework.data.mongodb.repository.MongoRepository;
+import com.pccube.vvas.template.db.collection.Group;
+
+public abstract interface GroupRepository extends MongoRepository<Group, String>{
+	
+	Group findByNameAndApplication(String name,String application);
+}

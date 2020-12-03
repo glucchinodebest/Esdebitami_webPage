@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+<fullyQualifiedTypeName name="it.esdebitamiretake.retake_ticket.service.SurveyService"/>
+<fullyQualifiedTypeName name="it.esdebitamiretake.retake_ticket.service.AttachementService"/>
+<fullyQualifiedTypeName name="it.esdebitamiretake.retake_ticket.service.MailService"/>
+<fullyQualifiedTypeName name="it.esdebitamiretake.retake_ticket.service.PushNotificationService"/>
+<fullyQualifiedTypeName name="it.esdebitamiretake.retake_ticket.service.ColorService"/>
+<fullyQualifiedTypeName name="it.esdebitamiretake.retake_ticket.service.UserService"/>
+<fullyQualifiedTypeName name="it.esdebitamiretake.retake_ticket.collection.Attachement"/>
+<fullyQualifiedTypeName name="it.esdebitamiretake.retake_ticket.collection.Reply"/>
+<fullyQualifiedTypeName name="it.esdebitamiretake.retake_ticket.collection.Survey"/>
+<fullyQualifiedTypeName name="it.esdebitamiretake.retake_ticket.collection.Response"/>
+<fullyQualifiedTypeName name="it.esdebitamiretake.retake_ticket.anagrafica.Anagraphic"/>
+<fullyQualifiedTypeName name="it.esdebitamiretake.retake_ticket.anagrafica.ProfileUser"/>
+<fullyQualifiedTypeName name="it.esdebitamiretake.retake_ticket.collection.Color"/>
+<fullyQualifiedTypeName name="it.esdebitamiretake.retake_ticket.collection.Group"/>
+<fullyQualifiedTypeName name="it.esdebitamiretake.retake_ticket.collection.Template"/>
+<fullyQualifiedTypeName name="it.esdebitamiretake.retake_ticket.controller.ResourceNotFoundException"/>
+<fullyQualifiedTypeName name="it.esdebitamiretake.retake_ticket.collection.Survey.Status"/>
+<fullyQualifiedTypeName name="it.esdebitamiretake.retake_ticket.model.Notification"/>
+<fullyQualifiedTypeName name="it.esdebitamiretake.retake_ai.service.ir.search.Language"/>
+<fullyQualifiedTypeName name="it.esdebitamiretake.retake_ai.beans.User"/>
+<fullyQualifiedTypeName name="it.esdebitamiretake.retake_ai.exceptions.Errors"/>
+<fullyQualifiedTypeName name="it.esdebitamiretake.retake_ai.collection.Response"/>
+<fullyQualifiedTypeName name="it.esdebitamiretake.retake_ai.collection.Group"/>
+<fullyQualifiedTypeName name="it.esdebitamiretake.retake_ai.service.ContextService"/>
+<fullyQualifiedTypeName name="it.esdebitamiretake.retake_ai.collection.Context"/>
+<fullyQualifiedTypeName name="it.esdebitamiretake.retake_ai.collection.Template"/>
+<fullyQualifiedTypeName name="it.esdebitamiretake.retake_ir.service.ContextService"/>
+<fullyQualifiedTypeName name="it.esdebitamiretake.retake_ir.search.lexical.Index.Field"/>
+<fullyQualifiedTypeName name="it.esdebitamiretake.retale_ir.db.collection.Content"/>
+<fullyQualifiedTypeName name="it.esdebitamiretake.retale_ir.db.collection.Context"/>
+<fullyQualifiedTypeName name="it.esdebitamiretake.retale_ir.db.collection.Resource"/>
+<fullyQualifiedTypeName name="it.esdebitamiretake.retale_ir.db.collection.Template"/>
+<fullyQualifiedTypeName name="it.esdebitamiretake.retake_ir.search.Language"/>
+<fullyQualifiedTypeName name="it.esdebitamiretake.retake_ir.scraping.model.Context"/>
+<fullyQualifiedTypeName name="it.esdebitamiretake.retake_ir.scraping.model.Content"/>
+<fullyQualifiedTypeName name="it.esdebitamiretake.retake_ir.scraping.model.Resource"/>
+</qualifiedTypeNameHistroy>

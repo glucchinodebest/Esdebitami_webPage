@@ -1,0 +1,44 @@
+server:
+   ssl:
+       key-store: "/opt/certs/kstchain.jks"
+       key-store-password: "K335tr"
+       key-store-type: jks
+    port: 8043
+    servlet:
+        contextPath: /vas-ai
+
+logging:
+    config: ${user.dir}/config/logback.xml
+    level:
+        org.springframework: INFO
+        org.mongodb.driver.cluster: INFO
+spring:
+    data:
+        mongodb:
+#              uri: mongodb://localhost/vassistant
+               uri: mongodb://vva-db-usr:vV4D8U5r03@localhost:27017/vassistant
+    mail:
+        host: smtps.aruba.it
+        port: 465
+        username: devops@pccube.com
+        password: dev$902$ops$pc
+        smtp:
+            auth: true
+            starttls:
+                enable:true
+        sender: devops@pccube.com
+
+pushNotification:
+  service:
+         url: http://localhost:8042/vas-push-notification/pushNotification
+  invalidTokenFCM: 0
+
+ai:
+   anyvalue: fooBar
+   work:
+        path: file:/opt/services/vas-ai/store
+        filename:
+                 sentbin: it-sent.bin
+                 tokenbin: it-token.bin
+                 posmaxentbin: it-pos-maxent.bin
+                 csvcharger: csvcharger.csv

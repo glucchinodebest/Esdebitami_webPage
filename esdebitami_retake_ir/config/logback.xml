@@ -1,0 +1,41 @@
+<configuration debug="false">
+  <property name="LOG_LEVEL" value="INFO" />
+  <property name="fileNamePrefix" value="vas-ir" />
+  <property name="logFileName" value="${fileNamePrefix}.log" />
+  <property name="logFilePath" value="${user.dir}/logs" />
+
+  <appender name="STDOUT"
+    class="ch.qos.logback.core.ConsoleAppender">
+    <!-- encoders are assigned the type ch.qos.logback.classic.encoder.PatternLayoutEncoder
+      by default -->
+    <encoder>
+      <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%-5level] %logger{40} - %msg%n
+      </pattern>
+    </encoder>
+  </appender>
+
+  <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <file>${logFilePath}/${logFileName}</file>
+    <append>true</append>
+    <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+      <!-- rollover daily -->
+      <fileNamePattern>${logFilePath}/${fileNamePrefix}-%d{yyyy-MM-dd}.%i.log
+      </fileNamePattern>
+      <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+        <!-- or whenever the file size reaches 10MB -->
+        <maxFileSize>10MB</maxFileSize>
+      </timeBasedFileNamingAndTriggeringPolicy>
+      <!-- keep 120 days' worth of history -->
+      <maxHistory>120</maxHistory>
+    </rollingPolicy>
+    <encoder>
+      <pattern>%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n</pattern>
+    </encoder>
+  </appender>
+
+  <root level="${LOG_LEVEL}">
+    <appender-ref ref="STDOUT" />
+    <appender-ref ref="FILE" />
+  </root>
+
+</configuration>

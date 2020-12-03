@@ -1,0 +1,171 @@
+package it.esdebitamiretake.retake_ai.controller.nlp;
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
+import org.apache.commons.codec.binary.Base64;
+import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.DataFormatter;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.usermodel.WorkbookFactory;
+import org.apache.poi.xwpf.usermodel.XWPFDocument;
+import org.apache.poi.xwpf.usermodel.XWPFParagraph;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+@Service
+public class GestioneCorpus {
+
+	
+	
+	private static Logger LOG = LoggerFactory.getLogger(NLPController.class);
+
+	@Autowired
+	InteractionUtils interactionUtils;
+	
+	
+	public boolean evaluateCorpus( String extPlusB64 , String sentence) throws IOException, InvalidFormatException {
+		LOG.info( "[START] evaluateCorpus" );
+		List < String > corpus = getCorpus( extPlusB64 );
+		boolean isInCorpus = isInCorpus( sentence , corpus );
+		LOG.info( "[END] evaluateCorpus" );
+		return isInCorpus;
+	}
+	
+	
+	
+	public List< String > getContentOfTxt( String b64 ) {
+		LOG.info( "[START] using a txt corpus" );
+		byte[] byteArray = Base64.decodeBase64( b64.getBytes( ) );
+		String decodedString = new String( byteArray );
+		List< String > corpusAsList = new ArrayList< String >();
+		for ( String corpusIstance : decodedString.replace( ";" , "\n" ).split( "\\r?\\n" ) ) 
+			corpusAsList.add( corpusIstance );
+		LOG.info( "[END] using a txt corpus" );
+		return corpusAsList;
+	}
+	
+	
+
+	public List< String > getContentOfXls( File file ) throws IOException, InvalidFormatException {
+		LOG.info( "[START] using a xls corpus" );
+		Workbook workbook = WorkbookFactory.create( file );
+		int nsheets = workbook.getNumberOfSheets();
+		List< String > corpus = new ArrayList< String >();
+		for ( int i = 0; i < nsheets; i++ ) {
+			Sheet sheet = workbook.getSheetAt( i );
+			DataFormatter dataFormatter = new DataFormatter();
+			Iterator< Row > rowIterator = sheet.rowIterator();
+			while ( rowIterator.hasNext() ) {
+				Row row = rowIterator.next();
+				Iterator< Cell > cellIterator = row.cellIterator();
+				while ( cellIterator.hasNext( ) ) {
+					Cell cell = cellIterator.next();
+					String cellValue = dataFormatter.formatCellValue( cell );
+					corpus.add( cellValue );
+				}
+			}
+		}
+		LOG.info( "[END] using a xls corpus" );
+		return corpus;
+	}
+	
+	
+	
+	public boolean isInCorpus( String sentence, List< String > corpus ) throws IOException {
+		LOG.info( "[START] isInCorpus" );
+		boolean result = false;
+		for ( String corpusIstance : corpus) {
+			if( corpusIstance.equals( sentence ) || corpusIstance.contains( sentence ) || sentence.contains( corpusIstance ) ) {
+				System.out.println(  corpusIstance + " EQUALS/CONTAINS " + sentence ); LOG.info(  corpusIstance + " EQUALS/CONTAINS " + sentence );;
+				result = true;
+				return result;
+			}
+			else {
+				for ( String corpusToken : corpusIstance.split( " " ) ) {
+					for (String sentenceToken : sentence.split( " " ) ) {
+						if( this.interactionUtils.purify( corpusToken ).equals( this.interactionUtils.purify( sentenceToken ) ) ) {
+							System.out.println( "TOKEN " + corpusToken + " EQUALS " + sentenceToken );	LOG.info( "TOKEN " + corpusToken + " EQUALS " + sentenceToken );
+							result = true;
+							return result;
+						}
+					}
+				}
+			}
+		}
+		LOG.info( "[END] isInCorpus" );
+		return result;
+	}
+
+	
+	
+	public List<String> getContentOfDocx( File file ) throws IOException {
+		LOG.info( "[START] using a docx corpus" );
+		List< String > corpus = new ArrayList< String >();
+		try {
+			FileInputStream fis = new FileInputStream( file.getAbsolutePath() );
+			XWPFDocument document = new XWPFDocument( fis );
+			List<XWPFParagraph> paragraphs = document.getParagraphs();
+			for ( XWPFParagraph para : paragraphs )
+				for ( String s : para.getText().replace( ";" , " \n " ).split( "\\r?\\n" ) )
+					corpus.add( s );
+			fis.close();
+		} catch ( Exception e ) {
+			e.printStackTrace();
+		}
+		LOG.info( "[END] using a docx corpus" );
+		return corpus;
+	}
+	
+	
+	
+	
+	
+	public List<String> getCorpus( String extPlusB64 ) throws IOException, InvalidFormatException {
+		LOG.info( "[START] getCorpus" );
+		List< String > corpus = new ArrayList< String >();
+		String ext = extPlusB64.split( "," )[ 0 ]; 
+		String b64 = extPlusB64.split( "," )[ 1 ];
+		byte[] byteArray = Base64.decodeBase64( b64.getBytes( ) );
+		if ( ext.equals( ".csv" ) || ext.equals( ".txt" ) )
+			corpus = getContentOfTxt(b64);
+		else if ( ext.equals( ".xlsx" ) || ext.equals( ".xls" ) ) {
+			File file = File.createTempFile( "vas", ext );
+			BufferedOutputStream writer = new BufferedOutputStream( new FileOutputStream( file ) ) ;
+			writer.write( byteArray );
+			corpus = getContentOfXls( file );
+			file.delete();
+			writer.flush();
+			writer.close();
+		} else if ( ext.equals( ".docx" ) || ext.equals( ".doc" ) ) {
+			File file = File.createTempFile( "vas", ext );
+			BufferedOutputStream writer = new BufferedOutputStream( new FileOutputStream( file ) );
+			writer.write( byteArray );
+			corpus = getContentOfDocx( file );
+			file.delete();
+			writer.flush();
+			writer.close();
+		} else {
+			System.out.println("formato file non supportato"); 
+			throw new Error( "Formato del dataset non supportato" );
+		}
+		LOG.info( "[END] getCorpus" );
+		return corpus;
+	}
+	
+	
+	
+	
+	
+}
+	

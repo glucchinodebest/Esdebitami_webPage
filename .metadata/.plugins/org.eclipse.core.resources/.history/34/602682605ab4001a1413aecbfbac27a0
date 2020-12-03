@@ -1,0 +1,2 @@
+@echo off
+cmd.exe /K java -jar vvas-template-0.0.1-SNAPSHOT.jar --spring.config.location=./config/application.yml

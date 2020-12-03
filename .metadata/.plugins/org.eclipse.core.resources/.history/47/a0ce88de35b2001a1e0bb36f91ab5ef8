@@ -1,0 +1,13 @@
+package it.esdebitamiretake.retake_ticket;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class RetakeTicketApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(RetakeTicketApplication.class, args);
+	}
+
+}

@@ -1,0 +1,41 @@
+[core]
+	repositoryformatversion = 0
+	filemode = false
+	bare = false
+	logallrefupdates = true
+	symlinks = false
+	ignorecase = true
+[remote "origin"]
+	url = http://gitlab.pccube.com:8081/gitlab/vvassistant/vvas-template.git
+	fetch = +refs/heads/*:refs/remotes/origin/*
+[branch "master"]
+	remote = origin
+	merge = refs/heads/master
+[branch "vas-template_dev"]
+	remote = origin
+	merge = refs/heads/vas-template_dev
+	rebase = false
+[branch "gml"]
+	remote = origin
+	merge = refs/heads/gml
+[branch "vvas-template_test"]
+	remote = origin
+	merge = refs/heads/vvas-template_test
+[branch "test_v.1.0_fix"]
+	remote = origin
+	merge = refs/heads/test_v.1.0_fix
+	rebase = false
+[branch "dev/code-refactoring"]
+	remote = origin
+	merge = refs/heads/dev/code-refactoring
+	rebase = false
+[branch "dev/report-new"]
+	remote = origin
+	merge = refs/heads/dev/report-new
+	rebase = false
+[branch "dev/adr"]
+	remote = origin
+	merge = refs/heads/dev/adr
+[branch "vvas-template_demo"]
+	remote = origin
+	merge = refs/heads/vvas-template_demo

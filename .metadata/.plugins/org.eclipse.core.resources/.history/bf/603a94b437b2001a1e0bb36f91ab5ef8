@@ -1,0 +1,182 @@
+package com.pccube.vvas.template.db.collection;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
+
+
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+
+import org.bson.types.ObjectId;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
+
+@Document(collection = "reports")
+@JsonInclude(JsonInclude.Include.ALWAYS)
+@ApiModel(description = "General model to create a report, related to the specific activity")
+//@CompoundIndexes({
+		//@CompoundIndex(name = "user_activity_application", unique = true, def = "{'user' : 1, 'activityCode' : 1, 'application' : 1}") })
+public class Report {
+
+	@Id
+	@Field("_id")
+	private ObjectId id;
+
+	@Field("activityCode")
+	@JsonProperty("activityCode")
+	@ApiModelProperty(notes = "The code of the activity")
+	@NotNull
+	private Integer activityCode;
+
+	@Field("user")
+	@JsonProperty("user")
+	@ApiModelProperty(notes = "The name of the user")
+	@NotNull
+	@NotEmpty
+	@NotBlank
+	private String user;
+
+	@Field("templateId")
+	@JsonProperty("templateId")
+	private String templateId;
+	
+	@Field("domain")
+	@JsonProperty("domain")
+	private String domain;
+	
+	@Field("argument")
+	@JsonProperty("argument")
+	private String argument;
+	
+	@Field("reportDate")
+	@JsonProperty("reportDate")
+	private long reportDate;
+	
+	@Field("wrongSentence")
+	@JsonProperty("wrongSentence")
+	private String wrongSentence;
+
+	@Field("application")
+	@JsonIgnore
+	private String application;
+	
+	@Field("color")
+	@JsonProperty("color")
+	private Integer color;
+
+	public Report() {
+		
+	}
+
+	public Report(ObjectId id, @NotNull @NotEmpty @NotBlank Integer activityCode, @NotNull @NotEmpty @NotBlank String user,
+			String templateId, String domain, String argument, @NotNull @NotEmpty @NotBlank long reportDate,
+			String wrongSentence, String application, Integer color) {
+		this.id = id;
+		this.activityCode = activityCode;
+		this.user = user;
+		this.templateId = templateId;
+		this.domain = domain;
+		this.argument = argument;
+		this.reportDate = reportDate;
+		this.wrongSentence = wrongSentence;
+		this.application = application;
+		this.color=color;
+	}
+
+	public String getId() {
+
+		return id.toString();
+	}
+
+	public void setId(ObjectId id) {
+		
+		this.id=id;
+	}
+	
+	public Integer getActivityCode() {
+		return activityCode;
+	}
+
+	public void setActivityCode(Integer activityCode) {
+		this.activityCode = activityCode;
+	}
+
+	public String getUser() {
+		return user;
+	}
+
+	public void setUser(String user) {
+		this.user = user;
+	}
+
+	public String getTemplateId() {
+		return templateId;
+	}
+
+	public void setTemplateId(String templateId) {
+		this.templateId = templateId;
+	}
+
+	public String getDomain() {
+		return domain;
+	}
+
+	public void setDomain(String domain) {
+		this.domain = domain;
+	}
+
+	public String getArgument() {
+		return argument;
+	}
+
+	public void setArgument(String argument) {
+		this.argument = argument;
+	}
+
+	public long getReportDate() {
+		return reportDate;
+	}
+
+	public void setReportDate(long reportDate) {
+		this.reportDate = reportDate;
+	}
+
+	public String getWrongSentence() {
+		return wrongSentence;
+	}
+
+	public void setWrongSentence(String wrongSentence) {
+		this.wrongSentence = wrongSentence;
+	}
+
+	public String getApplication() {
+		return application;
+	}
+
+	public void setApplication(String application) {
+		this.application = application;
+	}
+
+	public Integer getColor() {
+		return color;
+	}
+
+	public void setColor(Integer color) {
+		this.color = color;
+	}
+
+	@Override
+	public String toString() {
+
+		return String.format("Report [activityId=%s, userName=%s, application=%s]: %d", this.getActivityCode(),
+				this.getUser(), this.getApplication());
+	}
+
+}

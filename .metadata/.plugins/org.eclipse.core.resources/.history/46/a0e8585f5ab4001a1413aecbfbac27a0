@@ -1,0 +1,768 @@
+2019-04-23 13:21:03,651 [DEBUG] - Logging Provider: org.jboss.logging.Slf4jLoggerProvider found via system property
+2019-04-23 13:21:03,654 [INFO ] - HV000001: Hibernate Validator 5.3.6.Final
+2019-04-23 13:21:03,678 [DEBUG] - Cannot find javax.persistence.Persistence on classpath. Assuming non JPA 2 environment. All properties will per default be traversable.
+2019-04-23 13:21:08,209 [INFO ] - Starting SpringBootApp on MacBook-Pro-di-Emanuele-Mangraviti.local with PID 5483 (/Users/mangra/Downloads/vas-template/target/classes started by mangra in /Users/mangra/Downloads/vas-template)
+2019-04-23 13:21:08,210 [DEBUG] - Running with Spring Boot v1.5.20.RELEASE, Spring v4.3.23.RELEASE
+2019-04-23 13:21:08,211 [INFO ] - No active profile set, falling back to default profiles: default
+2019-04-23 13:21:08,293 [INFO ] - Refreshing org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@4ec4f3a0: startup date [Tue Apr 23 13:21:08 CEST 2019]; root of context hierarchy
+2019-04-23 13:21:10,308 [INFO ] - Bean 'org.springframework.ws.config.annotation.DelegatingWsConfiguration' of type [org.springframework.ws.config.annotation.DelegatingWsConfiguration$$EnhancerBySpringCGLIB$$3a85c717] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-04-23 13:21:10,381 [INFO ] - Supporting [WS-Addressing August 2004, WS-Addressing 1.0]
+2019-04-23 13:21:10,544 [DEBUG] - Cannot find javax.persistence.Persistence on classpath. Assuming non JPA 2 environment. All properties will per default be traversable.
+2019-04-23 13:21:10,575 [DEBUG] - Cannot find javax.persistence.Persistence on classpath. Assuming non JPA 2 environment. All properties will per default be traversable.
+2019-04-23 13:21:10,581 [DEBUG] - Setting custom MessageInterpolator of type org.springframework.validation.beanvalidation.LocaleContextMessageInterpolator
+2019-04-23 13:21:10,592 [DEBUG] - Setting custom ConstraintValidatorFactory of type org.springframework.validation.beanvalidation.SpringConstraintValidatorFactory
+2019-04-23 13:21:10,594 [DEBUG] - Setting custom ParameterNameProvider of type com.sun.proxy.$Proxy52
+2019-04-23 13:21:10,611 [DEBUG] - Trying to load META-INF/validation.xml for XML based Validator configuration.
+2019-04-23 13:21:10,613 [DEBUG] - Trying to load META-INF/validation.xml via user class loader
+2019-04-23 13:21:10,615 [DEBUG] - Trying to load META-INF/validation.xml via TCCL
+2019-04-23 13:21:10,615 [DEBUG] - Trying to load META-INF/validation.xml via Hibernate Validator's class loader
+2019-04-23 13:21:10,616 [DEBUG] - No META-INF/validation.xml found. Using annotation based configuration only.
+2019-04-23 13:21:11,215 [INFO ] - Tomcat initialized with port(s): 8041 (http)
+2019-04-23 13:21:11,247 [INFO ] - Initializing ProtocolHandler ["http-nio-8041"]
+2019-04-23 13:21:11,285 [INFO ] - Starting service [Tomcat]
+2019-04-23 13:21:11,286 [INFO ] - Starting Servlet Engine: Apache Tomcat/8.5.39
+2019-04-23 13:21:11,505 [INFO ] - Initializing Spring embedded WebApplicationContext
+2019-04-23 13:21:11,506 [INFO ] - Root WebApplicationContext: initialization completed in 3213 ms
+2019-04-23 13:21:11,795 [INFO ] - Mapping servlet: 'dispatcherServlet' to [/]
+2019-04-23 13:21:11,800 [INFO ] - Mapping servlet: 'messageDispatcherServlet' to [/services/*]
+2019-04-23 13:21:11,804 [INFO ] - Mapping filter: 'characterEncodingFilter' to: [/*]
+2019-04-23 13:21:11,805 [INFO ] - Mapping filter: 'hiddenHttpMethodFilter' to: [/*]
+2019-04-23 13:21:11,805 [INFO ] - Mapping filter: 'httpPutFormContentFilter' to: [/*]
+2019-04-23 13:21:11,806 [INFO ] - Mapping filter: 'requestContextFilter' to: [/*]
+2019-04-23 13:21:17,352 [INFO ] - Cluster created with settings {hosts=[vva-services.pccube.com:27017], mode=SINGLE, requiredClusterType=UNKNOWN, serverSelectionTimeout='30000 ms', maxWaitQueueSize=500}
+2019-04-23 13:21:18,075 [INFO ] - No server chosen by WritableServerSelector from cluster description ClusterDescription{type=UNKNOWN, connectionMode=SINGLE, serverDescriptions=[ServerDescription{address=vva-services.pccube.com:27017, type=UNKNOWN, state=CONNECTING}]}. Waiting for 30000 ms before timing out
+2019-04-23 13:21:18,140 [INFO ] - Opened connection [connectionId{localValue:1, serverValue:90}] to vva-services.pccube.com:27017
+2019-04-23 13:21:18,245 [INFO ] - Monitor thread successfully connected to server with description ServerDescription{address=vva-services.pccube.com:27017, type=STANDALONE, state=CONNECTED, ok=true, version=ServerVersion{versionList=[3, 4, 20]}, minWireVersion=0, maxWireVersion=5, maxDocumentSize=16777216, roundTripTimeNanos=102473802}
+2019-04-23 13:21:18,663 [INFO ] - Opened connection [connectionId{localValue:2, serverValue:91}] to vva-services.pccube.com:27017
+2019-04-23 13:21:18,671 [DEBUG] - Sending command {createIndexes : BsonString{value='templates'}} to database vassistant on connection [connectionId{localValue:2, serverValue:91}] to server vva-services.pccube.com:27017
+2019-04-23 13:21:18,784 [DEBUG] - Command execution completed
+2019-04-23 13:21:20,125 [INFO ] - Mapped "{[/saveSurvey],methods=[GET || POST],produces=[application/json]}" onto public com.pccube.vvas.template.fe.VasResponse com.pccube.vvas.template.controller.SurveyController.saveSurvey(com.pccube.vvas.template.db.collection.Survey)
+2019-04-23 13:21:20,128 [INFO ] - Mapped "{[/getSurvey/{surveyId}],methods=[GET || POST],produces=[application/json]}" onto public com.pccube.vvas.template.fe.VasResponse com.pccube.vvas.template.controller.SurveyController.getSurvey(java.lang.String)
+2019-04-23 13:21:20,129 [INFO ] - Mapped "{[/getSurveysInfoPerTemplate],methods=[GET || POST],produces=[application/json]}" onto public com.pccube.vvas.template.fe.VasResponse com.pccube.vvas.template.controller.SurveyController.getSurveysInfoPerTemplate()
+2019-04-23 13:21:20,130 [INFO ] - Mapped "{[/getAllSurveys],methods=[GET || POST],produces=[application/json]}" onto public com.pccube.vvas.template.fe.VasResponse com.pccube.vvas.template.controller.SurveyController.getAllSurveys(java.lang.Integer,java.lang.Integer)
+2019-04-23 13:21:20,131 [INFO ] - Mapped "{[/getOldSurveys],methods=[GET || POST],produces=[application/json]}" onto public com.pccube.vvas.template.fe.VasResponse com.pccube.vvas.template.controller.SurveyController.getOldSurveys(java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.Integer,java.lang.Integer)
+2019-04-23 13:21:20,132 [INFO ] - Mapped "{[/getSurveys],methods=[POST],produces=[application/json]}" onto public com.pccube.vvas.template.fe.VasResponse com.pccube.vvas.template.controller.SurveyController.getSurveys(com.pccube.vvas.template.db.filter.SurveyFilter,java.lang.Integer,java.lang.Integer)
+2019-04-23 13:21:20,133 [INFO ] - Mapped "{[/getSurveysByTemplate/{templateId}],methods=[GET || POST],produces=[application/json]}" onto public com.pccube.vvas.template.fe.VasResponse com.pccube.vvas.template.controller.SurveyController.getSurveysByTemplate(java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.Integer,java.lang.Integer)
+2019-04-23 13:21:20,135 [INFO ] - Mapped "{[/getSurveysByUser/{userId}],methods=[GET || POST],produces=[application/json]}" onto public com.pccube.vvas.template.fe.VasResponse com.pccube.vvas.template.controller.SurveyController.getSurveysByUser(java.lang.String,java.lang.Integer,java.lang.Integer)
+2019-04-23 13:21:20,136 [INFO ] - Mapped "{[/getFeedbacksInfoPerTemplate],methods=[GET || POST],produces=[application/json]}" onto public com.pccube.vvas.template.fe.VasResponse com.pccube.vvas.template.controller.SurveyController.getFeedbacksInfoPerTemplate()
+2019-04-23 13:21:20,137 [INFO ] - Mapped "{[/getFeedbacksByTemplate/{templateId}],methods=[GET || POST],produces=[application/json]}" onto public com.pccube.vvas.template.fe.VasResponse com.pccube.vvas.template.controller.SurveyController.getFeedbacksByTemplateAndInterval(java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.Integer,java.lang.Integer)
+2019-04-23 13:21:20,138 [INFO ] - Mapped "{[/sendReplyToFeedback],methods=[GET || POST],produces=[application/json]}" onto public com.pccube.vvas.template.fe.VasResponse com.pccube.vvas.template.controller.SurveyController.sendReplyToFeedback(com.pccube.vvas.template.fe.ReplyInfo)
+2019-04-23 13:21:20,139 [INFO ] - Mapped "{[/confirmNotification],methods=[GET || POST],produces=[application/json]}" onto public com.pccube.vvas.template.fe.VasResponse com.pccube.vvas.template.controller.SurveyController.confirmNotification(com.pccube.vvas.template.fe.NotificationConfirm)
+2019-04-23 13:21:20,145 [INFO ] - Mapped "{[/deleteTemplate/{templateId}],methods=[GET || POST],produces=[application/json]}" onto public com.pccube.vvas.template.fe.VasResponse com.pccube.vvas.template.controller.TemplateController.remove(java.lang.String)
+2019-04-23 13:21:20,147 [INFO ] - Mapped "{[/getAllTemplates],methods=[GET || POST],produces=[application/json]}" onto public com.pccube.vvas.template.fe.VasResponse com.pccube.vvas.template.controller.TemplateController.getAllTemplates(java.lang.Integer,java.lang.Integer)
+2019-04-23 13:21:20,148 [INFO ] - Mapped "{[/getTemplatesInfo],methods=[GET || POST],produces=[application/json]}" onto public com.pccube.vvas.template.fe.VasResponse com.pccube.vvas.template.controller.TemplateController.getTemplatesInfo(java.lang.Integer,java.lang.Integer)
+2019-04-23 13:21:20,150 [INFO ] - Mapped "{[/getPublishedTemplates],methods=[GET || POST],produces=[application/json]}" onto public com.pccube.vvas.template.fe.VasResponse com.pccube.vvas.template.controller.TemplateController.getPublishedTemplates()
+2019-04-23 13:21:20,151 [INFO ] - Mapped "{[/saveTemplate],methods=[GET || POST],produces=[application/json]}" onto public com.pccube.vvas.template.fe.VasResponse com.pccube.vvas.template.controller.TemplateController.saveTemplate(com.pccube.vvas.template.db.collection.Template)
+2019-04-23 13:21:20,153 [INFO ] - Mapped "{[/publishTemplate],methods=[GET || POST],produces=[application/json]}" onto public com.pccube.vvas.template.fe.VasResponse com.pccube.vvas.template.controller.TemplateController.publishTemplate(com.pccube.vvas.template.db.collection.Template)
+2019-04-23 13:21:20,153 [INFO ] - Mapped "{[/getTemplate/{templateId}],methods=[GET || POST],produces=[application/json]}" onto public com.pccube.vvas.template.fe.VasResponse com.pccube.vvas.template.controller.TemplateController.getTemplate(java.lang.String)
+2019-04-23 13:21:20,154 [INFO ] - Mapped "{[/updateIcon],methods=[GET || POST],produces=[application/json]}" onto public com.pccube.vvas.template.fe.VasResponse com.pccube.vvas.template.controller.TemplateController.updateIcon(com.pccube.vvas.template.db.collection.Template)
+2019-04-23 13:21:20,155 [INFO ] - Mapped "{[/icons/{templateId}],methods=[GET || POST],produces=[image/jpeg || image/gif || image/png]}" onto public org.springframework.http.HttpEntity<byte[]> com.pccube.vvas.template.controller.TemplateController.icons(java.lang.String)
+2019-04-23 13:21:20,156 [INFO ] - Mapped "{[/v2/api-docs],methods=[GET],produces=[application/json || application/hal+json]}" onto public org.springframework.http.ResponseEntity<springfox.documentation.spring.web.json.Json> springfox.documentation.swagger2.web.Swagger2Controller.getDocumentation(java.lang.String,javax.servlet.http.HttpServletRequest)
+2019-04-23 13:21:20,167 [INFO ] - Mapped "{[/swagger-resources/configuration/ui]}" onto org.springframework.http.ResponseEntity<springfox.documentation.swagger.web.UiConfiguration> springfox.documentation.swagger.web.ApiResourceController.uiConfiguration()
+2019-04-23 13:21:20,169 [INFO ] - Mapped "{[/swagger-resources/configuration/security]}" onto org.springframework.http.ResponseEntity<springfox.documentation.swagger.web.SecurityConfiguration> springfox.documentation.swagger.web.ApiResourceController.securityConfiguration()
+2019-04-23 13:21:20,170 [INFO ] - Mapped "{[/swagger-resources]}" onto org.springframework.http.ResponseEntity<java.util.List<springfox.documentation.swagger.web.SwaggerResource>> springfox.documentation.swagger.web.ApiResourceController.swaggerResources()
+2019-04-23 13:21:20,175 [INFO ] - Mapped "{[/error]}" onto public org.springframework.http.ResponseEntity<java.util.Map<java.lang.String, java.lang.Object>> org.springframework.boot.autoconfigure.web.BasicErrorController.error(javax.servlet.http.HttpServletRequest)
+2019-04-23 13:21:20,176 [INFO ] - Mapped "{[/error],produces=[text/html]}" onto public org.springframework.web.servlet.ModelAndView org.springframework.boot.autoconfigure.web.BasicErrorController.errorHtml(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+2019-04-23 13:21:20,491 [DEBUG] - Cannot find javax.persistence.Persistence on classpath. Assuming non JPA 2 environment. All properties will per default be traversable.
+2019-04-23 13:21:20,506 [DEBUG] - Cannot find javax.persistence.Persistence on classpath. Assuming non JPA 2 environment. All properties will per default be traversable.
+2019-04-23 13:21:20,508 [DEBUG] - Setting custom MessageInterpolator of type org.springframework.validation.beanvalidation.LocaleContextMessageInterpolator
+2019-04-23 13:21:20,508 [DEBUG] - Setting custom ConstraintValidatorFactory of type org.springframework.validation.beanvalidation.SpringConstraintValidatorFactory
+2019-04-23 13:21:20,509 [DEBUG] - Setting custom ParameterNameProvider of type com.sun.proxy.$Proxy52
+2019-04-23 13:21:20,509 [DEBUG] - Trying to load META-INF/validation.xml for XML based Validator configuration.
+2019-04-23 13:21:20,509 [DEBUG] - Trying to load META-INF/validation.xml via user class loader
+2019-04-23 13:21:20,509 [DEBUG] - Trying to load META-INF/validation.xml via TCCL
+2019-04-23 13:21:20,510 [DEBUG] - Trying to load META-INF/validation.xml via Hibernate Validator's class loader
+2019-04-23 13:21:20,510 [DEBUG] - No META-INF/validation.xml found. Using annotation based configuration only.
+2019-04-23 13:21:20,817 [INFO ] - Looking for @ControllerAdvice: org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@4ec4f3a0: startup date [Tue Apr 23 13:21:08 CEST 2019]; root of context hierarchy
+2019-04-23 13:21:20,936 [INFO ] - Mapped URL path [/webjars/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2019-04-23 13:21:20,936 [INFO ] - Mapped URL path [/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2019-04-23 13:21:21,014 [INFO ] - Mapped URL path [/**/favicon.ico] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2019-04-23 13:21:21,419 [INFO ] - Registering beans for JMX exposure on startup
+2019-04-23 13:21:21,436 [INFO ] - Starting beans in phase 2147483647
+2019-04-23 13:21:21,437 [INFO ] - Context refreshed
+2019-04-23 13:21:21,468 [INFO ] - Found 1 custom documentation plugin(s)
+2019-04-23 13:21:21,490 [INFO ] - Scanning for api listing references
+2019-04-23 13:21:21,562 [DEBUG] - Adding return parameter of type Lcom/pccube/vvas/template/fe/VasResponse;
+2019-04-23 13:21:21,564 [DEBUG] - Reading parameters models for handlerMethod |confirmNotification|
+2019-04-23 13:21:21,574 [DEBUG] - Adding input parameter of type Lcom/pccube/vvas/template/fe/NotificationConfirm;
+2019-04-23 13:21:21,574 [DEBUG] - Finished reading parameters models for handlerMethod |confirmNotification|
+2019-04-23 13:21:21,586 [DEBUG] - Reading parameters models for handlerMethod |confirmNotification|
+2019-04-23 13:21:21,627 [DEBUG] - Reading property surveyId
+2019-04-23 13:21:21,632 [DEBUG] - Evaluating unwrapped setter for member setSurveyId
+2019-04-23 13:21:21,634 [DEBUG] - Name 'surveyId' renamed to 'surveyId'
+2019-04-23 13:21:21,634 [DEBUG] - Adding property surveyId to model
+2019-04-23 13:21:21,635 [DEBUG] - Evaluating unwrapped setter for member setSurveyId
+2019-04-23 13:21:21,636 [DEBUG] - Evaluating unwrapped setter for member setSurveyId
+2019-04-23 13:21:21,636 [DEBUG] - Evaluating unwrapped setter for member setSurveyId
+2019-04-23 13:21:21,640 [DEBUG] - Evaluating unwrapped setter for member setSurveyId
+2019-04-23 13:21:21,647 [DEBUG] - Reading property userId
+2019-04-23 13:21:21,648 [DEBUG] - Evaluating unwrapped setter for member setUserId
+2019-04-23 13:21:21,648 [DEBUG] - Name 'userId' renamed to 'userId'
+2019-04-23 13:21:21,649 [DEBUG] - Adding property userId to model
+2019-04-23 13:21:21,649 [DEBUG] - Evaluating unwrapped setter for member setUserId
+2019-04-23 13:21:21,650 [DEBUG] - Evaluating unwrapped setter for member setUserId
+2019-04-23 13:21:21,650 [DEBUG] - Evaluating unwrapped setter for member setUserId
+2019-04-23 13:21:21,654 [DEBUG] - Evaluating unwrapped setter for member setUserId
+2019-04-23 13:21:21,674 [DEBUG] - Inferred 2 properties. Properties found surveyId, userId
+2019-04-23 13:21:21,678 [DEBUG] - Generated parameter model id: NotificationConfirm, name: NotificationConfirm, schema: {} models
+2019-04-23 13:21:21,678 [DEBUG] - Adding a new model with key NotificationConfirm
+2019-04-23 13:21:21,685 [DEBUG] - Reading property statusCode
+2019-04-23 13:21:21,689 [DEBUG] - Evaluating unwrapped getter for member getStatusCode
+2019-04-23 13:21:21,689 [DEBUG] - Name 'statusCode' renamed to 'statusCode'
+2019-04-23 13:21:21,689 [DEBUG] - Adding property statusCode to model
+2019-04-23 13:21:21,690 [DEBUG] - Evaluating unwrapped getter for member getStatusCode
+2019-04-23 13:21:21,690 [DEBUG] - Evaluating unwrapped getter for member getStatusCode
+2019-04-23 13:21:21,690 [DEBUG] - Evaluating unwrapped getter for member getStatusCode
+2019-04-23 13:21:21,690 [DEBUG] - Evaluating unwrapped getter for member getStatusCode
+2019-04-23 13:21:21,691 [DEBUG] - Reading property statusMessage
+2019-04-23 13:21:21,691 [DEBUG] - Evaluating unwrapped getter for member getStatusMessage
+2019-04-23 13:21:21,691 [DEBUG] - Name 'statusMessage' renamed to 'statusMessage'
+2019-04-23 13:21:21,691 [DEBUG] - Adding property statusMessage to model
+2019-04-23 13:21:21,692 [DEBUG] - Evaluating unwrapped getter for member getStatusMessage
+2019-04-23 13:21:21,692 [DEBUG] - Evaluating unwrapped getter for member getStatusMessage
+2019-04-23 13:21:21,692 [DEBUG] - Evaluating unwrapped getter for member getStatusMessage
+2019-04-23 13:21:21,692 [DEBUG] - Evaluating unwrapped getter for member getStatusMessage
+2019-04-23 13:21:21,694 [DEBUG] - Reading property content
+2019-04-23 13:21:21,695 [DEBUG] - Evaluating unwrapped getter for member getContent
+2019-04-23 13:21:21,695 [DEBUG] - Name 'content' renamed to 'content'
+2019-04-23 13:21:21,695 [DEBUG] - Adding property content to model
+2019-04-23 13:21:21,695 [DEBUG] - Evaluating unwrapped getter for member getContent
+2019-04-23 13:21:21,696 [DEBUG] - Evaluating unwrapped getter for member getContent
+2019-04-23 13:21:21,696 [DEBUG] - Evaluating unwrapped getter for member getContent
+2019-04-23 13:21:21,696 [DEBUG] - Evaluating unwrapped getter for member getContent
+2019-04-23 13:21:21,696 [DEBUG] - Inferred 3 properties. Properties found content, statusCode, statusMessage
+2019-04-23 13:21:21,697 [DEBUG] - Generated parameter model id: VasResponse, name: VasResponse, schema: {} models
+2019-04-23 13:21:21,697 [DEBUG] - Adding a new model with key VasResponse
+2019-04-23 13:21:21,731 [DEBUG] - Setting spring response class to:VasResponse
+2019-04-23 13:21:21,736 [DEBUG] - Authorization count 0 for method confirmNotification
+2019-04-23 13:21:21,740 [DEBUG] - Setting response class to:VasResponse
+2019-04-23 13:21:21,756 [DEBUG] - Setting spring response class to:VasResponse
+2019-04-23 13:21:21,759 [DEBUG] - Authorization count 0 for method confirmNotification
+2019-04-23 13:21:21,761 [DEBUG] - Setting response class to:VasResponse
+2019-04-23 13:21:21,783 [DEBUG] - Adding return parameter of type Lcom/pccube/vvas/template/fe/VasResponse;
+2019-04-23 13:21:21,784 [DEBUG] - Reading parameters models for handlerMethod |getAllSurveys|
+2019-04-23 13:21:21,789 [DEBUG] - Finished reading parameters models for handlerMethod |getAllSurveys|
+2019-04-23 13:21:21,794 [DEBUG] - Reading parameters models for handlerMethod |getAllSurveys|
+2019-04-23 13:21:21,795 [DEBUG] - Generated parameter model id: VasResponse, name: VasResponse, schema: {} models
+2019-04-23 13:21:21,812 [DEBUG] - Setting spring response class to:VasResponse
+2019-04-23 13:21:21,822 [DEBUG] - Authorization count 0 for method getAllSurveys
+2019-04-23 13:21:21,825 [DEBUG] - Setting response class to:VasResponse
+2019-04-23 13:21:21,838 [DEBUG] - Setting spring response class to:VasResponse
+2019-04-23 13:21:21,845 [DEBUG] - Authorization count 0 for method getAllSurveys
+2019-04-23 13:21:21,858 [DEBUG] - Setting response class to:VasResponse
+2019-04-23 13:21:21,869 [DEBUG] - Adding return parameter of type Lcom/pccube/vvas/template/fe/VasResponse;
+2019-04-23 13:21:21,870 [DEBUG] - Reading parameters models for handlerMethod |getFeedbacksByTemplateAndInterval|
+2019-04-23 13:21:21,882 [DEBUG] - Finished reading parameters models for handlerMethod |getFeedbacksByTemplateAndInterval|
+2019-04-23 13:21:21,883 [DEBUG] - Reading parameters models for handlerMethod |getFeedbacksByTemplateAndInterval|
+2019-04-23 13:21:21,884 [DEBUG] - Generated parameter model id: VasResponse, name: VasResponse, schema: {} models
+2019-04-23 13:21:21,895 [DEBUG] - Setting spring response class to:VasResponse
+2019-04-23 13:21:21,897 [DEBUG] - Authorization count 0 for method getFeedbacksByTemplateAndInterval
+2019-04-23 13:21:21,900 [DEBUG] - Setting response class to:VasResponse
+2019-04-23 13:21:21,910 [DEBUG] - Setting spring response class to:VasResponse
+2019-04-23 13:21:21,912 [DEBUG] - Authorization count 0 for method getFeedbacksByTemplateAndInterval
+2019-04-23 13:21:21,914 [DEBUG] - Setting response class to:VasResponse
+2019-04-23 13:21:21,917 [DEBUG] - Adding return parameter of type Lcom/pccube/vvas/template/fe/VasResponse;
+2019-04-23 13:21:21,917 [DEBUG] - Reading parameters models for handlerMethod |getFeedbacksInfoPerTemplate|
+2019-04-23 13:21:21,918 [DEBUG] - Finished reading parameters models for handlerMethod |getFeedbacksInfoPerTemplate|
+2019-04-23 13:21:21,920 [DEBUG] - Reading parameters models for handlerMethod |getFeedbacksInfoPerTemplate|
+2019-04-23 13:21:21,920 [DEBUG] - Generated parameter model id: VasResponse, name: VasResponse, schema: {} models
+2019-04-23 13:21:21,924 [DEBUG] - Setting spring response class to:VasResponse
+2019-04-23 13:21:21,927 [DEBUG] - Authorization count 0 for method getFeedbacksInfoPerTemplate
+2019-04-23 13:21:21,929 [DEBUG] - Setting response class to:VasResponse
+2019-04-23 13:21:21,937 [DEBUG] - Setting spring response class to:VasResponse
+2019-04-23 13:21:21,939 [DEBUG] - Authorization count 0 for method getFeedbacksInfoPerTemplate
+2019-04-23 13:21:21,946 [DEBUG] - Setting response class to:VasResponse
+2019-04-23 13:21:21,951 [DEBUG] - Adding return parameter of type Lcom/pccube/vvas/template/fe/VasResponse;
+2019-04-23 13:21:21,952 [DEBUG] - Reading parameters models for handlerMethod |getOldSurveys|
+2019-04-23 13:21:21,955 [DEBUG] - Finished reading parameters models for handlerMethod |getOldSurveys|
+2019-04-23 13:21:21,959 [DEBUG] - Reading parameters models for handlerMethod |getOldSurveys|
+2019-04-23 13:21:21,960 [DEBUG] - Generated parameter model id: VasResponse, name: VasResponse, schema: {} models
+2019-04-23 13:21:21,970 [DEBUG] - Setting spring response class to:VasResponse
+2019-04-23 13:21:21,973 [DEBUG] - Authorization count 0 for method getOldSurveys
+2019-04-23 13:21:21,975 [DEBUG] - Setting response class to:VasResponse
+2019-04-23 13:21:21,989 [DEBUG] - Setting spring response class to:VasResponse
+2019-04-23 13:21:21,991 [DEBUG] - Authorization count 0 for method getOldSurveys
+2019-04-23 13:21:21,993 [DEBUG] - Setting response class to:VasResponse
+2019-04-23 13:21:21,999 [DEBUG] - Adding return parameter of type Lcom/pccube/vvas/template/fe/VasResponse;
+2019-04-23 13:21:21,999 [DEBUG] - Reading parameters models for handlerMethod |getSurvey|
+2019-04-23 13:21:22,002 [DEBUG] - Finished reading parameters models for handlerMethod |getSurvey|
+2019-04-23 13:21:22,004 [DEBUG] - Reading parameters models for handlerMethod |getSurvey|
+2019-04-23 13:21:22,005 [DEBUG] - Generated parameter model id: VasResponse, name: VasResponse, schema: {} models
+2019-04-23 13:21:22,013 [DEBUG] - Setting spring response class to:VasResponse
+2019-04-23 13:21:22,016 [DEBUG] - Authorization count 0 for method getSurvey
+2019-04-23 13:21:22,027 [DEBUG] - Setting response class to:VasResponse
+2019-04-23 13:21:22,038 [DEBUG] - Setting spring response class to:VasResponse
+2019-04-23 13:21:22,040 [DEBUG] - Authorization count 0 for method getSurvey
+2019-04-23 13:21:22,043 [DEBUG] - Setting response class to:VasResponse
+2019-04-23 13:21:22,048 [DEBUG] - Adding return parameter of type Lcom/pccube/vvas/template/fe/VasResponse;
+2019-04-23 13:21:22,048 [DEBUG] - Reading parameters models for handlerMethod |getSurveys|
+2019-04-23 13:21:22,052 [DEBUG] - Adding input parameter of type Lcom/pccube/vvas/template/db/filter/SurveyFilter;
+2019-04-23 13:21:22,053 [DEBUG] - Finished reading parameters models for handlerMethod |getSurveys|
+2019-04-23 13:21:22,055 [DEBUG] - Reading parameters models for handlerMethod |getSurveys|
+2019-04-23 13:21:22,056 [DEBUG] - Generated parameter model id: VasResponse, name: VasResponse, schema: {} models
+2019-04-23 13:21:22,058 [DEBUG] - Reading property templateId
+2019-04-23 13:21:22,059 [DEBUG] - Evaluating unwrapped setter for member setTemplateId
+2019-04-23 13:21:22,059 [DEBUG] - Name 'templateId' renamed to 'templateId'
+2019-04-23 13:21:22,059 [DEBUG] - Adding property templateId to model
+2019-04-23 13:21:22,059 [DEBUG] - Evaluating unwrapped setter for member setTemplateId
+2019-04-23 13:21:22,059 [DEBUG] - Evaluating unwrapped setter for member setTemplateId
+2019-04-23 13:21:22,059 [DEBUG] - Evaluating unwrapped setter for member setTemplateId
+2019-04-23 13:21:22,059 [DEBUG] - Evaluating unwrapped setter for member setTemplateId
+2019-04-23 13:21:22,060 [DEBUG] - Reading property userId
+2019-04-23 13:21:22,060 [DEBUG] - Evaluating unwrapped setter for member setUserId
+2019-04-23 13:21:22,060 [DEBUG] - Name 'userId' renamed to 'userId'
+2019-04-23 13:21:22,060 [DEBUG] - Adding property userId to model
+2019-04-23 13:21:22,060 [DEBUG] - Evaluating unwrapped setter for member setUserId
+2019-04-23 13:21:22,060 [DEBUG] - Evaluating unwrapped setter for member setUserId
+2019-04-23 13:21:22,060 [DEBUG] - Evaluating unwrapped setter for member setUserId
+2019-04-23 13:21:22,060 [DEBUG] - Evaluating unwrapped setter for member setUserId
+2019-04-23 13:21:22,060 [DEBUG] - Reading property startDate
+2019-04-23 13:21:22,061 [DEBUG] - Evaluating unwrapped setter for member setStartDate
+2019-04-23 13:21:22,061 [DEBUG] - Name 'startDate' renamed to 'startDate'
+2019-04-23 13:21:22,061 [DEBUG] - Adding property startDate to model
+2019-04-23 13:21:22,061 [DEBUG] - Evaluating unwrapped setter for member setStartDate
+2019-04-23 13:21:22,061 [DEBUG] - Evaluating unwrapped setter for member setStartDate
+2019-04-23 13:21:22,061 [DEBUG] - Evaluating unwrapped setter for member setStartDate
+2019-04-23 13:21:22,061 [DEBUG] - Evaluating unwrapped setter for member setStartDate
+2019-04-23 13:21:22,061 [DEBUG] - Reading property endDate
+2019-04-23 13:21:22,061 [DEBUG] - Evaluating unwrapped setter for member setEndDate
+2019-04-23 13:21:22,062 [DEBUG] - Name 'endDate' renamed to 'endDate'
+2019-04-23 13:21:22,062 [DEBUG] - Adding property endDate to model
+2019-04-23 13:21:22,062 [DEBUG] - Evaluating unwrapped setter for member setEndDate
+2019-04-23 13:21:22,062 [DEBUG] - Evaluating unwrapped setter for member setEndDate
+2019-04-23 13:21:22,063 [DEBUG] - Evaluating unwrapped setter for member setEndDate
+2019-04-23 13:21:22,063 [DEBUG] - Evaluating unwrapped setter for member setEndDate
+2019-04-23 13:21:22,063 [DEBUG] - Inferred 4 properties. Properties found endDate, startDate, templateId, userId
+2019-04-23 13:21:22,064 [DEBUG] - Generated parameter model id: SurveyFilter, name: SurveyFilter, schema: {} models
+2019-04-23 13:21:22,064 [DEBUG] - Adding a new model with key SurveyFilter
+2019-04-23 13:21:22,096 [DEBUG] - Setting spring response class to:VasResponse
+2019-04-23 13:21:22,102 [DEBUG] - Authorization count 0 for method getSurveys
+2019-04-23 13:21:22,106 [DEBUG] - Setting response class to:VasResponse
+2019-04-23 13:21:22,113 [DEBUG] - Adding return parameter of type Lcom/pccube/vvas/template/fe/VasResponse;
+2019-04-23 13:21:22,113 [DEBUG] - Reading parameters models for handlerMethod |getSurveysByTemplate|
+2019-04-23 13:21:22,117 [DEBUG] - Finished reading parameters models for handlerMethod |getSurveysByTemplate|
+2019-04-23 13:21:22,119 [DEBUG] - Reading parameters models for handlerMethod |getSurveysByTemplate|
+2019-04-23 13:21:22,120 [DEBUG] - Generated parameter model id: VasResponse, name: VasResponse, schema: {} models
+2019-04-23 13:21:22,131 [DEBUG] - Setting spring response class to:VasResponse
+2019-04-23 13:21:22,136 [DEBUG] - Authorization count 0 for method getSurveysByTemplate
+2019-04-23 13:21:22,140 [DEBUG] - Setting response class to:VasResponse
+2019-04-23 13:21:22,150 [DEBUG] - Setting spring response class to:VasResponse
+2019-04-23 13:21:22,153 [DEBUG] - Authorization count 0 for method getSurveysByTemplate
+2019-04-23 13:21:22,156 [DEBUG] - Setting response class to:VasResponse
+2019-04-23 13:21:22,160 [DEBUG] - Adding return parameter of type Lcom/pccube/vvas/template/fe/VasResponse;
+2019-04-23 13:21:22,160 [DEBUG] - Reading parameters models for handlerMethod |getSurveysByUser|
+2019-04-23 13:21:22,163 [DEBUG] - Finished reading parameters models for handlerMethod |getSurveysByUser|
+2019-04-23 13:21:22,164 [DEBUG] - Reading parameters models for handlerMethod |getSurveysByUser|
+2019-04-23 13:21:22,165 [DEBUG] - Generated parameter model id: VasResponse, name: VasResponse, schema: {} models
+2019-04-23 13:21:22,173 [DEBUG] - Setting spring response class to:VasResponse
+2019-04-23 13:21:22,176 [DEBUG] - Authorization count 0 for method getSurveysByUser
+2019-04-23 13:21:22,178 [DEBUG] - Setting response class to:VasResponse
+2019-04-23 13:21:22,186 [DEBUG] - Setting spring response class to:VasResponse
+2019-04-23 13:21:22,190 [DEBUG] - Authorization count 0 for method getSurveysByUser
+2019-04-23 13:21:22,191 [DEBUG] - Setting response class to:VasResponse
+2019-04-23 13:21:22,195 [DEBUG] - Adding return parameter of type Lcom/pccube/vvas/template/fe/VasResponse;
+2019-04-23 13:21:22,195 [DEBUG] - Reading parameters models for handlerMethod |getSurveysInfoPerTemplate|
+2019-04-23 13:21:22,196 [DEBUG] - Finished reading parameters models for handlerMethod |getSurveysInfoPerTemplate|
+2019-04-23 13:21:22,199 [DEBUG] - Reading parameters models for handlerMethod |getSurveysInfoPerTemplate|
+2019-04-23 13:21:22,200 [DEBUG] - Generated parameter model id: VasResponse, name: VasResponse, schema: {} models
+2019-04-23 13:21:22,204 [DEBUG] - Setting spring response class to:VasResponse
+2019-04-23 13:21:22,206 [DEBUG] - Authorization count 0 for method getSurveysInfoPerTemplate
+2019-04-23 13:21:22,210 [DEBUG] - Setting response class to:VasResponse
+2019-04-23 13:21:22,217 [DEBUG] - Setting spring response class to:VasResponse
+2019-04-23 13:21:22,222 [DEBUG] - Authorization count 0 for method getSurveysInfoPerTemplate
+2019-04-23 13:21:22,225 [DEBUG] - Setting response class to:VasResponse
+2019-04-23 13:21:22,229 [DEBUG] - Adding return parameter of type Lcom/pccube/vvas/template/fe/VasResponse;
+2019-04-23 13:21:22,229 [DEBUG] - Reading parameters models for handlerMethod |saveSurvey|
+2019-04-23 13:21:22,231 [DEBUG] - Adding input parameter of type Lcom/pccube/vvas/template/db/collection/Survey;
+2019-04-23 13:21:22,232 [DEBUG] - Finished reading parameters models for handlerMethod |saveSurvey|
+2019-04-23 13:21:22,234 [DEBUG] - Reading parameters models for handlerMethod |saveSurvey|
+2019-04-23 13:21:22,234 [DEBUG] - Generated parameter model id: VasResponse, name: VasResponse, schema: {} models
+2019-04-23 13:21:22,240 [DEBUG] - Reading property surveyId
+2019-04-23 13:21:22,242 [DEBUG] - Evaluating unwrapped setter for member setSurveyId
+2019-04-23 13:21:22,243 [DEBUG] - Name 'surveyId' renamed to 'surveyId'
+2019-04-23 13:21:22,243 [DEBUG] - Adding property surveyId to model
+2019-04-23 13:21:22,243 [DEBUG] - Evaluating unwrapped setter for member setSurveyId
+2019-04-23 13:21:22,243 [DEBUG] - Evaluating unwrapped setter for member setSurveyId
+2019-04-23 13:21:22,243 [DEBUG] - Evaluating unwrapped setter for member setSurveyId
+2019-04-23 13:21:22,244 [DEBUG] - Evaluating unwrapped setter for member setSurveyId
+2019-04-23 13:21:22,244 [DEBUG] - Reading property userId
+2019-04-23 13:21:22,244 [DEBUG] - Evaluating unwrapped setter for member setUserId
+2019-04-23 13:21:22,245 [DEBUG] - Name 'userId' renamed to 'userId'
+2019-04-23 13:21:22,245 [DEBUG] - Adding property userId to model
+2019-04-23 13:21:22,245 [DEBUG] - Evaluating unwrapped setter for member setUserId
+2019-04-23 13:21:22,245 [DEBUG] - Evaluating unwrapped setter for member setUserId
+2019-04-23 13:21:22,245 [DEBUG] - Evaluating unwrapped setter for member setUserId
+2019-04-23 13:21:22,246 [DEBUG] - Evaluating unwrapped setter for member setUserId
+2019-04-23 13:21:22,247 [DEBUG] - Reading property templateId
+2019-04-23 13:21:22,248 [DEBUG] - Evaluating unwrapped setter for member setTemplateId
+2019-04-23 13:21:22,248 [DEBUG] - Name 'templateId' renamed to 'templateId'
+2019-04-23 13:21:22,249 [DEBUG] - Adding property templateId to model
+2019-04-23 13:21:22,249 [DEBUG] - Evaluating unwrapped setter for member setTemplateId
+2019-04-23 13:21:22,249 [DEBUG] - Evaluating unwrapped setter for member setTemplateId
+2019-04-23 13:21:22,249 [DEBUG] - Evaluating unwrapped setter for member setTemplateId
+2019-04-23 13:21:22,249 [DEBUG] - Evaluating unwrapped setter for member setTemplateId
+2019-04-23 13:21:22,249 [DEBUG] - Reading property surveyDate
+2019-04-23 13:21:22,250 [DEBUG] - Evaluating unwrapped setter for member setSurveyDate
+2019-04-23 13:21:22,254 [DEBUG] - Name 'surveyDate' renamed to 'surveyDate'
+2019-04-23 13:21:22,255 [DEBUG] - Adding property surveyDate to model
+2019-04-23 13:21:22,255 [DEBUG] - Evaluating unwrapped setter for member setSurveyDate
+2019-04-23 13:21:22,255 [DEBUG] - Evaluating unwrapped setter for member setSurveyDate
+2019-04-23 13:21:22,255 [DEBUG] - Evaluating unwrapped setter for member setSurveyDate
+2019-04-23 13:21:22,255 [DEBUG] - Evaluating unwrapped setter for member setSurveyDate
+2019-04-23 13:21:22,255 [DEBUG] - Reading property answers
+2019-04-23 13:21:22,256 [DEBUG] - Evaluating unwrapped setter for member setAnswers
+2019-04-23 13:21:22,256 [DEBUG] - Name 'answers' renamed to 'answers'
+2019-04-23 13:21:22,256 [DEBUG] - Adding property answers to model
+2019-04-23 13:21:22,256 [DEBUG] - Evaluating unwrapped setter for member setAnswers
+2019-04-23 13:21:22,256 [DEBUG] - Evaluating unwrapped setter for member setAnswers
+2019-04-23 13:21:22,257 [DEBUG] - Evaluating unwrapped setter for member setAnswers
+2019-04-23 13:21:22,257 [DEBUG] - Evaluating unwrapped setter for member setAnswers
+2019-04-23 13:21:22,257 [DEBUG] - Reading property feedback
+2019-04-23 13:21:22,258 [DEBUG] - Evaluating unwrapped setter for member setFeedback
+2019-04-23 13:21:22,258 [DEBUG] - Name 'feedback' renamed to 'feedback'
+2019-04-23 13:21:22,258 [DEBUG] - Adding property feedback to model
+2019-04-23 13:21:22,258 [DEBUG] - Evaluating unwrapped setter for member setFeedback
+2019-04-23 13:21:22,258 [DEBUG] - Evaluating unwrapped setter for member setFeedback
+2019-04-23 13:21:22,258 [DEBUG] - Evaluating unwrapped setter for member setFeedback
+2019-04-23 13:21:22,258 [DEBUG] - Evaluating unwrapped setter for member setFeedback
+2019-04-23 13:21:22,259 [DEBUG] - Reading property replies
+2019-04-23 13:21:22,259 [DEBUG] - Evaluating unwrapped setter for member setReplies
+2019-04-23 13:21:22,259 [DEBUG] - Name 'replies' renamed to 'replies'
+2019-04-23 13:21:22,259 [DEBUG] - Adding property replies to model
+2019-04-23 13:21:22,259 [DEBUG] - Evaluating unwrapped setter for member setReplies
+2019-04-23 13:21:22,259 [DEBUG] - Evaluating unwrapped setter for member setReplies
+2019-04-23 13:21:22,259 [DEBUG] - Evaluating unwrapped setter for member setReplies
+2019-04-23 13:21:22,260 [DEBUG] - Evaluating unwrapped setter for member setReplies
+2019-04-23 13:21:22,260 [DEBUG] - Reading property showNotification
+2019-04-23 13:21:22,260 [DEBUG] - Evaluating unwrapped setter for member setShowNotification
+2019-04-23 13:21:22,260 [DEBUG] - Name 'showNotification' renamed to 'showNotification'
+2019-04-23 13:21:22,261 [DEBUG] - Adding property showNotification to model
+2019-04-23 13:21:22,261 [DEBUG] - Evaluating unwrapped setter for member setShowNotification
+2019-04-23 13:21:22,261 [DEBUG] - Evaluating unwrapped setter for member setShowNotification
+2019-04-23 13:21:22,263 [DEBUG] - Evaluating unwrapped setter for member setShowNotification
+2019-04-23 13:21:22,264 [DEBUG] - Evaluating unwrapped setter for member setShowNotification
+2019-04-23 13:21:22,264 [DEBUG] - Reading property templateTitle
+2019-04-23 13:21:22,264 [DEBUG] - Evaluating unwrapped setter for member setTemplateTitle
+2019-04-23 13:21:22,264 [DEBUG] - Name 'templateTitle' renamed to 'templateTitle'
+2019-04-23 13:21:22,264 [DEBUG] - Adding property templateTitle to model
+2019-04-23 13:21:22,265 [DEBUG] - Evaluating unwrapped setter for member setTemplateTitle
+2019-04-23 13:21:22,265 [DEBUG] - Evaluating unwrapped setter for member setTemplateTitle
+2019-04-23 13:21:22,265 [DEBUG] - Evaluating unwrapped setter for member setTemplateTitle
+2019-04-23 13:21:22,265 [DEBUG] - Evaluating unwrapped setter for member setTemplateTitle
+2019-04-23 13:21:22,266 [DEBUG] - Inferred 9 properties. Properties found answers, feedback, replies, showNotification, surveyDate, surveyId, templateId, templateTitle, userId
+2019-04-23 13:21:22,266 [DEBUG] - Generated parameter model id: Survey, name: Survey, schema: {} models
+2019-04-23 13:21:22,266 [DEBUG] - Adding a new model with key Survey
+2019-04-23 13:21:22,267 [DEBUG] - Adding type Ljava/util/List<Lcom/pccube/vvas/template/db/collection/Answer;>; for parameter answers
+2019-04-23 13:21:22,267 [DEBUG] - Adding collectionElement type Lcom/pccube/vvas/template/db/collection/Answer;
+2019-04-23 13:21:22,267 [DEBUG] - Recursively resolving dependencies for collectionElement type Lcom/pccube/vvas/template/db/collection/Answer;
+2019-04-23 13:21:22,268 [DEBUG] - Reading property questionId
+2019-04-23 13:21:22,269 [DEBUG] - Evaluating unwrapped setter for member setQuestionId
+2019-04-23 13:21:22,269 [DEBUG] - Name 'questionId' renamed to 'questionId'
+2019-04-23 13:21:22,269 [DEBUG] - Adding property questionId to model
+2019-04-23 13:21:22,269 [DEBUG] - Evaluating unwrapped setter for member setQuestionId
+2019-04-23 13:21:22,269 [DEBUG] - Evaluating unwrapped setter for member setQuestionId
+2019-04-23 13:21:22,269 [DEBUG] - Evaluating unwrapped setter for member setQuestionId
+2019-04-23 13:21:22,269 [DEBUG] - Evaluating unwrapped setter for member setQuestionId
+2019-04-23 13:21:22,270 [DEBUG] - Reading property questionText
+2019-04-23 13:21:22,270 [DEBUG] - Evaluating unwrapped setter for member setQuestionText
+2019-04-23 13:21:22,270 [DEBUG] - Name 'questionText' renamed to 'questionText'
+2019-04-23 13:21:22,270 [DEBUG] - Adding property questionText to model
+2019-04-23 13:21:22,270 [DEBUG] - Evaluating unwrapped setter for member setQuestionText
+2019-04-23 13:21:22,270 [DEBUG] - Evaluating unwrapped setter for member setQuestionText
+2019-04-23 13:21:22,271 [DEBUG] - Evaluating unwrapped setter for member setQuestionText
+2019-04-23 13:21:22,272 [DEBUG] - Evaluating unwrapped setter for member setQuestionText
+2019-04-23 13:21:22,272 [DEBUG] - Reading property answerText
+2019-04-23 13:21:22,272 [DEBUG] - Evaluating unwrapped setter for member setAnswerText
+2019-04-23 13:21:22,272 [DEBUG] - Name 'answerText' renamed to 'answerText'
+2019-04-23 13:21:22,272 [DEBUG] - Adding property answerText to model
+2019-04-23 13:21:22,272 [DEBUG] - Evaluating unwrapped setter for member setAnswerText
+2019-04-23 13:21:22,272 [DEBUG] - Evaluating unwrapped setter for member setAnswerText
+2019-04-23 13:21:22,272 [DEBUG] - Evaluating unwrapped setter for member setAnswerText
+2019-04-23 13:21:22,273 [DEBUG] - Evaluating unwrapped setter for member setAnswerText
+2019-04-23 13:21:22,273 [DEBUG] - Reading property wrongAnswers
+2019-04-23 13:21:22,273 [DEBUG] - Evaluating unwrapped setter for member setWrongAnswers
+2019-04-23 13:21:22,273 [DEBUG] - Name 'wrongAnswers' renamed to 'wrongAnswers'
+2019-04-23 13:21:22,273 [DEBUG] - Adding property wrongAnswers to model
+2019-04-23 13:21:22,273 [DEBUG] - Evaluating unwrapped setter for member setWrongAnswers
+2019-04-23 13:21:22,273 [DEBUG] - Evaluating unwrapped setter for member setWrongAnswers
+2019-04-23 13:21:22,273 [DEBUG] - Evaluating unwrapped setter for member setWrongAnswers
+2019-04-23 13:21:22,274 [DEBUG] - Evaluating unwrapped setter for member setWrongAnswers
+2019-04-23 13:21:22,274 [DEBUG] - Adding type Ljava/util/List<Ljava/lang/String;>; for parameter wrongAnswers
+2019-04-23 13:21:22,274 [DEBUG] - Recursively resolving dependencies for collectionElement type Ljava/lang/String;
+2019-04-23 13:21:22,274 [DEBUG] - Marking base type Ljava/lang/String; as seen
+2019-04-23 13:21:22,275 [DEBUG] - Adding type Ljava/util/List<Lcom/pccube/vvas/template/db/collection/Reply;>; for parameter replies
+2019-04-23 13:21:22,275 [DEBUG] - Adding collectionElement type Lcom/pccube/vvas/template/db/collection/Reply;
+2019-04-23 13:21:22,275 [DEBUG] - Recursively resolving dependencies for collectionElement type Lcom/pccube/vvas/template/db/collection/Reply;
+2019-04-23 13:21:22,276 [DEBUG] - Reading property sentDate
+2019-04-23 13:21:22,277 [DEBUG] - Evaluating unwrapped setter for member setSentDate
+2019-04-23 13:21:22,277 [DEBUG] - Name 'sentDate' renamed to 'sentDate'
+2019-04-23 13:21:22,279 [DEBUG] - Adding property sentDate to model
+2019-04-23 13:21:22,280 [DEBUG] - Evaluating unwrapped setter for member setSentDate
+2019-04-23 13:21:22,280 [DEBUG] - Evaluating unwrapped setter for member setSentDate
+2019-04-23 13:21:22,280 [DEBUG] - Evaluating unwrapped setter for member setSentDate
+2019-04-23 13:21:22,280 [DEBUG] - Evaluating unwrapped setter for member setSentDate
+2019-04-23 13:21:22,280 [DEBUG] - Reading property userEmail
+2019-04-23 13:21:22,280 [DEBUG] - Evaluating unwrapped setter for member setUserEmail
+2019-04-23 13:21:22,281 [DEBUG] - Name 'userEmail' renamed to 'userEmail'
+2019-04-23 13:21:22,281 [DEBUG] - Adding property userEmail to model
+2019-04-23 13:21:22,281 [DEBUG] - Evaluating unwrapped setter for member setUserEmail
+2019-04-23 13:21:22,281 [DEBUG] - Evaluating unwrapped setter for member setUserEmail
+2019-04-23 13:21:22,281 [DEBUG] - Evaluating unwrapped setter for member setUserEmail
+2019-04-23 13:21:22,281 [DEBUG] - Evaluating unwrapped setter for member setUserEmail
+2019-04-23 13:21:22,281 [DEBUG] - Reading property emailObject
+2019-04-23 13:21:22,281 [DEBUG] - Evaluating unwrapped setter for member setEmailObject
+2019-04-23 13:21:22,281 [DEBUG] - Name 'emailObject' renamed to 'emailObject'
+2019-04-23 13:21:22,281 [DEBUG] - Adding property emailObject to model
+2019-04-23 13:21:22,281 [DEBUG] - Evaluating unwrapped setter for member setEmailObject
+2019-04-23 13:21:22,281 [DEBUG] - Evaluating unwrapped setter for member setEmailObject
+2019-04-23 13:21:22,282 [DEBUG] - Evaluating unwrapped setter for member setEmailObject
+2019-04-23 13:21:22,282 [DEBUG] - Evaluating unwrapped setter for member setEmailObject
+2019-04-23 13:21:22,282 [DEBUG] - Reading property emailBody
+2019-04-23 13:21:22,282 [DEBUG] - Evaluating unwrapped setter for member setEmailBody
+2019-04-23 13:21:22,282 [DEBUG] - Name 'emailBody' renamed to 'emailBody'
+2019-04-23 13:21:22,283 [DEBUG] - Adding property emailBody to model
+2019-04-23 13:21:22,283 [DEBUG] - Evaluating unwrapped setter for member setEmailBody
+2019-04-23 13:21:22,283 [DEBUG] - Evaluating unwrapped setter for member setEmailBody
+2019-04-23 13:21:22,283 [DEBUG] - Evaluating unwrapped setter for member setEmailBody
+2019-04-23 13:21:22,283 [DEBUG] - Evaluating unwrapped setter for member setEmailBody
+2019-04-23 13:21:22,284 [DEBUG] - Skipping model of type Ljava/util/List<Lcom/pccube/vvas/template/db/collection/Answer;>; as its either a container type, map, enum or base type, or its already been handled
+2019-04-23 13:21:22,284 [DEBUG] - Inferred 4 properties. Properties found answerText, questionId, questionText, wrongAnswers
+2019-04-23 13:21:22,285 [DEBUG] - Skipping model of type Ljava/util/List<Ljava/lang/String;>; as its either a container type, map, enum or base type, or its already been handled
+2019-04-23 13:21:22,285 [DEBUG] - Skipping model of type Ljava/util/List<Lcom/pccube/vvas/template/db/collection/Reply;>; as its either a container type, map, enum or base type, or its already been handled
+2019-04-23 13:21:22,285 [DEBUG] - Inferred 4 properties. Properties found emailBody, emailObject, sentDate, userEmail
+2019-04-23 13:21:22,285 [DEBUG] - Adding a new model with key Answer
+2019-04-23 13:21:22,285 [DEBUG] - Adding a new model with key Reply
+2019-04-23 13:21:22,293 [DEBUG] - Setting spring response class to:VasResponse
+2019-04-23 13:21:22,295 [DEBUG] - Authorization count 0 for method saveSurvey
+2019-04-23 13:21:22,297 [DEBUG] - Setting response class to:VasResponse
+2019-04-23 13:21:22,305 [DEBUG] - Setting spring response class to:VasResponse
+2019-04-23 13:21:22,307 [DEBUG] - Authorization count 0 for method saveSurvey
+2019-04-23 13:21:22,308 [DEBUG] - Setting response class to:VasResponse
+2019-04-23 13:21:22,312 [DEBUG] - Adding return parameter of type Lcom/pccube/vvas/template/fe/VasResponse;
+2019-04-23 13:21:22,312 [DEBUG] - Reading parameters models for handlerMethod |sendReplyToFeedback|
+2019-04-23 13:21:22,314 [DEBUG] - Adding input parameter of type Lcom/pccube/vvas/template/fe/ReplyInfo;
+2019-04-23 13:21:22,315 [DEBUG] - Finished reading parameters models for handlerMethod |sendReplyToFeedback|
+2019-04-23 13:21:22,316 [DEBUG] - Reading parameters models for handlerMethod |sendReplyToFeedback|
+2019-04-23 13:21:22,316 [DEBUG] - Generated parameter model id: VasResponse, name: VasResponse, schema: {} models
+2019-04-23 13:21:22,318 [DEBUG] - Reading property surveyId
+2019-04-23 13:21:22,318 [DEBUG] - Evaluating unwrapped setter for member setSurveyId
+2019-04-23 13:21:22,318 [DEBUG] - Name 'surveyId' renamed to 'surveyId'
+2019-04-23 13:21:22,318 [DEBUG] - Adding property surveyId to model
+2019-04-23 13:21:22,318 [DEBUG] - Evaluating unwrapped setter for member setSurveyId
+2019-04-23 13:21:22,318 [DEBUG] - Evaluating unwrapped setter for member setSurveyId
+2019-04-23 13:21:22,318 [DEBUG] - Evaluating unwrapped setter for member setSurveyId
+2019-04-23 13:21:22,319 [DEBUG] - Evaluating unwrapped setter for member setSurveyId
+2019-04-23 13:21:22,319 [DEBUG] - Reading property reply
+2019-04-23 13:21:22,319 [DEBUG] - Evaluating unwrapped setter for member setReply
+2019-04-23 13:21:22,319 [DEBUG] - Name 'reply' renamed to 'reply'
+2019-04-23 13:21:22,319 [DEBUG] - Adding property reply to model
+2019-04-23 13:21:22,319 [DEBUG] - Evaluating unwrapped setter for member setReply
+2019-04-23 13:21:22,319 [DEBUG] - Evaluating unwrapped setter for member setReply
+2019-04-23 13:21:22,319 [DEBUG] - Evaluating unwrapped setter for member setReply
+2019-04-23 13:21:22,320 [DEBUG] - Evaluating unwrapped setter for member setReply
+2019-04-23 13:21:22,320 [DEBUG] - Inferred 2 properties. Properties found reply, surveyId
+2019-04-23 13:21:22,320 [DEBUG] - Generated parameter model id: ReplyInfo, name: ReplyInfo, schema: {} models
+2019-04-23 13:21:22,320 [DEBUG] - Adding a new model with key ReplyInfo
+2019-04-23 13:21:22,321 [DEBUG] - Adding type Lcom/pccube/vvas/template/db/collection/Reply; for parameter reply
+2019-04-23 13:21:22,321 [DEBUG] - Recursively resolving dependencies for type Lcom/pccube/vvas/template/db/collection/Reply;
+2019-04-23 13:21:22,321 [DEBUG] - Inferred 4 properties. Properties found emailBody, emailObject, sentDate, userEmail
+2019-04-23 13:21:22,328 [DEBUG] - Setting spring response class to:VasResponse
+2019-04-23 13:21:22,330 [DEBUG] - Authorization count 0 for method sendReplyToFeedback
+2019-04-23 13:21:22,332 [DEBUG] - Setting response class to:VasResponse
+2019-04-23 13:21:22,343 [DEBUG] - Setting spring response class to:VasResponse
+2019-04-23 13:21:22,346 [DEBUG] - Authorization count 0 for method sendReplyToFeedback
+2019-04-23 13:21:22,348 [DEBUG] - Setting response class to:VasResponse
+2019-04-23 13:21:22,385 [DEBUG] - Adding return parameter of type Lcom/pccube/vvas/template/fe/VasResponse;
+2019-04-23 13:21:22,389 [DEBUG] - Reading parameters models for handlerMethod |getAllTemplates|
+2019-04-23 13:21:22,391 [DEBUG] - Finished reading parameters models for handlerMethod |getAllTemplates|
+2019-04-23 13:21:22,392 [DEBUG] - Reading parameters models for handlerMethod |getAllTemplates|
+2019-04-23 13:21:22,392 [DEBUG] - Generated parameter model id: VasResponse, name: VasResponse, schema: {} models
+2019-04-23 13:21:22,392 [DEBUG] - Adding a new model with key VasResponse
+2019-04-23 13:21:22,398 [DEBUG] - Setting spring response class to:VasResponse
+2019-04-23 13:21:22,402 [DEBUG] - Authorization count 0 for method getAllTemplates
+2019-04-23 13:21:22,405 [DEBUG] - Setting response class to:VasResponse
+2019-04-23 13:21:22,415 [DEBUG] - Setting spring response class to:VasResponse
+2019-04-23 13:21:22,417 [DEBUG] - Authorization count 0 for method getAllTemplates
+2019-04-23 13:21:22,418 [DEBUG] - Setting response class to:VasResponse
+2019-04-23 13:21:22,422 [DEBUG] - Adding return parameter of type Lcom/pccube/vvas/template/fe/VasResponse;
+2019-04-23 13:21:22,422 [DEBUG] - Reading parameters models for handlerMethod |getPublishedTemplates|
+2019-04-23 13:21:22,422 [DEBUG] - Finished reading parameters models for handlerMethod |getPublishedTemplates|
+2019-04-23 13:21:22,423 [DEBUG] - Reading parameters models for handlerMethod |getPublishedTemplates|
+2019-04-23 13:21:22,424 [DEBUG] - Generated parameter model id: VasResponse, name: VasResponse, schema: {} models
+2019-04-23 13:21:22,426 [DEBUG] - Setting spring response class to:VasResponse
+2019-04-23 13:21:22,427 [DEBUG] - Authorization count 0 for method getPublishedTemplates
+2019-04-23 13:21:22,429 [DEBUG] - Setting response class to:VasResponse
+2019-04-23 13:21:22,432 [DEBUG] - Setting spring response class to:VasResponse
+2019-04-23 13:21:22,433 [DEBUG] - Authorization count 0 for method getPublishedTemplates
+2019-04-23 13:21:22,434 [DEBUG] - Setting response class to:VasResponse
+2019-04-23 13:21:22,437 [DEBUG] - Adding return parameter of type Lcom/pccube/vvas/template/fe/VasResponse;
+2019-04-23 13:21:22,437 [DEBUG] - Reading parameters models for handlerMethod |getTemplate|
+2019-04-23 13:21:22,440 [DEBUG] - Finished reading parameters models for handlerMethod |getTemplate|
+2019-04-23 13:21:22,441 [DEBUG] - Reading parameters models for handlerMethod |getTemplate|
+2019-04-23 13:21:22,442 [DEBUG] - Generated parameter model id: VasResponse, name: VasResponse, schema: {} models
+2019-04-23 13:21:22,452 [DEBUG] - Setting spring response class to:VasResponse
+2019-04-23 13:21:22,453 [DEBUG] - Authorization count 0 for method getTemplate
+2019-04-23 13:21:22,454 [DEBUG] - Setting response class to:VasResponse
+2019-04-23 13:21:22,460 [DEBUG] - Setting spring response class to:VasResponse
+2019-04-23 13:21:22,461 [DEBUG] - Authorization count 0 for method getTemplate
+2019-04-23 13:21:22,463 [DEBUG] - Setting response class to:VasResponse
+2019-04-23 13:21:22,467 [DEBUG] - Adding return parameter of type Lcom/pccube/vvas/template/fe/VasResponse;
+2019-04-23 13:21:22,467 [DEBUG] - Reading parameters models for handlerMethod |getTemplatesInfo|
+2019-04-23 13:21:22,469 [DEBUG] - Finished reading parameters models for handlerMethod |getTemplatesInfo|
+2019-04-23 13:21:22,470 [DEBUG] - Reading parameters models for handlerMethod |getTemplatesInfo|
+2019-04-23 13:21:22,472 [DEBUG] - Generated parameter model id: VasResponse, name: VasResponse, schema: {} models
+2019-04-23 13:21:22,477 [DEBUG] - Setting spring response class to:VasResponse
+2019-04-23 13:21:22,478 [DEBUG] - Authorization count 0 for method getTemplatesInfo
+2019-04-23 13:21:22,480 [DEBUG] - Setting response class to:VasResponse
+2019-04-23 13:21:22,485 [DEBUG] - Setting spring response class to:VasResponse
+2019-04-23 13:21:22,486 [DEBUG] - Authorization count 0 for method getTemplatesInfo
+2019-04-23 13:21:22,488 [DEBUG] - Setting response class to:VasResponse
+2019-04-23 13:21:22,490 [DEBUG] - Adding return parameter of type [B
+2019-04-23 13:21:22,491 [DEBUG] - Reading parameters models for handlerMethod |icons|
+2019-04-23 13:21:22,492 [DEBUG] - Finished reading parameters models for handlerMethod |icons|
+2019-04-23 13:21:22,493 [DEBUG] - Reading parameters models for handlerMethod |icons|
+2019-04-23 13:21:22,493 [DEBUG] - Skipping model of type [B as its either a container type, map, enum or base type, or its already been handled
+2019-04-23 13:21:22,494 [DEBUG] - Did not find any parameter models for byte[]
+2019-04-23 13:21:22,494 [DEBUG] - Adding type for element B
+2019-04-23 13:21:22,494 [DEBUG] - Recursively resolving dependencies for element B
+2019-04-23 13:21:22,494 [DEBUG] - Marking base type B as seen
+2019-04-23 13:21:22,500 [DEBUG] - Setting spring response class to:Array
+2019-04-23 13:21:22,502 [DEBUG] - Authorization count 0 for method icons
+2019-04-23 13:21:22,504 [DEBUG] - Setting response class to:Array
+2019-04-23 13:21:22,511 [DEBUG] - Setting spring response class to:Array
+2019-04-23 13:21:22,513 [DEBUG] - Authorization count 0 for method icons
+2019-04-23 13:21:22,515 [DEBUG] - Setting response class to:Array
+2019-04-23 13:21:22,517 [DEBUG] - Adding return parameter of type Lcom/pccube/vvas/template/fe/VasResponse;
+2019-04-23 13:21:22,518 [DEBUG] - Reading parameters models for handlerMethod |publishTemplate|
+2019-04-23 13:21:22,520 [DEBUG] - Adding input parameter of type Lcom/pccube/vvas/template/db/collection/Template;
+2019-04-23 13:21:22,520 [DEBUG] - Finished reading parameters models for handlerMethod |publishTemplate|
+2019-04-23 13:21:22,522 [DEBUG] - Reading parameters models for handlerMethod |publishTemplate|
+2019-04-23 13:21:22,524 [DEBUG] - Reading property templateId
+2019-04-23 13:21:22,525 [DEBUG] - Evaluating unwrapped setter for member setTemplateId
+2019-04-23 13:21:22,525 [DEBUG] - Name 'templateId' renamed to 'templateId'
+2019-04-23 13:21:22,525 [DEBUG] - Adding property templateId to model
+2019-04-23 13:21:22,525 [DEBUG] - Evaluating unwrapped setter for member setTemplateId
+2019-04-23 13:21:22,525 [DEBUG] - Evaluating unwrapped setter for member setTemplateId
+2019-04-23 13:21:22,526 [DEBUG] - Evaluating unwrapped setter for member setTemplateId
+2019-04-23 13:21:22,526 [DEBUG] - Evaluating unwrapped setter for member setTemplateId
+2019-04-23 13:21:22,526 [DEBUG] - Reading property authorId
+2019-04-23 13:21:22,526 [DEBUG] - Evaluating unwrapped setter for member setAuthorId
+2019-04-23 13:21:22,526 [DEBUG] - Name 'authorId' renamed to 'authorId'
+2019-04-23 13:21:22,526 [DEBUG] - Adding property authorId to model
+2019-04-23 13:21:22,526 [DEBUG] - Evaluating unwrapped setter for member setAuthorId
+2019-04-23 13:21:22,526 [DEBUG] - Evaluating unwrapped setter for member setAuthorId
+2019-04-23 13:21:22,526 [DEBUG] - Evaluating unwrapped setter for member setAuthorId
+2019-04-23 13:21:22,526 [DEBUG] - Evaluating unwrapped setter for member setAuthorId
+2019-04-23 13:21:22,526 [DEBUG] - Reading property title
+2019-04-23 13:21:22,527 [DEBUG] - Evaluating unwrapped setter for member setTitle
+2019-04-23 13:21:22,527 [DEBUG] - Name 'title' renamed to 'title'
+2019-04-23 13:21:22,527 [DEBUG] - Adding property title to model
+2019-04-23 13:21:22,527 [DEBUG] - Evaluating unwrapped setter for member setTitle
+2019-04-23 13:21:22,527 [DEBUG] - Evaluating unwrapped setter for member setTitle
+2019-04-23 13:21:22,527 [DEBUG] - Evaluating unwrapped setter for member setTitle
+2019-04-23 13:21:22,527 [DEBUG] - Evaluating unwrapped setter for member setTitle
+2019-04-23 13:21:22,527 [DEBUG] - Reading property description
+2019-04-23 13:21:22,527 [DEBUG] - Evaluating unwrapped setter for member setDescription
+2019-04-23 13:21:22,527 [DEBUG] - Name 'description' renamed to 'description'
+2019-04-23 13:21:22,527 [DEBUG] - Adding property description to model
+2019-04-23 13:21:22,527 [DEBUG] - Evaluating unwrapped setter for member setDescription
+2019-04-23 13:21:22,527 [DEBUG] - Evaluating unwrapped setter for member setDescription
+2019-04-23 13:21:22,527 [DEBUG] - Evaluating unwrapped setter for member setDescription
+2019-04-23 13:21:22,527 [DEBUG] - Evaluating unwrapped setter for member setDescription
+2019-04-23 13:21:22,528 [DEBUG] - Reading property status
+2019-04-23 13:21:22,528 [DEBUG] - Evaluating unwrapped setter for member setStatus
+2019-04-23 13:21:22,528 [DEBUG] - Name 'status' renamed to 'status'
+2019-04-23 13:21:22,528 [DEBUG] - Adding property status to model
+2019-04-23 13:21:22,528 [DEBUG] - Evaluating unwrapped setter for member setStatus
+2019-04-23 13:21:22,528 [DEBUG] - Evaluating unwrapped setter for member setStatus
+2019-04-23 13:21:22,528 [DEBUG] - Evaluating unwrapped setter for member setStatus
+2019-04-23 13:21:22,528 [DEBUG] - Evaluating unwrapped setter for member setStatus
+2019-04-23 13:21:22,528 [DEBUG] - Reading property saveDate
+2019-04-23 13:21:22,528 [DEBUG] - Evaluating unwrapped setter for member setSaveDate
+2019-04-23 13:21:22,528 [DEBUG] - Name 'saveDate' renamed to 'saveDate'
+2019-04-23 13:21:22,529 [DEBUG] - Adding property saveDate to model
+2019-04-23 13:21:22,529 [DEBUG] - Evaluating unwrapped setter for member setSaveDate
+2019-04-23 13:21:22,529 [DEBUG] - Evaluating unwrapped setter for member setSaveDate
+2019-04-23 13:21:22,529 [DEBUG] - Evaluating unwrapped setter for member setSaveDate
+2019-04-23 13:21:22,529 [DEBUG] - Evaluating unwrapped setter for member setSaveDate
+2019-04-23 13:21:22,529 [DEBUG] - Reading property publishDate
+2019-04-23 13:21:22,529 [DEBUG] - Evaluating unwrapped setter for member setPublishDate
+2019-04-23 13:21:22,529 [DEBUG] - Name 'publishDate' renamed to 'publishDate'
+2019-04-23 13:21:22,529 [DEBUG] - Adding property publishDate to model
+2019-04-23 13:21:22,529 [DEBUG] - Evaluating unwrapped setter for member setPublishDate
+2019-04-23 13:21:22,529 [DEBUG] - Evaluating unwrapped setter for member setPublishDate
+2019-04-23 13:21:22,529 [DEBUG] - Evaluating unwrapped setter for member setPublishDate
+2019-04-23 13:21:22,529 [DEBUG] - Evaluating unwrapped setter for member setPublishDate
+2019-04-23 13:21:22,529 [DEBUG] - Reading property keywords
+2019-04-23 13:21:22,530 [DEBUG] - Evaluating unwrapped setter for member setKeywords
+2019-04-23 13:21:22,530 [DEBUG] - Name 'keywords' renamed to 'keywords'
+2019-04-23 13:21:22,530 [DEBUG] - Adding property keywords to model
+2019-04-23 13:21:22,530 [DEBUG] - Evaluating unwrapped setter for member setKeywords
+2019-04-23 13:21:22,530 [DEBUG] - Evaluating unwrapped setter for member setKeywords
+2019-04-23 13:21:22,530 [DEBUG] - Evaluating unwrapped setter for member setKeywords
+2019-04-23 13:21:22,530 [DEBUG] - Evaluating unwrapped setter for member setKeywords
+2019-04-23 13:21:22,530 [DEBUG] - Reading property icon
+2019-04-23 13:21:22,530 [DEBUG] - Evaluating unwrapped setter for member setIcon
+2019-04-23 13:21:22,530 [DEBUG] - Name 'icon' renamed to 'icon'
+2019-04-23 13:21:22,530 [DEBUG] - Adding property icon to model
+2019-04-23 13:21:22,530 [DEBUG] - Evaluating unwrapped setter for member setIcon
+2019-04-23 13:21:22,531 [DEBUG] - Evaluating unwrapped setter for member setIcon
+2019-04-23 13:21:22,531 [DEBUG] - Evaluating unwrapped setter for member setIcon
+2019-04-23 13:21:22,531 [DEBUG] - Evaluating unwrapped setter for member setIcon
+2019-04-23 13:21:22,531 [DEBUG] - Reading property xml
+2019-04-23 13:21:22,531 [DEBUG] - Evaluating unwrapped setter for member setXml
+2019-04-23 13:21:22,531 [DEBUG] - Name 'xml' renamed to 'xml'
+2019-04-23 13:21:22,531 [DEBUG] - Adding property xml to model
+2019-04-23 13:21:22,531 [DEBUG] - Evaluating unwrapped setter for member setXml
+2019-04-23 13:21:22,531 [DEBUG] - Evaluating unwrapped setter for member setXml
+2019-04-23 13:21:22,531 [DEBUG] - Evaluating unwrapped setter for member setXml
+2019-04-23 13:21:22,531 [DEBUG] - Evaluating unwrapped setter for member setXml
+2019-04-23 13:21:22,531 [DEBUG] - Reading property questions
+2019-04-23 13:21:22,532 [DEBUG] - Evaluating unwrapped setter for member setQuestions
+2019-04-23 13:21:22,532 [DEBUG] - Name 'questions' renamed to 'questions'
+2019-04-23 13:21:22,532 [DEBUG] - Adding property questions to model
+2019-04-23 13:21:22,532 [DEBUG] - Evaluating unwrapped setter for member setQuestions
+2019-04-23 13:21:22,532 [DEBUG] - Evaluating unwrapped setter for member setQuestions
+2019-04-23 13:21:22,532 [DEBUG] - Evaluating unwrapped setter for member setQuestions
+2019-04-23 13:21:22,532 [DEBUG] - Evaluating unwrapped setter for member setQuestions
+2019-04-23 13:21:22,533 [DEBUG] - Inferred 11 properties. Properties found authorId, description, icon, keywords, publishDate, questions, saveDate, status, templateId, title, xml
+2019-04-23 13:21:22,533 [DEBUG] - Generated parameter model id: Template, name: Template, schema: {} models
+2019-04-23 13:21:22,533 [DEBUG] - Adding a new model with key Template
+2019-04-23 13:21:22,533 [DEBUG] - Adding type Ljava/util/List<Ljava/lang/String;>; for parameter keywords
+2019-04-23 13:21:22,534 [DEBUG] - Recursively resolving dependencies for collectionElement type Ljava/lang/String;
+2019-04-23 13:21:22,534 [DEBUG] - Marking base type Ljava/lang/String; as seen
+2019-04-23 13:21:22,534 [DEBUG] - Adding type Ljava/util/List<Lcom/pccube/vvas/template/db/collection/Question;>; for parameter questions
+2019-04-23 13:21:22,534 [DEBUG] - Adding collectionElement type Lcom/pccube/vvas/template/db/collection/Question;
+2019-04-23 13:21:22,534 [DEBUG] - Recursively resolving dependencies for collectionElement type Lcom/pccube/vvas/template/db/collection/Question;
+2019-04-23 13:21:22,534 [DEBUG] - Reading property questionId
+2019-04-23 13:21:22,535 [DEBUG] - Evaluating unwrapped setter for member setQuestionId
+2019-04-23 13:21:22,535 [DEBUG] - Name 'questionId' renamed to 'questionId'
+2019-04-23 13:21:22,535 [DEBUG] - Adding property questionId to model
+2019-04-23 13:21:22,535 [DEBUG] - Evaluating unwrapped setter for member setQuestionId
+2019-04-23 13:21:22,535 [DEBUG] - Evaluating unwrapped setter for member setQuestionId
+2019-04-23 13:21:22,535 [DEBUG] - Evaluating unwrapped setter for member setQuestionId
+2019-04-23 13:21:22,535 [DEBUG] - Evaluating unwrapped setter for member setQuestionId
+2019-04-23 13:21:22,535 [DEBUG] - Reading property questionText
+2019-04-23 13:21:22,535 [DEBUG] - Evaluating unwrapped setter for member setQuestionText
+2019-04-23 13:21:22,535 [DEBUG] - Name 'questionText' renamed to 'questionText'
+2019-04-23 13:21:22,535 [DEBUG] - Adding property questionText to model
+2019-04-23 13:21:22,537 [DEBUG] - Evaluating unwrapped setter for member setQuestionText
+2019-04-23 13:21:22,537 [DEBUG] - Evaluating unwrapped setter for member setQuestionText
+2019-04-23 13:21:22,537 [DEBUG] - Evaluating unwrapped setter for member setQuestionText
+2019-04-23 13:21:22,538 [DEBUG] - Evaluating unwrapped setter for member setQuestionText
+2019-04-23 13:21:22,538 [DEBUG] - Reading property responses
+2019-04-23 13:21:22,538 [DEBUG] - Evaluating unwrapped setter for member setResponses
+2019-04-23 13:21:22,538 [DEBUG] - Name 'responses' renamed to 'responses'
+2019-04-23 13:21:22,538 [DEBUG] - Adding property responses to model
+2019-04-23 13:21:22,538 [DEBUG] - Evaluating unwrapped setter for member setResponses
+2019-04-23 13:21:22,538 [DEBUG] - Evaluating unwrapped setter for member setResponses
+2019-04-23 13:21:22,538 [DEBUG] - Evaluating unwrapped setter for member setResponses
+2019-04-23 13:21:22,538 [DEBUG] - Evaluating unwrapped setter for member setResponses
+2019-04-23 13:21:22,539 [DEBUG] - Adding type Ljava/util/List<Lcom/pccube/vvas/template/db/collection/Response;>; for parameter responses
+2019-04-23 13:21:22,539 [DEBUG] - Adding collectionElement type Lcom/pccube/vvas/template/db/collection/Response;
+2019-04-23 13:21:22,539 [DEBUG] - Recursively resolving dependencies for collectionElement type Lcom/pccube/vvas/template/db/collection/Response;
+2019-04-23 13:21:22,541 [DEBUG] - Reading property keywords
+2019-04-23 13:21:22,541 [DEBUG] - Evaluating unwrapped setter for member setKeywords
+2019-04-23 13:21:22,541 [DEBUG] - Name 'keywords' renamed to 'keywords'
+2019-04-23 13:21:22,542 [DEBUG] - Adding property keywords to model
+2019-04-23 13:21:22,542 [DEBUG] - Evaluating unwrapped setter for member setKeywords
+2019-04-23 13:21:22,542 [DEBUG] - Evaluating unwrapped setter for member setKeywords
+2019-04-23 13:21:22,542 [DEBUG] - Evaluating unwrapped setter for member setKeywords
+2019-04-23 13:21:22,542 [DEBUG] - Evaluating unwrapped setter for member setKeywords
+2019-04-23 13:21:22,542 [DEBUG] - Reading property nextQuestionId
+2019-04-23 13:21:22,542 [DEBUG] - Evaluating unwrapped setter for member setNextQuestionId
+2019-04-23 13:21:22,542 [DEBUG] - Name 'nextQuestionId' renamed to 'nextQuestionId'
+2019-04-23 13:21:22,542 [DEBUG] - Adding property nextQuestionId to model
+2019-04-23 13:21:22,542 [DEBUG] - Evaluating unwrapped setter for member setNextQuestionId
+2019-04-23 13:21:22,542 [DEBUG] - Evaluating unwrapped setter for member setNextQuestionId
+2019-04-23 13:21:22,542 [DEBUG] - Evaluating unwrapped setter for member setNextQuestionId
+2019-04-23 13:21:22,542 [DEBUG] - Evaluating unwrapped setter for member setNextQuestionId
+2019-04-23 13:21:22,543 [DEBUG] - Adding type Ljava/util/List<Ljava/lang/String;>; for parameter keywords
+2019-04-23 13:21:22,543 [DEBUG] - Recursively resolving dependencies for collectionElement type Ljava/lang/String;
+2019-04-23 13:21:22,543 [DEBUG] - Marking base type Ljava/lang/String; as seen
+2019-04-23 13:21:22,544 [DEBUG] - Skipping model of type Ljava/util/List<Ljava/lang/String;>; as its either a container type, map, enum or base type, or its already been handled
+2019-04-23 13:21:22,544 [DEBUG] - Skipping model of type Ljava/util/List<Lcom/pccube/vvas/template/db/collection/Question;>; as its either a container type, map, enum or base type, or its already been handled
+2019-04-23 13:21:22,544 [DEBUG] - Inferred 3 properties. Properties found questionId, questionText, responses
+2019-04-23 13:21:22,544 [DEBUG] - Skipping model of type Ljava/util/List<Lcom/pccube/vvas/template/db/collection/Response;>; as its either a container type, map, enum or base type, or its already been handled
+2019-04-23 13:21:22,545 [DEBUG] - Inferred 2 properties. Properties found keywords, nextQuestionId
+2019-04-23 13:21:22,545 [DEBUG] - Adding a new model with key Response
+2019-04-23 13:21:22,545 [DEBUG] - Adding a new model with key Question
+2019-04-23 13:21:22,545 [DEBUG] - Generated parameter model id: VasResponse, name: VasResponse, schema: {} models
+2019-04-23 13:21:22,557 [DEBUG] - Setting spring response class to:VasResponse
+2019-04-23 13:21:22,559 [DEBUG] - Authorization count 0 for method publishTemplate
+2019-04-23 13:21:22,561 [DEBUG] - Setting response class to:VasResponse
+2019-04-23 13:21:22,567 [DEBUG] - Setting spring response class to:VasResponse
+2019-04-23 13:21:22,568 [DEBUG] - Authorization count 0 for method publishTemplate
+2019-04-23 13:21:22,570 [DEBUG] - Setting response class to:VasResponse
+2019-04-23 13:21:22,572 [DEBUG] - Adding return parameter of type Lcom/pccube/vvas/template/fe/VasResponse;
+2019-04-23 13:21:22,572 [DEBUG] - Reading parameters models for handlerMethod |remove|
+2019-04-23 13:21:22,573 [DEBUG] - Finished reading parameters models for handlerMethod |remove|
+2019-04-23 13:21:22,574 [DEBUG] - Reading parameters models for handlerMethod |remove|
+2019-04-23 13:21:22,574 [DEBUG] - Generated parameter model id: VasResponse, name: VasResponse, schema: {} models
+2019-04-23 13:21:22,579 [DEBUG] - Setting spring response class to:VasResponse
+2019-04-23 13:21:22,582 [DEBUG] - Authorization count 0 for method remove
+2019-04-23 13:21:22,583 [DEBUG] - Setting response class to:VasResponse
+2019-04-23 13:21:22,589 [DEBUG] - Setting spring response class to:VasResponse
+2019-04-23 13:21:22,590 [DEBUG] - Authorization count 0 for method remove
+2019-04-23 13:21:22,591 [DEBUG] - Setting response class to:VasResponse
+2019-04-23 13:21:22,596 [DEBUG] - Adding return parameter of type Lcom/pccube/vvas/template/fe/VasResponse;
+2019-04-23 13:21:22,596 [DEBUG] - Reading parameters models for handlerMethod |saveTemplate|
+2019-04-23 13:21:22,597 [DEBUG] - Adding input parameter of type Lcom/pccube/vvas/template/db/collection/Template;
+2019-04-23 13:21:22,597 [DEBUG] - Finished reading parameters models for handlerMethod |saveTemplate|
+2019-04-23 13:21:22,598 [DEBUG] - Reading parameters models for handlerMethod |saveTemplate|
+2019-04-23 13:21:22,598 [DEBUG] - Generated parameter model id: Template, name: Template, schema: {} models
+2019-04-23 13:21:22,599 [DEBUG] - Skipping model of type Ljava/util/List<Ljava/lang/String;>; as its either a container type, map, enum or base type, or its already been handled
+2019-04-23 13:21:22,599 [DEBUG] - Skipping model of type Ljava/util/List<Lcom/pccube/vvas/template/db/collection/Question;>; as its either a container type, map, enum or base type, or its already been handled
+2019-04-23 13:21:22,599 [DEBUG] - Inferred 3 properties. Properties found questionId, questionText, responses
+2019-04-23 13:21:22,599 [DEBUG] - Skipping model of type Ljava/util/List<Lcom/pccube/vvas/template/db/collection/Response;>; as its either a container type, map, enum or base type, or its already been handled
+2019-04-23 13:21:22,599 [DEBUG] - Inferred 2 properties. Properties found keywords, nextQuestionId
+2019-04-23 13:21:22,600 [DEBUG] - Generated parameter model id: VasResponse, name: VasResponse, schema: {} models
+2019-04-23 13:21:22,604 [DEBUG] - Setting spring response class to:VasResponse
+2019-04-23 13:21:22,605 [DEBUG] - Authorization count 0 for method saveTemplate
+2019-04-23 13:21:22,606 [DEBUG] - Setting response class to:VasResponse
+2019-04-23 13:21:22,611 [DEBUG] - Setting spring response class to:VasResponse
+2019-04-23 13:21:22,613 [DEBUG] - Authorization count 0 for method saveTemplate
+2019-04-23 13:21:22,614 [DEBUG] - Setting response class to:VasResponse
+2019-04-23 13:21:22,616 [DEBUG] - Adding return parameter of type Lcom/pccube/vvas/template/fe/VasResponse;
+2019-04-23 13:21:22,616 [DEBUG] - Reading parameters models for handlerMethod |updateIcon|
+2019-04-23 13:21:22,617 [DEBUG] - Adding input parameter of type Lcom/pccube/vvas/template/db/collection/Template;
+2019-04-23 13:21:22,617 [DEBUG] - Finished reading parameters models for handlerMethod |updateIcon|
+2019-04-23 13:21:22,618 [DEBUG] - Reading parameters models for handlerMethod |updateIcon|
+2019-04-23 13:21:22,618 [DEBUG] - Generated parameter model id: Template, name: Template, schema: {} models
+2019-04-23 13:21:22,618 [DEBUG] - Skipping model of type Ljava/util/List<Ljava/lang/String;>; as its either a container type, map, enum or base type, or its already been handled
+2019-04-23 13:21:22,619 [DEBUG] - Skipping model of type Ljava/util/List<Lcom/pccube/vvas/template/db/collection/Question;>; as its either a container type, map, enum or base type, or its already been handled
+2019-04-23 13:21:22,619 [DEBUG] - Inferred 3 properties. Properties found questionId, questionText, responses
+2019-04-23 13:21:22,619 [DEBUG] - Skipping model of type Ljava/util/List<Lcom/pccube/vvas/template/db/collection/Response;>; as its either a container type, map, enum or base type, or its already been handled
+2019-04-23 13:21:22,619 [DEBUG] - Inferred 2 properties. Properties found keywords, nextQuestionId
+2019-04-23 13:21:22,619 [DEBUG] - Generated parameter model id: VasResponse, name: VasResponse, schema: {} models
+2019-04-23 13:21:22,624 [DEBUG] - Setting spring response class to:VasResponse
+2019-04-23 13:21:22,626 [DEBUG] - Authorization count 0 for method updateIcon
+2019-04-23 13:21:22,626 [DEBUG] - Setting response class to:VasResponse
+2019-04-23 13:21:22,631 [DEBUG] - Setting spring response class to:VasResponse
+2019-04-23 13:21:22,632 [DEBUG] - Authorization count 0 for method updateIcon
+2019-04-23 13:21:22,633 [DEBUG] - Setting response class to:VasResponse
+2019-04-23 13:21:22,679 [INFO ] - Starting ProtocolHandler ["http-nio-8041"]
+2019-04-23 13:21:22,711 [INFO ] - Using a shared selector for servlet write/read
+2019-04-23 13:21:22,747 [INFO ] - Tomcat started on port(s): 8041 (http)
+2019-04-23 13:21:22,762 [INFO ] - Started SpringBootApp in 30.345 seconds (JVM running for 31.006)
+2019-04-23 13:21:50,717 [INFO ] - Initializing Spring FrameworkServlet 'dispatcherServlet'
+2019-04-23 13:21:50,718 [INFO ] - FrameworkServlet 'dispatcherServlet': initialization started
+2019-04-23 13:21:50,754 [INFO ] - FrameworkServlet 'dispatcherServlet': initialization completed in 36 ms
+2019-04-23 13:22:28,103 [DEBUG] - JSON INPUT - Not necessary
+2019-04-23 13:22:28,127 [DEBUG] - Sending command {find : BsonString{value='surveys'}} to database vassistant on connection [connectionId{localValue:2, serverValue:91}] to server vva-services.pccube.com:27017
+2019-04-23 13:22:28,467 [DEBUG] - Command execution completed
+2019-04-23 13:22:28,594 [DEBUG] - Sending command {find : BsonString{value='templates'}} to database vassistant on connection [connectionId{localValue:2, serverValue:91}] to server vva-services.pccube.com:27017
+2019-04-23 13:22:28,700 [DEBUG] - Command execution completed
+2019-04-23 13:22:28,725 [DEBUG] - Sending command {find : BsonString{value='templates'}} to database vassistant on connection [connectionId{localValue:2, serverValue:91}] to server vva-services.pccube.com:27017
+2019-04-23 13:22:28,830 [DEBUG] - Command execution completed
+2019-04-23 13:22:28,835 [DEBUG] - Sending command {find : BsonString{value='templates'}} to database vassistant on connection [connectionId{localValue:2, serverValue:91}] to server vva-services.pccube.com:27017
+2019-04-23 13:22:28,941 [DEBUG] - Command execution completed
+2019-04-23 13:22:28,945 [DEBUG] - Sending command {find : BsonString{value='templates'}} to database vassistant on connection [connectionId{localValue:2, serverValue:91}] to server vva-services.pccube.com:27017
+2019-04-23 13:22:29,050 [DEBUG] - Command execution completed
+2019-04-23 13:22:29,053 [DEBUG] - Sending command {find : BsonString{value='templates'}} to database vassistant on connection [connectionId{localValue:2, serverValue:91}] to server vva-services.pccube.com:27017
+2019-04-23 13:22:29,157 [DEBUG] - Command execution completed
+2019-04-23 13:22:29,161 [DEBUG] - Sending command {find : BsonString{value='templates'}} to database vassistant on connection [connectionId{localValue:2, serverValue:91}] to server vva-services.pccube.com:27017
+2019-04-23 13:22:29,267 [DEBUG] - Command execution completed
+2019-04-23 13:22:29,272 [DEBUG] - Sending command {find : BsonString{value='templates'}} to database vassistant on connection [connectionId{localValue:2, serverValue:91}] to server vva-services.pccube.com:27017
+2019-04-23 13:22:29,377 [DEBUG] - Command execution completed
+2019-04-23 13:22:29,380 [DEBUG] - JSON OUTPUT SurveyList Size = ?

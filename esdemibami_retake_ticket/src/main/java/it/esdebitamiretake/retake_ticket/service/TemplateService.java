@@ -1,0 +1,366 @@
+package it.esdebitamiretake.retake_ticket.service;
+
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Base64;
+import java.util.Date;
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.data.mongodb.gridfs.GridFsCriteria;
+import org.springframework.data.mongodb.gridfs.GridFsTemplate;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
+
+import com.google.common.io.ByteStreams;
+import com.mongodb.client.gridfs.model.GridFSFile;
+
+import it.esdebitamiretake.retake_ticket.collection.Question;
+import it.esdebitamiretake.retake_ticket.collection.Response;
+import it.esdebitamiretake.retake_ticket.collection.Template;
+import it.esdebitamiretake.retake_ticket.controller.ResourceNotFoundException;
+import it.esdebitamiretake.retake_ticket.fe.TemplateInfo;
+import it.esdebitamiretake.retake_ticket.fe.TemplateStatus;
+import it.esdebitamiretake.retake_ticket.repo.TemplateRepository;
+
+@Service
+public class TemplateService {
+	
+	@Autowired
+	TemplateRepository templateRepository;
+	
+	@Autowired
+	MongoTemplate mongoTemplate;
+	
+	@Autowired
+	private final GridFsTemplate gridFsTemplate;
+	
+	private static final Logger logger = LoggerFactory.getLogger(TemplateService.class);
+
+	@Autowired
+	public TemplateService(GridFsTemplate gridFsTemplate) {
+		
+		this.gridFsTemplate = gridFsTemplate;
+	
+	}
+
+	public List<Template> findAll(Integer page, Integer pagesize) throws ResourceNotFoundException {
+	
+		return templateRepository.findAll(PageRequest.of(page.intValue(), pagesize.intValue())).getContent();
+	
+	}
+
+	public List<TemplateInfo> findTemplatesInfo(Integer page, Integer pagesize) {
+	
+		return templateRepository.findTemplatesInfo(PageRequest.of(page.intValue(), pagesize.intValue()));
+	
+	}
+
+	public List<Template> findByStatus(Integer theStatus) throws ResourceNotFoundException{
+	
+		logger.debug("JSON STRING - theStatus=" + theStatus);
+		return templateRepository.findByStatus(theStatus);
+	
+	}
+
+	public Template findTemplateById(String theTemplateId) throws ResourceNotFoundException{
+		
+		logger.debug("JSON STRING = ?", theTemplateId);
+		return templateRepository.findByTemplateId(theTemplateId);
+	
+	}
+
+	//'TODO remove
+	/*public Template saveTemplate(Template theTemplate) {
+		
+		return save(theTemplate, TemplateStatus.SAVED);
+	}*/
+	
+
+	public Template publishTemplate(Template theTemplate) {
+		
+		return save(theTemplate, TemplateStatus.PUBLISHED);
+	}
+	
+
+	public Template editTemplateStatus(Template theTemplate) {
+		
+		return this.mongoTemplate.save(theTemplate);
+	}
+	
+
+	private Template save(Template template, Integer status) {
+
+		String templateId = template.getTemplateId();
+		String iconBase64 = template.getIcon();
+		//Date saveDate= template.getSaveDate();
+
+		Date nowDate = new Date();
+		template.setIcon(templateId);
+		template.setStatus(status);
+		template.setSaveDate(nowDate);
+		//template.setSaveDate(saveDate != null ? saveDate : nowDate);
+		template.setPublishDate(status.compareTo(TemplateStatus.PUBLISHED) == 0 ? nowDate : null);
+
+		template = templateRepository.save(template);
+		
+		templateId=template.getTemplateId();
+
+		Optional<GridFSFile> existing = maybeLoadFile(templateId);
+
+		if (existing.isPresent())
+			this.gridFsTemplate.delete(getFilenameQuery(templateId));
+
+		if (iconBase64 != null) {
+			ByteArrayInputStream bis = new ByteArrayInputStream(Base64.getDecoder().decode(iconBase64));
+			this.gridFsTemplate.store(bis, templateId);
+		}
+
+		return template;
+	}
+	
+
+	private Optional<GridFSFile> maybeLoadFile(String filename) {
+		GridFSFile file = this.gridFsTemplate.findOne(getFilenameQuery(filename));
+		return Optional.ofNullable(file);
+	}
+
+	private static Query getFilenameQuery(String filename) {
+		return Query.query(GridFsCriteria.whereFilename().is(filename));
+	}
+
+	public String updateIcon(Template theTemplate) {
+		String templateId = theTemplate.getTemplateId();
+		String iconBase64 = theTemplate.getIcon();
+
+		byte[] bytesArray = Base64.getDecoder().decode(iconBase64);
+		ByteArrayInputStream bis = new ByteArrayInputStream(bytesArray);
+
+		Template template = templateRepository.findByTemplateId(templateId);
+
+		template.setIcon(templateId);
+		templateRepository.save(template);
+
+		Optional<GridFSFile> existing = maybeLoadFile(templateId);
+		if (existing.isPresent()) {
+			gridFsTemplate.delete(getFilenameQuery(templateId));
+		}
+		
+		gridFsTemplate.store(bis, templateId);
+
+		return theTemplate.getTemplateId();
+	}
+
+	public void deleteTemplate(String templateId) {
+		Template templateToDelete = templateRepository.findByTemplateId(templateId);
+		if (templateToDelete != null) {
+			templateRepository.delete(templateToDelete);
+		} else {
+			logger.debug("(Delete) Template to Delete not found");
+		}
+		logger.debug("(Delete) Deleted = OK");
+	}
+
+	public byte[] findIconByTemplateId(String templateId) {
+		Template template = templateRepository.findByTemplateId(templateId);
+		byte[] iconBytesArray = Base64.getDecoder().decode(template.getIcon());
+		return iconBytesArray;
+	}
+
+	public HttpEntity<byte[]> findGridFsIconByTemplateId(String templateId) {
+		try {
+			Optional<GridFSFile> optionalCreated = maybeLoadFile(templateId);
+			if (optionalCreated.isPresent()) {
+				
+				GridFSFile created = (GridFSFile) optionalCreated.get();
+				HttpHeaders headers = new HttpHeaders();
+				//headers.add("Content-Type", created.getContentType());
+				return new HttpEntity<>(ByteStreams.toByteArray(gridFsTemplate.getResource(created).getInputStream()), headers);
+			}
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		} catch (IOException e) {
+		}
+		return new ResponseEntity<>(HttpStatus.IM_USED);
+	}
+
+	public List<Template> findTemplatesByIdsAndStatus(Set<String> theTemplatesIds, Integer theStatus) {
+		
+		logger.debug("JSON STRING - theNumberOfTemplates=" + theTemplatesIds.size());
+		return templateRepository.findByIdsAndStatus(theTemplatesIds, theStatus);
+		
+	}
+
+	public List<Template> findTemplatesByIds(Set<String> theTemplatesIds) {
+		logger.debug("JSON STRING - theNumberOfTemplates=" + theTemplatesIds.size());
+		return templateRepository.findByIds(theTemplatesIds);
+	}
+	
+	
+	//'TODO check save for template 
+	public Template saveTemplate(Template template) throws ResourceNotFoundException {
+		
+		List<Question> questionsList = template.getQuestions();
+		String type = template.getTemplateType();
+		boolean control = true;
+		
+		if(type.equalsIgnoreCase("Libero")) {
+			
+			for (Question q : questionsList) {
+				List<Response> responsesList = q.getResponses();
+				if (responsesList != null && !responsesList.isEmpty()) {
+					for (Response r : responsesList) {
+						r.setKeywords(new ArrayList<String>());
+					}
+				}
+			}
+			template = save(template, template.getStatus());	
+			
+		} else if (type.equalsIgnoreCase("Controllato")) {
+			
+			for (Question q : questionsList) {
+				List<Response> responsesList = q.getResponses();
+				if (responsesList != null && !responsesList.isEmpty()) {
+					for (Response r : responsesList) {
+						List<String> keywords = r.getKeywords();
+						if (keywords.isEmpty() || keywords == null) 
+							control = false;
+					}
+					if (!control)
+						break;
+				}
+			}
+			if (control)
+				template = save(template, template.getStatus());
+			else
+				throw new ResourceNotFoundException("Template", "keywords" , type);
+				//throw new ResourceNotFoundException("template");
+			
+		} else if (type.equalsIgnoreCase("TestInvalsi")){
+			
+			logger.info("Start type: TestInvalsi for ADR");
+			for (Question q : questionsList) {
+				
+				boolean test = q.getTest();
+				String datatype = q.getDataType();
+				//List<Response> responsesList = q.getResponses();
+				
+				if(q.getResponses() != null && !q.getResponses().isEmpty()) {
+					
+					for (Response r : q.getResponses()) {
+						List<String> keywords = r.getKeywords();
+						if (keywords == null)
+							r.setKeywords(new ArrayList<String>());
+					}
+					
+				}
+				
+				if (test) {
+					
+					if (datatype.equalsIgnoreCase("S") && q.getWeight() !=null && ( q.getResponses() !=null || !q.getResponses().isEmpty() ) ) {
+						
+					      for (Response response : q.getResponses()) {
+					    	  
+					        if( response.getKeywords() == null || response.getKeywords().isEmpty() || response.getScore() == null || response.getNextQuestionId() == null )
+					        	throw new ResourceNotFoundException("Template", "keywords, score or nextQuestionId" , type);
+					        
+					      }
+					      
+					} else if (datatype.equalsIgnoreCase("N") && q.getWeight() !=null && ( q.getResponses() !=null || !q.getResponses().isEmpty() ) ) {
+						
+						for (Response response : q.getResponses()) {
+					    	  
+					        if( response.getScore() == null || response.getNextQuestionId() == null ||
+					        		response.getOperator() == null || response.getValue() == null) 
+					        	throw new ResourceNotFoundException("Template", "score, operator, value or nextQuestionId" , type);
+					        
+					      }
+					      
+					} else {
+						// 400 bad request nullPointer
+						throw new ResourceNotFoundException("Template", "datatype", type);
+						
+						
+					}
+				
+				}
+				
+			}
+			
+			template = save(template, template.getStatus());
+			
+		} else if ( type.equalsIgnoreCase("Anagrafica") ) {
+			
+		      logger.info("Start type: Anagrafica");
+		      
+		      for (Question question : questionsList) {
+		    	  
+		        if( !question.getLastQuestion() && question.getFieldFlag() == null )
+		        	throw new ResourceNotFoundException("Template", "lastQuestion & fieldFlag" , type);
+		        
+		        List<Response> responsesList = question.getResponses();
+		        
+				if (responsesList != null && !responsesList.isEmpty()) {
+					for (Response r : responsesList) {
+						List<String> keywords = r.getKeywords();
+						if (keywords == null)
+							r.setKeywords(new ArrayList<String>());
+					}
+				}
+		        
+		      }
+		      
+		      template = save(template, template.getStatus());
+			
+		} else {
+			
+			logger.info("Start type: MISTO O ALTRO");
+			for (Question q : questionsList) {
+				List<Response> responsesList = q.getResponses();
+				if (responsesList != null && !responsesList.isEmpty()) {
+					for (Response r : responsesList) {
+						List<String> keywords = r.getKeywords();
+						if (keywords == null)
+							r.setKeywords(new ArrayList<String>());
+					}
+				}
+			}
+			template = save(template, template.getStatus());
+		}
+		
+		return template;
+		
+	}
+
+	//'TODO check new GET templates light
+	public List<Template> findTemplatesInfoByIdsAndStatus(Set<String> theTemplatesIds, Integer theStatus) {
+		
+		logger.debug("JSON STRING - theNumberOfTemplates=" + theTemplatesIds.size());
+		return templateRepository.findInfoByIdsAndStatus(theTemplatesIds, theStatus);
+		
+	}
+	
+	//'TODO check new GET templates light
+	public List<Template> findTemplatesInfoByIds(Set<String> theTemplatesIds) {
+		logger.debug("JSON STRING - theNumberOfTemplates=" + theTemplatesIds.size());
+		return templateRepository.findInfoByIds(theTemplatesIds);
+	}
+	
+	//'TODO check new GET templates title for reports
+	public Template findTemplateTitleById(String theTemplatesId) {
+		
+		return templateRepository.findTitleById(theTemplatesId);
+	}
+
+	
+}

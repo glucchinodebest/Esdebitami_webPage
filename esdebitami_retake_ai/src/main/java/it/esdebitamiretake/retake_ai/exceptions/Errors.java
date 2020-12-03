@@ -1,0 +1,61 @@
+package it.esdebitamiretake.retake_ai.exceptions;
+
+import org.springframework.http.HttpStatus;
+
+public enum Errors {
+
+	NOT_MANAGED(500, "Errore interno non gestito", HttpStatus.INTERNAL_SERVER_ERROR),
+	NOT_FOUND(1002, "Oggetto non trovato", HttpStatus.NOT_FOUND),
+	WRONG_INPUT(400, "Wrong input", org.springframework.http.HttpStatus.BAD_REQUEST);
+
+	private final Integer code;
+
+	private final String message;
+
+	private final HttpStatus status;
+	Errors(Integer code, String message, HttpStatus status) {
+		this.code = code;
+		this.message = message;
+		this.status = status;
+	}
+
+	public Integer getCode() {
+		return this.code;
+	}
+
+	public String getMessage() {
+		return this.message;
+	}
+
+	public HttpStatus getStatus() {
+		return this.status;
+	}
+
+	/**
+	 * @param codeToSearch
+	 *            e' il codice relativo alla enum da restituire
+	 * @param defaultErrors
+	 *            Se il codice non e' trovato allora sara' restituito questo
+	 *            Errors di default.
+	 * @return {@link Errors} che coincide con il parametro di
+	 *         <b>codeToSearch</b>. <br>
+	 *         Se il parametro di <b>codeToSearch</b> non e' trovato allora
+	 *         sara' restituito il <b>defaultErrors</b>. <br>
+	 *         Se il <b>defaultErrors</b> e' null allora sara' restituito
+	 *         {@link Errors.NOT_MANAGED}.
+	 */
+	public static Errors fromCode(Integer codeToSearch, Errors defaultErrors) {
+		Errors rtrnErrors = Errors.NOT_MANAGED;
+		if (defaultErrors != null) {
+			rtrnErrors = defaultErrors;
+		}
+		for (Errors currentErrors : Errors.values()) {
+			if (currentErrors.code.equals(codeToSearch)) {
+				rtrnErrors = currentErrors;
+				break;
+			}
+		}
+		return rtrnErrors;
+	}
+
+}

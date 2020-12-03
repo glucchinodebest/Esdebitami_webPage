@@ -1,0 +1,13 @@
+package it.esdebitamiretake.retake_ticket.repo;
+
+import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.stereotype.Repository;
+
+import com.pccube.vvas.template.db.anagrafica.ProfileUser;
+
+
+
+@Repository
+public interface UserRepository extends MongoRepository<ProfileUser, String>, UserCustomRepository {
+
+}

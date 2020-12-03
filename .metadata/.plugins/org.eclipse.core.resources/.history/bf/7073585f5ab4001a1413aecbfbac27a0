@@ -1,0 +1,43 @@
+<configuration debug="true">
+  <contextName>vAssistant Template Rest Web Service</contextName>
+  
+  <property name="LEVEL" value="DEBUG" />  
+  <property name="fileNamePrefix" value="vas-template" />  
+  <property name="logFileName" value="${fileNamePrefix}.log" />  
+  <property name="logFilePath" value="${user.dir}/logs" />
+  
+  
+  <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+    <layout class="ch.qos.logback.classic.PatternLayout">
+      <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level [%logger] %msg%n</pattern>
+    </layout>
+  </appender>
+
+  <appender name="DAILYFILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <file>${logFilePath}/${logFileName}</file>
+    <append>true</append>  
+    <encoder>
+      <pattern>%d [%-5p] - %m%n</pattern>
+    </encoder>
+    <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+      <fileNamePattern>${logFilePath}/${logFileName}-%d{yyyy-MM}.%i.zip
+      </fileNamePattern>
+      <maxHistory>10</maxHistory>
+      <timeBasedFileNamingAndTriggeringPolicy
+        class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+        <maxFileSize>100MB</maxFileSize>
+      </timeBasedFileNamingAndTriggeringPolicy>
+    </rollingPolicy>
+  </appender>
+  
+  <root level="${LEVEL}">
+    <appender-ref ref="DAILYFILE" />
+    <appender-ref ref="STDOUT" />
+  </root>
+  
+  <logger name="org.apache.commons" level="FATAL">
+    <appender-ref ref="DAILYFILE" />
+    <appender-ref ref="STDOUT" />
+  </logger>
+  
+</configuration>

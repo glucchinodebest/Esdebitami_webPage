@@ -1,0 +1,32 @@
+spring:
+  application:
+    name: vvas-profile
+  data:
+    mongodb:
+      #uri: mongodb://vva-db-usr:vV4D8U5r03@localhost:27017/vassistant
+      uri: mongodb://localhost:27017/vassistant
+
+server:
+  #ssl:
+  #  key-store: "/opt/certs/kstchain.jks"
+  #  key-store-password: "K335tr"
+  #  key-store-type: jks
+  port: 8044
+  sessionTimeout: 15
+  error.whitelabel.enabled: true
+  servlet : 
+    contextPath: /vvas-profile
+
+#security:
+#  basic:
+#    enabled: true
+
+management:
+  security:
+    enabled: true
+
+logging:
+  config: ${user.dir}/config/logback.xml
+  level:
+    org.springframework: INFO
+    org.mongodb.driver.cluster: INFO

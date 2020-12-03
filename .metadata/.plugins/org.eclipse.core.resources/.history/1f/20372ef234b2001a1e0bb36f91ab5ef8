@@ -1,0 +1,58 @@
+package com.pccube.vvas.template.db.repo;
+
+import com.pccube.vvas.template.db.collection.Template;
+import com.pccube.vvas.template.fe.TemplateInfo;
+import java.util.List;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.aggregation.Aggregation;
+import org.springframework.data.mongodb.core.aggregation.AggregationOperation;
+import org.springframework.data.mongodb.core.aggregation.AggregationResults;
+import org.springframework.data.mongodb.core.aggregation.LimitOperation;
+import org.springframework.data.mongodb.core.aggregation.ProjectionOperation;
+import org.springframework.data.mongodb.core.aggregation.SkipOperation;
+import org.springframework.data.mongodb.core.aggregation.SortOperation;
+
+public class TemplateRepositoryImpl implements TemplateCustomRepository {
+
+	private static Logger logger = LoggerFactory.getLogger("com.pccube.vvas.template");
+	
+	@Autowired
+	MongoTemplate mongoTemplate;
+	
+	public List<TemplateInfo> findTemplatesInfo(Pageable pageable) {
+		List<TemplateInfo> result = null;
+		Boolean isToPaginate = Boolean.valueOf(true);
+
+		logger.debug("TemplateRepositoryImpl - findTemplatesInfo()");
+
+		Long page = Long.valueOf(pageable.getPageNumber());
+		Long pageSize = Long.valueOf(pageable.getPageSize());
+		Long skipSize = Long.valueOf(page.longValue() * pageSize.longValue());
+
+		ProjectionOperation projOp = Aggregation.project(new String[] { "templateId", "title" });
+		SortOperation sortOp = Aggregation.sort(Sort.by(Sort.Direction.ASC,  "title"));
+		SkipOperation skipOp = Aggregation.skip(isToPaginate.booleanValue() ? skipSize.longValue() : 0L);
+		LimitOperation limitOp = Aggregation.limit(isToPaginate.booleanValue() ? pageSize.longValue() : 2147483647L);
+
+		Aggregation aggregation = Aggregation
+				.newAggregation(new AggregationOperation[] { projOp, sortOp, skipOp, limitOp });
+
+		AggregationResults<TemplateInfo> groupResults = this.mongoTemplate.aggregate(aggregation, Template.class,
+				TemplateInfo.class);
+
+		result = groupResults.getMappedResults();
+		return result;
+	}
+}
+
+/*
+ * Location:
+ * C:\Users\dercolano\Desktop\VVA\vas-template\vas-template-1.0.0.jar!\BOOT-INF\
+ * classes\it\isspa\vas\template\db\repo\TemplateRepositoryImpl.class Java
+ * compiler version: 7 (51.0) JD-Core Version: 0.7.1
+ */

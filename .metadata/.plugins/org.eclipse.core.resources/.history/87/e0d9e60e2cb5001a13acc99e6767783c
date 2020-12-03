@@ -1,0 +1,5 @@
+package com.pccube.vvas.ai.repo;
+
+public abstract interface DatasetCustomRepository {
+
+}

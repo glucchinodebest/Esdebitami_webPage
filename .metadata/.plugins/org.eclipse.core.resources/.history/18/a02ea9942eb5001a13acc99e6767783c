@@ -1,0 +1,16 @@
+package it.esdebitamiretake.retake_ai.repo;
+
+
+import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.data.mongodb.repository.Query;
+
+import com.pccube.vvas.ai.collection.Context;
+import com.pccube.vvas.ai.collection.Dataset;
+
+	public abstract interface ContextRepository extends MongoRepository<Context, String>,DatasetCustomRepository{
+		
+		@Query("{ 'template' : ?0 }")
+		Context findContexByTemplateId( String templateId );
+	}
+
+

@@ -1,0 +1,53 @@
+server:
+    port: 8041
+    contextPath: /vas-template
+
+logging:
+    config: ${user.dir}/config/logback.xml
+    level:
+        org.springframework: INFO
+        org.mongodb.driver.cluster: INFO
+       
+spring:
+    data:
+        mongodb:
+            uri: mongodb://localhost/vassistant
+    mail:
+        host: smtps.aruba.it
+        port: 465
+        username: devops@pccube.com
+        password: dev$902$ops$pc
+        smtp:
+            auth: true
+            starttls:
+                enable:true
+        sender: devops@pccube.com
+       
+pushNotification: 
+  service:
+    url: http://vva-services.pccube.com:8042/vas-push-notification/pushNotification
+  invalidTokenFCM: 0
+
+# MONGODB (MongoProperties)
+# spring.data.mongodb.port=27017 # Mongo server port. Cannot be set with uri.
+# spring.data.mongodb.authentication-database= # Authentication database name.
+# spring.data.mongodb.database=test # Database name.
+# spring.data.mongodb.field-naming-strategy= # Fully qualified name of the FieldNamingStrategy to use.
+# spring.data.mongodb.grid-fs-database= # GridFS database name.
+# spring.data.mongodb.host=localhost # Mongo server host. Cannot be set with uri.
+# spring.data.mongodb.password= # Login password of the mongo server. Cannot be set with uri.
+# spring.data.mongodb.repositories.enabled=true # Enable Mongo repositories.
+# spring.data.mongodb.uri=mongodb://localhost/test # Mongo database URI. Cannot be set with host, port and credentials.
+# spring.data.mongodb.username= # Login user of the mongo server. Cannot be set with uri.
+         
+# EMAIL    
+# spring.mail.host=smtp.gmail.com
+# spring.mail.port=587
+# spring.mail.username=vassistant@seiplus.it
+# spring.mail.password=$Password123$
+# spring.mail.properties.mail.smtp.auth=true
+# spring.mail.properties.mail.smtp.starttls.enable=true
+# spring.mail.properties.mail.smtp.connectiontimeout=5000
+# spring.mail.properties.mail.smtp.timeout=3000
+# spring.mail.properties.mail.smtp.writetimeout=5000
+          

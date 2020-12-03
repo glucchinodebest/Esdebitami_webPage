@@ -1,0 +1,34 @@
+package it.esdebitamiretake.retake_ticket.fe;
+
+import it.esdebitamiretake.retake_ticket.collection.Survey;
+
+public class SurveyExt
+{
+private String templateName;
+private Survey survey;
+
+public SurveyExt() {}
+
+public SurveyExt(String templateName, Survey survey)
+{
+this.templateName = templateName;
+this.survey = survey;
+}
+
+public String getTemplateName() {
+return this.templateName;
+}
+
+public void setTemplateName(String templateName) {
+this.templateName = templateName;
+}
+public Survey getSurvey() {
+return this.survey;
+}
+
+public void setSurvey(Survey survey) {
+this.survey = survey;
+}
+}
+
+

@@ -1,0 +1,5 @@
+package com.vvas.project.ir.scraping.nlp;
+
+enum Language {
+	EN, IT, DA, DE, NL, PT, SE
+}

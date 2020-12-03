@@ -1,0 +1,12 @@
+package com.pccube.vvas.template.db.repo;
+
+import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.data.mongodb.repository.Query;
+import com.pccube.vvas.template.db.collection.ApplicationSettings;
+
+public abstract interface ApplicationSettingsRepository extends MongoRepository<ApplicationSettings, String>{
+  	
+	@Query("{Id:'?0'}")
+	public abstract ApplicationSettings findByName(String name);
+	
+}

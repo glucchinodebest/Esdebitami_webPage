@@ -1,0 +1,32 @@
+package com.vvas.project.profile.service;
+
+import com.pccube.vvas.template.db.collection.Template;
+
+import com.vvas.project.profile.controller.ResourceNotFoundException;
+import com.vvas.project.profile.db.repo.TemplateRepository;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+@Service
+public class TemplateService extends LoggerService{
+
+	@Autowired
+	TemplateRepository templateRepository;
+
+	TemplateService() {
+		
+		super(Template.class);
+	}
+	
+	public Template find(String id) throws ResourceNotFoundException {
+
+		return templateRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("template",id));
+	}
+	
+	public boolean exists(String id) {
+		
+		return templateRepository.existsById(id);
+	}
+	
+}

@@ -1,0 +1,33 @@
+package com.pccube.vvas.template.service;
+
+import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import com.pccube.vvas.template.controller.ResourceNotFoundException;
+import com.pccube.vvas.template.db.collection.Setting;
+import com.pccube.vvas.template.db.repo.SettingRepository;
+
+
+@Service
+public class SettingService {
+
+	@Autowired
+	SettingRepository settingRepository;
+	
+	public Setting saveSetting(Setting setting) {
+		return this.settingRepository.save(setting);
+	}
+	
+	public Setting findSetting(String id) throws ResourceNotFoundException{
+		return settingRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("setting",id));
+	}
+
+	public List<Setting> findAllSettings() throws ResourceNotFoundException{
+		return settingRepository.findAll();
+	}
+	
+	public void delete(String id) throws ResourceNotFoundException {
+		settingRepository.delete(findSetting(id));
+	}
+
+}

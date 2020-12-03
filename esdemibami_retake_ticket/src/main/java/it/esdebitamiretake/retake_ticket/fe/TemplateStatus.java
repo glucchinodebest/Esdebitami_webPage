@@ -1,0 +1,14 @@
+/*   */ package it.esdebitamiretake.retake_ticket.fe;
+/*   */ 
+/*   */ public class TemplateStatus
+/*   */ {
+/* 5 */   public static final Integer SAVED = Integer.valueOf(0);
+/* 6 */   public static final Integer PUBLISHED = Integer.valueOf(1);
+/* 7 */   public static final Integer DISABLED = Integer.valueOf(2);
+/*   */ }
+
+
+/* Location:              C:\Users\dercolano\Desktop\VVA\vas-template\vas-template-1.0.0.jar!\BOOT-INF\classes\it\isspa\vas\template\fe\TemplateStatus.class
+ * Java compiler version: 7 (51.0)
+ * JD-Core Version:       0.7.1
+ */

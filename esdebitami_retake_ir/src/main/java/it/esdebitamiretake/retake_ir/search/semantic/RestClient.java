@@ -1,0 +1,84 @@
+package it.esdebitamiretake.retake_ir.search.semantic;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URISyntaxException;
+import java.net.URL;
+import java.util.Map;
+import java.util.Map.Entry;
+import org.springframework.web.util.UriComponentsBuilder;
+
+
+class RestClient {
+
+	private final URL url;
+
+	public RestClient(String url) throws MalformedURLException {
+
+		this.url = new URL(url);
+	}
+
+	RestResponse get(String path,Map<String,Object>params) throws IOException, URISyntaxException {
+
+		UriComponentsBuilder builder=UriComponentsBuilder.fromUri(url.toURI()).path(path);
+		
+		for(Entry<String, Object> param:params.entrySet())
+			builder=builder.queryParam(param.getKey(),param.getValue());
+		
+		HttpURLConnection conn = (HttpURLConnection) builder.build().toUri().toURL().openConnection();
+
+		try {
+
+			conn.setRequestMethod("GET");
+			conn.setRequestProperty("Accept", "application/json");
+
+			return new RestResponse(conn.getResponseCode(), readResponse(conn));
+
+		} finally {
+			conn.disconnect();
+		}
+	}
+	
+	RestResponse post(String path,Object body) throws IOException, URISyntaxException {
+
+		UriComponentsBuilder builder=UriComponentsBuilder.fromUri(url.toURI()).path(path);
+		
+		HttpURLConnection conn = (HttpURLConnection) builder.build().toUri().toURL().openConnection();
+
+		try {
+
+			conn.setRequestMethod("POST");
+			conn.setDoOutput(true);
+			conn.setRequestProperty("Content-Type", "application/json");
+
+			try (OutputStream os = conn.getOutputStream()) {
+				os.write(body.toString().getBytes());
+				os.flush();
+			}
+
+			return new RestResponse(conn.getResponseCode(), readResponse(conn));
+
+		} finally {
+			conn.disconnect();
+		}
+	}
+
+	private String readResponse(HttpURLConnection connection) throws IOException {
+
+		StringBuilder payload = new StringBuilder();
+
+		try (BufferedReader br = new BufferedReader(new InputStreamReader((connection.getInputStream())));) {
+
+			String line;
+
+			while ((line = br.readLine()) != null)
+				payload.append(line + System.lineSeparator());
+		}
+
+		return payload.toString();
+	}
+}

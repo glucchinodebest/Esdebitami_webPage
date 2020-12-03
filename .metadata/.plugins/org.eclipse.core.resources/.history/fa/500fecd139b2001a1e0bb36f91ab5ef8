@@ -1,0 +1,68 @@
+package it.esdebitamiretake.retake_ticket.service;
+
+
+import java.util.Date;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.stereotype.Service;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.pccube.vvas.template.db.collection.Attachement;
+import com.pccube.vvas.template.db.repo.AttachementRepository;
+
+@Service
+public class AttachementService {
+	
+	
+	@Autowired
+	AttachementRepository attachementRepository;
+	
+	@Autowired
+	MongoTemplate mongoTemplate;
+
+	
+	@Autowired
+	ObjectMapper objectMapper;
+	private static final Logger logger = LoggerFactory.getLogger(AttachementService.class);
+	
+	public String saveAttachement(Attachement theAttachement) {
+		
+		Date nowDate = new Date();
+		String nome = theAttachement.getNome();
+		String nomeDefault1 = nome.replace(".", "0");
+		String nomeDefault2 = nomeDefault1.replace("-", "01");
+		String attachementId = nomeDefault2 + nowDate.getTime();
+		theAttachement.setAttachementId(attachementId);
+		return attachementRepository.save(theAttachement).getAttachementId();
+		
+	}
+	
+	
+	public Attachement findAttachementById (String theAttachementId)
+	{
+		try {
+			logger.debug("JSON STRING = ?", this.objectMapper.writeValueAsString(theAttachementId));
+		} catch (JsonProcessingException e) {
+			logger.error("Eccezione:: ", e);
+			e.printStackTrace();
+		}
+		Attachement attachement = (Attachement)this.mongoTemplate.findById(theAttachementId, Attachement.class);
+		return attachement;
+	}
+	
+	
+	public void deleteAttachement(String attachementId) {
+		logger.debug("(Delete) Id = " + attachementId);
+		Attachement attachementToDelete = (Attachement)this.mongoTemplate.findById(attachementId, Attachement.class);
+		if (attachementToDelete != null) {
+			attachementRepository.delete(attachementToDelete);
+		} else {
+			logger.debug("(Delete): Attachement to Delete is NULL");
+		}
+		logger.debug("(Delete): Deleted = OK");
+	}
+
+}

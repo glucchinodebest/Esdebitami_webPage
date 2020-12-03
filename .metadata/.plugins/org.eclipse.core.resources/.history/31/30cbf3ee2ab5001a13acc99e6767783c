@@ -1,0 +1,19 @@
+/**
+ * 
+ */
+package com.pccube.vvas.ai.manager;
+
+import com.pccube.vvas.ai.manager.IManager.IManagerResponseHandler;
+
+/**
+ * @author Utente
+ *
+ */
+public interface IManager<Z extends IManagerResponseHandler<INPUT>,INPUT> {
+
+	public abstract void manage(Z responseHandler,INPUT anyInput);
+	
+	public interface IManagerResponseHandler<INPUT>{
+		public abstract void handleBusiness(INPUT inputFromManager);
+	}
+;}

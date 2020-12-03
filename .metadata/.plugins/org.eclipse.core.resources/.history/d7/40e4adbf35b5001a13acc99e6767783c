@@ -1,0 +1,65 @@
+package it.esdebitamiretake.retake_ir.search.lexical;
+
+import java.io.IOException;
+import java.util.Collection;
+import java.util.Map;
+import java.util.stream.Collectors;
+import org.apache.lucene.document.Document;
+import org.apache.lucene.document.StringField;
+import org.apache.lucene.document.TextField;
+import org.apache.lucene.queryparser.classic.ParseException;
+import com.vvas.project.ir.db.collection.Content;
+import com.vvas.project.ir.search.Language;
+import com.vvas.project.ir.search.lexical.Index.Field;
+import com.vvas.project.ir.search.lexical.Reader.ALGORITHM;
+
+public class Searcher {
+
+	private final Language language;
+	private final String directory;
+	
+	public Searcher(Language language,String directory) {
+
+		this.language=language;
+		this.directory = directory;
+	}
+
+	public void reset() throws IOException {
+		
+		try (Writer writer = new Writer(getLanguage(),getDirectoty());) {
+			
+			writer.clear();
+		}
+	}
+	
+	public void index(String id,Collection<Content> contents) throws IOException {
+
+		try (Writer writer = new Writer(getLanguage(),getDirectoty());) {
+
+			Document document = new Document();
+			document.add(new StringField(Field.ID.toString(),id,
+					org.apache.lucene.document.Field.Store.YES));
+			document.add(new TextField(Field.TEXT.toString(),contents.stream().map(Content::getText).collect(Collectors.joining(" ")).trim(),
+					org.apache.lucene.document.Field.Store.YES));
+			writer.addDocuments(document);
+		}
+	}
+
+	public Map<String, Float> search(String query,float threshold) throws IOException, ParseException {
+
+		try (Reader searcher = new Reader(getLanguage(),getDirectoty(), ALGORITHM.BM25);) {
+
+			return searcher.query(query,threshold, Field.ID.toString());
+		}
+	}
+
+	public String getDirectoty() {
+
+		return directory;
+	}
+
+	public Language getLanguage() {
+
+		return language;
+	}
+}

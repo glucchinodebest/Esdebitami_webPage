@@ -1,0 +1,299 @@
+package com.pccube.vvas.template.controller;
+
+import java.net.URI;
+import java.rmi.RemoteException;
+import java.util.ArrayList;
+import java.util.List;
+import javax.validation.Valid;
+import org.apache.axis2.client.Options;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+import org.tempuri.XSportService;
+import org.tempuri.XSportService.XSpGetApplication;
+import org.tempuri.XSportService.XSpIsCurrentSessionAuthenticate;
+import org.tempuri.XSportService.XSpIsCurrentSessionAuthenticateResponse;
+import com.pccube.vvas.template.db.collection.Preference;
+import com.pccube.vvas.template.db.collection.ApplicationSettings;
+import com.pccube.vvas.template.db.collection.Setting;
+import com.pccube.vvas.template.service.ApplicationSettingsService;
+import com.pccube.vvas.template.service.SettingService;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
+import io.swagger.annotations.SwaggerDefinition;
+import io.swagger.annotations.Tag;
+
+@SwaggerDefinition(tags = { @Tag(name = "Settings", description = "Operations to manage settings in VVAS") })
+@RestController
+@CrossOrigin(allowedHeaders = "*",origins = "*")
+public class SettingsController {
+	
+	@Autowired
+	SettingService settingService;
+	
+	@Autowired
+	ApplicationSettingsService applicationSettingsService;
+	
+	private static final String MESSAGE_401 = "You are not authorized to perform this action";
+	
+	private static final Logger logger=LoggerFactory.getLogger(SettingsController.class);
+	
+	
+	
+	
+	@PostMapping(value = "/settings", produces = "application/json")
+	@ResponseStatus(HttpStatus.CREATED)
+	@ApiOperation(value = "Create the settings", tags = "settings")
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "Setting successfully created"),
+			@ApiResponse(code = 404, message = "No setting found") })
+	@ResponseBody
+	public ResponseEntity<URI> postSetting (@ApiParam(required = true) @RequestBody Setting setting) throws RemoteException, ResourceNotFoundException {
+		
+		try {
+			
+			return ResponseEntity.created(ServletUriComponentsBuilder.fromCurrentRequest().pathSegment("{id}")
+					.buildAndExpand(settingService.saveSetting(setting).getId()).toUri()).build();
+
+		} catch (DuplicateKeyException e1) {
+			
+			throw new ResourceAlreadyExistsException("Settings", setting.toString());
+			
+		}
+		
+	}
+	
+
+	@PatchMapping(value = "/settings/{id}", produces = "application/json")
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	@ApiOperation(value = "Update the values of the setting", tags = "settings")
+	@ApiResponses(value = { @ApiResponse(code = 204, message = "Setting values updated"),
+			@ApiResponse(code = 404, message = "No setting found") })
+	@ResponseBody
+	public void patchSetting(@ApiParam(value = "The id of the setting", required = true) @PathVariable String id,
+			@ApiParam(value = "The new value of the setting", required = true) @RequestParam String newValue)
+			throws ResourceNotFoundException {
+
+		Setting setting = settingService.findSetting(id);
+		List<Object> values = setting.getValues();
+		if (!values.isEmpty() && !values.contains(newValue))
+			values.add(newValue);
+		settingService.saveSetting(setting);
+	}
+	
+
+	@GetMapping(value = "/settings/{id}", produces = "application/json")
+	@ResponseStatus(HttpStatus.OK)
+	@ApiOperation(value = "Retrieve the list of values of a specific setting", tags = "settings")
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "The values of the setting have been successfully retrieved"),
+			@ApiResponse(code = 404, message = "No setting found") })
+	@ResponseBody
+	public List<Object> getSettings(@ApiParam(value = "The setting Id", required = true) @PathVariable String id)
+			throws ResourceNotFoundException, RemoteException {
+
+		List<Object> values = settingService.findSetting(id).getValues();
+
+		if (values.isEmpty())
+			throw new ResourceNotFoundException("Values for Setting", id);
+
+		return values;
+	}
+	
+
+	@GetMapping(value = "/settings", produces = "application/json")
+	@ResponseStatus(HttpStatus.OK)
+	@ApiOperation(value = "Retrieve the list of the settings", tags = "settings")
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "The settings have been successfully retrieved"),
+			@ApiResponse(code = 404, message = "No setting found") })
+	@ResponseBody
+	public List<Setting> getAllSettings() throws ResourceNotFoundException, RemoteException {
+
+		List<Setting> settings = settingService.findAllSettings();
+
+		if (settings.isEmpty())
+			throw new ResourceNotFoundException("Settings");
+
+		return settings;
+	}
+	
+	@DeleteMapping("/settings/{id}")
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	@ApiOperation(value = "Delete a setting", tags = "settings")
+	@ApiResponses(value = { @ApiResponse(code = 204, message = "Setting has been successfully deleted"),
+			@ApiResponse(code = 404, message = "Setting not found") })
+	public void deleteSetting(@ApiParam(value = "The id of the setting", required = true) @PathVariable String id)
+			throws ResourceNotFoundException {
+
+		logger.info("Delete setting : ", id);
+
+		settingService.delete(id);
+	}
+	
+	
+
+	@PostMapping(value = "/applicationSettings", produces = "application/json")
+	@ResponseStatus(HttpStatus.CREATED)
+	@ApiOperation(value = "Create a set of settings for a specific application", tags = "applicationSettings")
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "Preference successfully created"),
+			@ApiResponse(code = 401, message = MESSAGE_401),
+			@ApiResponse(code = 404, message = "No preference found") })
+	@ResponseBody
+	public ResponseEntity<URI> postPreferences (@ApiParam(value = "The settings for a specific application", required = true) @Valid @RequestBody ApplicationSettings applicationSettings,
+			@RequestHeader("Authorization") String accessToken) throws RemoteException, ResourceNotFoundException, UnauthorizedException {
+		
+		String applicationName = loadApplicationName(accessToken);
+		applicationSettings.setId(applicationName);
+
+		try {
+			
+			List<Setting> settings = settingService.findAllSettings();
+			List<Preference> prefs = applicationSettings.getPrefs();
+
+			for (Setting s : settings) {
+				String settingName = s.getName();
+				List<Object> settingValues = s.getValues();
+				Object defValue = s.getDefaultValue();
+				if (prefs != null) {
+					for (Preference p : prefs) {
+						String prefName = p.getName();
+						Object prefValue = p.getValue();	
+						if (prefName.equalsIgnoreCase(settingName) && !prefName.equalsIgnoreCase("Interactions")) {
+							if (!settingValues.contains(prefValue))
+								p.setValue(defValue);
+							break;
+						}
+					}
+				} else
+					throw new ResourceNotFoundException("Preferences");
+			}
+			
+			return ResponseEntity.created(ServletUriComponentsBuilder.fromCurrentRequest().pathSegment("{id}")
+					.buildAndExpand(applicationSettingsService.saveApplicationSettings(applicationSettings).getId()).toUri()).build();
+
+		} catch (DuplicateKeyException e1) {
+
+			throw new ResourceAlreadyExistsException("ApplicationSettings", applicationSettings.toString());
+		}
+	}
+	
+
+	@GetMapping(value = "/applicationSettings", produces = "application/json")
+	@ResponseStatus(HttpStatus.OK)
+	@ApiOperation(value = "Retrieve the settings of a specific application or Initializing", tags = "applicationSettings")
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "The settings of the application have been successfully retrieved"),
+			@ApiResponse(code = 404, message = "No preference found") })
+	@ResponseBody
+	public ApplicationSettings getApplicationSettings(@RequestHeader("Authorization") String accessToken)
+			throws ResourceNotFoundException, RemoteException, UnauthorizedException {
+
+		String appName = loadApplicationName(accessToken);
+			
+		ApplicationSettings appSettings = applicationSettingsService.findApplicationSettings(appName);
+		
+		if (appSettings == null) {
+			
+			List<Setting> settingsList = createSetting();
+			//List<Setting> settingsList = settingService.findAllSettings();
+			List<Preference> prefs= new ArrayList<Preference>();
+			
+			for(Setting s : settingsList) {
+				Preference p = new Preference(s.getName(), s.getDefaultValue());
+				prefs.add(p);
+			}
+			
+			ApplicationSettings appSetDef = new ApplicationSettings(appName,prefs);
+			applicationSettingsService.saveApplicationSettings(appSetDef);
+			return appSetDef;
+			
+		}
+
+		return appSettings;
+	}
+	
+	//'TODO Remove with Installation controller
+	private List<Setting> createSetting(){
+		
+		List<Setting> settingList = new ArrayList<Setting>();
+		
+		List<Object> possibleLang = new ArrayList<Object>();
+		possibleLang.add("en");
+		possibleLang.add("it");
+		Setting language = new Setting ("Language",possibleLang,"en");
+		settingList.add(language);
+		settingService.saveSetting(language);
+		
+		List<Object> possibleDom = new ArrayList<Object>();
+		possibleDom.add("GENERALE");
+		possibleDom.add("SPECIFICO");
+		Setting domain = new Setting ("Domain",possibleDom,"GENERALE");
+		settingList.add(domain);
+		settingService.saveSetting(domain);
+		
+		List<Object> possibleInt= new ArrayList<Object>();
+		Setting interactions = new Setting ("Interactions",possibleInt,10);
+		settingList.add(interactions);
+		settingService.saveSetting(interactions);
+		
+		return settingList;
+			
+	}
+	
+
+	@GetMapping(value = "/applicationsSettings", produces = "application/json")
+	@ResponseStatus(HttpStatus.OK)
+	@ApiOperation(value = "Retrieve the preferences setted for all applications", tags = "applicationSettings")
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "The preferences setted for all applications have been successfully retrieved"),
+			@ApiResponse(code = 404, message = "No preference found") })
+	@ResponseBody
+	public List<ApplicationSettings> getApplicationsSettings() throws ResourceNotFoundException, RemoteException, UnauthorizedException {
+
+		List<ApplicationSettings> settingsList = applicationSettingsService.findAll();
+		
+		if (settingsList.isEmpty())
+			throw new ResourceNotFoundException("ApplicationsSettings");
+
+		return settingsList;
+	}
+				
+	
+	private String loadApplicationName(String accessToken) throws RemoteException {
+
+		return loadXSportService(accessToken).xSpGetApplication(new XSpGetApplication())
+				.getXSpGetApplicationResult();
+	}
+	
+	private XSportService loadXSportService(String authToken) throws RemoteException {
+
+		XSportService xSportService = new XSportService();
+		Options options = xSportService._getServiceClient().getOptions();
+		options.setManageSession(true);
+		options.setProperty(org.apache.axis2.transport.http.HTTPConstants.COOKIE_STRING, authToken);
+
+		XSpIsCurrentSessionAuthenticateResponse xSpIsCurrentSessionAuthenticateResponse = xSportService
+				.xSpIsCurrentSessionAuthenticate(new XSpIsCurrentSessionAuthenticate());
+
+		if(!xSpIsCurrentSessionAuthenticateResponse.getXSpIsCurrentSessionAuthenticateResult())
+			throw new UnauthorizedException();
+		
+		return xSportService;
+	}
+	
+
+}

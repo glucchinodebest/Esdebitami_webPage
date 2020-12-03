@@ -1,0 +1,18 @@
+package com.pccube.vvas.ai.repo;
+
+
+import java.util.List;
+
+import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.data.mongodb.repository.Query;
+
+import com.pccube.vvas.ai.collection.Dataset;
+
+
+public abstract interface DatasetRepository extends MongoRepository<Dataset, String>,DatasetCustomRepository{
+	  
+	@Query("{ 'templateId' : ?0 }")
+	List<Dataset> findDatasetByTemplateId( String templateId );
+	
+
+}

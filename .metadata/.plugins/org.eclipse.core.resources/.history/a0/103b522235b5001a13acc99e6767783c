@@ -1,0 +1,12 @@
+package com.vvas.project.ir.controller;
+
+public class ResourceAlreadyExistsException extends RuntimeException {
+
+	private static final long serialVersionUID = -6104113705444822712L;
+
+	public ResourceAlreadyExistsException(String resource, String id) {
+
+		super(String.format("%s [%s] already exists", resource, id));
+	}
+
+}

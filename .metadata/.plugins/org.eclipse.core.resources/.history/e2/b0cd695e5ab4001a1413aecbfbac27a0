@@ -1,0 +1,27 @@
+0000000000000000000000000000000000000000 6fac42f5129746b3e080b7542b1a120cff356755 Gian Marco Lucchino <glucchino@pccube.com> 1575558888 +0100	Branch: gml created @ 6fac42f5129746b3e080b7542b1a120cff356755
+6fac42f5129746b3e080b7542b1a120cff356755 06a7630bc69b7dc3d93ff7b4bbf9331d3edd73ee Gian Marco Lucchino <glucchino@pccube.com> 1575559771 +0100	commit: added templateType, xposition, yposition, response id
+06a7630bc69b7dc3d93ff7b4bbf9331d3edd73ee 274a212a45466a31f5c177258c7255c8443e58ed Gian Marco Lucchino <glucchino@pccube.com> 1575971116 +0100	commit: Added create/delete templateType & settings method
+274a212a45466a31f5c177258c7255c8443e58ed d973287be542e02a89a4f80a52c7c830cb8f0cd3 Gian Marco Lucchino <glucchino@pccube.com> 1576149834 +0100	commit: Added search function for template Type & dataset-template association
+d973287be542e02a89a4f80a52c7c830cb8f0cd3 8ccd96011745a74cb8ed968284412e7fcd097783 Gian Marco Lucchino <glucchino@pccube.com> 1576166109 +0100	commit: Added defaultSetting and allert services
+8ccd96011745a74cb8ed968284412e7fcd097783 727fa0d2e39b0bfec81741af17bc2f13efec08c2 Gian Marco Lucchino <glucchino@pccube.com> 1576166164 +0100	commit (amend): Added defaultSetting, allert services and CROS activation
+727fa0d2e39b0bfec81741af17bc2f13efec08c2 8ccd96011745a74cb8ed968284412e7fcd097783 Gian Marco Lucchino <glucchino@pccube.com> 1576166207 +0100	undo: commit (amend): Added defaultSetting, allert services and CROS activation
+8ccd96011745a74cb8ed968284412e7fcd097783 70612e598b530b596ee35022278f0114dd752e92 Gian Marco Lucchino <glucchino@pccube.com> 1576252264 +0100	commit: Added function for template.dataset decoding, method's name modify
+70612e598b530b596ee35022278f0114dd752e92 fc80ed2e84627a556cf36a0a5cf96344d9c39e5b Gian Marco Lucchino <glucchino@pccube.com> 1576252873 +0100	Fast forward branch gml to branch gml
+fc80ed2e84627a556cf36a0a5cf96344d9c39e5b 70612e598b530b596ee35022278f0114dd752e92 Gian Marco Lucchino <glucchino@pccube.com> 1576495870 +0100	reset: moving to 70612e598b530b596ee35022278f0114dd752e92
+70612e598b530b596ee35022278f0114dd752e92 8ccd96011745a74cb8ed968284412e7fcd097783 Gian Marco Lucchino <glucchino@pccube.com> 1576496603 +0100	reset: moving to 8ccd96011745a74cb8ed968284412e7fcd097783
+8ccd96011745a74cb8ed968284412e7fcd097783 d973287be542e02a89a4f80a52c7c830cb8f0cd3 Gian Marco Lucchino <glucchino@pccube.com> 1576497749 +0100	reset: moving to d973287be542e02a89a4f80a52c7c830cb8f0cd3
+d973287be542e02a89a4f80a52c7c830cb8f0cd3 715baf290c40fd0fa7181803251529c854eafd8f Gian Marco Lucchino <glucchino@pccube.com> 1576499251 +0100	commit: checkpoint. Implementation of Setting class and getSettings method
+715baf290c40fd0fa7181803251529c854eafd8f a62db78bef1a112dbced0ea7e4cda9af131ba59c Gian Marco Lucchino <glucchino@pccube.com> 1576503075 +0100	commit (merge): Merge remote-tracking branch 'origin/gml' into gml
+a62db78bef1a112dbced0ea7e4cda9af131ba59c d2e60b131852da01094cabd9a7e311595a8ca02c Gian Marco Lucchino <glucchino@pccube.com> 1576664078 +0100	Fast forward branch gml to branch avaccaro-settings
+d2e60b131852da01094cabd9a7e311595a8ca02c aaf3caa5828d773315e2411a28b6ce81c7dd151b Gian Marco Lucchino <glucchino@pccube.com> 1576675632 +0100	commit: Cors activation and association class implementation
+aaf3caa5828d773315e2411a28b6ce81c7dd151b f6cda67ce360c456f322b9e776b98a53c6f22684 Gian Marco Lucchino <glucchino@pccube.com> 1576679319 +0100	reset: moving to f6cda67ce360c456f322b9e776b98a53c6f22684
+f6cda67ce360c456f322b9e776b98a53c6f22684 6ca173c698b9cc31b4cd70cb514726e9a2962f03 Gian Marco Lucchino <glucchino@pccube.com> 1576679327 +0100	commit (merge): Merge remote-tracking branch 'origin/gml' into gml
+6ca173c698b9cc31b4cd70cb514726e9a2962f03 31bb3fe003d329adce23fd0a8cdf872a99cd29bc Gian Marco Lucchino <glucchino@pccube.com> 1576686996 +0100	reset: moving to 31bb3fe003d329adce23fd0a8cdf872a99cd29bc
+31bb3fe003d329adce23fd0a8cdf872a99cd29bc ce34c8e531e3a77387c451c7a63cb639934c0f44 Gian Marco Lucchino <glucchino@pccube.com> 1576748727 +0100	commit (merge): Merge remote-tracking branch 'origin/gml' into gml
+ce34c8e531e3a77387c451c7a63cb639934c0f44 b2e468ee86c8632f56eb71b4190d465704ecdb06 Gian Marco Lucchino <glucchino@pccube.com> 1576748851 +0100	commit: Splitted services between template-association-settings controller
+b2e468ee86c8632f56eb71b4190d465704ecdb06 fb37c3acbdf997fae72f9057fb656dddc5f21c34 Gian Marco Lucchino <glucchino@pccube.com> 1577101705 +0100	Fast forward branch gml to branch gml
+fb37c3acbdf997fae72f9057fb656dddc5f21c34 44b046ca5ca732d1d88074a27d5743c4afb3a83d Gian Marco Lucchino <glucchino@pccube.com> 1577102018 +0100	Fast forward branch gml to branch gml
+44b046ca5ca732d1d88074a27d5743c4afb3a83d f3fd4d93f57b40ec2765f6b84b03c9cf3e5c16d5 Gian Marco Lucchino <glucchino@pccube.com> 1577102212 +0100	commit (merge): Merge branch 'vas-template_dev' into gml
+f3fd4d93f57b40ec2765f6b84b03c9cf3e5c16d5 44b046ca5ca732d1d88074a27d5743c4afb3a83d Gian Marco Lucchino <glucchino@pccube.com> 1577102420 +0100	undo: commit (merge): Merge branch 'vas-template_dev' into gml
+44b046ca5ca732d1d88074a27d5743c4afb3a83d fb37c3acbdf997fae72f9057fb656dddc5f21c34 Gian Marco Lucchino <glucchino@pccube.com> 1578067206 +0100	reset: moving to fb37c3acbdf997fae72f9057fb656dddc5f21c34
+fb37c3acbdf997fae72f9057fb656dddc5f21c34 44b046ca5ca732d1d88074a27d5743c4afb3a83d Gian Marco Lucchino <glucchino@pccube.com> 1578068458 +0100	Fast forward branch gml to branch gml

@@ -1,0 +1,255 @@
+package it.esdebitamiretake.retake_ticket.repo;
+
+import com.pccube.vvas.template.db.collection.Survey.Status;
+
+import it.esdebitamiretake.retake_ticket.collection.Survey;
+
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.aggregation.Aggregation;
+import org.springframework.data.mongodb.core.aggregation.AggregationOperation;
+import org.springframework.data.mongodb.core.query.Criteria;
+
+
+public class SurveyRepositoryImpl implements SurveyCustomRepository {
+
+	private static Logger logger = LoggerFactory.getLogger("com.pccube.vvas.template");
+	
+	@Autowired
+	MongoTemplate mongoTemplate;
+
+	public List<Survey> findSurveys(SurveyFilter filter, Pageable pageable) {
+
+		Aggregation aggregation;
+
+		List<Criteria> criterias = new ArrayList<>();
+
+		logger.debug("JSON INPUT Repo SurveyFilter=" + filter.toString());
+
+		if (StringUtils.isNotBlank(filter.getTemplateId()))
+			criterias.add(Criteria.where("templateId").is(filter.getTemplateId()));
+		
+		if (StringUtils.isNotBlank(filter.getUserId())) 
+			criterias.add( Criteria.where("userId").is(filter.getUserId()));
+		
+		if (filter.getStartDate() != null) 
+			criterias.add( Criteria.where("surveyDate").gte(filter.getStartDate()));
+		
+		if (filter.getEndDate() != null) 
+			criterias.add(Criteria.where("surveyDate").lt(filter.getEndDate().plusDays(1)));
+		
+		if (filter.getStatus() != null) 
+			criterias.add(Criteria.where("status").is(filter.getStatus()));
+
+		Criteria criteria=new Criteria();
+		
+		if(!criterias.isEmpty())
+			criteria=criteria.andOperator(criterias.toArray(new Criteria[criterias.size()]));
+					
+		aggregation = Aggregation.newAggregation(new AggregationOperation[] { Aggregation.match(criteria), Aggregation.sort(pageable.getSort()), Aggregation.skip((long)pageable.getPageNumber() * pageable.getPageSize()), Aggregation.limit(pageable.getPageSize()) });
+		
+		return this.mongoTemplate.aggregate(aggregation, Survey.class, Survey.class).getMappedResults();
+	}
+	
+	
+	public List<Survey> findSurveysFiltered(List<String> templateIds, String userId, LocalDate startDate, LocalDate endDate, Status status, Integer color, Integer page, Integer size, boolean sortDate,
+			boolean sortStatus, boolean sortColor) {
+		
+		Aggregation aggregation;
+		
+		List<Criteria> criterias = new ArrayList<>();
+		
+		
+		Pageable pageable = PageRequest.of(page, size, Sort.by(sortStatus ? Sort.Direction.ASC : Sort.Direction.DESC, "status"));
+		Pageable pageableDate = PageRequest.of(page, size, Sort.by(sortDate? Sort.Direction.ASC : Sort.Direction.DESC, "surveyDate"));
+		Pageable pageableColor = PageRequest.of(page, size, Sort.by(sortColor? Sort.Direction.ASC : Sort.Direction.DESC, "color"));
+		
+		criterias.add(Criteria.where("templateId").in(templateIds));
+
+		System.out.println("templateId" +  templateIds);
+		
+		if (StringUtils.isNotBlank(userId)) 
+			criterias.add(Criteria.where("userId").is(userId));
+		
+		if (startDate != null) 
+			criterias.add( Criteria.where("surveyDate").gte(startDate));
+		
+		if (endDate != null) 
+			criterias.add(Criteria.where("surveyDate").lt(endDate.plusDays(1)));
+		
+		if (status != null) 
+			criterias.add(Criteria.where("status").is(status));
+		
+		if (color != null) 
+			criterias.add(Criteria.where("color").is(color));
+
+		Criteria criteria=new Criteria();
+		
+		criteria=criteria.andOperator(criterias.toArray(new Criteria[criterias.size()]));
+		
+		aggregation = Aggregation.newAggregation(new AggregationOperation[] { Aggregation.match(criteria), 
+				Aggregation.sort(pageable.getSort().and(pageableColor.getSort()).and(pageableDate.getSort())),
+				//Aggregation.sort(pageableDate.getSort()),
+				//Aggregation.group("status"),
+				Aggregation.skip((long)pageable.getPageNumber() * pageable.getPageSize()), Aggregation.limit(pageable.getPageSize()) });
+		
+		return this.mongoTemplate.aggregate(aggregation, Survey.class, Survey.class).getMappedResults();
+		
+		
+	}
+	
+	public int findSurveysUnordered(List<String> templateIds, String userId, LocalDate startDate, LocalDate endDate, Status status, Integer color) {
+		
+		Aggregation aggregation;
+		
+		List<Criteria> criterias = new ArrayList<>();
+		
+		criterias.add(Criteria.where("templateId").in(templateIds));
+
+		System.out.println("templateId" +  templateIds);
+		
+		if (StringUtils.isNotBlank(userId)) 
+			criterias.add(Criteria.where("userId").is(userId));
+		
+		if (startDate != null) 
+			criterias.add( Criteria.where("surveyDate").gte(startDate));
+		
+		if (endDate != null) 
+			criterias.add(Criteria.where("surveyDate").lt(endDate.plusDays(1)));
+		
+		if (status != null) 
+			criterias.add(Criteria.where("status").is(status));
+		
+		if (color != null) 
+			criterias.add(Criteria.where("color").is(color));
+
+		Criteria criteria=new Criteria();
+		
+		criteria=criteria.andOperator(criterias.toArray(new Criteria[criterias.size()]));
+		
+		aggregation = Aggregation.newAggregation(new AggregationOperation[] { Aggregation.match(criteria)});
+		
+		return this.mongoTemplate.aggregate(aggregation, Survey.class, Survey.class).getMappedResults().size();
+		
+		
+	}
+	
+	public int findSurveysUnorderedByColor(List<String> templateIds, String userId, LocalDate startDate, LocalDate endDate, String color) {
+		
+		Aggregation aggregation;
+
+		List<Criteria> criterias = new ArrayList<>();
+		
+		criterias.add(Criteria.where("templateId").in(templateIds));
+
+		System.out.println("templateId" +  templateIds);
+		//System.out.println("criteria temp" +  criteriasTemp);
+		
+		if (StringUtils.isNotBlank(userId)) 
+			criterias.add(Criteria.where("userId").is(userId));
+		
+		if (startDate != null) 
+			criterias.add( Criteria.where("surveyDate").gte(startDate));
+		
+		if (endDate != null) 
+			criterias.add(Criteria.where("surveyDate").lt(endDate.plusDays(1)));
+		
+		if (color != null) 
+			criterias.add(Criteria.where("color").is(color));
+
+		Criteria criteria=new Criteria();
+		
+		criteria=criteria.andOperator(criterias.toArray(new Criteria[criterias.size()]));
+		
+		aggregation = Aggregation.newAggregation(new AggregationOperation[] { Aggregation.match(criteria)});
+		
+		return this.mongoTemplate.aggregate(aggregation, Survey.class, Survey.class).getMappedResults().size();
+		
+	}
+	
+	public List<Survey> findSurveysFilterByOrderedStatus(List<String> templateIds, String userId, LocalDate startDate, LocalDate endDate, Status status, 
+			String color, Integer page, Integer size, boolean sortDate) {
+		
+		Aggregation aggregation;
+		
+		List<Criteria> criterias = new ArrayList<>();
+
+		Pageable pageableDate = PageRequest.of(page, size, Sort.by(sortDate? Sort.Direction.ASC : Sort.Direction.DESC, "surveyDate"));
+		
+		criterias.add(Criteria.where("templateId").in(templateIds));
+
+		System.out.println("templateId" +  templateIds);
+		//System.out.println("criteria temp" +  criteriasTemp);
+		
+		if (StringUtils.isNotBlank(userId)) 
+			criterias.add(Criteria.where("userId").is(userId));
+		
+		if (startDate != null) 
+			criterias.add( Criteria.where("surveyDate").gte(startDate));
+		
+		if (endDate != null) 
+			criterias.add(Criteria.where("surveyDate").lt(endDate.plusDays(1)));
+		
+		if (status != null) 
+			criterias.add(Criteria.where("status").is(status));
+		
+		criterias.add(Criteria.where("color").is(color));
+		
+		Criteria criteria=new Criteria();
+		
+		criteria=criteria.andOperator(criterias.toArray(new Criteria[criterias.size()]));
+		
+		aggregation = Aggregation.newAggregation(new AggregationOperation[] { Aggregation.match(criteria), 
+				Aggregation.sort(pageableDate.getSort()),
+				Aggregation.skip((long)pageableDate.getPageNumber() * pageableDate.getPageSize()), Aggregation.limit(pageableDate.getPageSize()) });
+		
+		return this.mongoTemplate.aggregate(aggregation, Survey.class, Survey.class).getMappedResults();
+
+	}
+	
+	public List<Survey> findSurveysFilterByColor(List<String> templateIds, String userId, LocalDate startDate, LocalDate endDate, String color, Integer page, Integer size, boolean sortDate) {
+		
+		Aggregation aggregation;
+		
+		List<Criteria> criterias = new ArrayList<>();
+		
+		Pageable pageableDate = PageRequest.of(page, size, Sort.by(sortDate? Sort.Direction.ASC : Sort.Direction.DESC, "surveyDate"));
+		
+		criterias.add(Criteria.where("templateId").in(templateIds));
+
+		System.out.println("templateId" +  templateIds);
+		
+		if (StringUtils.isNotBlank(userId)) 
+			criterias.add(Criteria.where("userId").is(userId));
+		
+		if (startDate != null) 
+			criterias.add( Criteria.where("surveyDate").gte(startDate));
+		
+		if (endDate != null) 
+			criterias.add(Criteria.where("surveyDate").lt(endDate.plusDays(1)));
+		 
+		criterias.add(Criteria.where("color").is(color));
+
+		Criteria criteria=new Criteria();
+		
+		criteria=criteria.andOperator(criterias.toArray(new Criteria[criterias.size()]));
+		
+		aggregation = Aggregation.newAggregation(new AggregationOperation[] { Aggregation.match(criteria), 
+				Aggregation.sort(pageableDate.getSort()),
+				Aggregation.skip((long)pageableDate.getPageNumber() * pageableDate.getPageSize()), Aggregation.limit(pageableDate.getPageSize()) });
+		
+		return this.mongoTemplate.aggregate(aggregation, Survey.class, Survey.class).getMappedResults();
+
+	}
+
+
+}

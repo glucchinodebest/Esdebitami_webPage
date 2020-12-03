@@ -1,0 +1,1741 @@
+{
+	"openapi": "3.0.1",
+	"info": {
+		"title": "vas-template",
+		"description": "creazione e gestione dei templates e dei tickets\n<br>Timestamp generazione: 2020-02-06T11:01",
+		"version": "1.0.0"
+	},
+	"paths": {
+		"/templates":{
+			"get":{
+				"tags":["templates"],
+				"summary":"Retrieve the list of templates",
+				"operationId":"getAllTemplatesUsingGET",
+				"consumes":["application/json"],
+				"produces":["application/json"],
+				"parameters":[
+					{"name":"page",
+					"in":"query",
+					"description":"Zero-based page index",
+					"required":false,
+					"type":"integer",
+					"format":"int32"},
+					{"name":"size",
+					"in":"query",
+					"description":"The size of the page to be returned",
+					"required":false,
+					"type":"integer",
+					"format":"int32"}
+				],
+				"responses":{
+				"200":{"description":"The list of templates has been successfully retrieved","schema":{"type":"array","items":{"$ref":"#/definitions/Template"}}},
+				"401":{"description":"Unauthorized"},
+				"403":{"description":"Forbidden"},
+				"404":{"description":"No template found"}}
+			}
+		},
+		"/templatesInfo":{
+			"get":{
+				"tags":["templates"],
+				"summary":"Retrieve the list of informations for each template",
+				"operationId":"getTemplatesInfoUsingGET",
+				"consumes":["application/json"],
+				"produces":["application/json"],
+				"parameters":[
+					{"name":"page",
+					"in":"query",
+					"description":"Zero-based page index",
+					"required":false,
+					"type":"integer",
+					"format":"int32"},
+					{"name":"size",
+					"in":"query",
+					"description":"The size of the page to be returned",
+					"required":false,
+					"type":"integer",
+					"format":"int32"}
+				],
+				"responses":{
+					"200":{"description":"The list of templatesInfo has been successfully retrieved","schema":{"type":"array","items":{"$ref":"#/definitions/TemplateInfo"}}},
+					"401":{"description":"Unauthorized"},
+					"403":{"description":"Forbidden"},
+					"404":{"description":"No template found"}}
+			}
+		},
+		"/getPublishedTemplates": {
+			"post": {
+				"tags": [
+					"TemplateController"
+				],
+				"summary": "Restituisce i template che hanno uno stato settato a published.",
+				"description": "Restituisce i template che hanno uno stato settato a published.",
+				"operationId": "getPublishedTemplates",
+				"responses": {
+					"200": {
+						"description": "Una lista di oggetti Templates che risultano pubblicati.",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"$ref": ""
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/template":{
+			"post":{
+				"tags":["templates"],
+				"summary":"Create a new template",
+				"operationId":"postTemplateUsingPOST",
+				"consumes":["application/json"],
+				"produces":["application/json"],
+				"parameters":[
+					{"in":"body",
+					"name":"template",
+					"description":"The object template",
+					"required":true,
+					"schema":{"$ref":"#/definitions/Template"}}
+				],
+				"responses":{
+					"201":{"description":"The template has been successfully created","schema":{"$ref":"#/definitions/URI"}},
+					"401":{"description":"Unauthorized"},
+					"403":{"description":"Forbidden"},
+					"404":{"description":"No template title found"}}
+			}
+		},
+		"/publishTemplate": {
+			"post": {
+				"tags": [
+					"TemplateController"
+				],
+				"summary": "Setta lo stato del template a published e lo salva.",
+				"description": "Setta lo stato del template a published e lo salva.",
+				"operationId": "publishTemplate",
+				"responses": {
+					"200": {
+						"description": "Id del template salvato.",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"$ref": ""
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/template/{templateId}":{
+			"get":{
+				"tags":["templates"],
+				"summary":"Retrieve the template by the id",
+				"operationId":"getTemplateUsingGET",
+				"consumes":["application/json"],
+				"produces":["application/json"],
+				"parameters":[
+					{"name":"templateId",
+					"in":"path",
+					"description":"The id of the template",
+					"required":true,
+					"type":"string"}
+				],
+				"responses":{
+					"200":{"description":"The template has been successfully retrieved","schema":{"$ref":"#/definitions/Template"}},
+					"401":{"description":"Unauthorized"},
+					"403":{"description":"Forbidden"},
+					"404":{"description":"No template found"}}
+			}
+		},
+		"/templateStatus":{
+			"patch":{
+				"tags":["templates"],
+				"summary":"Change the status of template",
+				"operationId":"patchTemplateStatusUsingPATCH",
+				"consumes":["application/json"],
+				"produces":["application/json"],
+				"parameters":[
+					{"name":"templateId",
+					"in":"query",
+					"description":"Template id",
+					"required":true,
+					"type":"string"}
+				],
+				"responses":{
+					"401":{"description":"Unauthorized"},
+					"204":{"description":"The status has been successfully changed"},
+					"403":{"description":"Forbidden"},
+					"404":{"description":"No template found"}}
+			},
+			"get":{
+				"tags":["templates"],
+				"summary":"Get the status of the template",
+				"operationId":"getTemplateStatusUsingGET",
+				"consumes":["application/json"],
+				"produces":["application/json"],
+				"parameters":[
+					{"name":"templateId",
+					"in":"query",
+					"description":"Template id",
+					"required":true,"type":"string"}
+				],
+				"responses":{
+					"200":{
+						"description":"The Status has been successfully retrieved",
+						"schema":{"type":"integer","format":"int32"}
+					},
+					"401":{"description":"Unauthorized"},
+					"403":{"description":"Forbidden"},
+					"404":{"description":"No template found"}}
+			}	
+		},
+		"/icon":{
+			"patch":{
+				"tags":["templates"],
+				"summary":"Update the icon related to a specific template",
+				"operationId":"updateIconUsingPATCH",
+				"consumes":["application/json"],
+				"produces":["application/json"],
+				"parameters":[
+					{"in":"body",
+					"name":"template",
+					"description":"The Template",
+					"required":true,
+					"schema":{"$ref":"#/definitions/Template"}}
+				],
+				"responses":{
+					"401":{"description":"Unauthorized"},
+					"204":{"description":"Icon updated","schema":{"$ref":"#/definitions/TemplateIdentifier"}},
+					"403":{"description":"Forbidden"},
+					"404":{"description":"No template found"}}
+			}
+		},
+		"/icons/{templateId}":{
+			"get":{
+				"tags":["templates"],
+				"summary":"Retrieve the icon of template",
+				"operationId":"iconsUsingGET",
+				"consumes":["application/json"],
+				"produces":["image/png","image/jpeg","image/gif"],
+				"parameters":[
+					{"name":"templateId",
+					"in":"path",
+					"description":"The template Id",
+					"required":true,"type":"string"}
+				],
+				"responses":{
+					"200":{"description":"The icon of template has been successfully retrieved",
+						"schema":{"type":"array","items":{"type":"string","format":"byte"}}},
+					"401":{"description":"Unauthorized"},
+					"403":{"description":"Forbidden"},
+					"404":{"description":"No template found"}}
+			}
+		},
+		"/templateTypes":{
+			"get":{
+				"tags":["templateTypes"],
+				"summary":"Retrieve the list of template types",
+				"operationId":"getTemplateTypesUsingGET",
+				"consumes":["application/json"],
+				"produces":["application/json"],
+				"parameters":[
+					{"name":"status",
+					"in":"query",
+					"description":"The status of the templateType",
+					"required":false,
+					"type":"integer",
+					"format":"int32"},
+					{"name":"page",
+					"in":"query",
+					"description":"Zero-based page index",
+					"required":false,
+					"type":"integer",
+					"format":"int32"},
+					{"name":"size",
+					"in":"query",
+					"description":"The size of the page to be returned",
+					"required":false,
+					"type":"integer",
+					"format":"int32"}
+				],
+				"responses":{
+					"200":{"description":"The list of types has been successfully retrieved","schema":{"type":"array","items":{"$ref":"#/definitions/TemplateType"}}},
+					"401":{"description":"Unauthorized"},
+					"403":{"description":"Forbidden"},
+					"404":{"description":"No templateType found"}}
+			}
+		},
+		"/templateType":{
+			"post":{
+				"tags":["templateTypes"],
+				"summary":"Create a type of template",
+				"operationId":"addTemplateTypeUsingPOST",
+				"consumes":["application/json"],
+				"produces":["application/json"],
+				"parameters":[
+					{"name":"templateTypeId",
+					"in":"query",
+					"description":"The type id",
+					"required":false,
+					"type":"string"},
+					{"name":"templateTypeName",
+					"in":"query",
+					"description":"The type name",
+					"required":false,
+					"type":"string"}
+				],
+				"responses":{
+					"201":{"description":"The type has been successfully created","schema":{"$ref":"#/definitions/URI"}},
+					"401":{"description":"Unauthorized"},
+					"403":{"description":"Forbidden"},
+					"404":{"description":"Not Found"},
+					"409":{"description":"A type with this name already exists"}}
+			},
+			"delete":{
+				"tags":["types"],
+				"summary":"Delete a templateType",
+				"operationId":"deleteTemplateTypeUsingDELETE",
+				"consumes":["application/json"],
+				"produces":["*/*"],
+				"parameters":[
+					{"name":"templateTypeId",
+					"in":"query",
+					"description":"Template type id",
+					"required":true,"type":"string"}
+				],
+				"responses":{
+					"401":{"description":"Unauthorized"},
+					"204":{"description":"Template type has been successfully deleted"},
+					"403":{"description":"Forbidden"},"404":{"description":"Template type not found"}}
+			},
+			"put":{
+				"tags":["templateTypes"],
+				"summary":"Modify a type of template",
+				"operationId":"putTemplateTypeUsingPUT",
+				"consumes":["application/json"],
+				"produces":["application/json"],
+				"parameters":[
+					{"name":"oldTemplateTypeId",
+					"in":"query",
+					"description":"Old templateType id",
+					"required":true,
+					"type":"string"},
+					{"name":"templateTypeNameNew",
+					"in":"query",
+					"description":"New templateType name",
+					"required":true,
+					"type":"string"}
+				],
+				"responses":{
+					"201":{"description":"Created"},
+					"401":{"description":"Unauthorized"},
+					"204":{"description":"The templateType has been successfully modified"},
+					"403":{"description":"Forbidden"},
+					"404":{"description":"No templateType found"}}
+			},
+			"get":{
+				"tags":["templateTypes"],
+				"summary":"Retrieve the templateType",
+				"operationId":"getTemplateTypeUsingGET_1",
+				"consumes":["application/json"],
+				"produces":["application/json"],
+				"parameters":[
+					{"name":"page",
+					"in":"query",
+					"description":"Zero-based page index",
+					"required":false,
+					"type":"integer",
+					"format":"int32"},
+					{"name":"size",
+					"in":"query",
+					"description":"The size of the page to be returned",
+					"required":false,
+					"type":"integer",
+					"format":"int32"},
+					{"name":"templateTypeName",
+					"in":"query",
+					"description":"The name of the templateType to search",
+					"required":false,
+					"type":"string"}
+				],
+				"responses":{
+					"200":{"description":"The type has been successfully retrieved","schema":{"$ref":"#/definitions/TemplateType"}},
+					"401":{"description":"Unauthorized"},
+					"403":{"description":"Forbidden"},
+					"404":{"description":"No type found"}}
+			},
+			"patch":{
+				"tags":["templateTypes"],
+				"summary":"Change the status of a template type",
+				"operationId":"patchTemplateTypeStatusUsingPATCH",
+				"consumes":["application/json"],
+				"produces":["application/json"],
+				"parameters":[
+					{"name":"templateTypeId",
+					"in":"query",
+					"description":"The templateType Id",
+					"required":true,
+					"type":"string"}
+				],
+				"responses":{
+					"401":{"description":"Unauthorized"},
+					"204":{"description":"TemplateType status updated"},
+					"403":{"description":"Forbidden"},
+					"404":{"description":"No templateType found"}}
+			}
+		},
+		"/dataset":{
+			"get":{
+				"tags":["templates"],
+				"summary":"Get the dataset of the template",
+				"operationId":"returnDatasetUsingGET",
+				"consumes":["application/json"],
+				"produces":["application/json"],
+				"parameters":[
+					{"name":"templateId",
+					"in":"query",
+					"description":"The Id of the template",
+					"required":true,
+					"type":"string"}
+				],
+				"responses":{
+					"200":{"description":"The dataset has been successfully retrieved","schema":{"type":"object"}},
+					"401":{"description":"Unauthorized"},
+					"403":{"description":"Forbidden"},
+					"404":{"description":"No dataset found"}}
+			}
+		},
+		"/templatesByGroupAndStatus":{
+			"get":{
+				"tags":["templates"],
+				"summary":"Retrieve the list of templates by the name of a group",
+				"operationId":"getTemplatesByGroupAndStatusUsingGET",
+				"consumes":["application/json"],
+				"produces":["application/json"],
+				"parameters":[
+					{"name":"Authorization",
+					"in":"header",
+					"description":"Authorization",
+					"required":true,
+					"type":"string"},
+					{"name":"groupName",
+					"in":"query",
+					"description":"The name of the group",
+					"required":true,
+					"type":"string"},
+					{"name":"status",
+					"in":"query",
+					"description":"The status of the templates",
+					"required":false,
+					"type":"integer",
+					"format":"int32"},
+					{"name":"page",
+					"in":"query",
+					"description":"Zero-based page index",
+					"required":false,
+					"type":"integer",
+					"format":"int32"},
+					{"name":"pagesize",
+					"in":"query",
+					"description":"The size of the page to be returned",
+					"required":false,
+					"type":"integer",
+					"format":"int32"}
+				],
+				"responses":{
+					"200":{"description":"The list of templates has been successfully retrieved","schema":{"type":"array","items":{"$ref":"#/definitions/Template"}}},
+					"401":{"description":"You are not authorized to perform this action"},
+					"403":{"description":"Forbidden"},
+					"404":{"description":"No template found"}}
+			}
+		},
+		"/deleteTemplate/{id}":{
+			"delete":{
+				"tags":["templates"],
+				"summary":"Delete a template",
+				"operationId":"deleteTemplateUsingDELETE",
+				"consumes":["application/json"],
+				"produces":["*/*"],
+				"parameters":[
+					{"name":"id",
+					"in":"path",
+					"description":"The id of the template",
+					"required":true,
+					"type":"string"}
+				],
+				"responses":{
+					"200":{"description":"OK","schema":{"type":"string"}},
+					"204":{"description":"Template has been successfully deleted",
+					"schema":{"type":"string"}},
+					"403":{"description":"Forbidden"},
+					"404":{"description":"Template not found"}}
+			}
+		},
+		"/templatesByType":{
+			"post":{
+				"tags":["templates"],
+				"summary":"Retrieve the list of templates by the name of a group and the type of template",
+				"operationId":"findTemplateByGroupAndTypeUsingPOST",
+				"consumes":["application/json"],
+				"produces":["application/json"],
+				"parameters":[
+					{"name":"Authorization",
+					"in":"header",
+					"description":"Authorization",
+					"required":true,
+					"type":"string"},
+					{"name":"groupName",
+					"in":"query",
+					"description":"The name of the group",
+					"required":true,
+					"type":"string"},
+					{"name":"status",
+					"in":"query",
+					"description":"The status of the templates",
+					"required":false,
+					"type":"integer",
+					"format":"int32"},
+					{"in":"body",
+					"name":"templateType",
+					"description":"The list of template types",
+					"required":false,
+					"schema":{"type":"array","items":{"type":"string"}}}
+				],
+				"responses":{
+					"200":{"description":"The list of templates has been successfully retrieved","schema":{"type":"array","items":{"$ref":"#/definitions/JSONObject"}}},
+					"201":{"description":"Created"},
+					"401":{"description":"You are not authorized to perform this action"},
+					"403":{"description":"Forbidden"},
+					"404":{"description":"No template found"}}
+			}
+		},
+		"/survey":{
+			"post":{
+				"tags":["surveys"],
+				"summary":"Create a new survey by a specific userId",
+				"operationId":"saveSurveyUsingPOST",
+				"consumes":["application/json"],
+				"produces":["application/json"],
+				"parameters":[
+					{"in":"body",
+					"name":"survey",
+					"description":"The object survey",
+					"required":true,
+					"schema":{"$ref":"#/definitions/Survey"}}
+				],
+				"responses":{
+					"201":{"description":"The survey has been successfully created","schema":{"$ref":"#/definitions/URI"}},
+					"401":{"description":"Unauthorized"},
+					"403":{"description":"Forbidden"},
+					"404":{"description":"No userId found"}}
+			}
+		},
+		"/survey/{surveyId}":{
+			"get":{
+				"tags":["surveys"],
+				"summary":"Retrieve a survey by id",
+				"operationId":"getSurveyUsingGET",
+				"consumes":["application/json"],
+				"produces":["application/json"],
+				"parameters":[
+					{"name":"surveyId",
+					"in":"path",
+					"description":"Survey Id",
+					"required":true,
+					"type":"string"}
+				],
+				"responses":{
+					"200":{"description":"The survey has been successfully retrieved","schema":{"$ref":"#/definitions/Survey"}},
+					"401":{"description":"Unauthorized"},
+					"403":{"description":"Forbidden"},
+					"404":{"description":"Survey not found"}}
+			}
+		},
+		"/surveysInfo":{
+			"get":{
+				"tags":["surveys"],
+				"summary":"Retrieve the surveyInfo list",
+				"operationId":"getSurveysInfoPerTemplateUsingGET",
+				"consumes":["application/json"],
+				"produces":["application/json"],
+				"responses":{
+					"200":{"description":"The surveyInfo list has been successfully retrieved","schema":{"type":"array","items":{"$ref":"#/definitions/SurveyInfo"}}},
+					"401":{"description":"Unauthorized"},
+					"403":{"description":"Forbidden"},
+					"404":{"description":"SurveyInfo not found"}}
+			}
+		},		
+		"/feedbacksInfoPerTemplate":{
+			"get":{
+				"tags":["feedbacks"],
+				"summary":"Retrieve the feedbacks info list per template",
+				"operationId":"getFeedbacksInfoPerTemplateUsingGET",
+				"consumes":["application/json"],
+				"produces":["application/json"],
+				"responses":{
+					"200":{"description":"The feedbacksinfo list has been successfully retrieved","schema":{"type":"array","items":{"$ref":"#/definitions/FeedbackInfo"}}},
+					"401":{"description":"Unauthorized"},
+					"403":{"description":"Forbidden"},
+					"404":{"description":"Feedbacks info not found"}}
+			}
+		},
+		"/feedbacksByTemplate/{templateId}":{
+			"get":{
+				"tags":["surveys"],
+				"summary":"Retrieve the survey list where feedback is not null by template id",
+				"operationId":"getFeedbacksByTemplateAndIntervalUsingGET",
+				"consumes":["application/json"],
+				"produces":["application/json"],
+				"parameters":[
+					{"name":"templateId",
+					"in":"path",
+					"description":"The id of the template",
+					"required":true,
+					"type":"string"},
+					{"name":"userId",
+					"in":"query",
+					"description":"The user id",
+					"required":false,
+					"type":"string"},
+					{"name":"startDate",
+					"in":"query",
+					"description":"Start date",
+					"required":false,
+					"type":"string"},
+					{"name":"endDate",
+					"in":"query",
+					"description":"End date",
+					"required":false,
+					"type":"string"},
+					{"name":"page",
+					"in":"query",
+					"description":"Zero-based page index",
+					"required":false,
+					"type":"integer",
+					"format":"int32"},
+					{"name":"pagesize",
+					"in":"query",
+					"description":"The size of the page to be returned",
+					"required":false,
+					"type":"integer",
+					"format":"int32"}
+				],
+				"responses":{
+					"200":{"description":"The survey list has been successfully retrieved","schema":{"type":"array","items":{"$ref":"#/definitions/Survey"}}},
+					"401":{"description":"Unauthorized"},
+					"403":{"description":"Forbidden"},
+					"404":{"description":"Survey not found"}}
+			}
+		},
+		"/reply":{
+			"patch":{
+				"tags":["surveys"],
+				"summary":"Send a new reply for a survey",
+				"operationId":"sendReplyToFeedbackUsingPATCH",
+				"consumes":["application/json"],
+				"produces":["application/json"],
+				"parameters":[
+					{"in":"body",
+					"name":"replyInfo",
+					"description":"Survey Id and the Reply that has to be sent",
+					"required":true,
+					"schema":{"$ref":"#/definitions/ReplyInfo"}}
+				],
+				"responses":{
+					"201":{"description":"The reply for the survey has been successfully sent"},
+					"401":{"description":"Unauthorized"},
+					"204":{"description":"No Content"},
+					"403":{"description":"Forbidden"},
+					"404":{"description":"No survey found"}}
+			}
+		},
+		"/notification":{
+			"patch":{
+				"tags":["surveys"],
+				"summary":"Confirm the notification for a survey",
+				"operationId":"confirmNotificationUsingPATCH",
+				"consumes":["application/json"],
+				"produces":["application/json"],
+				"parameters":[
+					{"in":"body",
+					"name":"confirm",
+					"description":"Survey Id and user Id",
+					"required":true,
+					"schema":{"$ref":"#/definitions/NotificationConfirm"}}
+				],
+				"responses":{
+					"201":{"description":"The notification for the survey has been successfully confirmed"},
+					"401":{"description":"Unauthorized"},
+					"204":{"description":"No Content"},
+					"403":{"description":"Forbidden"},
+					"404":{"description":"No survey found"}}
+			}
+		},
+		"/attachement/{attachementId}":{
+			"get":{
+				"tags":["attachements"],
+				"summary":"Retrieve the attachement by id",
+				"operationId":"getAttachementUsingGET",
+				"consumes":["application/json"],
+				"produces":["application/json"],
+				"parameters":[
+					{"name":"attachementId",
+					"in":"path",
+					"description":"The attachement id",
+					"required":true,
+					"type":"string"}
+				],
+				"responses":{
+					"200":{"description":"The attachement has been successfully retrieved","schema":{"type":"string"}},
+					"401":{"description":"Unauthorized"},
+					"403":{"description":"Forbidden"},
+					"404":{"description":"Attachement not found"}}
+			}
+		},
+		"/surveys/{surveyId}":{
+			"delete":{
+				"tags":["surveys"],
+				"summary":"Delete a survey and the attachements related by surveyID",
+				"operationId":"deleteSurveyAndAttachementUsingDELETE",
+				"consumes":["application/json"],
+				"produces":["*/*"],
+				"parameters":[
+					{"name":"surveyId",
+					"in":"path",
+					"description":"Survey id",
+					"required":true,
+					"type":"string"}
+				],
+				"responses":{
+					"401":{"description":"Unauthorized"},
+					"204":{"description":"Survey has been successfully deleted"},
+					"403":{"description":"Forbidden"},
+					"404":{"description":"Survey not found"}}
+			}
+		},
+		"/surveysPWA":{
+			"get":{
+				"tags":["surveys"],
+				"summary":"Retrieve the list of available surveys for PWA",
+				"operationId":"getSurveysPWAUsingGET",
+				"consumes":["application/json"],
+				"produces":["application/json"],
+				"parameters":[
+					{"name":"templateId",
+					"in":"query",
+					"description":"The id of the template",
+					"required":false,
+					"type":"string"},
+					{"name":"userId",
+					"in":"query",
+					"description":"The user id",
+					"required":false,
+					"type":"string"},
+					{"name":"startDate",
+					"in":"query",
+					"description":"Start date",
+					"required":false,
+					"type":"string",
+					"format":"date"},
+					{"name":"endDate",
+					"in":"query",
+					"description":"End date",
+					"required":false,
+					"type":"string",
+					"format":"date"},
+					{"name":"status",
+					"in":"query",
+					"description":"The status of the ticket",
+					"required":false,
+					"type":"string",
+					"enum":["OPEN","CLOSE"]},
+					{"name":"page",
+					"in":"query",
+					"description":"Zero-based page index",
+					"required":false,
+					"type":"integer",
+					"format":"int32"},
+					{"name":"size",
+					"in":"query",
+					"description":"The size of the page to be returned",
+					"required":false,
+					"type":"integer",
+					"format":"int32"},
+					{"name":"sortAsc",
+					"in":"query",
+					"description":"Sort the collection in ascending order",
+					"required":false,
+					"type":"boolean",
+					"default":false}
+				],
+				"responses":{
+					"200":{"description":"The list of surveys has been successfully retrieved","schema":{"type":"array","items":{"$ref":"#/definitions/Survey"}}},
+					"401":{"description":"Unauthorized"},
+					"403":{"description":"Forbidden"},
+					"404":{"description":"Survey not found"}}
+			}
+		},
+		"/surveysHome":{
+			"post":{
+				"tags":["surveys"],
+				"summary":"Retrieve the list of available surveys for the home page of the ticket",
+				"operationId":"getSurveysHomeUsingPOST",
+				"consumes":["application/json"],
+				"produces":["application/json"],
+				"parameters":[
+					{"in":"body",
+					"name":"templateIds",
+					"description":"The list of template ids",
+					"required":true,
+					"schema":{"type":"array","items":{"type":"string"}}},
+					{"name":"page",
+					"in":"query",
+					"description":"Zero-based page index",
+					"required":false,
+					"type":"integer",
+					"format":"int32"},
+					{"name":"size",
+					"in":"query",
+					"description":"The size of the page to be returned",
+					"required":false,
+					"type":"integer",
+					"format":"int32"}
+				],
+				"responses":{
+					"200":{"description":"The list of surveys has been successfully retrieved","schema":{"type":"object","additionalProperties":{"type":"object"}}},
+					"201":{"description":"Created"},
+					"401":{"description":"Unauthorized"},
+					"403":{"description":"Forbidden"},
+					"404":{"description":"Survey not found"}}
+			}
+		},
+		"/surveys":{
+			"post":{
+				"tags":["surveys"],
+				"summary":"Retrieve the list of available surveys",
+				"operationId":"getSurveysUsingPOST",
+				"consumes":["application/json"],
+				"produces":["application/json"],
+				"parameters":[
+					{"in":"body",
+					"name":"templateIds",
+					"description":"The list of template ids",
+					"required":true,
+					"schema":{"type":"array","items":{"type":"string"}}},
+					{"name":"userId",
+					"in":"query",
+					"description":"The user id",
+					"required":false,
+					"type":"string"},
+					{"name":"startDate",
+					"in":"query",
+					"description":"Start date",
+					"required":false,
+					"type":"string",
+					"format":"date"},
+					{"name":"endDate",
+					"in":"query",
+					"description":"End date",
+					"required":false,
+					"type":"string",
+					"format":"date"},
+					{"name":"status",
+					"in":"query",
+					"description":"The status of the ticket",
+					"required":false,
+					"type":"string",
+					"enum":["OPEN","CLOSE"]},
+					{"name":"color",
+					"in":"query",
+					"description":"The color of the ticket",
+					"required":false,
+					"type":"integer",
+					"format":"int32"},
+					{"name":"page",
+					"in":"query",
+					"description":"Zero-based page index",
+					"required":false,
+					"type":"integer",
+					"format":"int32"},
+					{"name":"size",
+					"in":"query",
+					"description":"The size of the page to be returned",
+					"required":true,
+					"type":"integer",
+					"format":"int32"},
+					{"name":"sortDate",
+					"in":"query",
+					"description":"Sort the collection for survey date",
+					"required":false,
+					"type":"boolean",
+					"default":false},
+					{"name":"sortStatus",
+					"in":"query",
+					"description":"Sort the collection for status",
+					"required":false,
+					"type":"boolean",
+					"default":false},
+					{"name":"sortColor",
+					"in":"query",
+					"description":"Sort the collection for color",
+					"required":false,
+					"type":"boolean",
+					"default":false}
+				],
+				"responses":{
+					"200":{"description":"The list of surveys has been successfully retrieved","schema":{"type":"object","additionalProperties":{"type":"object"}}},
+					"201":{"description":"Created"},
+					"401":{"description":"Unauthorized"},
+					"403":{"description":"Forbidden"},
+					"404":{"description":"Survey not found"}}
+			}
+		},
+	    "/settings":{
+			"get":{
+				"tags":["settings"],
+				"summary":"Retrieve the list of the settings",
+				"operationId":"getAllSettingsUsingGET",
+				"consumes":["application/json"],
+				"produces":["application/json"],
+				"responses":{
+					"200":{"description":"The settings have been successfully retrieved","schema":{"type":"array","items":{"$ref":"#/definitions/Setting"}}},
+					"401":{"description":"Unauthorized"},
+					"403":{"description":"Forbidden"},
+					"404":{"description":"No setting found"}}
+			},
+			"post":{
+				"tags":["settings"],
+				"summary":"Create the settings",
+				"operationId":"postSettingUsingPOST",
+				"consumes":["application/json"],
+				"produces":["application/json"],
+				"parameters":[
+					{"in":"body",
+					"name":"setting",
+					"description":"setting",
+					"required":true,
+					"schema":{"$ref":"#/definitions/Setting"}}
+				],
+				"responses":{
+					"200":{"description":"Setting successfully created","schema":{"$ref":"#/definitions/URI"}},
+					"201":{"description":"Created","schema":{"$ref":"#/definitions/URI"}},
+					"401":{"description":"Unauthorized"},
+					"403":{"description":"Forbidden"},
+					"404":{"description":"No setting found"}}
+			}
+		},
+		"/settings/{id}":{
+			"get":{
+				"tags":["settings"],
+				"summary":"Retrieve the list of values of a specific setting",
+				"operationId":"getSettingsUsingGET_1",
+				"consumes":["application/json"],
+				"produces":["application/json"],
+				"parameters":[
+					{"name":"id",
+					"in":"path",
+					"description":"The setting Id",
+					"required":true,
+					"type":"string"}
+				],
+				"responses":{
+					"200":{"description":"The values of the setting have been successfully retrieved","schema":{"type":"array","items":{"type":"object"}}},
+					"401":{"description":"Unauthorized"},
+					"403":{"description":"Forbidden"},
+					"404":{"description":"No setting found"}}
+			},
+			"delete":{
+				"tags":["settings"],
+				"summary":"Delete a setting",
+				"operationId":"deleteSettingUsingDELETE",
+				"consumes":["application/json"],
+				"produces":["*/*"],
+				"parameters":[
+					{"name":"id",
+					"in":"path",
+					"description":"The id of the setting",
+					"required":true,
+					"type":"string"}
+				],
+				"responses":{
+					"401":{"description":"Unauthorized"},
+					"204":{"description":"Setting has been successfully deleted"},
+					"403":{"description":"Forbidden"},
+					"404":{"description":"Setting not found"}}
+			},
+			"patch":{
+				"tags":["settings"],
+				"summary":"Update the values of the setting",
+				"operationId":"patchSettingUsingPATCH",
+				"consumes":["application/json"],
+				"produces":["application/json"],
+				"parameters":[
+					{"name":"id",
+					"in":"path",
+					"description":"The id of the setting",
+					"required":true,
+					"type":"string"},
+					{"name":"newValue",
+					"in":"query",
+					"description":"The new value of the setting",
+					"required":true,
+					"type":"string"}
+				],
+				"responses":{
+					"401":{"description":"Unauthorized"},
+					"204":{"description":"Setting values updated"},
+					"403":{"description":"Forbidden"},
+					"404":{"description":"No setting found"}}
+			}
+		},
+		"/applicationSettings":{
+			"get":{
+				"tags":["applicationSettings"],
+				"summary":"Retrieve the settings of a specific application or Initializing",
+				"operationId":"getApplicationSettingsUsingGET",
+				"consumes":["application/json"],
+				"produces":["application/json"],
+				"parameters":[
+					{"name":"Authorization",
+					"in":"header",
+					"description":"Authorization",
+					"required":true,
+					"type":"string"}
+				],
+				"responses":{
+					"200":{"description":"The settings of the application have been successfully retrieved","schema":{"$ref":"#/definitions/ApplicationSettings"}},
+					"401":{"description":"Unauthorized"},
+					"403":{"description":"Forbidden"},
+					"404":{"description":"No preference found"}}
+			},
+			"post":{
+				"tags":["applicationSettings"],
+				"summary":"Create a set of settings for a specific application",
+				"operationId":"postPreferencesUsingPOST",
+				"consumes":["application/json"],
+				"produces":["application/json"],
+				"parameters":[
+					{"in":"body",
+					"name":"applicationSettings",
+					"description":"The settings for a specific application",
+					"required":true,
+					"schema":{"$ref":"#/definitions/ApplicationSettings"}},
+					{"name":"Authorization",
+					"in":"header",
+					"description":"Authorization",
+					"required":true,
+					"type":"string"}
+				],
+				"responses":{
+					"200":{"description":"Preference successfully created","schema":{"$ref":"#/definitions/URI"}},
+					"201":{"description":"Created","schema":{"$ref":"#/definitions/URI"}},
+					"401":{"description":"You are not authorized to perform this action"},
+					"403":{"description":"Forbidden"},
+					"404":{"description":"No preference found"}}
+			}
+		},
+		"/applicationsSettings":{
+			"get":{
+				"tags":["applicationSettings"],
+				"summary":"Retrieve the preferences setted for all applications",
+				"operationId":"getApplicationsSettingsUsingGET",
+				"consumes":["application/json"],
+				"produces":["application/json"],
+				"responses":{
+					"200":{"description":"The preferences setted for all applications have been successfully retrieved","schema":{"type":"array","items":{"$ref":"#/definitions/ApplicationSettings"}}},
+					"401":{"description":"Unauthorized"},
+					"403":{"description":"Forbidden"},
+					"404":{"description":"No preference found"}}
+			}
+		},
+		"/reports":{
+			"get":{
+				"tags":["reports"],
+				"summary":"Get the list of reports",
+				"operationId":"getReportsUsingGET",
+				"consumes":["application/json"],
+				"produces":["application/json"],
+				"parameters":[
+					{"name":"activity",
+					"in":"query",
+					"description":"The activity id",
+					"required":false,
+					"type":"string"},
+					{"name":"user",
+					"in":"query",
+					"description":"The name of the user",
+					"required":false,
+					"type":"string"},
+					{"name":"Authorization",
+					"in":"header",
+					"description":"Authorization",
+					"required":true,
+					"type":"string"}
+				],
+				"responses":{
+					"200":{"description":"The reports have been successfully retrieved","schema":{"type":"array","items":{"$ref":"#/definitions/Report"}}},
+					"401":{"description":"You are not authorized to perform this action"},
+					"403":{"description":"Forbidden"},
+					"404":{"description":"No report found"}}
+			},
+			"post":{
+				"tags":["reports"],
+				"summary":"Create an activity report for a specific user",
+				"operationId":"postReportUsingPOST",
+				"consumes":["application/json"],
+				"produces":["application/json"],
+				"parameters":[
+					{"in":"body",
+					"name":"report",
+					"description":"report",
+					"required":true,
+					"schema":{"$ref":"#/definitions/Report"}},
+					{"name":"Authorization",
+					"in":"header",
+					"description":"Authorization",
+					"required":true,
+					"type":"string"}
+				],
+				"responses":{
+					"200":{"description":"Report created","schema":{"$ref":"#/definitions/URI"}},
+					"201":{"description":"Created","schema":{"$ref":"#/definitions/URI"}},
+					"401":{"description":"You are not authorized to perform this action"},
+					"403":{"description":"Forbidden"},
+					"404":{"description":"No user found"}}
+			}
+		},
+		"/reports/{id}":{
+			"get":{
+				"tags":["reports"],
+				"summary":"Retrieve a report by id",
+				"operationId":"getReportUsingGET",
+				"consumes":["application/json"],
+				"produces":["application/json"],
+				"parameters":[
+					{"name":"id",
+					"in":"path",
+					"description":"Report id",
+					"required":true,
+					"type":"string"}
+				],
+				"responses":{
+					"200":{"description":"The report has been successfully retrieved","schema":{"$ref":"#/definitions/Report"}},
+					"401":{"description":"Unauthorized"},
+					"403":{"description":"Forbidden"},
+					"404":{"description":"Report not found"}}
+			},
+			"delete":{
+				"tags":["reports"],
+				"summary":"Delete a report",
+				"operationId":"deleteReportUsingDELETE",
+				"consumes":["application/json"],
+				"produces":["*/*"],
+				"parameters":[
+					{"name":"id",
+					"in":"path",
+					"description":"The id of the report",
+					"required":true,
+					"type":"string"}
+				],
+				"responses":{
+					"401":{"description":"Unauthorized"},
+					"204":{"description":"Report has been successfully deleted"},
+					"403":{"description":"Forbidden"},
+					"404":{"description":"Report not found"}}
+			},
+			"patch":{
+				"tags":["reports"],
+				"summary":"Increment the activity counter for a specific report",
+				"operationId":"patchReportUsingPATCH",
+				"consumes":["application/json"],
+				"produces":["application/json"],
+				"parameters":[
+					{"name":"id",
+					"in":"path",
+					"description":"The id of the report",
+					"required":true,
+					"type":"string"},
+					{"name":"Authorization",
+					"in":"header",
+					"description":"Authorization",
+					"required":true,
+					"type":"string"},
+					{"in":"body",
+					"name":"report",
+					"description":"The report with the counter to be updated",
+					"required":false,
+					"schema":{"$ref":"#/definitions/Report"}}
+				],
+				"responses":{
+					"401":{"description":"You are not authorized to perform this action"},
+					"204":{"description":"Report counter updated"},
+					"403":{"description":"Forbidden"},
+					"404":{"description":"No report found"}}
+			}
+		},
+		"/reportOne":{
+			"post":{
+				"tags":["reports"],
+				"summary":"Get the reports for the Interactions graph",
+				"operationId":"getReportOneUsingPOST",
+				"consumes":["application/json"],
+				"produces":["application/json"],
+				"parameters":[
+					{"name":"startDate",
+					"in":"query",
+					"description":"The start date",
+					"required":true,
+					"type":"string",
+					"format":"date"},
+					{"name":"endDate",
+					"in":"query",
+					"description":"The end date",
+					"required":true,
+					"type":"string",
+					"format":"date"},
+					{"in":"body",
+					"name":"templateIds",
+					"description":"The list of template ids",
+					"required":true,
+					"schema":{"type":"array","items":{"type":"string"}}}
+				],
+				"responses":{
+					"200":{"description":"The report has been successfully retrieved","schema":{"type":"object","additionalProperties":{"type":"object"}}},
+					"201":{"description":"Created"},
+					"401":{"description":"Unauthorized"},
+					"403":{"description":"Forbidden"},
+					"404":{"description":"Report not found"}}
+			}
+		},
+		"/reportTwo":{
+			"post":{
+				"tags":["reports"],
+				"summary":"Get the reports for the Template graph",
+				"operationId":"getReportTwoUsingPOST",
+				"consumes":["application/json"],
+				"produces":["application/json"],
+				"parameters":[
+					{"name":"startDate",
+					"in":"query",
+					"description":"The start date",
+					"required":true,
+					"type":"string",
+					"format":"date"},
+					{"name":"endDate",
+					"in":"query",
+					"description":"The end date",
+					"required":true,
+					"type":"string",
+					"format":"date"},
+					{"in":"body",
+					"name":"templateIds",
+					"description":"The list of template ids",
+					"required":true,
+					"schema":{"type":"array","items":{"type":"string"}}}
+				],
+				"responses":{
+					"200":{"description":"The report has been successfully retrieved","schema":{"type":"object","additionalProperties":{"type":"object"}}},
+					"201":{"description":"Created"},
+					"401":{"description":"Unauthorized"},
+					"403":{"description":"Forbidden"},
+					"404":{"description":"Report not found"}}
+			}
+		},
+		"/reportThree":{
+			"post":{
+				"tags":["reports"],
+				"summary":"Get the reports for Visualization graph",
+				"operationId":"getReportThreeUsingPOST",
+				"consumes":["application/json"],
+				"produces":["application/json"],
+				"parameters":[
+					{"name":"startDate",
+					"in":"query",
+					"description":"The start date",
+					"required":true,
+					"type":"string",
+					"format":"date"},
+					{"name":"endDate",
+					"in":"query",
+					"description":"The end date",
+					"required":true,
+					"type":"string",
+					"format":"date"},
+					{"in":"body",
+					"name":"templateIds",
+					"description":"The list of template ids",
+					"required":true,
+					"schema":{"type":"array","items":{"type":"string"}}}
+				],
+				"responses":{
+					"200":{"description":"The report has been successfully retrieved","schema":{"type":"object","additionalProperties":{"type":"object"}}},
+					"201":{"description":"Created"},
+					"401":{"description":"Unauthorized"},
+					"403":{"description":"Forbidden"},
+					"404":{"description":"Report not found"}}
+			}
+		},
+		"/reportFour":{
+			"post":{
+				"tags":["reports"],
+				"summary":"Get the reports for the Valutation",
+				"operationId":"getReportFourUsingPOST",
+				"consumes":["application/json"],
+				"produces":["application/json"],
+				"parameters":[
+					{"name":"startDate",
+					"in":"query",
+					"description":"The start date",
+					"required":true,
+					"type":"string",
+					"format":"date"},
+					{"name":"endDate",
+					"in":"query",
+					"description":"The end date",
+					"required":true,
+					"type":"string",
+					"format":"date"},
+					{"in":"body",
+					"name":"templateIds",
+					"description":"The list of template ids",
+					"required":true,
+					"schema":{"type":"array","items":{"type":"string"}}}
+				],
+				"responses":{
+					"200":{"description":"The report has been successfully retrieved","schema":{"type":"object","additionalProperties":{"type":"object"}}},
+					"201":{"description":"Created"},
+					"401":{"description":"Unauthorized"},
+					"403":{"description":"Forbidden"},
+					"404":{"description":"Report not found"}}
+			}
+		},
+		"/activities":{
+			"get":{
+				"tags":["activities"],
+				"summary":"Get the list of available activities",
+				"operationId":"getActivitiesUsingGET",
+				"consumes":["application/json"],
+				"produces":["application/json"],
+				"responses":{
+					"200":{"description":"Activities has been successfully retrieved","schema":{"type":"array","items":{"$ref":"#/definitions/Activity"}}},
+					"401":{"description":"Unauthorized"},
+					"403":{"description":"Forbidden"},
+					"404":{"description":"No activity found"}}
+			},
+			"post":{
+				"tags":["activities"],
+				"summary":"Create a new report activity",
+				"operationId":"postActivityUsingPOST",
+				"consumes":["application/json"],
+				"produces":["application/json"],
+				"parameters":[
+					{"in":"body",
+					"name":"name",
+					"description":"Activity name",
+					"required":true,
+					"schema":{"type":"string"}}
+				],
+				"responses":{
+					"201":{"description":"Activity successfully created","schema":{"$ref":"#/definitions/URI"}},
+					"401":{"description":"Unauthorized"},
+					"403":{"description":"Forbidden"},
+					"404":{"description":"Not Found"},
+					"409":{"description":"An activity with this name already exists"}}
+			}
+		},
+		"/activities/{id}":{
+			"get":{
+				"tags":["activities"],
+				"summary":"Get an activity by id",
+				"operationId":"getActivityUsingGET",
+				"consumes":["application/json"],
+				"produces":["application/json"],
+				"parameters":[
+					{"name":"id",
+					"in":"path",
+					"description":"Activity id",
+					"required":true,
+					"type":"string"}
+				],
+				"responses":{
+					"200":{"description":"The activity has been successfully retrieved","schema":{"$ref":"#/definitions/Activity"}},
+					"401":{"description":"Unauthorized"},
+					"403":{"description":"Forbidden"},
+					"404":{"description":"Activity not found"}}
+			},
+			"delete":{
+				"tags":["activities"],
+				"summary":"Delete an activity",
+				"operationId":"deleteActivityUsingDELETE",
+				"consumes":["application/json"],
+				"produces":["*/*"],
+				"parameters":[
+					{"name":"id",
+					"in":"path",
+					"description":"Activity id",
+					"required":true,
+					"type":"string"}
+				],
+				"responses":{
+					"401":{"description":"Unauthorized"},
+					"204":{"description":"Activity has been successfully deleted"},
+					"403":{"description":"Forbidden"},
+					"404":{"description":"Activity not found"}}
+			}
+		},
+		"/installation":{
+			"post":{
+				"tags":["installations"],
+				"summary":"Create the installation documents",
+				"operationId":"postInstallationUsingPOST",
+				"consumes":["application/json"],
+				"produces":["application/json"],
+				"parameters":[
+					{"name":"Authorization",
+					"in":"header",
+					"description":"Authorization",
+					"required":true,
+					"type":"string"}
+				],
+				"responses":{
+					"200":{"description":"Installation completed!","schema":{"type":"object","additionalProperties":{"type":"object"}}},
+					"201":{"description":"Created","schema":{"type":"object","additionalProperties":{"type":"object"}}},
+					"401":{"description":"You are not authorized to perform this action"},
+					"403":{"description":"Forbidden"},
+					"404":{"description":"No documents found"}}
+			}
+		},
+		"/anagraphic":{
+			"post":{
+				"tags":["anagraphics"],
+				"summary":"Create the anagraphic",
+				"operationId":"postAnagraphicUsingPOST",
+				"consumes":["application/json"],
+				"produces":["application/json"],
+				"parameters":[
+					{"in":"body",
+					"name":"anagraphic",
+					"description":"anagraphic",
+					"required":true,
+					"schema":{"$ref":"#/definitions/Anagraphic"}},
+					{"name":"Authorization",
+					"in":"header",
+					"description":"Authorization",
+					"required":true,"type":"string"}
+				],
+				"responses":{
+					"200":{"description":"Anagraphic created","schema":{"$ref":"#/definitions/URI"}},
+					"201":{"description":"Created","schema":{"$ref":"#/definitions/URI"}},
+					"401":{"description":"You are not authorized to perform this action"},
+					"403":{"description":"Forbidden"},
+					"404":{"description":"No anagraphic found"}}
+			}
+		},
+		"/anagraphics":{
+			"get":{
+				"tags":["anagraphics"],
+				"summary":"Get the list of anagraphics",
+				"operationId":"getAnagraphicsUsingGET",
+				"consumes":["application/json"],
+				"produces":["application/json"],
+				"parameters":[
+					{"name":"Authorization",
+					"in":"header",
+					"description":"Authorization",
+					"required":true,
+					"type":"string"}
+				],
+				"responses":{
+					"200":{"description":"The anagraphics have been successfully retrieved","schema":{"type":"array","items":{"$ref":"#/definitions/Anagraphic"}}},
+					"401":{"description":"You are not authorized to perform this action"},
+					"403":{"description":"Forbidden"},
+					"404":{"description":"No anagraphic found"}}
+			}
+		},
+		"/usersInfo":{
+			"get":{
+				"tags":["installations"],
+				"summary":"Create the installation documents",
+				"operationId":"getUsersInfoUsingGET",
+				"consumes":["application/json"],
+				"produces":["application/json"],
+				"responses":{
+					"200":{"description":"Users Informations retrieved","schema":{"type":"object","additionalProperties":{"type":"object"}}},
+					"401":{"description":"Unauthorized"},
+					"403":{"description":"Forbidden"},
+					"404":{"description":"No user found"}}
+			}
+		},
+		"/anagraficaUsers":{
+			"post":{
+				"tags":["users"],
+				"summary":"Retrieve the list of available anagraphics",
+				"operationId":"getSurveysAnagraficaNewUsingPOST",
+				"consumes":["application/json"],
+				"produces":["application/json"],
+				"parameters":[
+					{"in":"body",
+					"name":"templateIds",
+					"description":"The list of template ids",
+					"required":true,
+					"schema":{"type":"array","items":{"type":"string"}}},
+					{"name":"userId",
+					"in":"query",
+					"description":"The user id",
+					"required":false,
+					"type":"string"},
+					{"name":"name",
+					"in":"query",
+					"description":"The name of the user",
+					"required":false,
+					"type":"string"},
+					{"name":"surname",
+					"in":"query",
+					"description":"The surname of the user",
+					"required":false,
+					"type":"string"},
+					{"name":"email",
+					"in":"query",
+					"description":"The email of the user",
+					"required":false,
+					"type":"string"},
+					{"name":"page",
+					"in":"query",
+					"description":"Zero-based page index",
+					"required":false,
+					"type":"integer",
+					"format":"int32"},
+					{"name":"size",
+					"in":"query",
+					"description":"The size of the page to be returned",
+					"required":true,
+					"type":"integer",
+					"format":"int32"},
+					{"name":"sortAlph",
+					"in":"query",
+					"description":"Sort the collection in alphabetic order",
+					"required":false,
+					"type":"boolean",
+					"default":true}
+				],
+				"responses":{
+					"200":{"description":"The list of anagraphics has been successfully retrieved","schema":{"type":"object","additionalProperties":{"type":"object"}}},
+					"201":{"description":"Created"},
+					"401":{"description":"Unauthorized"},
+					"403":{"description":"Forbidden"},
+					"404":{"description":"User not found"}}
+			}
+		},
+		"definitions":{
+			"Activity":{
+				"type":"object",
+				"properties":{
+					"activityCode":{"type":"integer","format":"int32"},
+					"id":{"type":"string"},
+					"name":{"type":"string"}
+				},
+				"description":"Model to describe a specific activity to create a report"
+			},
+			"ReplyInfo":{
+				"type":"object",
+				"properties":{
+					"reply":{"$ref":"#/definitions/Reply"},
+					"surveyId":{"type":"string"}
+				}
+			},
+			"Attachement":{
+				"type":"object",
+				"properties":{
+					"attachementId":{"type":"string"},
+					"data":{"type":"string"},
+					"nome":{"type":"string"},
+					"tipo":{"type":"string"}
+				},
+				"description":"Description of the attachement structure"
+			},
+			"Template":{
+				"type":"object",
+				"properties":{
+					"authorId":{"type":"string"},
+					"dataset":{"type":"string"},
+					"description":{"type":"string"},
+					"icon":{"type":"string"},
+					"keywords":{"type":"array","items":{"type":"string"}},
+					"link":{"type":"string"},
+					"publishDate":{"type":"string","format":"date-time"},
+					"questions":{"type":"array","items":{"$ref":"#/definitions/Question"}},
+					"saveDate":{"type":"string","format":"date-time"},
+					"status":{"type":"integer","format":"int32"},
+					"templateId":{"type":"string"},
+					"templateType":{"type":"string"},
+					"title":{"type":"string"},
+					"xml":{"type":"string"}},
+				"description":"Model to create the template"
+			},
+			"NotificationConfirm":{
+				"type":"object",
+				"properties":{
+					"surveyId":{"type":"string"},
+					"userId":{"type":"string"}}
+			},
+			"Question":{
+				"type":"object",
+				"properties":{
+					"dataType":{"type":"string"},
+					"fieldFlag":{"type":"string"},
+					"lastQuestion":{"type":"boolean"},
+					"questionId":{"type":"integer","format":"int32"},
+					"questionText":{"type":"string"},
+					"responses":{"type":"array","items":{"$ref":"#/definitions/Response"}},
+					"test":{"type":"boolean"},
+					"weight":{"type":"integer","format":"int32"},
+					"xPosition":{"type":"integer","format":"int32"},
+					"yPosition":{"type":"integer","format":"int32"}},
+				"description":"Structure of the question during the interaction"
+			},
+			"FeedbackInfo":{
+				"type":"object",
+				"properties":{
+					"description":{"type":"string"},
+					"feedbacksCount":{"type":"integer","format":"int32"},
+					"icon":{"type":"string"},
+					"status":{"type":"integer","format":"int32"},
+					"templateId":{"type":"string"},
+					"title":{"type":"string"}}
+			},
+			"Anagraphic":{
+				"type":"object",
+				"properties":{
+					"appName":{"type":"string"},
+					"flag":{"type":"string"},
+					"id":{"type":"string"},
+					"value":{"type":"string"}},
+				"description":"General Anagraphic model for a specific application"
+			},
+			"Report":{
+				"type":"object",
+				"properties":{
+					"activityCode":{"type":"integer","format":"int32","description":"The code of the activity"},
+					"argument":{"type":"string"},
+					"color":{"type":"integer","format":"int32"},
+					"domain":{"type":"string"},
+					"id":{"type":"string"},
+					"reportDate":{"type":"integer","format":"int64"},
+					"templateId":{"type":"string"},
+					"user":{"type":"string","description":"The name of the user"},
+					"wrongSentence":{"type":"string"}},
+				"description":"General model to create a report, related to the specific activity"
+			},
+			"Color":{
+				"type":"object",
+				"properties":{
+					"appName":{"type":"string"},
+					"colorCode":{"type":"integer","format":"int32","description":"The code of the color"},
+					"colorName":{"type":"string"},
+					"hexColor":{"type":"string"},
+					"id":{"type":"string"}},
+				"description":"Structure of the Color for the Invalsi type"
+			},
+			"Setting":{
+				"type":"object",
+				"properties":{
+					"defaultValue":{"type":"object"},
+					"id":{"type":"string"},
+					"name":{"type":"string"},
+					"values":{"type":"array","items":{"type":"object"}}},
+				"description":"General model to create a setting"
+			},
+			"SurveyInfo":{
+				"type":"object",
+				"properties":{
+					"description":{"type":"string"},
+					"icon":{"type":"string"},
+					"status":{"type":"integer","format":"int32"},
+					"surveysCount":{"type":"integer","format":"int32"},
+					"templateId":{"type":"string"},
+					"title":{"type":"string"}}
+			},
+			"TemplateType":{
+				"type":"object",
+				"properties":{
+					"templateTypeId":{"type":"string"},
+					"templateTypeName":{"type":"string"},
+					"templateTypeStatus":{"type":"integer","format":"int32"}},
+				"description":"Model of the type related to template"
+			},
+			"Response":{
+				"type":"object",
+				"properties":{
+					"id":{"type":"integer","format":"int32"},
+					"keywords":{"type":"array","items":{"type":"string"}},
+					"nextQuestionId":{"type":"integer","format":"int32"},
+					"operator":{"type":"string"},
+					"score":{"type":"integer","format":"int32"},
+					"value":{"type":"object"}},
+				"description":"General model to create a response in template"
+			},
+			"ApplicationSettings":{
+				"type":"object",
+				"properties":{
+					"id":{"type":"string"},
+					"prefValues":{"type":"array","items":{"$ref":"#/definitions/Preference"}},
+					"prefs":{"type":"array","items":{"$ref":"#/definitions/Preference"}}},
+				"description":"Application preferences (settings)"
+			},
+			"Answer":{
+				"type":"object",
+				"properties":{
+					"answerText":{"type":"string"},
+					"attachement":{"type":"array","items":{"$ref":"#/definitions/Attachement"}},
+					"questionId":{"type":"integer","format":"int32"},
+					"questionText":{"type":"string"},
+					"wrongAnswers":{"type":"array","items":{"type":"string"}}},
+				"description":"Model of the answer for the interaction"
+			},
+			"Survey":{
+				"type":"object",
+				"properties":{
+					"answers":{"type":"array","items":{"$ref":"#/definitions/Answer"}},
+					"average":{"type":"integer","format":"int32"},
+					"color":{"type":"integer","format":"int32"},
+					"colorObj":{"$ref":"#/definitions/Color"},
+					"counterScore":{"type":"integer","format":"int32"},
+					"counterWeight":{"type":"integer","format":"int32"},
+					"feedback":{"type":"string"},
+					"replies":{"type":"array","items":{"$ref":"#/definitions/Reply"}},
+					"showNotification":{"type":"boolean"},
+					"status":{"type":"string","enum":["OPEN","CLOSE"]},
+					"surveyDate":{"type":"string","format":"date-time"},
+					"surveyId":{"type":"string"},"templateId":{"type":"string"},
+					"templateTitle":{"type":"string"},
+					"userId":{"type":"string"}},
+					"description":"Structure of the survey, save the interaction of the user on a specific template"
+			},
+			"TemplateInfo":{
+				"type":"object",
+				"properties":{
+					"templateId":{"type":"string"},
+					"title":{"type":"string"}}
+			},
+			"Preference":{
+				"type":"object",
+				"properties":{
+					"name":{"type":"string"},
+					"value":{"type":"object"}},
+				"description":"General model of a preference to save settings in the application"
+			},
+			"Reply":{
+				"type":"object",
+				"properties":{
+					"attachement":{"type":"array","items":{"$ref":"#/definitions/Attachement"}},
+					"emailBody":{"type":"string"},
+					"emailObject":{"type":"string"},
+					"sentDate":{"type":"string","format":"date-time"},
+					"userEmail":{"type":"string"}},
+					"description":"Model of the reply for the survey"}
+			}
+	}
+}

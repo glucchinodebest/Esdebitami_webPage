@@ -1,0 +1,4 @@
+#!/bin/sh
+
+/usr/bin/nohup /usr/bin/java -jar ./vas-template-1.0.0.jar --spring.config.location=/opt/vassistant/services/vas-template/config/application.yml &
+

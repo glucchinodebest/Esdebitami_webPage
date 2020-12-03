@@ -1,0 +1,10 @@
+package it.esdebitamiretake.retake_ticket.repo;
+
+import org.springframework.data.mongodb.repository.MongoRepository;
+import com.pccube.vvas.template.db.collection.Setting;
+
+public abstract interface SettingRepository extends MongoRepository<Setting, String>{
+  	
+
+	
+}

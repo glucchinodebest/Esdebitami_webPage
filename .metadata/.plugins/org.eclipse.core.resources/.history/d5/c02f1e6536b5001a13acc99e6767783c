@@ -1,0 +1,13 @@
+package it.esdebitamiretake.retake_ai;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class RetakeAiApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(RetakeAiApplication.class, args);
+	}
+
+}

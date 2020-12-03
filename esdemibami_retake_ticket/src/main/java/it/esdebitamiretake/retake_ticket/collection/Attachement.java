@@ -1,0 +1,73 @@
+package it.esdebitamiretake.retake_ticket.collection;
+
+import javax.xml.bind.annotation.XmlElement;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import io.swagger.annotations.ApiModel;
+
+@Document(collection="attachements")
+@JsonInclude(JsonInclude.Include.ALWAYS)
+@ApiModel(description = "Description of the attachement structure")
+public class Attachement {
+	
+	@Id
+	@Field("_id")
+	@JsonProperty("attachementId")
+	@XmlElement
+	private String attachementId;
+	
+	@Field("data")
+	@JsonProperty("data")
+	@XmlElement
+	private String data;
+	
+	@Field("tipo")
+	@JsonProperty("tipo")
+	@XmlElement
+	private String tipo;
+	
+	@Field("nome")
+	@JsonProperty("nome")
+	@XmlElement
+	private String nome;
+
+	public String getAttachementId() {
+		return attachementId;
+	}
+
+	public void setAttachementId(String attachementId) {
+		this.attachementId = attachementId;
+	}
+
+	public String getData() {
+		return data;
+	}
+
+	public void setData(String data) {
+		this.data = data;
+	}
+
+	public String getTipo() {
+		return tipo;
+	}
+
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
+	}
+
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+	
+
+	
+
+}

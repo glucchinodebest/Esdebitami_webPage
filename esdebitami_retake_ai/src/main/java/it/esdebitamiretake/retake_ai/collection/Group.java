@@ -1,0 +1,95 @@
+package it.esdebitamiretake.retake_ai.collection;
+
+import java.util.Set;
+
+import javax.validation.constraints.NotNull;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
+
+import org.bson.types.ObjectId;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.CompoundIndex;
+import org.springframework.data.mongodb.core.index.CompoundIndexes;
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
+@Document(collection = "groups")
+@JsonInclude(JsonInclude.Include.ALWAYS)
+@JsonFormat(with = { com.fasterxml.jackson.annotation.JsonFormat.Feature.ACCEPT_SINGLE_VALUE_AS_ARRAY })
+@XmlRootElement
+@XmlAccessorType(XmlAccessType.FIELD)
+@ApiModel(description = "A group associated with templates and roles")
+@CompoundIndexes({ @CompoundIndex(name = "name_application", unique = true, def = "{'name' : 1, 'application' : 1}") })
+public class Group {
+
+	@Id
+	@Field("_id")
+	private ObjectId id;
+
+	@Field("name")
+	@JsonProperty("name")
+	@ApiModelProperty(notes = "The name of the group")
+	@NotNull
+	private String name;
+
+	@Field("application")
+	@JsonIgnore
+	private String application;
+
+	@Field("templates")
+	@JsonProperty("templates")
+	@JsonFormat(with = { com.fasterxml.jackson.annotation.JsonFormat.Feature.ACCEPT_SINGLE_VALUE_AS_ARRAY })
+	@ApiModelProperty(notes = "The ids of the templates")
+	private Set<String> templates;
+
+
+	public String getName() {
+
+		return this.name;
+	}
+
+	public String getApplication() {
+
+		return this.application;
+	}
+
+	public Set<String> getTemplates() {
+
+		return this.templates;
+	}
+
+	public void setName(@NotNull String name) {
+
+		this.name = name;
+	}
+
+	public void setApplication(String application) {
+
+		this.application = application;
+	}
+
+	public void setTemplates(Set<String> templates) {
+
+		this.templates = templates;
+	}
+
+	public boolean hasTemplates() {
+
+		return templates != null && !templates.isEmpty();
+	}
+
+	@Override
+	public String toString() {
+
+		return getName();
+	}
+}

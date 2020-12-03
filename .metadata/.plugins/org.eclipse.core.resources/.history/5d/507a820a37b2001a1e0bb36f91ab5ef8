@@ -1,0 +1,30 @@
+package com.pccube.vvas.template.service;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.pccube.vvas.template.controller.ResourceNotFoundException;
+import com.pccube.vvas.template.db.collection.ApplicationSettings;
+import com.pccube.vvas.template.db.repo.ApplicationSettingsRepository;
+
+@Service
+public class ApplicationSettingsService {
+
+	@Autowired
+	ApplicationSettingsRepository applicationSettingsRepository;
+	
+	public ApplicationSettings saveApplicationSettings(ApplicationSettings appSettings) {
+		return applicationSettingsRepository.save(appSettings);
+	}
+	
+	public ApplicationSettings findApplicationSettings(String theName) throws ResourceNotFoundException {
+		return applicationSettingsRepository.findByName(theName);
+	}
+	
+	public List<ApplicationSettings> findAll() throws ResourceNotFoundException {
+		return applicationSettingsRepository.findAll();
+	}
+
+}

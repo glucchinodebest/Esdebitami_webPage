@@ -1,0 +1,19 @@
+package com.pccube.vvas.template.service;
+
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import com.pccube.vvas.template.db.collection.Group;
+import com.pccube.vvas.template.db.repo.GroupRepository;
+
+@Service
+public class GroupService {
+	
+	@Autowired
+	GroupRepository groupRepository;
+	
+	public Group find(String name,String application) {
+
+		return groupRepository.findByNameAndApplication(name,application);
+	}
+}

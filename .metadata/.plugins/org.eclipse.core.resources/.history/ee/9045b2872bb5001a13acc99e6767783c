@@ -1,0 +1,646 @@
+package it.esdebitamiretake.retake_ai.controller.nlp;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.nio.charset.Charset;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
+import org.json.simple.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.pccube.vvas.ai.beans.response.VasResponse;
+import com.pccube.vvas.ai.collection.Dataset;
+import com.pccube.vvas.ai.collection.Question;
+import com.pccube.vvas.ai.collection.Response;
+import com.pccube.vvas.ai.collection.Template;
+import com.pccube.vvas.ai.collection.findSentenceForInvalsi;
+import com.pccube.vvas.ai.collection.matchReturn;
+import com.pccube.vvas.ai.objects.KeywordAndCountMax;
+import com.pccube.vvas.ai.service.GroupService;
+import com.pccube.vvas.ai.service.TemplateService;
+
+import opennlp.tools.stemmer.snowball.SnowballStemmer;
+
+@Service
+public class InteractionUtils {
+	
+	private static Logger LOG = LoggerFactory.getLogger(NLPController.class);
+	
+	@Autowired
+	private TemplateService templateservice;
+	
+	@Autowired
+	GroupService groupService;
+	
+	
+	@SuppressWarnings("resource")
+	public String purify( String sentence ) throws IOException {
+		LOG.info( "[START] purification of sentence : " + sentence );
+		sentence = sentence.trim().toLowerCase();
+		File file = new File("stopwords525.txt");
+		//File file = new File("C:\\Users\\magic\\OneDrive\\Desktop\\Py4release\\stopwords525.txt");
+		String [] charsetsToBeTested = { "UTF-8" , "UTF-16" , "windows-1253" , "ISO-8859-7" , "ANSI" };
+		CharsetDetector charsetDetector = new CharsetDetector();
+		Charset charset = charsetDetector.detectCharset( file , charsetsToBeTested );
+		BufferedReader bufferedReader = new BufferedReader( new InputStreamReader( new FileInputStream( file ) , charset ) );
+		String line ;
+		String stopwords = "" ;
+		List< String > stop = new ArrayList< String >();
+		while ( ( line = bufferedReader.readLine() ) != null ) 
+			stopwords += line + " \n ";
+		stopwords = stopwords.trim().toLowerCase().replace( "," , " \n " );
+		for ( String token : stopwords.split( " \n " ) ) 
+			stop.add( token );
+		String purifiedSentence = "";
+		for ( String sentenceToken : sentence.split( " " ) ) {
+			boolean contain = false;
+			for ( String stopToken : stop ) {
+				if ( sentenceToken.equals( stopToken ) ) 
+					contain = true;
+			}
+			if ( !contain ) 
+				purifiedSentence += sentenceToken + " ";
+		}
+		purifiedSentence = purifiedSentence.trim().toLowerCase();
+		LOG.info( "[END] purification of sentence : " + sentence + " , obtained the sentence : " + purifiedSentence);
+		return purifiedSentence;
+	}
+	
+	
+	
+	public matchReturn match( String sentence, List< String > dictionary ) throws IOException {
+		LOG.info( "[START] match" );
+		List< String > stringMatch = new ArrayList< String >();
+		matchReturn matchReturn = new matchReturn();
+		sentence = sentence.toLowerCase().trim();
+		String pure = purify( sentence );  
+		int peso = 0;
+		if ( stringMatch.size() == 0 ) {
+			for ( String dictSentence : dictionary ) {
+				dictSentence = stemSentence( purify( dictSentence ) ).trim().toLowerCase();
+				if ( pure.contains( purify( dictSentence ) ) && !purify( dictSentence ).equals(" ") && !purify( dictSentence ).equals("") ) {
+					peso = 2;
+					System.out.println( ( sentence + " CONTAINS " + purify( dictSentence ) ) );	LOG.info( sentence + " CONTAINS " + dictSentence );
+					stringMatch.add( dictSentence );
+				}
+			}
+		}
+		if ( stringMatch.size() == 0 ) {
+			for ( String pureToken : pure.split( " " ) ) {
+				for ( String dictString : dictionary ) {
+					dictString = dictString.trim().toLowerCase();
+					for ( String dictToken : dictString.split( " " ) ) {
+						dictToken = stemSentence( purify( dictToken ) ).trim().toLowerCase();
+						if ( pureToken.equals( dictToken ) && stringMatch.size() == 0 ) {
+							System.out.println( "TOKEN " + pureToken + " EQUALS TOKEN " + dictToken );	LOG.info( "TOKEN " + pureToken + " EQUALS TOKEN " + dictToken );	
+							peso = 3 ;
+							stringMatch.add( dictString );
+						}
+					}
+				}
+			}
+		}
+		matchReturn.setMatchSentence( stringMatch );
+		matchReturn.setScore( peso );
+		LOG.info( "[END] match " );
+		return matchReturn;
+	}
+
+	
+	
+	public static VasResponse LoadingDataInsideQuestion( Template template ) {
+		LOG.info( "[START] loadingDataInsideQuestion" );
+		VasResponse res = new VasResponse( Integer.valueOf( 0 ), "OK", null );
+		List< Question > templateQuestions = template.getQuestions();
+		for ( Question question : templateQuestions ) {
+			List< Response > responses = question.getResponses();
+			for ( Response response : responses ) {
+				List< String > keywords = response.getKeywords();
+				for ( String keyword : keywords ) {
+					keyword = keyword.trim().toLowerCase();
+					if ( keyword.equals( "application/pdf" )  || keyword.equals( "image/*" ) ) 
+						res.setContent( detectFoglia( response, templateQuestions, null ) ) ;
+				}
+			}
+		}
+		LOG.info( "[END] loadingDataInsideQuestion" );
+		return res;
+	}
+	
+	
+
+	@SuppressWarnings("unchecked")
+	public static KeywordAndCountMax getKeywordMatchingAndCountMax ( String sentence , List < String > keyw ) {
+		LOG.info( "[START] KeywordAndCountMax" );
+		JSONObject obj =  new JSONObject();
+		int countMax= -1 ;
+		for( String keyword: keyw ) {
+			keyword = keyword.trim().toLowerCase();
+			String stemKeyword = stemSentence ( keyword ); 
+			int count = 0;
+			for( String token:stemKeyword.split(" ") ) {
+				if( sentence.contains( token ) ) 
+					count++;
+			}
+			if( count > countMax ) 
+				countMax = count;
+			if( obj.containsKey( keyword ) ) 
+				obj.put( keyword + "*" , count );
+			else 
+				obj.put( keyword , count );
+		}
+		KeywordAndCountMax objAndCountMax = new KeywordAndCountMax( obj , countMax);
+		LOG.info( "[END] KeywordAndCountMax" );
+		return objAndCountMax;
+	}
+	
+	
+
+	@SuppressWarnings("unchecked")
+	public static JSONObject detectFoglia( Response response , List< Question > templateQuestions, Integer weight  ) {
+		LOG.info( "[START] detectFoglia" );
+		JSONObject returnObj = new JSONObject();
+		Integer nextQuestionId = response.getNextQuestionId();
+		for ( Question question : templateQuestions ) {
+			Integer quest2Id = question.getQuestionId();
+			if ( nextQuestionId.equals( quest2Id ) ) {
+				List< Response > responses = question.getResponses();
+				returnObj.put( "nextQuestionId" , response.getNextQuestionId() );
+				if( response.getScore()!=null ) {
+					returnObj.put( "score", response.getScore() * weight );
+					returnObj.put( "weight", weight );
+				}
+				if ( responses.isEmpty() ) 
+					returnObj.put( "foglia" , "true" );
+				else 
+					returnObj.put( "foglia" , "false" );
+				if( question.getFieldFlag() != null)
+					returnObj.put( "fieldFlag" , question.getFieldFlag() );
+			}
+		}
+		LOG.info( "[END] detectFoglia" );
+		return returnObj;
+	}
+	
+	
+
+	@SuppressWarnings( { "unchecked" , "unused" } )
+	public  JSONObject resolveAmbiguity ( String sentence , Template template , Integer questionId  ) {
+		LOG.info( "[START] resolveAmbiguity" );
+		List < Response > responseMatch = new ArrayList < Response > ();
+		JSONObject returnObj = new JSONObject();
+		List< String > keyw = new ArrayList< String >();
+		int c = 0;
+		for ( Question question : template.getQuestions() ) {
+			if ( question.getQuestionId().equals( questionId ) ) {
+				for ( Response response : question.getResponses() ) {
+					for ( String keyword : response.getKeywords()) {
+						 String stemKeyword = stemSentence( keyword ).trim().toLowerCase();
+						if ( sentence.contains( stemKeyword ) || stemKeyword.contains( sentence ) ) { 
+							c++;
+							responseMatch.add( response );
+							keyw.add(keyword);
+						}
+					}
+				}
+			}
+		}
+		System.out.println( "FIND MATCH ON KEYWORDS : " + keyw.toString() ); LOG.info( "FIND MATCH ON KEYWORDS : " + keyw.toString() );
+		KeywordAndCountMax keywordAndCountMax = getKeywordMatchingAndCountMax( sentence , keyw );
+		JSONObject obj = keywordAndCountMax.getObj();
+		int countMax = keywordAndCountMax.getCountMax();
+		Response responseTemp = null;
+		List< String > keywordPesate = new ArrayList< String >();
+		for ( Object objKeyword : obj.keySet() ) {
+			if ( countMax == ( int ) obj.get( objKeyword ) ) {
+				keywordPesate.add( ( String ) objKeyword );
+				for ( Response response : responseMatch ) {
+					for ( String keyword : response.getKeywords() ) {
+						keyword = keyword.trim().toLowerCase();
+						if ( keyword.equals( objKeyword .toString() ) ) 
+							responseTemp = response;
+					}
+				}
+			}
+		}
+		List< String > kwPesateStem = StemKeywPesate( keywordPesate );
+		System.out.println( "KEYWORDPESATE : " + kwPesateStem ); LOG.info( "KEYWORDPESATE : " + kwPesateStem );
+		if ( kwPesateStem.size() == 1 ) 
+			returnObj =  detectFoglia( responseTemp, template.getQuestions() , null )  ;
+		else if ( kwPesateStem.size() == 2 ) {
+			returnObj.put( "nextQuestionId", -1 );
+			returnObj.put( "foglia", "false" );
+			returnObj.put( "ambiguity", "forse cercavi : " + kwPesateStem.toString().replace( "[", "" ).replace( "]", "" ) );
+		} 
+		else {
+			returnObj.put( "nextQuestionId", -1 );
+			returnObj.put( "foglia", "false" );
+			returnObj.put( "ambiguity", "potresti essere più specifico" );
+		}
+		LOG.info( "[END] resolveAmbiguity" );
+		return returnObj;
+	}
+	
+	
+	
+	@SuppressWarnings( { "unchecked" , "unused" } )
+	public VasResponse resolveAmbiguityInFindTemplate ( List < Template > templates , String sentence , List < String > templatesId ) throws IOException {
+		LOG.info( "[START] resolveAmbiguityInFindTemplate" );
+		VasResponse res = new VasResponse( Integer.valueOf( 0 ) , "OK" , null );
+		JSONObject returnObject = new JSONObject();
+		for ( Template template : templates ) {
+			if ( template.getQuestions() != null && !template.getQuestions().isEmpty() ) {
+				Question question = template.getQuestions().get( 0 );
+				if ( question.getResponses() != null && !question.getResponses().isEmpty() ) {
+					for ( Response risp : question.getResponses() ) {
+						if ( risp.getKeywords() != null && !risp.getKeywords().isEmpty() ) {
+							for ( String keyword : risp.getKeywords() ) {
+								keyword = keyword.trim().toLowerCase();
+								if ( purify( sentence ).contains( purify( keyword ) ) && !purify( keyword ).equals( " " ) && !purify( keyword ).equals( "" ) ) {
+									System.out.println( sentence + " CONTAINS " + keyword );
+									LOG.info( sentence + " CONTAINS " + keyword );
+									if ( !templatesId.contains( template.getTemplateId() ) )
+										templatesId.add( template.getTemplateId() );
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		LOG.info( "templatesId : " + templatesId.toString());	System.out.println( "templatesId : " + templatesId);
+		if ( templatesId.size() == 0 ) {
+			returnObject.put( "templateId" , "-1" );
+			returnObject.put( "ambiguity" , "non è stato trovato alcun match" );
+		} 
+		else if ( templatesId.size() == 1 ) 
+			returnObject.put( "templateId" , templatesId.get( 0 ) );
+		else if ( templatesId.size() > 1 ) {
+			List< Template > templateMatch = new ArrayList< Template >();
+			List< String > keyw = new ArrayList< String >();
+			int c = 0;
+			for ( String templateId : templatesId ) {
+				Template template = this.templateservice.findTemplateById( templateId );
+				Question question = template.getQuestions().get( 0 );
+				for ( Response response : question.getResponses() ) {
+					List< String > keywords = response.getKeywords();
+					for ( String keyword : keywords ) {
+						keyword = keyword.trim().toLowerCase();
+						if (sentence.contains( keyword ) || keyword.contains( sentence ) ) {
+							c++;
+							templateMatch.add( template );
+							keyw.add( keyword );
+						}
+					}
+				}
+			}
+			KeywordAndCountMax keywordAndCountMax = getKeywordMatchingAndCountMax ( sentence , keyw );
+			JSONObject obj = keywordAndCountMax.getObj();
+			int countMax = keywordAndCountMax.getCountMax();
+			Template templateTemp = null;
+			List< String > keywordPesate = new ArrayList< String >();
+			for ( Object objKeyword : obj.keySet() ) {
+				if ( countMax == ( int ) obj.get( objKeyword ) ) {
+					keywordPesate.add( ( String ) objKeyword );
+					for ( Template template : templates ) {
+						if ( template.getQuestions() != null && !template.getQuestions().isEmpty() ) {
+							for ( Response response : template.getQuestions().get( 0 ).getResponses() ) {
+								if ( response.getKeywords() != null && !response.getKeywords().isEmpty() ) {
+									for ( String keyword : response.getKeywords() ) {
+										keyword = keyword.trim().toLowerCase();
+										if ( keyword.equals( objKeyword.toString() ) ) 
+											templateTemp = template ;
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+			System.out.println( "keywordpesate : " + keywordPesate); LOG.info( "keywordpesate : " + keywordPesate);
+			if ( keywordPesate.size() == 1 ) 
+				returnObject.put( "templateId" , templateTemp.getTemplateId() );
+			else if ( keywordPesate.size() == 2 &&  !keywordPesate.get( 0 ).endsWith( "*" ) && !keywordPesate.get( 1 ).endsWith( "*" ) ) {
+				returnObject.put( "templateId", "-1" );
+				returnObject.put( "ambiguity" , "forse cercavi : " + keywordPesate.toString().replace( "[" , "" ).replace( "]" , "" ) );
+			} 
+			else {
+				returnObject.put( "templateId" , "-1" );
+				returnObject.put( "ambiguity" , "potresti essere più specifico " );
+			}
+		}
+		res.setContent( returnObject );
+		LOG.info( "[END] resolveAmbiguityInFindTemplate" );
+		return res;
+	}
+	
+	
+	
+	public boolean sentenceEqualsKeyword( List< String > keywords , String sentence ) {
+		LOG.info( "[START] sentenceEqualsKeyword" );
+		boolean controllo = false ;
+		for ( String keyword : keywords ) {
+			keyword = stemSentence( keyword ).trim().toLowerCase();
+			if ( sentence.equals( keyword ) ) {
+				controllo = true;
+				System.out.println( sentence + " EQUALS " + keyword ); 	LOG.info( sentence + " EQUALS " + keyword );
+				break;
+			}
+		}
+		LOG.info( "[END] sentenceEqualsKeyword" );
+		return controllo ;
+	}
+	
+	
+	
+	public  List< Integer > findSentence( String sentence , Template template , Integer questionId , boolean equals ) throws IOException {
+		LOG.info( "[START] findSentence" );
+		List< Integer > questionsId = new ArrayList< Integer >();
+		int score = 0;
+		List< Question > templateQuestions = template.getQuestions();
+		for ( Question question : templateQuestions ) {
+			Integer questionid = question.getQuestionId();
+			if ( questionid.equals(questionId) ) {
+				List< Response > responses = question.getResponses();
+				for ( Response response : responses ) {
+					List< String > keywords = response.getKeywords();
+					score = match( sentence, keywords ).getScore();   
+					if ( score != 0 ) 
+						questionsId.add( response.getNextQuestionId() );
+				}
+			}
+		}
+		LOG.info( "[END] findSentence" );
+		return questionsId;
+	}
+
+	
+	
+	public  String b64Comunication ( Template template , String templateDataset ) throws IOException {
+		File f = null;
+		String filename = "";
+		String templateId = template.getTemplateId();
+		LOG.info( "[START] loading dataset of template : " + templateId );
+		f = File.createTempFile( "vas" , ".txt" );
+		filename += f.getName();
+		FileWriter myWriter = new FileWriter( "//opt//services//vas-ai//" + filename );
+		myWriter.write( templateDataset );
+		myWriter.close();
+		LOG.info( "[END] dataset loading of template " + templateId );
+		return filename;
+	}
+	
+	
+	
+	public  String findSimilarSentence ( String sentence , String filename ) throws IOException {
+		String correctSentence = null; 
+		LOG.info( "[START] sentence matching" );
+		Process process = Runtime.getRuntime().exec( "sudo python3 correction2.py " + sentence + filename );
+		//Process process = Runtime.getRuntime().exec( "python C:\\Users\\magic\\OneDrive\\Desktop\\Py4release\\correction2.py " + sentence + filename );
+		BufferedReader bufferedReader = new BufferedReader( new InputStreamReader( process.getInputStream() ) );
+		String line = "";
+		while ( ( line = bufferedReader.readLine() ) != null ) 
+			correctSentence += line + " ";
+		LOG.info( "[END] sentence matching, find match with sentence : " + correctSentence );
+		return correctSentence;
+	}
+	
+	
+	
+	public  void deleteb64TempFile( String filename ) {
+		LOG.info( "[START] deletion of file" + filename );
+		File file = new File( "//opt//services//vas-ai//" + filename );
+		file.delete();
+		LOG.info( "[END] deletion of file " + filename );
+	}
+	
+	
+	
+	public List< Double > stringToNum( String sentence ) throws IOException {
+		LOG.info( "[START] stringToNum" );
+		Pattern p = Pattern.compile( "\\d+" );
+		Matcher m = p.matcher( sentence );
+		List< Double > theNumber = new ArrayList< Double >();
+		while ( m.find() ) 
+			theNumber.add( Double.valueOf( m.group() ) );
+		//File file = new File("C:\\Users\\magic\\OneDrive\\Desktop\\Py4release\\stringToNum.txt");
+		File file = new File( "stringToNum.txt" );
+		@SuppressWarnings( "resource" )
+		BufferedReader bufferedReader = new BufferedReader( new InputStreamReader( new FileInputStream( file ) ) );
+		String line;
+		String numeriALettere = "";
+		while ( ( line = bufferedReader.readLine() ) != null )
+			numeriALettere += line + " \n ";
+		for ( double i = 0; i < numeriALettere.split(" \n ").length; i++ ) {
+			for ( String token : sentence.split( " " ) ) {
+				if ( token.trim().toLowerCase().equals( numeriALettere.split( " \n " )[ ( int ) i ] ) ) {
+					theNumber.add( i );
+				}
+			}
+		}
+		LOG.info( "[END] stringToNum, found numbers : " + theNumber.toString() );
+		return ( theNumber );
+	}
+	
+	
+	
+	public Question findFirstQuestion( String templateId ) {
+		LOG.info( "[START] findFirstQuestion" );
+		Template template =this.templateservice.findTemplateById( templateId );
+		Question firstQuestion = null ;
+		List< Question > questions = new ArrayList< Question >();
+		List< Integer > nextQuestionsId = new ArrayList< Integer >();
+		if( template.getQuestions() != null && !template.getQuestions().isEmpty() ) {
+			for( Question question : template.getQuestions() ) {
+				if ( question.getResponses() != null && !question.getResponses().isEmpty() ) {
+					for( Response r : question.getResponses() ) {
+						if( r.getNextQuestionId()!= null ) {
+							nextQuestionsId.add( r.getNextQuestionId() );
+							questions.add( question );
+						}
+					}
+				}
+			}
+		}
+		for( Question q : questions ) {
+			if ( q.getResponses() != null && !q.getResponses().isEmpty() && !nextQuestionsId.contains( q.getQuestionId() ) ) {
+				firstQuestion = q;
+				break;
+			}
+		}
+		if ( firstQuestion == null ) 
+				firstQuestion= template.getQuestions().get( 0 );
+		LOG.info( "[END] findFirstQuestion" );
+		return firstQuestion;
+	}
+	
+	
+	
+	public findSentenceForInvalsi findSentenceForInvalsi ( String sentence, Template template, Integer questionId, boolean equals ) throws IOException {
+		LOG.info( "[START] findSentenceForInvalsi" );
+		findSentenceForInvalsi returnObj = new findSentenceForInvalsi();
+		List< Integer > questionsId = new ArrayList< Integer >();
+		List< Integer > weight = new ArrayList< Integer >();
+		int score = 0;
+		List< Question > templateQuestions = template.getQuestions();
+		for ( Question question : templateQuestions ) {
+			Integer questionid = question.getQuestionId();
+			if ( questionid.equals( questionId ) ) {
+				List< Response > responses = question.getResponses();
+				for ( Response response : responses ) {
+					List< String > keywords = response.getKeywords();
+					score = match( sentence, keywords ).getScore();   
+					if ( score != 0 ) {
+						questionsId.add( response.getNextQuestionId() );
+						weight.add( response.getScore() );
+					}
+				}
+			}
+		}
+		returnObj.setQuestionsId( questionsId );
+		returnObj.setScore( weight );
+		LOG.info( "[END] findSentenceForInvalsi" );
+		return returnObj;
+	}
+
+	
+	
+	@SuppressWarnings( { "unchecked"} )
+	public VasResponse resolveAmbiguityInFindTemplateWithCorpus ( List < Dataset > datasets , String sentence ) throws IOException, InvalidFormatException {
+		LOG.info( "[START] resolveAmbiguityInFindTemplateWithCorpus" );
+		List < String > templatesId = new ArrayList<String>();
+		VasResponse res = new VasResponse( Integer.valueOf( 0 ) , "OK" , null );
+		JSONObject returnObject = new JSONObject();
+		for ( Dataset dataset : datasets ) {
+			String corpusIstance = dataset.getSentence();
+			if ( purify( sentence ).contains( stemSentence( purify( corpusIstance ) ) ) && !stemSentence( purify( corpusIstance ) ).equals( " " ) && !stemSentence( purify( corpusIstance ) ).equals( "" ) ) {
+				System.out.println( sentence + " CONTAINS " + corpusIstance );
+				LOG.info( sentence + " CONTAINS " + corpusIstance );
+				if ( !templatesId.contains( dataset.getTemplateId() ) )
+					templatesId.add( dataset.getTemplateId() );
+			}else {
+				for ( String corpusToken : purify( corpusIstance ).split( " " ) ) {
+					for ( String sentToken : purify( sentence ).split( " " ) ) {
+						if( purify( sentToken ).equals( stemSentence( purify( corpusToken ) ) ) && !stemSentence(purify ( corpusToken ) ).equals( " " ) && !stemSentence(purify( corpusToken ) ).equals( "" ) ) {
+							System.out.println( sentToken + " EQUALS TOKEN " +corpusToken );
+							if ( !templatesId.contains( dataset.getTemplateId() ) )
+								templatesId.add( dataset.getTemplateId() );
+						}
+					}
+				}
+			}
+		}
+		LOG.info( "templatesId : " + templatesId.toString() );	System.out.println( "templatesId : " + templatesId );
+		if ( templatesId.size() == 0 ) {
+			returnObject.put( "templateId" , "-1" );
+			returnObject.put( "ambiguity" , "non è stato trovato alcun match" );
+		} 
+		else if ( templatesId.size() == 1 ) 
+			returnObject.put( "templateId" , templatesId.get( 0 ) );
+		else if ( templatesId.size() > 1 ) {
+			List< Template > templateMatch = new ArrayList< Template >();
+			List< String > corpusMatch = new ArrayList< String >();
+			for ( Dataset dataset : datasets ) {
+				String corpusIstance = dataset.getSentence();
+				if ( purify( sentence ).contains( stemSentence( purify( corpusIstance ) ) ) && !stemSentence( purify(  corpusIstance ) ).equals( " " ) && !stemSentence( purify( corpusIstance ) ).equals( "" ) ) {
+					System.out.println( sentence + " CONTAINS " + corpusIstance );
+					LOG.info( sentence + " CONTAINS " + corpusIstance );
+					if (sentence.contains( stemSentence( corpusIstance ) ) || stemSentence( corpusIstance ).contains( sentence ) ) {
+						templateMatch.add( this.templateservice.findTemplateById( dataset.getTemplateId( ) ) );
+						corpusMatch.add( corpusIstance );
+					}
+				} 
+				else {							
+					Boolean isProcessed = false;
+					for ( String corpusToken : purify( corpusIstance ).split( " " ) ) {
+						for ( String sentToken : purify( sentence ).split( " " ) ) {
+							if( !isProcessed && purify( sentToken ).equals( stemSentence( purify( corpusToken ) ) ) && !stemSentence( purify( corpusToken ) ).equals( " " ) && !stemSentence( purify( corpusToken ) ).equals( "" ) ) {
+								templateMatch.add( this.templateservice.findTemplateById( dataset.getTemplateId( ) ) );
+								corpusMatch.add( corpusIstance );
+								isProcessed = true;
+							}
+						}
+					}
+				}
+			}
+			KeywordAndCountMax keywordAndCountMax = getKeywordMatchingAndCountMax( sentence , corpusMatch );
+			JSONObject obj = keywordAndCountMax.getObj();
+			int countMax = keywordAndCountMax.getCountMax();
+			Template templateTemp = null;
+			List< String > corpusPesate = new ArrayList< String >();
+			for ( Object objKeyword : obj.keySet() ) {
+				if ( countMax == ( int ) obj.get( objKeyword ) ) {
+					corpusPesate.add( ( String ) objKeyword );
+					for ( Dataset dataset : datasets ) {
+						String corpusIstance = dataset.getSentence();
+						if ( stemSentence( corpusIstance ).equals( stemSentence( objKeyword.toString() ) ) )
+							templateTemp = this.templateservice.findTemplateById( dataset.getTemplateId() );
+					}
+				}
+			}
+			System.out.println( "keywordpesate : " + corpusPesate );	LOG.info( "keywordpesate : " + corpusPesate );
+			if ( corpusPesate.size() == 1 )
+				returnObject.put( "templateId" , templateTemp.getTemplateId() );
+			else if ( corpusPesate.size() == 2 && !corpusPesate.get( 0 ).endsWith( "*" ) && !corpusPesate.get( 1 ).endsWith( "*" ) ) {
+				returnObject.put( "templateId", "-1" );
+				returnObject.put( "ambiguity" , "forse cercavi : " + corpusPesate.toString().replace( "[" , "" ).replace( "]" , "" ) );
+			} 
+			else {
+				returnObject.put( "templateId" , "-1" );
+				returnObject.put( "ambiguity" , "potresti essere più specifico " );
+			}
+		}
+		res.setContent( returnObject );
+		LOG.info( "[END] resolveAmbiguityInFindTemplateWithCorpus" );
+		return res;
+	}
+	
+	
+	
+	
+	public static String stemSentence( String sentence ) {
+		final SnowballStemmer ps = new SnowballStemmer( SnowballStemmer.ALGORITHM.ITALIAN, 5 );
+		String sStem = "";
+		for ( String token : sentence.split( " " ) ) 
+			sStem = sStem + ps.stem( token ) + " ";
+		return sStem.trim().toLowerCase() ;
+	}
+	
+	
+	public List<String> StemKeywPesate( List<String> keywordPesate ) {
+		List<String> kwPesateStem = new ArrayList<String>();
+		List<String> stem = new ArrayList<String>();
+		for( String keyword : keywordPesate ) {
+			if ( !stem.contains( stemSentence( keyword ) ) ) {
+				kwPesateStem.add( keyword );
+				stem.add( stemSentence( keyword ) );
+			}
+		}
+				
+		return kwPesateStem;
+	}
+	
+	
+	
+	
+}
+	
+	
+	
+	
+	
+	
+	
+	
+	

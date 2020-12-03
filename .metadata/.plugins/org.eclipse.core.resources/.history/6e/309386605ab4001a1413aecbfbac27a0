@@ -1,0 +1,71 @@
+//
+// Questo file è stato generato dall'architettura JavaTM per XML Binding (JAXB) Reference Implementation, v2.2.7 
+// Vedere <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
+// Qualsiasi modifica a questo file andrà persa durante la ricompilazione dello schema di origine. 
+// Generato il: 2019.12.05 alle 11:33:59 AM CET 
+//
+
+
+package com.pccube.vvas.template.mxgraph;
+
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
+
+
+/**
+ * <p>Classe Java per anonymous complex type.
+ * 
+ * <p>Il seguente frammento di schema specifica il contenuto previsto contenuto in questa classe.
+ * 
+ * <pre>
+ * &lt;complexType>
+ *   &lt;complexContent>
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+ *       &lt;sequence>
+ *         &lt;element ref="{}root"/>
+ *       &lt;/sequence>
+ *     &lt;/restriction>
+ *   &lt;/complexContent>
+ * &lt;/complexType>
+ * </pre>
+ * 
+ * 
+ */
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = "", propOrder = {
+    "root"
+})
+@XmlRootElement(name = "mxGraphModel")
+public class MxGraphModel {
+
+    @XmlElement(required = true)
+    protected Root root;
+
+    /**
+     * Recupera il valore della proprietà root.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Root }
+     *     
+     */
+    public Root getRoot() {
+        return root;
+    }
+
+    /**
+     * Imposta il valore della proprietà root.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Root }
+     *     
+     */
+    public void setRoot(Root value) {
+        this.root = value;
+    }
+
+}
