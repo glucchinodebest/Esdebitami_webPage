@@ -1,0 +1,31 @@
+<div class="row">
+
+    <div class="col-md-3">
+    </div>
+
+    <div class="col-md-6">
+        <form [formGroup]="loginForm">
+            
+            <div class="row">
+                <label> Username </label>
+                <input type="text" formControlName="username">
+            </div>
+            
+            <div class="row">
+                <label> Password </label>
+                <input type="password" formControlName="password">
+            </div>
+
+            <div class="row">
+                <button status="basic" size="small" fullWidth (click)="onLogin()">
+                    Login
+                </button>
+            </div>
+
+        </form>
+    </div>
+
+    <div class="col-md-3">
+    </div>
+
+</div>

@@ -6,11 +6,13 @@ import { AppComponent } from './app.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { EsdebitamiDashboardComponent } from './esdebitami-dashboard/esdebitami-dashboard.component';  
 import { HttpClientModule} from '@angular/common/http';
+import { LoginPageComponent } from './login-page/login-page.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     EsdebitamiDashboardComponent,
+    LoginPageComponent,
   ],
   imports: [
     BrowserModule,

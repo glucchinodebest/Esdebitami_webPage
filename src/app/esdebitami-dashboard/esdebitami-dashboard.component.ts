@@ -191,156 +191,155 @@ export class EsdebitamiDashboardComponent implements OnInit {
     reader.onload = (e: any) => {
       const bstr: string = e.target.result;
 
-      const sCliente = (XLSX.utils.sheet_to_json(XLSX.read(bstr, { type: 'binary' }).Sheets['SCHEDA CLIENTE - INPUT'], { header: 1 }));
+      const sCliente = (XLSX.utils.sheet_to_json(XLSX.read(bstr, { type: 'binary' }).Sheets['Dati per Calcolo Scheda Cliente'], { header: 1 }));
       const sClienteOut = (XLSX.utils.sheet_to_json(XLSX.read(bstr, { type: 'binary' }).Sheets['SCHEDA CLIENTE - OUTPUT'], { header: 1 }));
       console.log(sCliente);
 
       this.dataForm.setValue({
-        anagrafica_cf: sCliente[4][3] == undefined ? "" : sCliente[4][3],
+        anagrafica_cf: sCliente[5][1] == undefined ? "" : sCliente[5][1],
 
         //cliente
-        cliente_nFamiliariCarico: sCliente[14][3] == undefined ? "" : sCliente[14][3],
-        cliente_nFigliConviventi: sCliente[15][3] == undefined ? "" : sCliente[15][3],
-        cliente_nFigliConviventiMinori: sCliente[16][3] == undefined ? "" : sCliente[16][3],
-        cliente_nucleoFamiliare: sCliente[17][3] == undefined ? "" : sCliente[17][3],
-        cliente_regimePatrimoniale: sCliente[13][3] == undefined ? "" : sCliente[13][3],
-        cliente_statoCivile: sCliente[12][3] == undefined ? "" : sCliente[12][3],
+        cliente_nFamiliariCarico: sCliente[16][1] == undefined ? "" : sCliente[16][1],
+        cliente_nFigliConviventi: sCliente[17][1] == undefined ? "" : sCliente[17][1],
+        cliente_nFigliConviventiMinori: sCliente[18][1] == undefined ? "" : sCliente[18][1],
+        cliente_nucleoFamiliare: sCliente[19][1] == undefined ? "" : sCliente[19][1],
+        cliente_regimePatrimoniale: sCliente[15][1] == undefined ? "" : sCliente[15][1],
+        cliente_statoCivile: sCliente[14][1] == undefined ? "" : sCliente[14][1],
 
         //coniuge
-        coniuge_cf: sCliente[43][3] == undefined ? "" : sCliente[43][3],
+        coniuge_cf: sCliente[42][1] == undefined ? "" : sCliente[42][1],
 
         //altreEntrate
-        altreEntrate_cifraMensileAltreEntrate: sCliente[98][4] == undefined ? "" : sCliente[98][4],
-        altreEntrate_descrizioneAltreEntrate: sCliente[97][4] == undefined ? "" : sCliente[97][4],
-        altreEntrate_progressivoAltreEntrate: sCliente[96][4] == undefined ? "" : sCliente[96][4],
+        altreEntrate_cifraMensileAltreEntrate: sCliente[77][4] == undefined ? "" : sCliente[98][4],
+        altreEntrate_descrizioneAltreEntrate: sCliente[77][5] == undefined ? "" : sCliente[97][5],
+        altreEntrate_progressivoAltreEntrate: "",
 
         //altreUscite
-        altreUscite_cifraMensileAltreUscite: sCliente[92][4] == undefined ? "" : sCliente[92][4],
-        altreUscite_descrizioneAltreUscite: sCliente[91][4] == undefined ? "" : sCliente[91][4],
-        altreUscite_progressivoAltreUscite: sCliente[90][4] == undefined ? "" : sCliente[90][4],
+        altreUscite_cifraMensileAltreUscite: sCliente[72][4] == undefined ? "" : sCliente[72][4],
+        altreUscite_descrizioneAltreUscite: sCliente[72][5] == undefined ? "" : sCliente[72][5],
+        altreUscite_progressivoAltreUscite: "",
 
         //assegniMantenimentoEntrata
-        assegniMantEntrata_cifraMensileAssMantEntrata: sCliente[95][4] == undefined ? "" : sCliente[95][4],
-        assegniMantEntrata_descrizioneAssMantEntrata: sCliente[94][4] == undefined ? "" : sCliente[94][4],
-        assegniMantEntrata_progressivoAssMantEntrata: sCliente[93][4] == undefined ? "" : sCliente[93][4],
+        assegniMantEntrata_cifraMensileAssMantEntrata: sCliente[76][4] == undefined ? "" : sCliente[76][4],
+        assegniMantEntrata_descrizioneAssMantEntrata: sCliente[76][5] == undefined ? "" : sCliente[76][5],
+        assegniMantEntrata_progressivoAssMantEntrata: "",
 
         //assegniMantenimentoUscita
-        assegniMantUscita_cifraMensileAssMantUscita: sCliente[89][4] == undefined ? "" : sCliente[89][4],
-        assegniMantUscita_descrizioneAssMantUscita: sCliente[88][4] == undefined ? "" : sCliente[88][4],
-        assegniMantUscita_progressivoAssMantUscita: sCliente[87][4] == undefined ? "" : sCliente[87][4],
+        assegniMantUscita_cifraMensileAssMantUscita: sCliente[71][4] == undefined ? "" : sCliente[71][4],
+        assegniMantUscita_descrizioneAssMantUscita: sCliente[71][5] == undefined ? "" : sCliente[71][5],
+        assegniMantUscita_progressivoAssMantUscita: "",
 
         //immobile
-        immobile_bancaMutuante: sCliente[82][4] == undefined ? "" : sCliente[82][4],
-        immobile_dataDalProprietaImmobile: sCliente[72][4] == undefined ? "" : sCliente[72][4],
-        immobile_descrizioneImmobile: sCliente[76][4] == undefined ? "" : sCliente[76][4],
+        immobile_bancaMutuante: sCliente[80][1] == undefined ? "" : sCliente[80][1],
+        immobile_dataDalProprietaImmobile: sCliente[70][1] == undefined ? "" : sCliente[70][1],
+        immobile_descrizioneImmobile: sCliente[74][1] == undefined ? "" : sCliente[74][1],
         immobile_flPrimaCasa: false,
-        immobile_localita: sCliente[74][4] == undefined ? "" : sCliente[74][4],
-        immobile_mqImmobile: sCliente[77][4] == undefined ? "" : sCliente[77][4],
-        immobile_mutuoOriginario: sCliente[80][4] == undefined ? "" : sCliente[80][4],
-        immobile_rataMutuoMensile: sCliente[83][4] == undefined ? "" : sCliente[83][4],
-        immobile_renditaLocazioneMensile: sCliente[79][4] == undefined ? "" : sCliente[79][4],
-        immobile_residuoDebitoMutuo: sCliente[81][4] == undefined ? "" : sCliente[81][4],
-        immobile_scadenzaRata: sCliente[84][4] == undefined ? "" : sCliente[84][4],
-        immobile_tipoImmobile: sCliente[75][4] == undefined ? "" : sCliente[75][4],
-        immobile_valoreCommerciale: sCliente[78][4] == undefined ? "" : sCliente[78][4],
+        immobile_localita: sCliente[72][1] == undefined ? "" : sCliente[72][1],
+        immobile_mqImmobile: sCliente[75][1] == undefined ? "" : sCliente[75][1],
+        immobile_mutuoOriginario: sCliente[78][1] == undefined ? "" : sCliente[78][1],
+        immobile_rataMutuoMensile: sCliente[81][1] == undefined ? "" : sCliente[81][1],
+        immobile_renditaLocazioneMensile: sCliente[77][1] == undefined ? "" : sCliente[77][1],
+        immobile_residuoDebitoMutuo: sCliente[79][1] == undefined ? "" : sCliente[79][1],
+        immobile_scadenzaRata: sCliente[82][1] == undefined ? "" : sCliente[82][1],
+        immobile_tipoImmobile: sCliente[73][1] == undefined ? "" : sCliente[73][1],
+        immobile_valoreCommerciale: sCliente[76][1] == undefined ? "" : sCliente[76][1],
 
         //totaleUscitePerAffitti
-        totaleUscitePerAffitti_rataAffittoMensile: sCliente[85][4] == undefined ? "" : sCliente[85][4],
-        totaleUscitePerAffitti_rataCondominioMensile: sCliente[86][4] == undefined ? "" : sCliente[86][4],
+        totaleUscitePerAffitti_rataAffittoMensile: sCliente[86][1] == undefined ? "" : sCliente[86][1],
+        totaleUscitePerAffitti_rataCondominioMensile: sCliente[87][1] == undefined ? "" : sCliente[87][1],
 
         //altriFamiliari
-        listaAltriFamiliari_cfAltriF: sCliente[69][3] == undefined ? "" : sCliente[69][3],
-        listaAltriFamiliari_cittaNascitaAltriF: sCliente[68][3] == undefined ? "" : sCliente[68][3],
-        listaAltriFamiliari_cognomeAltriF: sCliente[66][3] == undefined ? "" : sCliente[66][3],
-        listaAltriFamiliari_dataNascitaAltriF: sCliente[67][3] == undefined ? "" : sCliente[67][3],
-        listaAltriFamiliari_gradoParentelaAltriF: sCliente[70][3] == undefined ? "" : sCliente[70][3],
-        listaAltriFamiliari_nomeAltriF: sCliente[65][3] == undefined ? "" : sCliente[65][3],
-        listaAltriFamiliari_redditoMensileAltriF: sCliente[71][3] == undefined ? "" : sCliente[71][3],
+        listaAltriFamiliari_cfAltriF: sCliente[63][1] == undefined ? "" : sCliente[63][1],
+        listaAltriFamiliari_cittaNascitaAltriF: sCliente[62][1] == undefined ? "" : sCliente[62][1],
+        listaAltriFamiliari_cognomeAltriF: sCliente[60][1] == undefined ? "" : sCliente[60][1],
+        listaAltriFamiliari_dataNascitaAltriF: sCliente[61][1] == undefined ? "" : sCliente[61][1],
+        listaAltriFamiliari_gradoParentelaAltriF: sCliente[64][1] == undefined ? "" : sCliente[64][1],
+        listaAltriFamiliari_nomeAltriF: sCliente[59][1] == undefined ? "" : sCliente[59][1],
+        listaAltriFamiliari_redditoMensileAltriF: sCliente[65][1] == undefined ? "" : sCliente[65][1],
 
         //attività cliente Autonomo
-        listaAttivitaClienteAut_attivitaCliAut: sCliente[24][3] == undefined ? "" : sCliente[24][3],
-        listaAttivitaClienteAut_descrizioneAttivitaCliAut: sCliente[25][3] == undefined ? "" : sCliente[25][3],
-        listaAttivitaClienteAut_numAnniAttivitaEsercitataCliAut: sCliente[28][3] == undefined ? "" : sCliente[28][3],
-        listaAttivitaClienteAut_numAnniEsercizioAttivitaCliAut: sCliente[27][3] == undefined ? "" : sCliente[27][3],
-        listaAttivitaClienteAut_redditoAnnuoCliAut: sCliente[26][3] == undefined ? "" : sCliente[26][3],
-        listaAttivitaClienteAut_tipoLavoratoreCliAut: sCliente[23][3] == undefined ? "" : sCliente[23][3],
+        listaAttivitaClienteAut_attivitaCliAut: sCliente[46][4] == undefined ? "" : sCliente[46][4],
+        listaAttivitaClienteAut_descrizioneAttivitaCliAut: sCliente[47][4] == undefined ? "" : sCliente[47][4],
+        listaAttivitaClienteAut_numAnniAttivitaEsercitataCliAut: sCliente[50][1] == undefined ? "" : sCliente[50][1],
+        listaAttivitaClienteAut_numAnniEsercizioAttivitaCliAut: sCliente[49][1] == undefined ? "" : sCliente[49][1],
+        listaAttivitaClienteAut_redditoAnnuoCliAut: sCliente[48][4] == undefined ? "" : sCliente[48][4],
+        listaAttivitaClienteAut_tipoLavoratoreCliAut: "",
 
         //attività cliente Dis
-        listaAttivitaClienteDis_tipoLavoratoreCliDis: sCliente[29][3] == undefined ? "" : sCliente[29][3],
+        listaAttivitaClienteDis_tipoLavoratoreCliDis: "",
 
         //attività cliente sub
-        listaAttivitaClienteSub_attivitaCliSub: sCliente[19][3] == undefined ? "" : sCliente[19][3],
-        listaAttivitaClienteSub_numMensilitaRetCliSub: sCliente[21][3] == undefined ? "" : sCliente[21][3],
-        listaAttivitaClienteSub_redditoMensileCliSub: "",
-        listaAttivitaClienteSub_redditoMensileRettificato: "",
-        listaAttivitaClienteSub_tipoContrattoCliSub: sCliente[20][3] == undefined ? "" : sCliente[20][3],
-        listaAttivitaClienteSub_tipoLavoratoreCliSub: sCliente[18][3] == undefined ? "" : sCliente[18][3],
+        listaAttivitaClienteSub_attivitaCliSub: sCliente[24][1] == undefined ? "" : sCliente[24][1],
+        listaAttivitaClienteSub_numMensilitaRetCliSub: sCliente[26][1] == undefined ? "" : sCliente[26][1],
+        listaAttivitaClienteSub_redditoMensileCliSub: (sCliente[27][1] == undefined ? 0 : sCliente[27][1])/(sCliente[26][1] == undefined ? 0 : sCliente[26][1]),//calcolato
+        listaAttivitaClienteSub_redditoMensileRettificato: 0,
+        listaAttivitaClienteSub_tipoContrattoCliSub: "",
+        listaAttivitaClienteSub_tipoLavoratoreCliSub: "",
 
         //attività Coniuge aut
-        listaAttivitaConiugeAut_attivitaConAut: sCliente[50][3] == undefined ? "" : sCliente[50][3],
-        listaAttivitaConiugeAut_descrizioneAttivitaConAut: sCliente[50][3] == undefined ? "" : sCliente[51][3],
-        listaAttivitaConiugeAut_numAnniAttivitaEsercitataConAut: sCliente[53][3] == undefined ? "" : sCliente[53][3],
-        listaAttivitaConiugeAut_numAnniEsercizioAttivitaConAut: sCliente[54][3] == undefined ? "" : sCliente[54][3],
-        listaAttivitaConiugeAut_redditoAnnuoConAut: sCliente[52][3] == undefined ? "" : sCliente[52][3],
-        listaAttivitaConiugeAut_tipoLavoratoreConAut: sCliente[49][3] == undefined ? "" : sCliente[49][3],
-
+        listaAttivitaConiugeAut_attivitaConAut: sCliente[46][4] == undefined ? "" : sCliente[46][4],
+        listaAttivitaConiugeAut_descrizioneAttivitaConAut: sCliente[47][4] == undefined ? "" : sCliente[47][4],
+        listaAttivitaConiugeAut_numAnniAttivitaEsercitataConAut: sCliente[50][4] == undefined ? "" : sCliente[50][4],
+        listaAttivitaConiugeAut_numAnniEsercizioAttivitaConAut: sCliente[49][4] == undefined ? "" : sCliente[49][4],
+        listaAttivitaConiugeAut_redditoAnnuoConAut: "",
+        listaAttivitaConiugeAut_tipoLavoratoreConAut: "",
         //attività coniuge Dis
-        listaAttivitaConiugeDis_tipoLavoratoreConDis: sCliente[55][3] == undefined ? "" : sCliente[55][3],
+        listaAttivitaConiugeDis_tipoLavoratoreConDis: "",
 
         //attività coniuge sub
-        listaAttivitaConiugeSub_attivitaConSub: sCliente[45][3] == undefined ? "" : sCliente[45][3],
-        listaAttivitaConiugeSub_numMensilitaRetConSub: sCliente[47][3] == undefined ? "" : sCliente[47][3],
-        listaAttivitaConiugeSub_redditoAnnuoConSub: sCliente[48][3] == undefined ? "" : sCliente[48][3],
-        listaAttivitaConiugeSub_tipoContrattoConSub: sCliente[46][3] == undefined ? "" : sCliente[46][3],
-        listaAttivitaConiugeSub_tipoLavoratoreConSub: sCliente[44][3] == undefined ? "" : sCliente[44][3],
+        listaAttivitaConiugeSub_attivitaConSub: sCliente[46][1] == undefined ? "" : sCliente[46][1],
+        listaAttivitaConiugeSub_numMensilitaRetConSub: "",
+        listaAttivitaConiugeSub_redditoAnnuoConSub: sCliente[49][1] == undefined ? "" : sCliente[49][1],
+        listaAttivitaConiugeSub_tipoContrattoConSub: sCliente[47][1] == undefined ? "" : sCliente[47][1],
+        listaAttivitaConiugeSub_tipoLavoratoreConSub: "",
 
         // redditi familiari mensili
-        redditiFamiliariMensili: sCliente[71][3] == undefined ? "" : sCliente[71][3],
+        redditiFamiliariMensili: sCliente[65][1] == undefined ? 0 : sCliente[65][1],
 
         //trattenuta busta paga CSQ cliente
-        trattenutaBustaPagaCliente_csqCliente_dataInizioCSQCli: sCliente[33][4] == undefined ? "" : sCliente[33][4],
-        trattenutaBustaPagaCliente_csqCliente_dataScadenzaCSQCli: sCliente[34][4] == undefined ? "" : sCliente[34][4],
-        trattenutaBustaPagaCliente_csqCliente_rataCSQCli: sCliente[35][4] == undefined ? "" : sCliente[35][4],
+        trattenutaBustaPagaCliente_csqCliente_dataInizioCSQCli: sCliente[33][1] == undefined ? "" : sCliente[33][1],
+        trattenutaBustaPagaCliente_csqCliente_dataScadenzaCSQCli: sCliente[33][2] == undefined ? "" : sCliente[33][2],
+        trattenutaBustaPagaCliente_csqCliente_rataCSQCli: sCliente[33][3] == undefined ? "" : sCliente[33][3],
 
         //trattenuta busta paga delega cliente
-        trattenutaBustaPagaCliente_delegaCliente_dataInizioDelegaCli: sCliente[30][4] == undefined ? "" : sCliente[30][4],
-        trattenutaBustaPagaCliente_delegaCliente_dataScadenzaDelegaCli: sCliente[31][4] == undefined ? "" : sCliente[31][4],
-        trattenutaBustaPagaCliente_delegaCliente_rataDelegaCli: sCliente[32][4] == undefined ? "" : sCliente[32][4],
+        trattenutaBustaPagaCliente_delegaCliente_dataInizioDelegaCli: sCliente[32][1] == undefined ? "" : sCliente[32][1],
+        trattenutaBustaPagaCliente_delegaCliente_dataScadenzaDelegaCli: sCliente[32][2] == undefined ? "" : sCliente[32][2],
+        trattenutaBustaPagaCliente_delegaCliente_rataDelegaCli: sCliente[32][3] == undefined ? "" : sCliente[32][3],
 
         //trattenuta busta paga pignoramento cliente
-        trattenutaBustaPagaCliente_pignoramentoCliente_dataInizioPignoramentoCli: sCliente[36][4] == undefined ? "" : sCliente[36][4],
-        trattenutaBustaPagaCliente_pignoramentoCliente_dataScadenzaPignoramentoCli: sCliente[37][4] == undefined ? "" : sCliente[37][4],
-        trattenutaBustaPagaCliente_pignoramentoCliente_rataPignoramentoCli: sCliente[38][4] == undefined ? "" : sCliente[38][4],
+        trattenutaBustaPagaCliente_pignoramentoCliente_dataInizioPignoramentoCli: sCliente[34][1] == undefined ? "" : sCliente[34][1],
+        trattenutaBustaPagaCliente_pignoramentoCliente_dataScadenzaPignoramentoCli: sCliente[34][2] == undefined ? "" : sCliente[34][2],
+        trattenutaBustaPagaCliente_pignoramentoCliente_rataPignoramentoCli: sCliente[34][3] == undefined ? "" : sCliente[34][3],
 
         //trattenuta busta paga CSQ coniuge
-        trattenutaBustaPagaCon_csq_dataInizioCSQCon: sCliente[59][4] == undefined ? "" : sCliente[59][4],
-        trattenutaBustaPagaCon_csq_dataScadenzaCSQCon: sCliente[60][4] == undefined ? "" : sCliente[60][4],
-        trattenutaBustaPagaCon_csq_rataCSQCon: sCliente[61][4] == undefined ? "" : sCliente[61][4],
+        trattenutaBustaPagaCon_csq_dataInizioCSQCon: sCliente[55][1] == undefined ? "" : sCliente[55][1],
+        trattenutaBustaPagaCon_csq_dataScadenzaCSQCon: sCliente[55][2] == undefined ? "" : sCliente[55][2],
+        trattenutaBustaPagaCon_csq_rataCSQCon: sCliente[55][3] == undefined ? "" : sCliente[55][3],
 
         //trattenuta busta paga delega coniuge
-        trattenutaBustaPagaCon_delega_dataInizioDelegaCon: sCliente[56][4] == undefined ? "" : sCliente[56][4],
-        trattenutaBustaPagaCon_delega_dataScadenzaDelegaCon: sCliente[57][4] == undefined ? "" : sCliente[57][4],
-        trattenutaBustaPagaCon_delega_rataDelegaCon: sCliente[58][4] == undefined ? "" : sCliente[58][4],
+        trattenutaBustaPagaCon_delega_dataInizioDelegaCon: sCliente[54][1] == undefined ? "" : sCliente[54][1],
+        trattenutaBustaPagaCon_delega_dataScadenzaDelegaCon: sCliente[54][2] == undefined ? "" : sCliente[54][2],
+        trattenutaBustaPagaCon_delega_rataDelegaCon: sCliente[54][3] == undefined ? "" : sCliente[54][3],
 
         //trattenuta busta paga pignoramento coniuge
-        trattenutaBustaPagaCon_pignoramento_dataInizioPignoramentoCon: sCliente[62][4] == undefined ? "" : sCliente[62][4],
-        trattenutaBustaPagaCon_pignoramento_dataScadenzaPignoramentoCon: sCliente[63][4] == undefined ? "" : sCliente[63][4],
-        trattenutaBustaPagaCon_pignoramento_rataPignoramentoCon: sCliente[64][4] == undefined ? "" : sCliente[64][4],
+        trattenutaBustaPagaCon_pignoramento_dataInizioPignoramentoCon: sCliente[56][1] == undefined ? "" : sCliente[56][1],
+        trattenutaBustaPagaCon_pignoramento_dataScadenzaPignoramentoCon: sCliente[56][2] == undefined ? "" : sCliente[56][2],
+        trattenutaBustaPagaCon_pignoramento_rataPignoramentoCon: sCliente[56][3] == undefined ? "" : sCliente[56][3],
 
         //lista creditori
-        listaCreditori_coefficiente: sClienteOut[120][3] == undefined ? "" : sClienteOut[120][3],
-        listaCreditori_formaTecnica: sClienteOut[117][3] == undefined ? "" : sClienteOut[117][3],
-        listaCreditori_nomeCreditore: sClienteOut[115][3] == undefined ? "" : sClienteOut[115][3],
-        listaCreditori_obbligatorio: sClienteOut[121][3] == undefined ? "" : sClienteOut[121][3],
-        listaCreditori_posizioneTecnica: sClienteOut[116][3] == undefined ? "" : sClienteOut[116][3],
-        listaCreditori_rataMensile: sClienteOut[119][3] == undefined ? "" : sClienteOut[119][3],
-        listaCreditori_valoreDebito: sClienteOut[118][3] == undefined ? "" : sClienteOut[118][3],
+        listaCreditori_coefficiente: "",
+        listaCreditori_formaTecnica: sClienteOut[91][1] == undefined ? "" : sClienteOut[91][1],
+        listaCreditori_nomeCreditore: sClienteOut[91][0] == undefined ? "" : sClienteOut[91][0],
+        listaCreditori_obbligatorio: sClienteOut[91][5] == undefined ? "" : sClienteOut[91][5],
+        listaCreditori_posizioneTecnica: sClienteOut[91][2] == undefined ? "" : sClienteOut[91][2],
+        listaCreditori_rataMensile: sClienteOut[91][4] == undefined ? "" : sClienteOut[91][4],
+        listaCreditori_valoreDebito: sClienteOut[91][3] == undefined ? "" : sClienteOut[91][3],
 
         //riepilogo creditori
-        riepilogoCreditori_montanteDebitorioComplessivo: sClienteOut[124][3] == undefined ? "" : sClienteOut[124][3],
-        riepilogoCreditori_montanteDebitorioSecured: sClienteOut[123][3] == undefined ? "" : sClienteOut[123][3],
-        riepilogoCreditori_montanteDebitorioUnsecured: sClienteOut[122][3] == undefined ? "" : sClienteOut[122][3],
-        riepilogoCreditori_totaleRataCreditore: sClienteOut[125][3] == undefined ? "" : sClienteOut[125][3],
+        riepilogoCreditori_montanteDebitorioComplessivo: "",
+        riepilogoCreditori_montanteDebitorioSecured: "",
+        riepilogoCreditori_montanteDebitorioUnsecured: "",
+        riepilogoCreditori_totaleRataCreditore: "",
       })
 
     };

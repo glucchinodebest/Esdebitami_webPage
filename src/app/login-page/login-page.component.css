@@ -71,7 +71,7 @@
     }
 
     button {
-        width: 10%;
+        width: 20%;
         padding: 10px;
         border: none;
         background: #1c87c9;
@@ -92,6 +92,7 @@
         .left-part,
         form {
             width: 100%;
+
         }
 
         .fa-envelope {
