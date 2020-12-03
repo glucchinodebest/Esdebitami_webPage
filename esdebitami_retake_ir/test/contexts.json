@@ -1,1 +1,0 @@
-{"_id":{"$oid":"5ea4350f9104d7705c969478"},"uri":"https://www.ilportaledellautomobilista.it","cron":"0 0 * * * ?","css":"div[id=\"elenco-1\"], div[class=\"elenco-1\"]","cssRef":"h2","template":"5a3a4edf07105e4ac0ea59d8","language":"IT","date":{"$date":{"$numberLong":"1587825674372"}},"_class":"com.vvas.project.ir.db.collection.Context"}

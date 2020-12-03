@@ -60,7 +60,13 @@
                         <div class="col-12 col-sm-4">
 
                             <label>
-                                Regime patrimoniale : <input type="text" formControlName="cliente_regimePatrimoniale">
+                                Regime patrimoniale : 
+                            <select name="RegimePatrimoniale"
+                                formControlName="cliente_regimePatrimoniale">
+                                <option value="SEPARAZIONE DEI BENI">SEPARAZIONE DEI BENI</option>
+                                <option value="COMUNICAZIONE CONVENZIONALE">COMUNICAZIONE CONVENZIONALE</option>
+                                <option value="FONDO PATRIMONIALE">FONDO PATRIMONIALE</option>
+                            </select>
                             </label>
                         </div>
                     </div>
@@ -68,7 +74,12 @@
 
 
                     <label>
-                        Stato civile : <input type="text" formControlName="cliente_statoCivile">
+                        Stato civile : 
+                        <select name="StatoCivile"
+                                formControlName="cliente_statoCivile">
+                                <option value="LIBERO/A">LIBERO/A</option>
+                                <option value="CONIUGATO/A">CONIUGATO/A</option>
+                        </select>
                     </label>
                     <label>
                         Codice Fiscale Coniuge : <input type="text" formControlName="coniuge_cf">
@@ -150,7 +161,8 @@
                             Banca Mutuante : <input type="text" formControlName="immobile_bancaMutuante">
                         </label>
                         <label>
-                            Data Inizio Proprietà : <input type="text"
+                            Data Inizio Proprietà : 
+                            <input type="date"
                                 formControlName="immobile_dataDalProprietaImmobile">
                         </label>
                         <label>
@@ -218,12 +230,20 @@
                             Cognome : <input type="text" formControlName="listaAltriFamiliari_cognomeAltriF">
                         </label>
                         <label>
-                            Data Di Nascita : <input type="text"
+                            Data Di Nascita : <input type="date"
                                 formControlName="listaAltriFamiliari_dataNascitaAltriF">
                         </label>
                         <label>
-                            Grado Parentela : <input type="text"
-                                formControlName="listaAltriFamiliari_gradoParentelaAltriF">
+                            Grado Parentela :
+
+                        <select name="Grado di parentela"
+                            formControlName="listaAltriFamiliari_gradoParentelaAltriF">
+                            <option value="FIGLIO/A">FIGLIO/A</option>
+                            <option value="ALTRO">ALTRO</option>
+                        </select>
+
+
+                                
                         </label>
                         <label>
                             Nome : <input type="text" formControlName="listaAltriFamiliari_nomeAltriF">
@@ -378,10 +398,10 @@
                     <div>
                         <h5>Trattenute Busta Paga Cliente</h5>
                         <h6>CSQ</h6>
-                        <label> Data Inizio: <input type="text"
+                        <label> Data Inizio: <input type="date"
                                 formControlName="trattenutaBustaPagaCliente_csqCliente_dataInizioCSQCli">
                         </label>
-                        <label> Data Scadenza: <input type="text"
+                        <label> Data Scadenza: <input type="date"
                                 formControlName="trattenutaBustaPagaCliente_csqCliente_dataScadenzaCSQCli">
                         </label>
                         <label> Rata Mensile: <input type="text"
@@ -391,10 +411,10 @@
 
 
                         <h6>Delega</h6>
-                        <label> Data Inizio: <input type="text"
+                        <label> Data Inizio: <input type="date"
                                 formControlName="trattenutaBustaPagaCliente_delegaCliente_dataInizioDelegaCli">
                         </label>
-                        <label> Data Scadenza: <input type="text"
+                        <label> Data Scadenza: <input type="date"
                                 formControlName="trattenutaBustaPagaCliente_delegaCliente_dataScadenzaDelegaCli">
                         </label>
                         <label> Rata Mensile: <input type="text"
@@ -403,10 +423,10 @@
 
 
                         <h6>Pignoramento</h6>
-                        <label> Data Inizio: <input type="text"
+                        <label> Data Inizio: <input type="date"
                                 formControlName="trattenutaBustaPagaCliente_pignoramentoCliente_dataInizioPignoramentoCli">
                         </label>
-                        <label> Data Scadenza: <input type="text"
+                        <label> Data Scadenza: <input type="date"
                                 formControlName="trattenutaBustaPagaCliente_pignoramentoCliente_dataScadenzaPignoramentoCli">
                         </label>
                         <label> Rata Mensile: <input type="text"
@@ -421,10 +441,10 @@
                     <div>
                         <h5>Trattenute Busta Paga Coniuge</h5>
                         <h6>CSQ</h6>
-                        <label> Data Inizio: <input type="text"
+                        <label> Data Inizio: <input type="date"
                                 formControlName="trattenutaBustaPagaCon_csq_dataInizioCSQCon">
                         </label>
-                        <label> Data Scadenza: <input type="text"
+                        <label> Data Scadenza: <input type="date"
                                 formControlName="trattenutaBustaPagaCon_csq_dataScadenzaCSQCon">
                         </label>
                         <label> Rata Mensile: <input type="text"
@@ -434,10 +454,10 @@
 
 
                         <h6>Delega</h6>
-                        <label> Data Inizio: <input type="text"
+                        <label> Data Inizio: <input type="date"
                                 formControlName="trattenutaBustaPagaCon_delega_dataInizioDelegaCon">
                         </label>
-                        <label> Data Scadenza: <input type="text"
+                        <label> Data Scadenza: <input type="date"
                                 formControlName="trattenutaBustaPagaCon_delega_dataScadenzaDelegaCon">
                         </label>
                         <label> Rata Mensile: <input type="text"
@@ -446,10 +466,10 @@
 
 
                         <h6>Pignoramento</h6>
-                        <label> Data Inizio: <input type="text"
+                        <label> Data Inizio: <input type="date"
                                 formControlName="trattenutaBustaPagaCon_pignoramento_dataInizioPignoramentoCon">
                         </label>
-                        <label> Data Scadenza: <input type="text"
+                        <label> Data Scadenza: <input type="date"
                                 formControlName="trattenutaBustaPagaCon_pignoramento_dataScadenzaPignoramentoCon">
                         </label>
                         <label> Rata Mensile: <input type="text"
@@ -461,13 +481,29 @@
                         <h5>Lista Creditori</h5>
                         <label> Coefficiente: <input type="text" formControlName="listaCreditori_coefficiente">
                         </label>
-                        <label>Forma Tecnica: <input type="text" formControlName="listaCreditori_formaTecnica">
+                        <label>Forma Tecnica: 
+                        <select name="PosizioneTecnica"
+                            formControlName="listaCreditori_formaTecnica">
+                            <option value="PRESTITO PERSONALE">PRESTITO PERSONALE</option>
+                            <option value="PRESTITO FINALIZZATO">PRESTITO FINALIZZATO</option>
+                            <option value="CARTA DI CREDITO - REVOLVING">CARTA DI CREDITO - REVOLVING</option>
+                            <option value="CARTA DI CREDITO">CARTA DI CREDITO</option>
+                            <option value="FIDO IPOTECARIO">FIDO IPOTECARIO</option>
+                            <option value="FIDO DI CONTO CORRENTE">FIDO DI CONTO CORRENTE</option>
+                            <option value="GARANZIA DI PEGNO">GARANZIA DI PEGNO</option>
+
+                        </select>
                         </label>
                         <label> Nome Creditore: <input type="text" formControlName="listaCreditori_nomeCreditore">
                         </label>
                         <label> Obbligatorio: <input type="text" formControlName="listaCreditori_obbligatorio">
                         </label>
-                        <label> Posizione Tecnica: <input type="text" formControlName="listaCreditori_posizioneTecnica">
+                        <label> Posizione Tecnica: 
+                            <select name="PosizioneTecnica"
+                                formControlName="listaCreditori_posizioneTecnica">
+                                <option value="U">U</option>
+                                <option value="S">S</option>
+                            </select>
                         </label>
                         <label> Rata Mensile: <input type="text" formControlName="listaCreditori_rataMensile">
                         </label>

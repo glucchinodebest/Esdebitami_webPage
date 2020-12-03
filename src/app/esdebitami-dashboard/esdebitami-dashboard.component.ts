@@ -13,6 +13,17 @@ export class EsdebitamiDashboardComponent implements OnInit {
   datasetBase64: String = '';
   uploadForm: FormGroup;
 
+  convertDate(date : any){
+
+      // JavaScript dates can be constructed by passing milliseconds
+      // since the Unix epoch (January 1, 1970) example: new Date(12312512312);
+    
+      // 1. Subtract number of days between Jan 1, 1900 and Jan 1, 1970, plus 1 (Google "excel leap year bug")             
+      // 2. Convert to milliseconds.
+    
+      return new Date((date - (25567 + 1))*86400*1000);
+  }
+
   dataForm = new FormGroup({
     //anagrafica
     anagrafica_cf: new FormControl(''),
@@ -191,8 +202,7 @@ export class EsdebitamiDashboardComponent implements OnInit {
     reader.onload = (e: any) => {
       const bstr: string = e.target.result;
 
-      const sCliente = (XLSX.utils.sheet_to_json(XLSX.read(bstr, { type: 'binary' }).Sheets['Dati per Calcolo Scheda Cliente'], { header: 1 }));
-      const sClienteOut = (XLSX.utils.sheet_to_json(XLSX.read(bstr, { type: 'binary' }).Sheets['SCHEDA CLIENTE - OUTPUT'], { header: 1 }));
+      const sCliente = (XLSX.utils.sheet_to_json(XLSX.read(bstr, { type: 'binary', cellDates:true, cellNF: false, cellText:false }).Sheets['Dati per Calcolo Scheda Cliente'], { header: 1 , dateNF: "YYYY-MM-DD", raw: false }));
       console.log(sCliente);
 
       this.dataForm.setValue({
@@ -346,193 +356,7 @@ export class EsdebitamiDashboardComponent implements OnInit {
 
     reader.readAsBinaryString(target.files[0]);
 
-    /*if (event.target.files.length > 0) {
-      const me = this;
-      const file = event.target.files[0];
-      const a = file['name'].split('.');
-      const reader: FileReader = new FileReader();
-      if (['xls', 'xlsx', 'xlxs'].indexOf(a[a.length - 1]) !== -1) {
-        reader.onload = (e: any) => {
-          const binarystr: string = e.target.result;
-          this.api.readxls(btoa(binarystr)).subscribe(
-            (data: any) => {
-
-              var anagrafica = data["payload"]["schedaCliente"]["anagrafica"];
-              var cliente = data["payload"]["schedaCliente"]["cliente"];
-              var coniuge = data["payload"]["schedaCliente"]["coniuge"];
-              var entrateUscite = data["payload"]["schedaCliente"]["entrateUscite"];
-              var immobile = data["payload"]["schedaCliente"]["entrateUscite"]["immobile"];
-              var totaleUscitePerAffitti = data["payload"]["schedaCliente"]["entrateUscite"]["totaleUscitePerAffitti"];
-              var listaAltriFamiliari = data["payload"]["schedaCliente"]["listaAltriFamiliari"];
-              var listaAttivitaClienteAut = data["payload"]["schedaCliente"]["listaAttivitaClienteAut"];
-              var listaAttivitaClienteDis = data["payload"]["schedaCliente"]["listaAttivitaClienteDis"];
-              var listaAttivitaClienteSub = data["payload"]["schedaCliente"]["listaAttivitaClienteSub"];
-              var listaAttivitaConiugeAut = data["payload"]["schedaCliente"]["listaAttivitaConiugeAut"];
-              var listaAttivitaConiugeDis = data["payload"]["schedaCliente"]["listaAttivitaConiugeDis"];
-              var listaAttivitaConiugeSub = data["payload"]["schedaCliente"]["listaAttivitaConiugeSub"];
-              var redditiFamiliariMensili = data["payload"]["schedaCliente"]["redditiFamiliariMensili"];
-              var trattenutaBustaPagaCliente = data["payload"]["schedaCliente"]["trattenutaBustaPagaCliente"];
-              var trattenutaBustaPagaConiuge = data["payload"]["schedaCliente"]["trattenutaBustaPagaConiuge"];
-              var listaCreditori = data["payload"]["schedaCliente"]["listaCreditori"];
-              var riepilogoCreditori = data["payload"]["schedaCliente"]["riepilogoCreditori"];
-
-
-
-              this.dataForm.setValue({
-                anagrafica_cf: anagrafica["cf"],
-
-                //cliente
-                cliente_nFamiliariCarico: cliente["nFamiliariCarico"],
-                cliente_nFigliConviventi: cliente["nFigliConviventi"],
-                cliente_nFigliConviventiMinori: cliente["nFigliConviventiMinori"],
-                cliente_nucleoFamiliare: cliente["nucleoFamiliare"],
-                cliente_regimePatrimoniale: cliente["regimePatrimoniale"],
-                cliente_statoCivile: cliente["statoCivile"],
-
-                //coniuge
-                coniuge_cf: coniuge["cf"],
-
-                //altreEntrate
-                altreEntrate_cifraMensileAltreEntrate: entrateUscite["altreEntrate"][0]["cifraMensileAltreEntrate"],
-                altreEntrate_descrizioneAltreEntrate: entrateUscite["altreEntrate"][0]["descrizioneAltreEntrate"],
-                altreEntrate_progressivoAltreEntrate: entrateUscite["altreEntrate"][0]["progressivoAltreEntrate"],
-
-                //altreUscite
-                altreUscite_cifraMensileAltreUscite: entrateUscite["altreUscite"][0]["cifraMensileAltreUscite"],
-                altreUscite_descrizioneAltreUscite: entrateUscite["altreUscite"][0]["descrizioneAltreUscite"],
-                altreUscite_progressivoAltreUscite: entrateUscite["altreUscite"][0]["progressivoAltreUscite"],
-
-                //assegniMantenimentoEntrata
-                assegniMantEntrata_cifraMensileAssMantEntrata: entrateUscite["assegniMantEntrata"][0]["cifraMensileAssMantEntrata"],
-                assegniMantEntrata_descrizioneAssMantEntrata: entrateUscite["assegniMantEntrata"][0]["descrizioneAssMantEntrata"],
-                assegniMantEntrata_progressivoAssMantEntrata: entrateUscite["assegniMantEntrata"][0]["progressivoAssMantEntrata"],
-
-                //assegniMantenimentoUscita
-                assegniMantUscita_cifraMensileAssMantUscita: entrateUscite["assegniMantUscita"][0]["cifraMensileAssMantUscita"],
-                assegniMantUscita_descrizioneAssMantUscita: entrateUscite["assegniMantUscita"][0]["descrizioneAssMantUscita"],
-                assegniMantUscita_progressivoAssMantUscita: entrateUscite["assegniMantUscita"][0]["progressivoAssMantUscita"],
-
-                //immobile
-                immobile_bancaMutuante: immobile[0]["bancaMutuante"],
-                immobile_dataDalProprietaImmobile: immobile[0]["dataDalProprietaImmobile"],
-                immobile_descrizioneImmobile: immobile[0]["descrizioneImmobile"],
-                immobile_flPrimaCasa: immobile[0]["flPrimaCasa"],
-                immobile_localita: immobile[0]["localita"],
-                immobile_mqImmobile: immobile[0]["mqImmobile"],
-                immobile_mutuoOriginario: immobile[0]["mutuoOriginario"],
-                immobile_rataMutuoMensile: immobile[0]["rataMutuoMensile"],
-                immobile_renditaLocazioneMensile: immobile[0]["renditaLocazioneMensile"],
-                immobile_residuoDebitoMutuo: immobile[0]["residuoDebitoMutuo"],
-                immobile_scadenzaRata: immobile[0]["scadenzaRata"],
-                immobile_tipoImmobile: immobile[0]["tipoImmobile"],
-                immobile_valoreCommerciale: immobile[0]["valoreCommerciale"],
-
-                //totaleUscitePerAffitti
-                totaleUscitePerAffitti_rataAffittoMensile: totaleUscitePerAffitti["rataAffittoMensile"],
-                totaleUscitePerAffitti_rataCondominioMensile: totaleUscitePerAffitti["rataCondominioMensile"],
-
-                //altriFamiliari
-                listaAltriFamiliari_cfAltriF: listaAltriFamiliari[0]["cfAltriF"],
-                listaAltriFamiliari_cittaNascitaAltriF: listaAltriFamiliari[0]["cittaNascitaAltriF"],
-                listaAltriFamiliari_cognomeAltriF: listaAltriFamiliari[0]["cognomeAltriF"],
-                listaAltriFamiliari_dataNascitaAltriF: listaAltriFamiliari[0]["dataNascitaAltriF"],
-                listaAltriFamiliari_gradoParentelaAltriF: listaAltriFamiliari[0]["gradoParentelaAltriF"],
-                listaAltriFamiliari_nomeAltriF: listaAltriFamiliari[0]["nomeAltriF"],
-                listaAltriFamiliari_redditoMensileAltriF: listaAltriFamiliari[0]["redditoMensileAltriF"],
-
-                //attività cliente Autonomo
-                listaAttivitaClienteAut_attivitaCliAut: listaAttivitaClienteAut[0]["attivitaCliAut"],
-                listaAttivitaClienteAut_descrizioneAttivitaCliAut: listaAttivitaClienteAut[0]["descrizioneAttivitaCliAut"],
-                listaAttivitaClienteAut_numAnniAttivitaEsercitataCliAut: listaAttivitaClienteAut[0]["numAnniAttivitaEsercitataCliAut"],
-                listaAttivitaClienteAut_numAnniEsercizioAttivitaCliAut: listaAttivitaClienteAut[0]["numAnniEsercizioAttivitaCliAut"],
-                listaAttivitaClienteAut_redditoAnnuoCliAut: listaAttivitaClienteAut[0]["redditoAnnuoCliAut"],
-                listaAttivitaClienteAut_tipoLavoratoreCliAut: listaAttivitaClienteAut[0]["tipoLavoratoreCliAut"],
-
-                //attività cliente Dis
-                listaAttivitaClienteDis_tipoLavoratoreCliDis: listaAttivitaClienteDis[0]["tipoLavoratoreCliDis"],
-
-                //attività cliente sub
-                listaAttivitaClienteSub_attivitaCliSub: listaAttivitaClienteSub[0]["attivitaCliSub"],
-                listaAttivitaClienteSub_numMensilitaRetCliSub: listaAttivitaClienteSub[0]["numMensilitaRetCliSub"],
-                listaAttivitaClienteSub_redditoMensileCliSub: listaAttivitaClienteSub[0]["redditoMensileCliSub"],
-                listaAttivitaClienteSub_redditoMensileRettificato: listaAttivitaClienteSub[0]["redditoMensileRettificato"],
-                listaAttivitaClienteSub_tipoContrattoCliSub: listaAttivitaClienteSub[0]["tipoContrattoCliSub"],
-                listaAttivitaClienteSub_tipoLavoratoreCliSub: listaAttivitaClienteSub[0]["tipoLavoratoreCliSub"],
-
-                //attività Coniuge aut
-                listaAttivitaConiugeAut_attivitaConAut: listaAttivitaConiugeAut[0]["attivitaConAut"],
-                listaAttivitaConiugeAut_descrizioneAttivitaConAut: listaAttivitaConiugeAut[0]["descrizioneAttivitaConAut"],
-                listaAttivitaConiugeAut_numAnniAttivitaEsercitataConAut: listaAttivitaConiugeAut[0]["numAnniAttivitaEsercitataConAut"],
-                listaAttivitaConiugeAut_numAnniEsercizioAttivitaConAut: listaAttivitaConiugeAut[0]["numAnniEsercizioAttivitaConAut"],
-                listaAttivitaConiugeAut_redditoAnnuoConAut: listaAttivitaConiugeAut[0]["redditoAnnuoConAut"],
-                listaAttivitaConiugeAut_tipoLavoratoreConAut: listaAttivitaConiugeAut[0]["tipoLavoratoreConAut"],
-
-                //attività coniuge Dis
-                listaAttivitaConiugeDis_tipoLavoratoreConDis: listaAttivitaConiugeDis[0]["tipoLavoratoreConDis"],
-
-                //attività coniuge sub
-                listaAttivitaConiugeSub_attivitaConSub: listaAttivitaConiugeSub[0]["attivitaConSub"],
-                listaAttivitaConiugeSub_numMensilitaRetConSub: listaAttivitaConiugeSub[0]["numMensilitaRetConSub"],
-                listaAttivitaConiugeSub_redditoAnnuoConSub: listaAttivitaConiugeSub[0]["redditoAnnuoConSub"],
-                listaAttivitaConiugeSub_tipoContrattoConSub: listaAttivitaConiugeSub[0]["tipoContrattoConSub"],
-                listaAttivitaConiugeSub_tipoLavoratoreConSub: listaAttivitaConiugeSub[0]["tipoLavoratoreConSub"],
-
-                // redditi familiari mensili
-                redditiFamiliariMensili: redditiFamiliariMensili,
-
-                //trattenuta busta paga CSQ cliente
-                trattenutaBustaPagaCliente_csqCliente_dataInizioCSQCli: trattenutaBustaPagaCliente["csqCliente"]["dataInizioCSQCli"],
-                trattenutaBustaPagaCliente_csqCliente_dataScadenzaCSQCli: trattenutaBustaPagaCliente["csqCliente"]["dataScadenzaCSQCli"],
-                trattenutaBustaPagaCliente_csqCliente_rataCSQCli: trattenutaBustaPagaCliente["csqCliente"]["rataCSQCli"],
-
-                //trattenuta busta paga delega cliente
-                trattenutaBustaPagaCliente_delegaCliente_dataInizioDelegaCli: trattenutaBustaPagaCliente["delegaCliente"]["dataInizioDelegaCli"],
-                trattenutaBustaPagaCliente_delegaCliente_dataScadenzaDelegaCli: trattenutaBustaPagaCliente["delegaCliente"]["dataScadenzaDelegaCli"],
-                trattenutaBustaPagaCliente_delegaCliente_rataDelegaCli: trattenutaBustaPagaCliente["delegaCliente"]["rataDelegaCli"],
-
-                //trattenuta busta paga pignoramento cliente
-                trattenutaBustaPagaCliente_pignoramentoCliente_dataInizioPignoramentoCli: trattenutaBustaPagaCliente["pignoramentoCliente"]["dataInizioPignoramentoCli"],
-                trattenutaBustaPagaCliente_pignoramentoCliente_dataScadenzaPignoramentoCli: trattenutaBustaPagaCliente["pignoramentoCliente"]["dataScadenzaPignoramentoCli"],
-                trattenutaBustaPagaCliente_pignoramentoCliente_rataPignoramentoCli: trattenutaBustaPagaCliente["pignoramentoCliente"]["rataPignoramentoCli"],
-
-                //trattenuta busta paga CSQ coniuge
-                trattenutaBustaPagaCon_csq_dataInizioCSQCon: trattenutaBustaPagaConiuge["csqConiuge"]["dataInizioCSQCon"],
-                trattenutaBustaPagaCon_csq_dataScadenzaCSQCon: trattenutaBustaPagaConiuge["csqConiuge"]["dataScadenzaCSQCon"],
-                trattenutaBustaPagaCon_csq_rataCSQCon: trattenutaBustaPagaConiuge["csqConiuge"]["rataCSQCon"],
-
-                //trattenuta busta paga delega coniuge
-                trattenutaBustaPagaCon_delega_dataInizioDelegaCon: trattenutaBustaPagaConiuge["delegaConiuge"]["dataInizioDelegaCon"],
-                trattenutaBustaPagaCon_delega_dataScadenzaDelegaCon: trattenutaBustaPagaConiuge["delegaConiuge"]["dataScadenzaDelegaCon"],
-                trattenutaBustaPagaCon_delega_rataDelegaCon: trattenutaBustaPagaConiuge["delegaConiuge"]["rataDelegaCon"],
-
-                //trattenuta busta paga pignoramento coniuge
-                trattenutaBustaPagaCon_pignoramento_dataInizioPignoramentoCon: trattenutaBustaPagaConiuge["pignoramentoConiuge"]["dataInizioPignoramentoCon"],
-                trattenutaBustaPagaCon_pignoramento_dataScadenzaPignoramentoCon: trattenutaBustaPagaConiuge["pignoramentoConiuge"]["dataScadenzaPignoramentoCon"],
-                trattenutaBustaPagaCon_pignoramento_rataPignoramentoCon: trattenutaBustaPagaConiuge["pignoramentoConiuge"]["rataPignoramentoCon"],
-
-                //lista creditori
-                listaCreditori_coefficiente: listaCreditori[0]["coefficiente"],
-                listaCreditori_formaTecnica: listaCreditori[0]["formaTecnica"],
-                listaCreditori_nomeCreditore: listaCreditori[0]["nomeCreditore"],
-                listaCreditori_obbligatorio: listaCreditori[0]["obbligatorio"],
-                listaCreditori_posizioneTecnica: listaCreditori[0]["posizioneTecnica"],
-                listaCreditori_rataMensile: listaCreditori[0]["rataMensile"],
-                listaCreditori_valoreDebito: listaCreditori[0]["valoreDebito"],
-
-                //riepilogo creditori
-                riepilogoCreditori_montanteDebitorioComplessivo: riepilogoCreditori["montanteDebitorioComplessivo"],
-                riepilogoCreditori_montanteDebitorioSecured: riepilogoCreditori["montanteDebitorioSecured"],
-                riepilogoCreditori_montanteDebitorioUnsecured: riepilogoCreditori["montanteDebitorioUnsecured"],
-                riepilogoCreditori_totaleRataCreditore: riepilogoCreditori["totaleRataCreditore"],
-              })
-              console.log(this.dataForm.get('trattenutaBustaPagaCon_delega_dataInizioDelegaCon').value);
-            }
-          );
-        }
-        reader.readAsBinaryString(file);
-        event.target.value = null;
-      }
-    }*/
+    
   }
 
 
