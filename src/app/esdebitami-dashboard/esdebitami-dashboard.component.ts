@@ -210,8 +210,8 @@ export class EsdebitamiDashboardComponent implements OnInit {
         coniuge_cf: sCliente[42][1] == undefined ? "" : sCliente[42][1],
 
         //altreEntrate
-        altreEntrate_cifraMensileAltreEntrate: sCliente[77][4] == undefined ? "" : sCliente[98][4],
-        altreEntrate_descrizioneAltreEntrate: sCliente[77][5] == undefined ? "" : sCliente[97][5],
+        altreEntrate_cifraMensileAltreEntrate: sCliente[77][4] == undefined ? "" : sCliente[77][4],
+        altreEntrate_descrizioneAltreEntrate: sCliente[77][5] == undefined ? "" : sCliente[77][5],
         altreEntrate_progressivoAltreEntrate: "",
 
         //altreUscite
@@ -328,12 +328,12 @@ export class EsdebitamiDashboardComponent implements OnInit {
 
         //lista creditori
         listaCreditori_coefficiente: "",
-        listaCreditori_formaTecnica: sClienteOut[91][1] == undefined ? "" : sClienteOut[91][1],
-        listaCreditori_nomeCreditore: sClienteOut[91][0] == undefined ? "" : sClienteOut[91][0],
-        listaCreditori_obbligatorio: sClienteOut[91][5] == undefined ? "" : sClienteOut[91][5],
-        listaCreditori_posizioneTecnica: sClienteOut[91][2] == undefined ? "" : sClienteOut[91][2],
-        listaCreditori_rataMensile: sClienteOut[91][4] == undefined ? "" : sClienteOut[91][4],
-        listaCreditori_valoreDebito: sClienteOut[91][3] == undefined ? "" : sClienteOut[91][3],
+        listaCreditori_formaTecnica: sCliente[91][1] == undefined ? "" : sCliente[91][1],
+        listaCreditori_nomeCreditore: sCliente[91][0] == undefined ? "" : sCliente[91][0],
+        listaCreditori_obbligatorio: sCliente[91][5] == undefined ? "" : sCliente[91][5],
+        listaCreditori_posizioneTecnica: sCliente[91][2] == undefined ? "" : sCliente[91][2],
+        listaCreditori_rataMensile: sCliente[91][4] == undefined ? "" : sCliente[91][4],
+        listaCreditori_valoreDebito: sCliente[91][3] == undefined ? "" : sCliente[91][3],
 
         //riepilogo creditori
         riepilogoCreditori_montanteDebitorioComplessivo: "",
