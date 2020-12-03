@@ -1,0 +1,548 @@
+<div>
+    <div class="text-center">
+        <h1>Scheda cliente</h1>
+    </div>
+
+
+    
+
+    <span class="border">
+        <div class="text-center" [formGroup]="uploadForm">
+            <input #datasetFile fullWidth type="file" formControlName="dataset" [hidden]="true"
+                (change)="onFileDatasetChange($event)" accept=".xls, .xlxs, .xlsx" />
+            <button status="basic" size="small" fullWidth (click)="datasetFile.click()">
+                Carica i tuoi dati
+            </button>
+        </div>
+    </span>
+
+
+    <span class="border">
+        <div class="col-12">
+            <form [formGroup]="dataForm">
+
+                <div class="text-center">
+                    <h3>Dati Nucleo Familiare</h3>
+
+                    <div class="row">
+                        <div class="col-12 col-sm-4">
+                            <label>
+                                Codice fiscale cliente<input type="text" formControlName="anagrafica_cf">
+                            </label>
+                        </div>
+                        <div class="col-12 col-sm-4">
+                            <label>
+                                Numero familiari a carico<input type="text" formControlName="cliente_nFamiliariCarico">
+                            </label>
+
+                        </div>
+                        <div class="col-12 col-sm-4">
+                            <label>
+                                Numero figli conviventi<input type="text" formControlName="cliente_nFigliConviventi">
+                            </label>
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+                        <div class="col-12 col-sm-4">
+                            <label>
+                                Numero figli minorenni conviventi<input type="text"
+                                    formControlName="cliente_nFigliConviventiMinori">
+                            </label>
+                        </div>
+                        <div class="col-12 col-sm-4">
+
+                            <label>
+                                Nucleo familiare : <input type="text" formControlName="cliente_nucleoFamiliare">
+                            </label>
+                        </div>
+                        <div class="col-12 col-sm-4">
+
+                            <label>
+                                Regime patrimoniale : 
+                            <select name="RegimePatrimoniale"
+                                formControlName="cliente_regimePatrimoniale">
+                                <option value="SEPARAZIONE DEI BENI">SEPARAZIONE DEI BENI</option>
+                                <option value="COMUNICAZIONE CONVENZIONALE">COMUNICAZIONE CONVENZIONALE</option>
+                                <option value="FONDO PATRIMONIALE">FONDO PATRIMONIALE</option>
+                            </select>
+                            </label>
+                        </div>
+                    </div>
+
+
+
+                    <label>
+                        Stato civile : 
+                        <select name="StatoCivile"
+                                formControlName="cliente_statoCivile">
+                                <option value="LIBERO/A">LIBERO/A</option>
+                                <option value="CONIUGATO/A">CONIUGATO/A</option>
+                        </select>
+                    </label>
+                    <label>
+                        Codice Fiscale Coniuge : <input type="text" formControlName="coniuge_cf">
+                    </label>
+                </div>
+
+                <div class="text-center">
+                    <h3>Entrate - Uscite</h3>
+
+                    <h5>Entrate Mensili</h5>
+                    <div>
+                        <label>
+                            Altre Entrate Mensili : <input type="text"
+                                formControlName="altreEntrate_cifraMensileAltreEntrate">
+                        </label>
+                        <label>
+                            Descrizione Altre Entrate : <input type="text"
+                                formControlName="altreEntrate_descrizioneAltreEntrate">
+                        </label>
+                        <label>
+                            Progressio Altre Entrate : <input type="text"
+                                formControlName="altreEntrate_progressivoAltreEntrate">
+                        </label>
+                    </div>
+
+                    <h5>Uscite Mensili</h5>
+                    <div>
+                        <label>
+                            Altre Uscite Mensili : <input type="text"
+                                formControlName="altreUscite_cifraMensileAltreUscite">
+                        </label>
+                        <label>
+                            Descrizione Altre Uscite : <input type="text"
+                                formControlName="altreUscite_descrizioneAltreUscite">
+                        </label>
+                        <label>
+                            Progressio Altre Uscite : <input type="text"
+                                formControlName="altreUscite_progressivoAltreUscite">
+                        </label>
+                    </div>
+
+
+                    <h5>Assegni Mantenimento In Entrata</h5>
+                    <div>
+                        <label>
+                            Cifra Assegno di Mantenimento Mensile Entrata : <input type="text"
+                                formControlName="assegniMantEntrata_cifraMensileAssMantEntrata">
+                        </label>
+                        <label>
+                            Descrizione Assegno Mantenimento Entrata : <input type="text"
+                                formControlName="assegniMantEntrata_descrizioneAssMantEntrata">
+                        </label>
+                        <label>
+                            Progressio Assegno Mantenimento Entrata : <input type="text"
+                                formControlName="assegniMantEntrata_progressivoAssMantEntrata">
+                        </label>
+                    </div>
+
+
+                    <h5>Assegni Mantenimento In Uscita</h5>
+                    <div>
+                        <label>
+                            Cifra Assegno di Mantenimento Mensile Uscita : <input type="text"
+                                formControlName="assegniMantUscita_cifraMensileAssMantUscita">
+                        </label>
+                        <label>
+                            Descrizione Assegno Mantenimento Uscita : <input type="text"
+                                formControlName="assegniMantUscita_descrizioneAssMantUscita">
+                        </label>
+                        <label>
+                            Progressio Assegno Mantenimento Uscita : <input type="text"
+                                formControlName="assegniMantUscita_progressivoAssMantUscita">
+                        </label>
+                    </div>
+
+                    <h5>Dati Immobile</h5>
+                    <div>
+                        <label>
+                            Banca Mutuante : <input type="text" formControlName="immobile_bancaMutuante">
+                        </label>
+                        <label>
+                            Data Inizio Proprietà : 
+                            <input type="date"
+                                formControlName="immobile_dataDalProprietaImmobile">
+                        </label>
+                        <label>
+                            Descrizione : <input type="text" formControlName="immobile_descrizioneImmobile">
+                        </label>
+                        <label>
+                            Prima Casa : <input type="checkbox" checked="item.check"
+                                formControlName="immobile_flPrimaCasa">
+                        </label>
+                        <label>
+                            Località : <input type="text" formControlName="immobile_localita">
+                        </label>
+                        <label>
+                            Metri Quadri: <input type="text" formControlName="immobile_mqImmobile">
+                        </label>
+                        <label>
+                            Mutuo Originario : <input type="text" formControlName="immobile_mutuoOriginario">
+                        </label>
+                        <label>
+                            Rata Mensile : <input type="text" formControlName="immobile_rataMutuoMensile">
+                        </label>
+                        <label>
+                            Rendita Locazione Mensile : <input type="text"
+                                formControlName="immobile_renditaLocazioneMensile">
+                        </label>
+                        <label>
+                            Debito Residuo : <input type="text" formControlName="immobile_residuoDebitoMutuo">
+                        </label>
+                        <label>
+                            Scadenza Rata : <input type="text" formControlName="immobile_scadenzaRata">
+                        </label>
+                        <label>
+                            Tipologia: <input type="text" formControlName="immobile_tipoImmobile">
+                        </label>
+                        <label>
+                            Valore Commerciale : <input type="text" formControlName="immobile_valoreCommerciale">
+                        </label>
+                    </div>
+
+
+                    <h5>Uscite Per Affitti</h5>
+                    <div>
+                        <label>
+                            Rata Affitto : <input type="text"
+                                formControlName="totaleUscitePerAffitti_rataAffittoMensile">
+                        </label>
+                        <label>
+                            Rata Condominio Mensile : <input type="text"
+                                formControlName="totaleUscitePerAffitti_rataCondominioMensile">
+                        </label>
+                    </div>
+
+
+
+                    <h5>Dati Altri Familiari</h5>
+                    <div>
+                        <label>
+                            Codice Fiscale : <input type="text" formControlName="listaAltriFamiliari_cfAltriF">
+                        </label>
+                        <label>
+                            Città Di Nascita : <input type="text"
+                                formControlName="listaAltriFamiliari_cittaNascitaAltriF">
+                        </label>
+                        <label>
+                            Cognome : <input type="text" formControlName="listaAltriFamiliari_cognomeAltriF">
+                        </label>
+                        <label>
+                            Data Di Nascita : <input type="date"
+                                formControlName="listaAltriFamiliari_dataNascitaAltriF">
+                        </label>
+                        <label>
+                            Grado Parentela :
+
+                        <select name="Grado di parentela"
+                            formControlName="listaAltriFamiliari_gradoParentelaAltriF">
+                            <option value="FIGLIO/A">FIGLIO/A</option>
+                            <option value="ALTRO">ALTRO</option>
+                        </select>
+
+
+                                
+                        </label>
+                        <label>
+                            Nome : <input type="text" formControlName="listaAltriFamiliari_nomeAltriF">
+                        </label>
+                        <label>
+                            Reddito Mensile : <input type="text"
+                                formControlName="listaAltriFamiliari_redditoMensileAltriF">
+                        </label>
+                    </div>
+
+                    <h5>Dati Attività</h5>
+                    <div>
+                        <h6>Cliente Autonomo</h6>
+                        <label>
+                            Attività : <input type="text" formControlName="listaAttivitaClienteAut_attivitaCliAut">
+                        </label>
+                        <label>
+                            Descrizione Attività : <input type="text"
+                                formControlName="listaAttivitaClienteAut_descrizioneAttivitaCliAut">
+                        </label>
+                        <label>
+                            Numero anni attività Esercitata : <input type="text"
+                                formControlName="listaAttivitaClienteAut_numAnniAttivitaEsercitataCliAut">
+                        </label>
+                        <label>
+                            Numero anni Esercizio : <input type="text"
+                                formControlName="listaAttivitaClienteAut_numAnniEsercizioAttivitaCliAut">
+                        </label>
+                        <label>
+                            Attività : <input type="text" formControlName="listaAttivitaClienteAut_redditoAnnuoCliAut">
+                        </label>
+                        <label>
+                            Attività : <input type="text"
+                                formControlName="listaAttivitaClienteAut_tipoLavoratoreCliAut">
+                        </label>
+                    </div>
+
+                    <h6>Cliente Dis</h6>
+                    <div>
+                        <h6>Cliente Autonomo</h6>
+                        <label> Tipologia Lavoratore: <input type="text"
+                                formControlName="listaAttivitaClienteDis_tipoLavoratoreCliDis">
+                        </label>
+                    </div>
+
+                    <div>
+                        <h6>Cliente Sub</h6>
+                        <label>
+                            Attività : <input type="text" formControlName="listaAttivitaClienteSub_attivitaCliSub">
+                        </label>
+                        <label>
+                            Numero Mensilità retribuite: <input type="text"
+                                formControlName="listaAttivitaClienteSub_numMensilitaRetCliSub">
+                        </label>
+                        <label>
+                            Reddito Mensile : <input type="text"
+                                formControlName="listaAttivitaClienteSub_redditoMensileCliSub">
+                        </label>
+                        <label>
+                            Reddito Mensile Rettificato : <input type="text"
+                                formControlName="listaAttivitaClienteSub_redditoMensileRettificato">
+                        </label>
+                        <label>
+                            Tipo Contratto :
+                            <select name="AttivitaClienteSub"
+                                formControlName="listaAttivitaClienteSub_tipoContrattoCliSub">
+                                <option value="FT - Tempo indeterminato">FT - Tempo indeterminato</option>
+                                <option value="FT - Tempo determinato">FT - Tempo determinato</option>
+                                <option value="PT - Tempo indeterminato">PT - Tempo indeterminato</option>
+                                <option value="PT - Tempo determinato">PT - Tempo determinato</option>
+                            </select>
+                        </label>
+                        <label>
+                            Tipo Lavoratore : <input type="text"
+                                formControlName="listaAttivitaClienteSub_tipoLavoratoreCliSub">
+                        </label>
+                    </div>
+
+
+
+
+                    <div>
+                        <h6>Coniuge Aut</h6>
+                        <label>
+                            Attività : <input type="text" formControlName="listaAttivitaConiugeAut_attivitaConAut">
+                        </label>
+                        <label>
+                            Descrizione Attività: <input type="text"
+                                formControlName="listaAttivitaConiugeAut_descrizioneAttivitaConAut">
+                        </label>
+                        <label>
+                            Numero Anni Attività Esercitata : <input type="text"
+                                formControlName="listaAttivitaConiugeAut_numAnniAttivitaEsercitataConAut">
+                        </label>
+                        <label>
+                            umero Anni attività esercizio : <input type="text"
+                                formControlName="listaAttivitaConiugeAut_numAnniEsercizioAttivitaConAut">
+                        </label>
+                        <label>
+                            Reddito Annuo : <input type="text"
+                                formControlName="listaAttivitaConiugeAut_redditoAnnuoConAut">
+                        </label>
+                        <label>
+                            Tipo Lavoratore : <input type="text"
+                                formControlName="listaAttivitaConiugeAut_tipoLavoratoreConAut">
+                        </label>
+                    </div>
+
+                    <div>
+                        <h6>Coniuge Dis</h6>
+                        <label> Tipologia Lavoratore: <input type="text"
+                                formControlName="listaAttivitaConiugeDis_tipoLavoratoreConDis">
+                        </label>
+                    </div>
+
+                    <div>
+                        <h6>Coniuge Sub</h6>
+                        <label>
+                            Attività : <input type="text" formControlName="listaAttivitaConiugeSub_attivitaConSub">
+                        </label>
+                        <label>
+                            Numero Mensilità retribuite: <input type="text"
+                                formControlName="listaAttivitaConiugeSub_numMensilitaRetConSub">
+                        </label>
+                        <label>
+                            Reddito Annuo : <input type="text"
+                                formControlName="listaAttivitaConiugeSub_redditoAnnuoConSub">
+                        </label>
+                        <label>
+                            Tipo contratto : 
+                            <select name="AttivitaConiugeSub"
+                                formControlName="listaAttivitaConiugeSub_tipoContrattoConSub">
+                                <option value="FT - Tempo indeterminato">FT - Tempo indeterminato</option>
+                                <option value="FT - Tempo determinato">FT - Tempo determinato</option>
+                                <option value="PT - Tempo indeterminato">PT - Tempo indeterminato</option>
+                                <option value="PT - Tempo determinato">PT - Tempo determinato</option>
+                            </select>
+                        </label>
+                        <label>
+                            Tipo Lavoratore : <input type="text"
+                                formControlName="listaAttivitaConiugeSub_tipoLavoratoreConSub">
+                        </label>
+                    </div>
+
+
+                    <div>
+                        <h5>Redditi Familiari Mensili</h5>
+                        <label> Reddito Familiare Mensile: <input type="text" formControlName="redditiFamiliariMensili">
+                        </label>
+                    </div>
+
+                    <div>
+                        <h5>Trattenute Busta Paga Cliente</h5>
+                        <h6>CSQ</h6>
+                        <label> Data Inizio: <input type="date"
+                                formControlName="trattenutaBustaPagaCliente_csqCliente_dataInizioCSQCli">
+                        </label>
+                        <label> Data Scadenza: <input type="date"
+                                formControlName="trattenutaBustaPagaCliente_csqCliente_dataScadenzaCSQCli">
+                        </label>
+                        <label> Rata Mensile: <input type="text"
+                                formControlName="trattenutaBustaPagaCliente_csqCliente_rataCSQCli">
+                        </label>
+
+
+
+                        <h6>Delega</h6>
+                        <label> Data Inizio: <input type="date"
+                                formControlName="trattenutaBustaPagaCliente_delegaCliente_dataInizioDelegaCli">
+                        </label>
+                        <label> Data Scadenza: <input type="date"
+                                formControlName="trattenutaBustaPagaCliente_delegaCliente_dataScadenzaDelegaCli">
+                        </label>
+                        <label> Rata Mensile: <input type="text"
+                                formControlName="trattenutaBustaPagaCliente_delegaCliente_rataDelegaCli">
+                        </label>
+
+
+                        <h6>Pignoramento</h6>
+                        <label> Data Inizio: <input type="date"
+                                formControlName="trattenutaBustaPagaCliente_pignoramentoCliente_dataInizioPignoramentoCli">
+                        </label>
+                        <label> Data Scadenza: <input type="date"
+                                formControlName="trattenutaBustaPagaCliente_pignoramentoCliente_dataScadenzaPignoramentoCli">
+                        </label>
+                        <label> Rata Mensile: <input type="text"
+                                formControlName="trattenutaBustaPagaCliente_pignoramentoCliente_rataPignoramentoCli">
+                        </label>
+                    </div>
+
+
+
+
+
+                    <div>
+                        <h5>Trattenute Busta Paga Coniuge</h5>
+                        <h6>CSQ</h6>
+                        <label> Data Inizio: <input type="date"
+                                formControlName="trattenutaBustaPagaCon_csq_dataInizioCSQCon">
+                        </label>
+                        <label> Data Scadenza: <input type="date"
+                                formControlName="trattenutaBustaPagaCon_csq_dataScadenzaCSQCon">
+                        </label>
+                        <label> Rata Mensile: <input type="text"
+                                formControlName="trattenutaBustaPagaCon_csq_rataCSQCon">
+                        </label>
+
+
+
+                        <h6>Delega</h6>
+                        <label> Data Inizio: <input type="date"
+                                formControlName="trattenutaBustaPagaCon_delega_dataInizioDelegaCon">
+                        </label>
+                        <label> Data Scadenza: <input type="date"
+                                formControlName="trattenutaBustaPagaCon_delega_dataScadenzaDelegaCon">
+                        </label>
+                        <label> Rata Mensile: <input type="text"
+                                formControlName="trattenutaBustaPagaCon_delega_rataDelegaCon">
+                        </label>
+
+
+                        <h6>Pignoramento</h6>
+                        <label> Data Inizio: <input type="date"
+                                formControlName="trattenutaBustaPagaCon_pignoramento_dataInizioPignoramentoCon">
+                        </label>
+                        <label> Data Scadenza: <input type="date"
+                                formControlName="trattenutaBustaPagaCon_pignoramento_dataScadenzaPignoramentoCon">
+                        </label>
+                        <label> Rata Mensile: <input type="text"
+                                formControlName="trattenutaBustaPagaCon_pignoramento_rataPignoramentoCon">
+                        </label>
+                    </div>
+
+                    <div>
+                        <h5>Lista Creditori</h5>
+                        <label> Coefficiente: <input type="text" formControlName="listaCreditori_coefficiente">
+                        </label>
+                        <label>Forma Tecnica: 
+                        <select name="PosizioneTecnica"
+                            formControlName="listaCreditori_formaTecnica">
+                            <option value="PRESTITO PERSONALE">PRESTITO PERSONALE</option>
+                            <option value="PRESTITO FINALIZZATO">PRESTITO FINALIZZATO</option>
+                            <option value="CARTA DI CREDITO - REVOLVING">CARTA DI CREDITO - REVOLVING</option>
+                            <option value="CARTA DI CREDITO">CARTA DI CREDITO</option>
+                            <option value="FIDO IPOTECARIO">FIDO IPOTECARIO</option>
+                            <option value="FIDO DI CONTO CORRENTE">FIDO DI CONTO CORRENTE</option>
+                            <option value="GARANZIA DI PEGNO">GARANZIA DI PEGNO</option>
+
+                        </select>
+                        </label>
+                        <label> Nome Creditore: <input type="text" formControlName="listaCreditori_nomeCreditore">
+                        </label>
+                        <label> Obbligatorio: <input type="text" formControlName="listaCreditori_obbligatorio">
+                        </label>
+                        <label> Posizione Tecnica: 
+                            <select name="PosizioneTecnica"
+                                formControlName="listaCreditori_posizioneTecnica">
+                                <option value="U">U</option>
+                                <option value="S">S</option>
+                            </select>
+                        </label>
+                        <label> Rata Mensile: <input type="text" formControlName="listaCreditori_rataMensile">
+                        </label>
+                        <label> Valore Debito: <input type="text" formControlName="listaCreditori_valoreDebito">
+                        </label>
+                    </div>
+
+                    <div>
+                        <h5>Riepilogo Creditori</h5>
+                        <label>Debito Complessivo: <input type="text"
+                                formControlName="riepilogoCreditori_montanteDebitorioComplessivo">
+                        </label>
+                        <label>Debito Secured: <input type="text"
+                                formControlName="riepilogoCreditori_montanteDebitorioSecured">
+                        </label>
+                        <label> Debito Unsecured: <input type="text"
+                                formControlName="riepilogoCreditori_montanteDebitorioUnsecured">
+                        </label>
+                        <label> Totale Rata Creditore: <input type="text"
+                                formControlName="riepilogoCreditori_totaleRataCreditore">
+                        </label>
+                    </div>
+
+
+
+
+                </div>
+
+
+            </form>
+
+        </div>
+
+        <div class="text-center">
+            <button status="basic" size="small" fullWidth (click)="onSubmitFrom()">
+                submit
+            </button>
+        </div>
+
+
+    </span>
+</div>
