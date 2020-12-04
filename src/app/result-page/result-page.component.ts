@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -22,6 +23,8 @@ export class ResultPageComponent implements OnInit {
     this.segmentazioneClienti = this.payload.segmentazioneClienti;
 
 
+
+
     this.elements = [
       {id: 'Impegni Detrimento Reddito',first : (this.segmentazioneClienti.impegniDetrimentoReddito == null ? "-" : this.segmentazioneClienti.impegniDetrimentoReddito ) },
       {id: 'Disponibilità Stimata', first :  (this.segmentazioneClienti.disponibilitaStimata == null ? "-" : this.segmentazioneClienti.disponibilitaStimata)},
@@ -39,17 +42,17 @@ export class ResultPageComponent implements OnInit {
       {id: 'Importo residuo delega cliente', first: (this.schedaCliente.importoResiduoDelegaCliente == null ? "-" : this.schedaCliente.importoResiduoDelegaCliente)},
       {id: 'Importo residuo CSQ cliente', first: (this.schedaCliente.importoResiduoCsqCliente == null ? "-" : this.schedaCliente.importoResiduoCsqCliente)},
       {id: 'Importo residuo Pignoramento cliente', first: (this.schedaCliente.importoResiduoPignoramentoCliente == null ? "-" : this.schedaCliente.importoResiduoPignoramentoCliente)},
-      {id: 'Data delega cliente', first: (this.schedaCliente.dataDelegaCliente == null ? "-" : this.schedaCliente.dataDelegaCliente)},
-      {id: 'Data CSQ cliente', first: (this.schedaCliente.dataCsqCliente == null ? "-" : this.schedaCliente.dataCsqCliente)},
-      {id: 'Data Pignoramento cliente', first: (this.schedaCliente.dataPignoramentoCliente == null ? "-" : this.schedaCliente.dataPignoramentoCliente)},
+      {id: 'Data delega cliente', first: (this.schedaCliente.dataDelegaCliente == null ? "-" :  new Date( this.schedaCliente.dataDelegaCliente).toLocaleDateString())  },
+      {id: 'Data CSQ cliente', first: (this.schedaCliente.dataCsqCliente == null ? "-" : new Date(this.schedaCliente.dataCsqCliente).toLocaleDateString())},
+      {id: 'Data Pignoramento cliente', first: (this.schedaCliente.dataPignoramentoCliente == null ? "-" : new Date(this.schedaCliente.dataPignoramentoCliente).toLocaleDateString())},
       {id: 'Reddito Mensile rettificato Coniuge sub', first: (this.schedaCliente.mensileRettificatoConSub == null ? "-" : this.schedaCliente.mensileRettificatoConSub)},
       {id: 'Reddito Mensile rettificato Coniuge aut', first: (this.schedaCliente.mensileRettificatoConAut == null ? "-" : this.schedaCliente.mensileRettificatoConAut)},
       {id: 'Importo residuo delega Coniuge', first: (this.schedaCliente.importoResiduoDelegaConiuge == null ? "-" : this.schedaCliente.importoResiduoDelegaConiuge)},
       {id: 'Importo residuo CSQ Coniuge', first: (this.schedaCliente.importoResiduoCsqConiuge == null ? "-" : this.schedaCliente.importoResiduoCsqConiuge)},
       {id: 'Importo residuo Pignoramento Coniuge', first: (this.schedaCliente.importoResiduoPignoramentoConiuge == null ? "-" : this.schedaCliente.importoResiduoPignoramentoConiuge)},
-      {id: 'Data delega coniuge', first: (this.schedaCliente.dataDelegaConiuge == null ? "-" : this.schedaCliente.dataDelegaConiuge)},
-      {id: 'Data CSQ coniuge', first: (this.schedaCliente.dataCsqConiuge == null ? "-" : this.schedaCliente.dataCsqConiuge)},
-      {id: 'Data pignoramento coniuge', first: (this.schedaCliente.dataPignoramentoConiuge == null ? "-" : this.schedaCliente.dataPignoramentoConiuge)},
+      {id: 'Data delega coniuge', first: (this.schedaCliente.dataDelegaConiuge == null ? "-" : new Date(this.schedaCliente.dataDelegaConiuge).toLocaleDateString())},
+      {id: 'Data CSQ coniuge', first: (this.schedaCliente.dataCsqConiuge == null ? "-" : new Date(this.schedaCliente.dataCsqConiuge).toLocaleDateString())},
+      {id: 'Data pignoramento coniuge', first: (this.schedaCliente.dataPignoramentoConiuge == null ? "-" : new Date(this.schedaCliente.dataPignoramentoConiuge).toLocaleDateString())},
       {id: 'Totale mensile affitti', first: (this.schedaCliente.totaleMensileAffitti == null ? "-" : this.schedaCliente.totaleMensileAffitti)},
       {id: 'Totale mensile uscite obbligatorie', first: (this.schedaCliente.totaleMensileUsciteObbligatorie == null ? "-" : this.schedaCliente.totaleMensileUsciteObbligatorie)},
       {id: 'Totale mensile uscite affitti', first: (this.schedaCliente.totaleMensileAffittiUscite == null ? "-" : this.schedaCliente.totaleMensileAffittiUscite)},
