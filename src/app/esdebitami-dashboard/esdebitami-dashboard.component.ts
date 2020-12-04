@@ -541,7 +541,7 @@ export class EsdebitamiDashboardComponent implements OnInit {
       },
       listaCreditori: [
         {
-          cObbligato: true,
+          cObbligato: this.dataForm.get('listaCreditori_obbligatorio').value=='Si',
           coefficienteCreditore: this.dataForm.get('listaCreditori_coefficiente').value,
           formaTecnica: this.dataForm.get('listaCreditori_formaTecnica').value,
           nomeCreditore: this.dataForm.get('listaCreditori_nomeCreditore').value,
@@ -549,8 +549,8 @@ export class EsdebitamiDashboardComponent implements OnInit {
           posizioneTecnica: this.dataForm.get('listaCreditori_posizioneTecnica').value,
           rataCreditore: this.dataForm.get('listaCreditori_rataMensile').value,
           valoreDebito: this.dataForm.get('listaCreditori_valoreDebito').value,
-          importoTransattivo:0,
-          rataTransattivaCreditore:0
+          importoTransattivo: this.dataForm.get('importoTransattivo').value,
+          rataTransattivaCreditore: this.dataForm.get('rataTransattivaCreditore').value,
         }
       ],
       riepilogoCreditori: {
