@@ -51,7 +51,8 @@
 
     input,
     textarea {
-        width: calc(50%);
+        align-self: center;
+        width: 100%;
         padding: 8px;
         margin-bottom: 20px;
         border: 1px solid #1c87c9;
@@ -71,7 +72,7 @@
     }
 
     button {
-        width: 20%;
+        width: 40%;
         padding: 10px;
         border: none;
         background: #1c87c9;
@@ -90,10 +91,7 @@
         }
 
         .left-part,
-        form {
-            width: 70%;
 
-        }
 
         .fa-envelope {
             margin-top: 0;
