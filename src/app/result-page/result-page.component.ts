@@ -10,12 +10,14 @@ export class ResultPageComponent implements OnInit {
   
 
 
-  headElements = ['Riferimento', 'Esito'];
+  headElementsSC = ['Riferimento - Scheda Cliente', 'Esito - Scheda Cliente'];
+  headElementsSeg = ['Riferimento - Segmentazione Cliente', 'Esito - Segmentazione Cliente'];
 
   payload : any
   schedaCliente :any
   segmentazioneClienti:any
-  elements: any
+  elementsSegmentazione: any
+  elementsSchedaCliente: any
 
   constructor() {
     this.payload = JSON.parse(localStorage.getItem('valutazioneCliente'));
@@ -27,19 +29,20 @@ export class ResultPageComponent implements OnInit {
     
 
 
-    this.elements = [
-      {id: 'Impegni Detrimento Reddito',first : (this.segmentazioneClienti.impegniDetrimentoReddito == null ? "-" : this.segmentazioneClienti.impegniDetrimentoReddito ) },
-      {id: 'Disponibilità Stimata', first :  (this.segmentazioneClienti.disponibilitaStimata == null ? "-" : this.segmentazioneClienti.disponibilitaStimata)},
-      {id: 'Rapporto Montante Disponibilita Stimata', first: (this.segmentazioneClienti.rapportoMontanteDisponibilitaStimata == null ? "-" : this.segmentazioneClienti.rapportoMontanteDisponibilitaStimata)},
-      {id: 'Profilo di Rischio', first: (this.segmentazioneClienti.profiloRischio == null ? "-" : this.segmentazioneClienti.profiloRischio)},
+    this.elementsSegmentazione = [
+      {idSeg: 'Impegni Detrimento Reddito',firstSeg : (this.segmentazioneClienti.impegniDetrimentoReddito == null ? "-" : this.segmentazioneClienti.impegniDetrimentoReddito ) },
+      {idSeg: 'Disponibilità Stimata', firstSeg :  (this.segmentazioneClienti.disponibilitaStimata == null ? "-" : this.segmentazioneClienti.disponibilitaStimata)},
+      {idSeg: 'Rapporto Montante Disponibilita Stimata', firstSeg: (this.segmentazioneClienti.rapportoMontanteDisponibilitaStimata == null ? "-" : this.segmentazioneClienti.rapportoMontanteDisponibilitaStimata)},
+      {idSeg: 'Profilo di Rischio', firstSeg: (this.segmentazioneClienti.profiloRischio == null ? "-" : this.segmentazioneClienti.profiloRischio)},
+      {idSeg: 'Mese Inizio Piano Competenze Upfront', firstSeg: (this.segmentazioneClienti.pianoCompetenzeUpfront == null ? "-" : this.segmentazioneClienti.pianoCompetenzeUpfront.meseInizioPianoCompetenzeUpfront)},
+      {idSeg: 'Durata Piano Competenze Upfront', firstSeg: (this.segmentazioneClienti.pianoCompetenzeUpfront == null ? "-" : this.segmentazioneClienti.pianoCompetenzeUpfront.durataPianoCompetenzeUpfront)},
+      {idSeg: 'Importo Rata Piano Competenze Upfront', firstSeg: (this.segmentazioneClienti.pianoCompetenzeUpfront == null ? "-" : this.segmentazioneClienti.pianoCompetenzeUpfront.importoRataPianoCompetenzeUpfront)},
+      {idSeg: 'Numero Rate Piano Competenze Upfront', firstSeg: (this.segmentazioneClienti.pianoCompetenzeUpfront == null ? "-" : this.segmentazioneClienti.pianoCompetenzeUpfront.numeroRatePianoCompetenzeUpfront)},
+      {idSeg: 'Totale Piano Competenze Upfront', firstSeg: (this.segmentazioneClienti.pianoCompetenzeUpfront == null ? "-" : this.segmentazioneClienti.pianoCompetenzeUpfront.totalePianoCompetenzeUpfront)},
+      {idSeg: 'Success Fee Globale', firstSeg: (this.segmentazioneClienti.pianoCompetenzeUpfront == null ? "-" : this.segmentazioneClienti.pianoCompetenzeUpfront.successFeeGlobale)},
+    ];
 
-      {id: 'Mese Inizio Piano Competenze Upfront Segmentazione Cliente', first: (this.segmentazioneClienti.pianoCompetenzeUpfront == null ? "-" : this.segmentazioneClienti.pianoCompetenzeUpfront.meseInizioPianoCompetenzeUpfront)},
-      {id: 'Durata Piano Competenze Upfront Segmentazione Cliente', first: (this.segmentazioneClienti.pianoCompetenzeUpfront == null ? "-" : this.segmentazioneClienti.pianoCompetenzeUpfront.durataPianoCompetenzeUpfront)},
-      {id: 'Importo Rata Piano Competenze Upfront Segmentazione Cliente', first: (this.segmentazioneClienti.pianoCompetenzeUpfront == null ? "-" : this.segmentazioneClienti.pianoCompetenzeUpfront.importoRataPianoCompetenzeUpfront)},
-      {id: 'Numero Rate Piano Competenze Upfront Segmentazione Cliente', first: (this.segmentazioneClienti.pianoCompetenzeUpfront == null ? "-" : this.segmentazioneClienti.pianoCompetenzeUpfront.numeroRatePianoCompetenzeUpfront)},
-      {id: 'Totale Piano Competenze Upfront Segmentazione Cliente', first: (this.segmentazioneClienti.pianoCompetenzeUpfront == null ? "-" : this.segmentazioneClienti.pianoCompetenzeUpfront.totalePianoCompetenzeUpfront)},
-      {id: 'Success Fee Globale Segmentazione Cliente', first: (this.segmentazioneClienti.pianoCompetenzeUpfront == null ? "-" : this.segmentazioneClienti.pianoCompetenzeUpfront.successFeeGlobale)},
-
+    this.elementsSchedaCliente = [
       {id: 'Codice fiscale', first: (this.schedaCliente.cf == null ? "-" : this.schedaCliente.cf)},
       {id: 'Classe di Domicilio', first: (this.schedaCliente.classeDomicilio == null ? "-" : this.schedaCliente.classeDomicilio)},
       {id: 'Nucleo Familiare', first: (this.schedaCliente.nucleoFamiliare == null ? "-" :this.schedaCliente.nucleoFamiliare)},

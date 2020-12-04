@@ -110,7 +110,7 @@ html,
         }
     }
     td, th {
-        width: 50rem;
+        width: 100rem;
         height: 2rem;
         border: 1px solid #ccc;
         text-align: center;

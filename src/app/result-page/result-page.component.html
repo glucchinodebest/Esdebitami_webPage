@@ -3,22 +3,43 @@
         <h1>Riepilogo Esito</h1>
     </div>
 </div>
+
 <div class="row">
-    <div class="col-12 col-sm-3"></div>
-    <div class="col-12 col-sm-6">
+    <div class="col-12 col-sm-1"></div>
+    <div class="col-12 col-sm-4">
         <table mdbTable>
             <thead>
                 <tr>
-                    <th *ngFor="let head of headElements" scope="col">{{head}} </th>
+                    <th *ngFor="let headSC of headElementsSC" scope="col">{{headSC}} </th>
                 </tr>
             </thead>
             <tbody>
-                <tr mdbTableCol *ngFor="let el of elements">
-                    <th scope="row">{{el.id}}</th>
-                    <td>{{el.first}}</td>
+                <tr mdbTableCol *ngFor="let elSC of elementsSchedaCliente">
+                    <th scope="row">{{elSC.id}}</th>
+                    <td>{{elSC.first}}</td>
                 </tr>
             </tbody>
         </table>
     </div>
-    <div class="col-12 col-sm-3"></div>
+    <div class="col-12 col-sm-1"></div>
+
+    <div class="col-12 col-sm-1"></div>
+    <div class="col-12 col-sm-4">
+        <table mdbTable>
+            <thead>
+                <tr>
+                    <th *ngFor="let headSeg of headElementsSeg" scope="col">{{headSeg}} </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr mdbTableCol *ngFor="let elSeg of elementsSegmentazione">
+                    <th scope="row">
+                        {{elSeg.idSeg}}
+                    </th>
+                    <td>{{elSeg.firstSeg}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="col-12 col-sm-1"></div>
 </div>
