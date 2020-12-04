@@ -51,7 +51,7 @@
 
     input,
     textarea {
-        width: calc(100% - 18px);
+        width: calc(50%);
         padding: 8px;
         margin-bottom: 20px;
         border: 1px solid #1c87c9;
@@ -91,7 +91,7 @@
 
         .left-part,
         form {
-            width: 100%;
+            width: 70%;
 
         }
 

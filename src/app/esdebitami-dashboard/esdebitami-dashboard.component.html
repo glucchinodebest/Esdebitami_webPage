@@ -63,9 +63,9 @@
                                 Regime patrimoniale : 
                             <select name="RegimePatrimoniale"
                                 formControlName="cliente_regimePatrimoniale">
-                                <option value="SEPARAZIONE DEI BENI">SEPARAZIONE DEI BENI</option>
-                                <option value="COMUNICAZIONE CONVENZIONALE">COMUNICAZIONE CONVENZIONALE</option>
-                                <option value="FONDO PATRIMONIALE">FONDO PATRIMONIALE</option>
+                                <option value="0 - SEPARAZIONE DEI BENI">SEPARAZIONE DEI BENI</option>
+                                <option value="1 - COMUNICAZIONE CONVENZIONALE">COMUNICAZIONE CONVENZIONALE</option>
+                                <option value="2 - FONDO PATRIMONIALE">FONDO PATRIMONIALE</option>
                             </select>
                             </label>
                         </div>
@@ -83,6 +83,18 @@
                     </label>
                     <label>
                         Codice Fiscale Coniuge : <input type="text" formControlName="coniuge_cf">
+                    </label>
+                    <label>
+                        Classe Domicilio : 
+                        <select name="classeDomicilio"
+                                formControlName="anagrafica_classeDomicilio">
+                                <option value="ZONA A">ZONA A</option>
+                                <option value="ZONA B">ZONA B</option>
+                                <option value="ZONA C">ZONA C</option>
+                                <option value="ZONA D">ZONA D</option>
+                                <option value="ZONA E">ZONA E</option>
+                                <option value="ZONA F">ZONA F</option>
+                        </select>                    
                     </label>
                 </div>
 
@@ -276,8 +288,12 @@
                             Attività : <input type="text" formControlName="listaAttivitaClienteAut_redditoAnnuoCliAut">
                         </label>
                         <label>
-                            Attività : <input type="text"
+                            Tipo lavoratore autonomo : <input type="text"
                                 formControlName="listaAttivitaClienteAut_tipoLavoratoreCliAut">
+                        </label>
+                        <label>
+                            Reddito mensile rettificato : <input type="text"
+                                formControlName="listaAttivitaClienteAut_redditoMensileRetCliAut">
                         </label>
                     </div>
 
@@ -369,7 +385,7 @@
                                 formControlName="listaAttivitaConiugeSub_numMensilitaRetConSub">
                         </label>
                         <label>
-                            Reddito Annuo : <input type="text"
+                            Reddito Mensile : <input type="text"
                                 formControlName="listaAttivitaConiugeSub_redditoAnnuoConSub">
                         </label>
                         <label>
@@ -509,9 +525,13 @@
                         </label>
                         <label> Valore Debito: <input type="text" formControlName="listaCreditori_valoreDebito">
                         </label>
+                        <label> Importo transattivo: <input type="text" formControlName="importoTransattivo">
+                        </label>                        
+                        <label> Rata transattiva creditore: <input type="text" formControlName="rataTransattivaCreditore">
+                        </label>
                     </div>
 
-                    <div>
+                   <!-- <div>
                         <h5>Riepilogo Creditori</h5>
                         <label>Debito Complessivo: <input type="text"
                                 formControlName="riepilogoCreditori_montanteDebitorioComplessivo">
@@ -526,6 +546,7 @@
                                 formControlName="riepilogoCreditori_totaleRataCreditore">
                         </label>
                     </div>
+                    -->
 
 
 
