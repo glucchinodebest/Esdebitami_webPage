@@ -208,7 +208,7 @@ export class EsdebitamiDashboardComponent implements OnInit {
       const bstr: string = e.target.result;
 
       const sCliente = (XLSX.utils.sheet_to_json(XLSX.read(bstr, { type: 'binary', cellDates:true, cellNF: false, cellText:false }).Sheets['Dati per Calcolo Scheda Cliente'], { header: 1 , dateNF: "YYYY-MM-DD", raw: false }));
-      console.log(sCliente);
+      console.log(sCliente[55][1]);
 
       this.dataForm.setValue({
         anagrafica_cf: sCliente[5][1] == undefined ? "" : sCliente[5][1],
@@ -369,7 +369,8 @@ export class EsdebitamiDashboardComponent implements OnInit {
 
 
   public onSubmitFrom() {
-    console.log(this.dataForm.get('anagrafica_classeDomicilio').value);
+    
+    console.log('in submit' +this.dataForm.get('trattenutaBustaPagaCon_csq_dataInizioCSQCon').value);
     
     var json =
       {
@@ -424,7 +425,7 @@ export class EsdebitamiDashboardComponent implements OnInit {
               bancaMutuante: this.dataForm.get('immobile_bancaMutuante').value,
               dataDalProprietaImmobile: this.dataForm.get('immobile_dataDalProprietaImmobile').value,
               descrizioneImmobile: this.dataForm.get('immobile_descrizioneImmobile').value,
-              flPrimaCasa: this.dataForm.get('immobile_flPrimaCasa').value,
+              flPrimaCasa: this.dataForm.get('immobile_flPrimaCasa').value=="Si",
               localita: this.dataForm.get('immobile_localita').value,
               mqImmobile: this.dataForm.get('immobile_mqImmobile').value,
               mutuoOriginario: this.dataForm.get('immobile_mutuoOriginario').value,
@@ -540,7 +541,7 @@ export class EsdebitamiDashboardComponent implements OnInit {
       },
       listaCreditori: [
         {
-          cObbligato: true,
+          cObbligato: this.dataForm.get('listaCreditori_obbligatorio').value=='Si',
           coefficienteCreditore: this.dataForm.get('listaCreditori_coefficiente').value,
           formaTecnica: this.dataForm.get('listaCreditori_formaTecnica').value,
           nomeCreditore: this.dataForm.get('listaCreditori_nomeCreditore').value,
@@ -548,8 +549,8 @@ export class EsdebitamiDashboardComponent implements OnInit {
           posizioneTecnica: this.dataForm.get('listaCreditori_posizioneTecnica').value,
           rataCreditore: this.dataForm.get('listaCreditori_rataMensile').value,
           valoreDebito: this.dataForm.get('listaCreditori_valoreDebito').value,
-          importoTransattivo:0,
-          rataTransattivaCreditore:0
+          importoTransattivo: this.dataForm.get('importoTransattivo').value,
+          rataTransattivaCreditore: this.dataForm.get('rataTransattivaCreditore').value,
         }
       ],
       riepilogoCreditori: {
@@ -565,7 +566,7 @@ export class EsdebitamiDashboardComponent implements OnInit {
   };
 
     //var json = "{   'schedaCliente': {     'anagrafica': {       'cf': 'codice fiscale'     },     'datiEconomici': {       'cliente': {         'nFamiliariCarico': 0,         'nFigliConviventi': 0,         'nFigliConviventiMinori': 0,         'nucleoFamiliare': 0,         'regimePatrimoniale': true,         'statoCivile': true       },       'coniuge': {         'cf': 'string'       },       'entrateUscite': {         'altreEntrate': [           {             'cifraMensileAltreEntrate': 0,             'descrizioneAltreEntrate': 'string',             'progressivoAltreEntrate': 200           } 					, 					 {             'cifraMensileAltreEntrate': 0,             'descrizioneAltreEntrate': 'string',             'progressivoAltreEntrate': 300           }         ],         'altreUscite': [           {             'cifraMensileAltreUscite': 0,             'descrizioneAltreUscite': 'string',             'progressivoAltreUscite': 400           }         ],         'assegniMantEntrata': [           {             'cifraMensileAssMantEntrata': 0,             'descrizioneAssMantEntrata': 'string',             'progressivoAssMantEntrata': 0           }         ],         'assegniMantUscita': [           {             'cifraMensileAssMantUscita': 0,             'descrizioneAssMantUscita': 'string',             'progressivoAssMantUscita': 0           }         ],         'immobile': [           {             'bancaMutuante': 'string',             'dataDalProprietaImmobile': '2020-11-26T17:44:21.976Z',             'descrizioneImmobile': 'string',             'flPrimaCasa': true,             'localita': 'string',             'mqImmobile': 0,             'mutuoOriginario': 0,             'rataMutuoMensile': 0,             'renditaLocazioneMensile': 0,             'residuoDebitoMutuo': 0,             'scadenzaRata': '2020-11-26T17:44:21.976Z',             'tipoImmobile': 'string',             'valoreCommerciale': 0           }         ],         'totaleUscitePerAffitti': [           {             'rataAffittoMensile': 500,             'rataCondominioMensile': 10           }, 					 {             'rataAffittoMensile': 600,             'rataCondominioMensile': 50           }         ]       },       'listaAltriFamiliari': [         {           'cfAltriF': 'string',           'cittaNascitaAltriF': 'string',           'cognomeAltriF': 'string',           'dataNascitaAltriF': '2020-11-26T17:44:21.976Z',           'gradoParentelaAltriF': 'string',           'nomeAltriF': 'string',           'redditoMensileAltriF': 0         }       ],       'listaAttivitaClienteAut': [         {           'attivitaCliAut': 'string',           'descrizioneAttivitaCliAut': 'string',           'numAnniAttivitaEsercitataCliAut': 0,           'numAnniEsercizioAttivitaCliAut': 0,           'redditoMensileCliAut': 0,           'redditoMensileRettificato': 0,           'tipoLavoratoreCliAut': 0         }       ],       'listaAttivitaClienteDis': [         {           'tipoLavoratoreCliDis': 0         }       ],       'listaAttivitaClienteSub': [         {           'attivitaCliSub': 'string',           'numMensilitaRetCliSub': 16,           'redditoMensileCliSub': 1400,           'redditoMensileRettificato': 0,           'tipoContrattoCliSub': 'string',           'tipoLavoratoreCliSub': 0         }       ],       'listaAttivitaConiugeAut': [         {           'attivitaConAut': 'string',           'descrizioneAttivitaConAut': 'string',           'numAnniAttivitaEsercitataConAut': 0,           'numAnniEsercizioAttivitaConAut': 0,           'redditoMensileConAut': 0,           'tipoLavoratoreConAut': 0         }       ],       'listaAttivitaConiugeDis': [         {           'tipoLavoratoreConDis': 0         }       ],       'listaAttivitaConiugeSub': [         {           'attivitaConSub': 'string',           'numMensilitaRetConSub': 0,           'redditoMensileConSub': 0,           'tipoContrattoConSub': 'string',           'tipoLavoratoreConSub': 0         }       ],       'redditiFamiliariMensili': 900,       'trattenutaBustaPagaCliente': {         'csqCliente': {           'dataInizioCSQCli': '2020-11-26T17:44:21.976Z',           'dataScadenzaCSQCli': '2020-11-26T17:44:21.976Z',           'rataCSQCli': 0         },         'delegaCliente': {           'dataInizioDelegaCli': '2020-11-26T17:44:21.976Z',           'dataScadenzaDelegaCli': '2020-11-26T17:44:21.976Z',           'rataDelegaCli': 0         },         'pignoramentoCliente': {           'dataInizioPignoramentoCli': '2020-11-26T17:44:21.976Z',           'dataScadenzaPignoramentoCli': '2020-11-26T17:44:21.976Z',           'rataPignoramentoCli': 0         }       },       'trattenutaBustaPagaConiuge': {         'csqConiuge': {           'dataInizioCSQCon': '2020-11-26T17:44:21.976Z',           'dataScadenzaCSQCon': '2020-11-26T17:44:21.976Z',           'rataCSQCon': 0         },         'delegaConiuge': {           'dataInizioDelegaCon': '2020-11-26T17:44:21.976Z',           'dataScadenzaDelegaCon': '2020-11-26T17:44:21.976Z',           'rataDelegaCon': 0         },         'pignoramentoConiuge': {           'dataInizioPignoramentoCon': '2020-11-26T17:44:21.976Z',           'dataScadenzaPignoramentoCon': '2020-11-26T17:44:21.976Z',           'rataPignoramentoCon': 0         }       }     },     'listaCreditori': [       {         'coefficiente': 0,         'formaTecnica': 'string',         'nomeCreditore': 'string',         'obbligatorio': true,         'posizioneTecnica': 's',         'rataMensile': 70,         'valoreDebito': 80       }, 			 {         'coefficiente': 0,         'formaTecnica': 'string',         'nomeCreditore': 'string',         'obbligatorio': true,         'posizioneTecnica': 's',         'rataMensile': 90,         'valoreDebito': 990       }     ],     'riepilogoCreditori': {       'montanteDebitorioComplessivo': 0,       'montanteDebitorioSecured': 0,       'montanteDebitorioUnsecured': 0,       'totaleRataCreditore': 0     }   },   'requestType':'SYNC',   'requestKey':'requestKey11',   'applicationKey':'appKeyExt' }";
-    console.log(json);
+    console.log(JSON.parse(JSON.stringify(json)).schedaCliente);
 
     this.api.calcolo(json).subscribe((data: any) => {
       console.log(data);
