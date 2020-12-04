@@ -181,9 +181,15 @@
                             Descrizione : <input type="text" formControlName="immobile_descrizioneImmobile">
                         </label>
                         <label>
-                            Prima Casa : <input type="checkbox" checked="item.check"
-                                formControlName="immobile_flPrimaCasa">
+                            Prima Casa : 
                         </label>
+                        <select name="primaCasa"
+                            formControlName="immobile_flPrimaCasa">
+                            <option value=true>Si</option>
+                            <option value=false>No</option>
+                        </select>
+                            
+
                         <label>
                             Località : <input type="text" formControlName="immobile_localita">
                         </label>

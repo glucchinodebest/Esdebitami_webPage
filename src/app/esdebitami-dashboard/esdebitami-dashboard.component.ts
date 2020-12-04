@@ -248,7 +248,7 @@ export class EsdebitamiDashboardComponent implements OnInit {
         immobile_bancaMutuante: sCliente[80][1] == undefined ? "" : sCliente[80][1],
         immobile_dataDalProprietaImmobile: sCliente[70][1] == undefined ? "" : sCliente[70][1],
         immobile_descrizioneImmobile: sCliente[74][1] == undefined ? "" : sCliente[74][1],
-        immobile_flPrimaCasa: false,
+        immobile_flPrimaCasa: sCliente[71][1]== undefined ? "No" : sCliente[71][1],
         immobile_localita: sCliente[72][1] == undefined ? "" : sCliente[72][1],
         immobile_mqImmobile: sCliente[75][1] == undefined ? "" : sCliente[75][1],
         immobile_mutuoOriginario: sCliente[78][1] == undefined ? "" : sCliente[78][1],
@@ -376,7 +376,7 @@ export class EsdebitamiDashboardComponent implements OnInit {
     schedaCliente: {
       anagrafica: {
         cf: this.dataForm.get('anagrafica_cf').value,
-        classeDomicilio: this.dataForm.get('anagrafica_cf').value
+        classeDomicilio: this.dataForm.get('anagrafica_classeDomicilio').value
       },
       datiEconomici: {
         cliente: {
