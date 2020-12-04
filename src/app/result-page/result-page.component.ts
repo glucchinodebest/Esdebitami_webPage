@@ -23,6 +23,8 @@ export class ResultPageComponent implements OnInit {
     this.segmentazioneClienti = this.payload.segmentazioneClienti;
 
 
+    console.log(this.schedaCliente.dataCsqConiuge);
+    
 
 
     this.elements = [

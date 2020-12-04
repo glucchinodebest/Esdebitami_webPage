@@ -364,6 +364,8 @@ export class EsdebitamiDashboardComponent implements OnInit {
 
 
   public onSubmitFrom() {
+    console.log(this.dataForm.get('cliente_nFigliConviventi').value);
+    
     var json =
       {
     schedaCliente: {
@@ -372,9 +374,9 @@ export class EsdebitamiDashboardComponent implements OnInit {
       },
       datiEconomici: {
         cliente: {
-          nFamiliariCarico: this.dataForm.get('cliente_nFamiliariCarico').value,
-          nFigliConviventi: this.dataForm.get('cliente_nFigliConviventi').value,
-          nFigliConviventiMinori: this.dataForm.get('cliente_nFigliConviventiMinori').value,
+          familiariCarico: this.dataForm.get('cliente_nFamiliariCarico').value,
+          figliConviventi: this.dataForm.get('cliente_nFigliConviventi').value,
+          figliConviventiMinori: this.dataForm.get('cliente_nFigliConviventiMinori').value,
           nucleoFamiliare: this.dataForm.get('cliente_nucleoFamiliare').value,
           regimePatrimoniale: this.dataForm.get('cliente_regimePatrimoniale').value,
           statoCivile: this.dataForm.get('cliente_statoCivile').value
