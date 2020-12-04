@@ -33,6 +33,13 @@ export class ResultPageComponent implements OnInit {
       {id: 'Rapporto Montante Disponibilita Stimata', first: (this.segmentazioneClienti.rapportoMontanteDisponibilitaStimata == null ? "-" : this.segmentazioneClienti.rapportoMontanteDisponibilitaStimata)},
       {id: 'Profilo di Rischio', first: (this.segmentazioneClienti.profiloRischio == null ? "-" : this.segmentazioneClienti.profiloRischio)},
 
+      {id: 'Mese Inizio Piano Competenze Upfront Segmentazione Cliente', first: (this.segmentazioneClienti.pianoCompetenzeUpfront == null ? "-" : this.segmentazioneClienti.pianoCompetenzeUpfront.meseInizioPianoCompetenzeUpfront)},
+      {id: 'Durata Piano Competenze Upfront Segmentazione Cliente', first: (this.segmentazioneClienti.pianoCompetenzeUpfront == null ? "-" : this.segmentazioneClienti.pianoCompetenzeUpfront.durataPianoCompetenzeUpfront)},
+      {id: 'Importo Rata Piano Competenze Upfront Segmentazione Cliente', first: (this.segmentazioneClienti.pianoCompetenzeUpfront == null ? "-" : this.segmentazioneClienti.pianoCompetenzeUpfront.importoRataPianoCompetenzeUpfront)},
+      {id: 'Numero Rate Piano Competenze Upfront Segmentazione Cliente', first: (this.segmentazioneClienti.pianoCompetenzeUpfront == null ? "-" : this.segmentazioneClienti.pianoCompetenzeUpfront.numeroRatePianoCompetenzeUpfront)},
+      {id: 'Totale Piano Competenze Upfront Segmentazione Cliente', first: (this.segmentazioneClienti.pianoCompetenzeUpfront == null ? "-" : this.segmentazioneClienti.pianoCompetenzeUpfront.totalePianoCompetenzeUpfront)},
+      {id: 'Success Fee Globale Segmentazione Cliente', first: (this.segmentazioneClienti.pianoCompetenzeUpfront == null ? "-" : this.segmentazioneClienti.pianoCompetenzeUpfront.successFeeGlobale)},
+
       {id: 'Codice fiscale', first: (this.schedaCliente.cf == null ? "-" : this.schedaCliente.cf)},
       {id: 'Classe di Domicilio', first: (this.schedaCliente.classeDomicilio == null ? "-" : this.schedaCliente.classeDomicilio)},
       {id: 'Nucleo Familiare', first: (this.schedaCliente.nucleoFamiliare == null ? "-" :this.schedaCliente.nucleoFamiliare)},
@@ -40,7 +47,7 @@ export class ResultPageComponent implements OnInit {
       {id: 'Numero figli conviventi', first: (this.schedaCliente.numFigliConviventi == null ? "-" : this.schedaCliente.numFigliConviventi)},
       {id: 'Di cui minori', first: (this.schedaCliente.numFigliConviventiMinori == null ? "-" : this.schedaCliente.numFigliConviventiMinori)},
       {id: 'Reddito mensile rettificato cliente sub', first: (this.schedaCliente.mensileRettificatoCliSub == null ? "-" : this.schedaCliente.mensileRettificatoCliSub)},
-      {id: 'Reddito mensile rettificato cliente sub', first: (this.schedaCliente.mensileRettificatoCliAut == null ? "-" : this.schedaCliente.mensileRettificatoCliAut)},
+      {id: 'Reddito mensile rettificato cliente aut', first: (this.schedaCliente.mensileRettificatoCliAut == null ? "-" : this.schedaCliente.mensileRettificatoCliAut)},
       {id: 'Importo residuo delega cliente', first: (this.schedaCliente.importoResiduoDelegaCliente == null ? "-" : this.schedaCliente.importoResiduoDelegaCliente)},
       {id: 'Importo residuo CSQ cliente', first: (this.schedaCliente.importoResiduoCsqCliente == null ? "-" : this.schedaCliente.importoResiduoCsqCliente)},
       {id: 'Importo residuo Pignoramento cliente', first: (this.schedaCliente.importoResiduoPignoramentoCliente == null ? "-" : this.schedaCliente.importoResiduoPignoramentoCliente)},
@@ -70,7 +77,12 @@ export class ResultPageComponent implements OnInit {
       {id: 'Montante debitorio complessivo', first: (this.schedaCliente.riepilogoCreditori == null ? "-" : this.schedaCliente.riepilogoCreditori.montanteDebitorioComplessivo)},
       {id: 'Totale rate creditore', first: (this.schedaCliente.riepilogoCreditori == null ? "-" : this.schedaCliente.riepilogoCreditori.totaleRateCreditore)},
 
-
+      {id: 'Mese Inizio Piano Competenze Upfront', first: (this.schedaCliente.pianoCompetenzeUpfront == null ? "-" : this.schedaCliente.pianoCompetenzeUpfront.meseInizioPianoCompetenzeUpfront)},
+      {id: 'Durata Piano Competenze Upfront', first: (this.schedaCliente.pianoCompetenzeUpfront == null ? "-" : this.schedaCliente.pianoCompetenzeUpfront.durataPianoCompetenzeUpfront)},
+      {id: 'Importo Rata Piano Competenze Upfront', first: (this.schedaCliente.pianoCompetenzeUpfront == null ? "-" : this.schedaCliente.pianoCompetenzeUpfront.importoRataPianoCompetenzeUpfront)},
+      {id: 'Numero Rate Piano Competenze Upfront', first: (this.schedaCliente.pianoCompetenzeUpfront == null ? "-" : this.schedaCliente.pianoCompetenzeUpfront.numeroRatePianoCompetenzeUpfront)},
+      {id: 'Totale Piano Competenze Upfront', first: (this.schedaCliente.pianoCompetenzeUpfront == null ? "-" : this.schedaCliente.pianoCompetenzeUpfront.totalePianoCompetenzeUpfront)},
+      {id: 'Success Fee Globale', first: (this.schedaCliente.pianoCompetenzeUpfront == null ? "-" : this.schedaCliente.pianoCompetenzeUpfront.successFeeGlobale)}
 
     ];
    }
