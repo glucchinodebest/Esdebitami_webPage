@@ -90,9 +90,9 @@
                         </div>
                         <div class="col-12 col-sm-4">
                                 <select name="RegimePatrimoniale" formControlName="cliente_regimePatrimoniale">
-                                    <option value="0 - SEPARAZIONE DEI BENI">SEPARAZIONE DEI BENI</option>
-                                    <option value="1 - COMUNICAZIONE CONVENZIONALE">COMUNICAZIONE CONVENZIONALE</option>
-                                    <option value="2 - FONDO PATRIMONIALE">FONDO PATRIMONIALE</option>
+                                    <option value="SEPARAZIONE DEI BENI">SEPARAZIONE DEI BENI</option>
+                                    <option value="COMUNICAZIONE CONVENZIONALE">COMUNICAZIONE CONVENZIONALE</option>
+                                    <option value="FONDO PATRIMONIALE">FONDO PATRIMONIALE</option>
                                 </select>
                         </div>
                     </div>
@@ -129,12 +129,12 @@
                         </div>
                         <div class="col-12 col-sm-4">
                             <select name="classeDomicilio" formControlName="anagrafica_classeDomicilio">
-                                <option value="ZONA A">ZONA A</option>
-                                <option value="ZONA B">ZONA B</option>
-                                <option value="ZONA C">ZONA C</option>
-                                <option value="ZONA D">ZONA D</option>
-                                <option value="ZONA E">ZONA E</option>
-                                <option value="ZONA F">ZONA F</option>
+                                <option value="Zona A">ZONA A</option>
+                                <option value="Zona B">ZONA B</option>
+                                <option value="Zona C">ZONA C</option>
+                                <option value="Zona D">ZONA D</option>
+                                <option value="Zona E">ZONA E</option>
+                                <option value="Zona F">ZONA F</option>
                             </select>
                         </div>
                     </div>
@@ -341,8 +341,8 @@
                     <div class="row">
                         <div class="col-12 col-sm-4">
                             <select name="primaCasa" formControlName="immobile_flPrimaCasa">
-                                <option value=true>Si</option>
-                                <option value=false>No</option>
+                                <option value="Si">Si</option>
+                                <option value="No">No</option>
                             </select>
                         </div>
                         <div class="col-12 col-sm-4">
@@ -606,7 +606,6 @@
 
                     <h6>Cliente Dis</h6>
                     <div>
-                        <h6>Cliente Autonomo</h6>
                         <div class="row">
                             <div class="col-12 col-sm-12">
                                 <label> Tipologia Lavoratore
@@ -769,84 +768,200 @@
 
                     <div>
                         <h6>Coniuge Dis</h6>
-                        <label> Tipologia Lavoratore: <input type="text"
-                                formControlName="listaAttivitaConiugeDis_tipoLavoratoreConDis">
-                        </label>
+
+                        <div class="row">
+                            <div class="col-12 col-sm-12">
+                                <label> Tipologia Lavoratore 
+                            </label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12 col-sm-12">
+                                <input type="text" formControlName="listaAttivitaConiugeDis_tipoLavoratoreConDis">
+                            </div>
+                        </div>
                     </div>
 
                     <div>
                         <h6>Coniuge Sub</h6>
-                        <label>
-                            Attività : <input type="text" formControlName="listaAttivitaConiugeSub_attivitaConSub">
-                        </label>
-                        <label>
-                            Numero Mensilità retribuite: <input type="text"
-                                formControlName="listaAttivitaConiugeSub_numMensilitaRetConSub">
-                        </label>
-                        <label>
-                            Reddito Mensile : <input type="text"
-                                formControlName="listaAttivitaConiugeSub_redditoAnnuoConSub">
-                        </label>
-                        <label>
-                            Tipo contratto :
-                            <select name="AttivitaConiugeSub"
-                                formControlName="listaAttivitaConiugeSub_tipoContrattoConSub">
-                                <option value="FT - Tempo indeterminato">FT - Tempo indeterminato</option>
-                                <option value="FT - Tempo determinato">FT - Tempo determinato</option>
-                                <option value="PT - Tempo indeterminato">PT - Tempo indeterminato</option>
-                                <option value="PT - Tempo determinato">PT - Tempo determinato</option>
-                            </select>
-                        </label>
-                        <label>
-                            Tipo Lavoratore : <input type="text"
-                                formControlName="listaAttivitaConiugeSub_tipoLavoratoreConSub">
-                        </label>
+
+                        <div class="row">
+                            <div class="col-12 col-sm-6">
+                                <label>
+                                    Attività 
+                                </label>
+                            </div>
+                            <div class="col-12 col-sm-6">
+                                <label>
+                                    Numero Mensilità retribuite 
+                                </label>
+                            </div>
+                        </div>
+    
+                        <div class="row">
+                            <div class="col-12 col-sm-6">
+                                <input type="text" formControlName="listaAttivitaConiugeSub_attivitaConSub">
+                            </div>
+                            <div class="col-12 col-sm-6">
+                                <input type="text" formControlName="listaAttivitaConiugeSub_numMensilitaRetConSub">              
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-12 col-sm-4">
+                                <label>
+                                    Reddito Mensile 
+                                </label>
+                            </div>
+                            <div class="col-12 col-sm-4">
+                                <label>
+                                    Tipo contratto                                    
+                                </label>
+                            </div>
+                            <div class="col-12 col-sm-4">
+                                <label>
+                                    Tipo Lavoratore 
+                                </label>
+                            </div>
+                        </div>
+    
+                        <div class="row">
+                            <div class="col-12 col-sm-4">
+                                <input type="text" formControlName="listaAttivitaConiugeSub_redditoAnnuoConSub">
+                            </div>
+                            <div class="col-12 col-sm-4">
+                                <select name="AttivitaConiugeSub"
+                                        formControlName="listaAttivitaConiugeSub_tipoContrattoConSub">
+                                        <option value="FT - Tempo indeterminato">FT - Tempo indeterminato</option>
+                                        <option value="FT - Tempo determinato">FT - Tempo determinato</option>
+                                        <option value="PT - Tempo indeterminato">PT - Tempo indeterminato</option>
+                                        <option value="PT - Tempo determinato">PT - Tempo determinato</option>
+                                    </select>         
+                            </div>
+                            <div class="col-12 col-sm-4">
+                                <input type="text" formControlName="listaAttivitaConiugeSub_tipoLavoratoreConSub">             
+                            </div>
+                        </div>
+                        
+                        
                     </div>
 
 
                     <div>
                         <h5>Redditi Familiari Mensili</h5>
-                        <label> Reddito Familiare Mensile: <input type="text" formControlName="redditiFamiliariMensili">
-                        </label>
+
+                        <div class="row">
+                            <div class="col-12 col-sm-12">
+                                <label> Reddito Familiare Mensile 
+                                </label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12 col-sm-12">
+                                <input type="text" formControlName="redditiFamiliariMensili">
+                            </div>
+                        </div>
+
+                       
                     </div>
 
                     <div>
                         <h5>Trattenute Busta Paga Cliente</h5>
                         <h6>CSQ</h6>
-                        <label> Data Inizio: <input type="date"
-                                formControlName="trattenutaBustaPagaCliente_csqCliente_dataInizioCSQCli">
-                        </label>
-                        <label> Data Scadenza: <input type="date"
-                                formControlName="trattenutaBustaPagaCliente_csqCliente_dataScadenzaCSQCli">
-                        </label>
-                        <label> Rata Mensile: <input type="text"
-                                formControlName="trattenutaBustaPagaCliente_csqCliente_rataCSQCli">
-                        </label>
+                        <div class="row">
+                            <div class="col-12 col-sm-4">
+                                <label> Data Inizio
+                            </label>
+                            </div>
+                            <div class="col-12 col-sm-4">
+                                <label> Data Scadenza
+                            </label>
+                            </div>
+                            <div class="col-12 col-sm-4">
+                                <label> Rata Mensile 
+                            </label>
+                            </div>
+                        </div>
+    
+                        <div class="row">
+                            <div class="col-12 col-sm-4">
+                                <input type="date" formControlName="trattenutaBustaPagaCliente_csqCliente_dataInizioCSQCli">
+                            </div>
+                            <div class="col-12 col-sm-4">
+                                <input type="date" formControlName="trattenutaBustaPagaCliente_csqCliente_dataScadenzaCSQCli">
+                            </div>
+                            <div class="col-12 col-sm-4">
+                                <input type="text" formControlName="trattenutaBustaPagaCliente_csqCliente_rataCSQCli">      
+                            </div>
+                        </div>
+
+                        
+                        
+                        
 
 
 
                         <h6>Delega</h6>
-                        <label> Data Inizio: <input type="date"
-                                formControlName="trattenutaBustaPagaCliente_delegaCliente_dataInizioDelegaCli">
-                        </label>
-                        <label> Data Scadenza: <input type="date"
-                                formControlName="trattenutaBustaPagaCliente_delegaCliente_dataScadenzaDelegaCli">
-                        </label>
-                        <label> Rata Mensile: <input type="text"
-                                formControlName="trattenutaBustaPagaCliente_delegaCliente_rataDelegaCli">
-                        </label>
+
+                        <div class="row">
+                            <div class="col-12 col-sm-4">
+                                <label> Data Inizio
+                            </label>
+                            </div>
+                            <div class="col-12 col-sm-4">
+                                <label> Data Scadenza
+                            </label>
+                            </div>
+                            <div class="col-12 col-sm-4">
+                                <label> Rata Mensile 
+                            </label>
+                            </div>
+                        </div>
+    
+                        <div class="row">
+                            <div class="col-12 col-sm-4">
+                                <input type="date" formControlName="trattenutaBustaPagaCliente_delegaCliente_dataInizioDelegaCli">
+                            </div>
+                            <div class="col-12 col-sm-4">
+                                <input type="date" formControlName="trattenutaBustaPagaCliente_delegaCliente_dataScadenzaDelegaCli">
+                            </div>
+                            <div class="col-12 col-sm-4">
+                                <input type="text" formControlName="trattenutaBustaPagaCliente_delegaCliente_rataDelegaCli">    
+                            </div>
+                        </div>
+                    
 
 
                         <h6>Pignoramento</h6>
-                        <label> Data Inizio: <input type="date"
+                        <div class="row">
+                            <div class="col-12 col-sm-4">
+                                <label> Data Inizio
+                            </label>
+                            </div>
+                            <div class="col-12 col-sm-4">
+                                <label> Data Scadenza
+                            </label>
+                            </div>
+                            <div class="col-12 col-sm-4">
+                                <label> Rata Mensile 
+                            </label>
+                            </div>
+                        </div>
+    
+                        <div class="row">
+                            <div class="col-12 col-sm-4">
+                                <input type="date"
                                 formControlName="trattenutaBustaPagaCliente_pignoramentoCliente_dataInizioPignoramentoCli">
-                        </label>
-                        <label> Data Scadenza: <input type="date"
+                            </div>
+                            <div class="col-12 col-sm-4">
+                                <input type="date"
                                 formControlName="trattenutaBustaPagaCliente_pignoramentoCliente_dataScadenzaPignoramentoCli">
-                        </label>
-                        <label> Rata Mensile: <input type="text"
-                                formControlName="trattenutaBustaPagaCliente_pignoramentoCliente_rataPignoramentoCli">
-                        </label>
+                            </div>
+                            <div class="col-12 col-sm-4">
+                                <input type="text"
+                                formControlName="trattenutaBustaPagaCliente_pignoramentoCliente_rataPignoramentoCli">    
+                            </div>
+                        </div>
                     </div>
 
 
@@ -856,77 +971,211 @@
                     <div>
                         <h5>Trattenute Busta Paga Coniuge</h5>
                         <h6>CSQ</h6>
-                        <label> Data Inizio: <input type="date"
+                        <div class="row">
+                            <div class="col-12 col-sm-4">
+                                <label> Data Inizio
+                            </label>
+                            </div>
+                            <div class="col-12 col-sm-4">
+                                <label> Data Scadenza
+                            </label>
+                            </div>
+                            <div class="col-12 col-sm-4">
+                                <label> Rata Mensile 
+                            </label>
+                            </div>
+                        </div>
+    
+                        <div class="row">
+                            <div class="col-12 col-sm-4">
+                                <input type="date"
                                 formControlName="trattenutaBustaPagaCon_csq_dataInizioCSQCon">
-                        </label>
-                        <label> Data Scadenza: <input type="date"
+                            </div>
+                            <div class="col-12 col-sm-4">
+                                <input type="date"
                                 formControlName="trattenutaBustaPagaCon_csq_dataScadenzaCSQCon">
-                        </label>
-                        <label> Rata Mensile: <input type="text"
+                            </div>
+                            <div class="col-12 col-sm-4">
+                                <input type="text"
                                 formControlName="trattenutaBustaPagaCon_csq_rataCSQCon">
-                        </label>
+                            </div>
+                        </div>
+                        
 
 
 
                         <h6>Delega</h6>
-                        <label> Data Inizio: <input type="date"
+
+                        <div class="row">
+                            <div class="col-12 col-sm-4">
+                                <label> Data Inizio
+                            </label>
+                            </div>
+                            <div class="col-12 col-sm-4">
+                                <label> Data Scadenza
+                            </label>
+                            </div>
+                            <div class="col-12 col-sm-4">
+                                <label> Rata Mensile 
+                            </label>
+                            </div>
+                        </div>
+    
+                        <div class="row">
+                            <div class="col-12 col-sm-4">
+                                <input type="date"
                                 formControlName="trattenutaBustaPagaCon_delega_dataInizioDelegaCon">
-                        </label>
-                        <label> Data Scadenza: <input type="date"
+                            </div>
+                            <div class="col-12 col-sm-4">
+                                <input type="date"
                                 formControlName="trattenutaBustaPagaCon_delega_dataScadenzaDelegaCon">
-                        </label>
-                        <label> Rata Mensile: <input type="text"
+                            </div>
+                            <div class="col-12 col-sm-4">
+                                <input type="text"
                                 formControlName="trattenutaBustaPagaCon_delega_rataDelegaCon">
-                        </label>
+                            </div>
+                        </div>
 
 
                         <h6>Pignoramento</h6>
-                        <label> Data Inizio: <input type="date"
+
+                        <div class="row">
+                            <div class="col-12 col-sm-4">
+                                <label> Data Inizio
+                            </label>
+                            </div>
+                            <div class="col-12 col-sm-4">
+                                <label> Data Scadenza
+                            </label>
+                            </div>
+                            <div class="col-12 col-sm-4">
+                                <label> Rata Mensile 
+                            </label>
+                            </div>
+                        </div>
+    
+                        <div class="row">
+                            <div class="col-12 col-sm-4">
+                                <input type="date"
                                 formControlName="trattenutaBustaPagaCon_pignoramento_dataInizioPignoramentoCon">
-                        </label>
-                        <label> Data Scadenza: <input type="date"
+                            </div>
+                            <div class="col-12 col-sm-4">
+                                <input type="date"
                                 formControlName="trattenutaBustaPagaCon_pignoramento_dataScadenzaPignoramentoCon">
-                        </label>
-                        <label> Rata Mensile: <input type="text"
+                            </div>
+                            <div class="col-12 col-sm-4">
+                                <input type="text"
                                 formControlName="trattenutaBustaPagaCon_pignoramento_rataPignoramentoCon">
-                        </label>
+                            </div>
+                        </div>
                     </div>
 
                     <div>
                         <h5>Lista Creditori</h5>
-                        <label> Coefficiente: <input type="text" formControlName="listaCreditori_coefficiente">
-                        </label>
-                        <label>Forma Tecnica:
-                            <select name="PosizioneTecnica" formControlName="listaCreditori_formaTecnica">
-                                <option value="PRESTITO PERSONALE">PRESTITO PERSONALE</option>
-                                <option value="PRESTITO FINALIZZATO">PRESTITO FINALIZZATO</option>
-                                <option value="CARTA DI CREDITO - REVOLVING">CARTA DI CREDITO - REVOLVING</option>
-                                <option value="CARTA DI CREDITO">CARTA DI CREDITO</option>
-                                <option value="FIDO IPOTECARIO">FIDO IPOTECARIO</option>
-                                <option value="FIDO DI CONTO CORRENTE">FIDO DI CONTO CORRENTE</option>
-                                <option value="GARANZIA DI PEGNO">GARANZIA DI PEGNO</option>
+                        <div class="row">
+                            <div class="col-12 col-sm-4">
+                                <label> Nome Creditore 
+                                </label>
+                            </div>
+                            <div class="col-12 col-sm-4">
+                                <label>Forma Tecnica
+                                </label>
+                            </div>
+                            <div class="col-12 col-sm-4">
+                                <label> Posizione Tecnica
+                                </label>
+                            </div>
+                        </div>
+    
+                        <div class="row">
+                            <div class="col-12 col-sm-4">
+                                <input type="text" formControlName="listaCreditori_nomeCreditore">
+                            </div>
+                            <div class="col-12 col-sm-4">
+                                <select name="PosizioneTecnica" formControlName="listaCreditori_formaTecnica">
+                                    <option value="PRESTITO PERSONALE">PRESTITO PERSONALE</option>
+                                    <option value="PRESTITO FINALIZZATO">PRESTITO FINALIZZATO</option>
+                                    <option value="CARTA DI CREDITO - REVOLVING">CARTA DI CREDITO - REVOLVING</option>
+                                    <option value="CARTA DI CREDITO">CARTA DI CREDITO</option>
+                                    <option value="FIDO IPOTECARIO">FIDO IPOTECARIO</option>
+                                    <option value="FIDO DI CONTO CORRENTE">FIDO DI CONTO CORRENTE</option>
+                                    <option value="GARANZIA DI PEGNO">GARANZIA DI PEGNO</option>
+                                </select>
+                            </div>
+                            <div class="col-12 col-sm-4">
+                                <select name="PosizioneTecnica" formControlName="listaCreditori_posizioneTecnica">
+                                    <option value="U">U</option>
+                                    <option value="S">S</option>
+                                </select>
+                            </div>
+                        </div>
 
-                            </select>
-                        </label>
-                        <label> Nome Creditore: <input type="text" formControlName="listaCreditori_nomeCreditore">
-                        </label>
-                        <label> Obbligatorio: <input type="text" formControlName="listaCreditori_obbligatorio">
-                        </label>
-                        <label> Posizione Tecnica:
-                            <select name="PosizioneTecnica" formControlName="listaCreditori_posizioneTecnica">
-                                <option value="U">U</option>
-                                <option value="S">S</option>
-                            </select>
-                        </label>
-                        <label> Rata Mensile: <input type="text" formControlName="listaCreditori_rataMensile">
-                        </label>
-                        <label> Valore Debito: <input type="text" formControlName="listaCreditori_valoreDebito">
-                        </label>
-                        <label> Importo transattivo: <input type="text" formControlName="importoTransattivo">
-                        </label>
-                        <label> Rata transattiva creditore: <input type="text"
-                                formControlName="rataTransattivaCreditore">
-                        </label>
+
+
+                        <div class="row">
+                            <div class="col-12 col-sm-4">
+                                <label> Valore Debito 
+                                </label>
+                            </div>
+                            <div class="col-12 col-sm-4">
+                                <label> Rata Mensile
+                                </label>
+                            </div>
+                            <div class="col-12 col-sm-4">
+                                <label> Obbligatorio
+                                </label>
+                            </div>
+                        </div>
+    
+                        <div class="row">
+                            <div class="col-12 col-sm-4">
+                                <input type="text" formControlName="listaCreditori_valoreDebito">
+                            </div>
+                            <div class="col-12 col-sm-4">
+                                <input type="text" formControlName="listaCreditori_rataMensile">
+                            </div>
+                            <div class="col-12 col-sm-4">
+                                <input type="text" formControlName="listaCreditori_obbligatorio">
+                            </div>
+                        </div>
+
+
+                        <div class="row">
+                            <div class="col-12 col-sm-4">
+                                <label> Coefficiente 
+                                </label>
+                            </div>
+                            <div class="col-12 col-sm-4">
+                                <label> Importo transattivo
+                                </label>
+                            </div>
+                            <div class="col-12 col-sm-4">
+                                <label> Rata transattiva creditore
+                            </label>
+                            </div>
+                        </div>
+    
+                        <div class="row">
+                            <div class="col-12 col-sm-4">
+                                <input type="text" formControlName="listaCreditori_coefficiente">
+                            </div>
+                            <div class="col-12 col-sm-4">
+                                <input type="text" formControlName="importoTransattivo">
+                            </div>
+                            <div class="col-12 col-sm-4">
+                                <input type="text" formControlName="rataTransattivaCreditore">
+                            </div>
+                        </div>
+
+                        
+                        
+                        
+                        
+                        
+                       
+                       
+                        
+
                     </div>
 
                     <!-- <div>
