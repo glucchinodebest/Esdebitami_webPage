@@ -24,21 +24,19 @@ export class ResultPageComponent implements OnInit {
     this.schedaCliente = this.payload.schedaCliente;
     this.segmentazioneClienti = this.payload.segmentazioneClienti;
 
-
-
-
-
     this.elementsSegmentazione = [
-      {idSeg: 'Impegni Detrimento Reddito',firstSeg : (this.segmentazioneClienti.impegniDetrimentoReddito == null ? "-" : this.segmentazioneClienti.impegniDetrimentoReddito ) },
-      {idSeg: 'Disponibilità Stimata', firstSeg :  (this.segmentazioneClienti.disponibilitaStimata == null ? "-" : this.segmentazioneClienti.disponibilitaStimata)},
-      {idSeg: 'Rapporto Montante Disponibilita Stimata', firstSeg: (this.segmentazioneClienti.rapportoMontanteDisponibilitaStimata == null ? "-" : this.segmentazioneClienti.rapportoMontanteDisponibilitaStimata)},
-      {idSeg: 'Profilo di Rischio', firstSeg: (this.segmentazioneClienti.profiloRischio == null ? "-" : this.segmentazioneClienti.profiloRischio)},
-      {idSeg: 'Mese Inizio Piano Competenze Upfront', firstSeg: (this.segmentazioneClienti.pianoCompetenzeUpfront == null ? "-" : this.segmentazioneClienti.pianoCompetenzeUpfront.meseInizioPianoCompetenzeUpfront)},
-      {idSeg: 'Durata Piano Competenze Upfront', firstSeg: (this.segmentazioneClienti.pianoCompetenzeUpfront == null ? "-" : this.segmentazioneClienti.pianoCompetenzeUpfront.durataPianoCompetenzeUpfront)},
-      {idSeg: 'Importo Rata Piano Competenze Upfront', firstSeg: (this.segmentazioneClienti.pianoCompetenzeUpfront == null ? "-" : this.segmentazioneClienti.pianoCompetenzeUpfront.importoRataPianoCompetenzeUpfront)},
-      {idSeg: 'Numero Rate Piano Competenze Upfront', firstSeg: (this.segmentazioneClienti.pianoCompetenzeUpfront == null ? "-" : this.segmentazioneClienti.pianoCompetenzeUpfront.numeroRatePianoCompetenzeUpfront)},
-      {idSeg: 'Totale Piano Competenze Upfront', firstSeg: (this.segmentazioneClienti.pianoCompetenzeUpfront == null ? "-" : this.segmentazioneClienti.pianoCompetenzeUpfront.totalePianoCompetenzeUpfront)},
-      {idSeg: 'Success Fee Globale', firstSeg: (this.segmentazioneClienti.pianoCompetenzeUpfront == null ? "-" : this.segmentazioneClienti.pianoCompetenzeUpfront.successFeeGlobale)},
+      {idSeg: 'Impegni Detrimento Reddito',firstSeg : (this.segmentazioneClienti.datiEconomiciSegmentazione.impegniDetrimentoReddito == null ? "-" : this.segmentazioneClienti.datiEconomiciSegmentazione.impegniDetrimentoReddito ) },
+      {idSeg: 'Disponibilità Stimata', firstSeg :  (this.segmentazioneClienti.datiEconomiciSegmentazione.disponibilitaStimata == null ? "-" : this.segmentazioneClienti.datiEconomiciSegmentazione.disponibilitaStimata)},
+      {idSeg: 'Rapporto Montante Disponibilita Stimata', firstSeg: (this.segmentazioneClienti.datiEconomiciSegmentazione.rapportoMontanteDisponibilitaStimata == null ? "-" : this.segmentazioneClienti.datiEconomiciSegmentazione.rapportoMontanteDisponibilitaStimata)},
+      {idSeg: 'Profilo di Rischio', firstSeg: (this.segmentazioneClienti.datiEconomiciSegmentazione.profiloRischio == null ? "-" : this.segmentazioneClienti.datiEconomiciSegmentazione.profiloRischio)},
+     
+      {idSeg: 'Mese Inizio Piano Competenze Upfront', firstSeg: (this.schedaCliente.pianoCompetenzeUpfront == null ? "-" : this.schedaCliente.pianoCompetenzeUpfront.meseInizioPianoCompetenzeUpfront)},
+      {idSeg: 'Durata Piano Competenze Upfront', firstSeg: (this.schedaCliente.pianoCompetenzeUpfront == null ? "-" : this.schedaCliente.pianoCompetenzeUpfront.durataPianoCompetenzeUpfront)},
+      {idSeg: 'Importo Rata Piano Competenze Upfront', firstSeg: (this.schedaCliente.pianoCompetenzeUpfront == null ? "-" : this.schedaCliente.pianoCompetenzeUpfront.importoRataPianoCompetenzeUpfront)},
+      {idSeg: 'Numero Rate Piano Competenze Upfront', firstSeg: (this.schedaCliente.pianoCompetenzeUpfront == null ? "-" : this.schedaCliente.pianoCompetenzeUpfront.numeroRatePianoCompetenzeUpfront)},
+      {idSeg: 'Totale Piano Competenze Upfront', firstSeg: (this.schedaCliente.pianoCompetenzeUpfront == null ? "-" : this.schedaCliente.pianoCompetenzeUpfront.totalePianoCompetenzeUpfront)},
+      
+      {idSeg: 'Success Fee Globale', firstSeg: (this.segmentazioneClienti.upfrontSegmentazione == null ? "-" : this.segmentazioneClienti.upfrontSegmentazione.successFeeGlobale)},
     ];
 
     this.elementsSchedaCliente = [
@@ -79,12 +77,12 @@ export class ResultPageComponent implements OnInit {
       {id: 'Montante debitorio complessivo', first: (this.schedaCliente.riepilogoCreditori == null ? "-" : this.schedaCliente.riepilogoCreditori.montanteDebitorioComplessivo)},
       {id: 'Totale rate creditore', first: (this.schedaCliente.riepilogoCreditori == null ? "-" : this.schedaCliente.riepilogoCreditori.totaleRateCreditore)},
 
-      {id: 'Mese Inizio Piano Competenze Upfront', first: (this.schedaCliente.pianoCompetenzeUpfront == null ? "-" : this.schedaCliente.pianoCompetenzeUpfront.meseInizioPianoCompetenzeUpfront)},
+      /*{id: 'Mese Inizio Piano Competenze Upfront', first: (this.schedaCliente.pianoCompetenzeUpfront == null ? "-" : this.schedaCliente.pianoCompetenzeUpfront.meseInizioPianoCompetenzeUpfront)},
       {id: 'Durata Piano Competenze Upfront', first: (this.schedaCliente.pianoCompetenzeUpfront == null ? "-" : this.schedaCliente.pianoCompetenzeUpfront.durataPianoCompetenzeUpfront)},
       {id: 'Importo Rata Piano Competenze Upfront', first: (this.schedaCliente.pianoCompetenzeUpfront == null ? "-" : this.schedaCliente.pianoCompetenzeUpfront.importoRataPianoCompetenzeUpfront)},
       {id: 'Numero Rate Piano Competenze Upfront', first: (this.schedaCliente.pianoCompetenzeUpfront == null ? "-" : this.schedaCliente.pianoCompetenzeUpfront.numeroRatePianoCompetenzeUpfront)},
       {id: 'Totale Piano Competenze Upfront', first: (this.schedaCliente.pianoCompetenzeUpfront == null ? "-" : this.schedaCliente.pianoCompetenzeUpfront.totalePianoCompetenzeUpfront)},
-      {id: 'Success Fee Globale', first: (this.schedaCliente.pianoCompetenzeUpfront == null ? "-" : this.schedaCliente.pianoCompetenzeUpfront.successFeeGlobale)}
+      {id: 'Success Fee Globale', first: (this.schedaCliente.pianoCompetenzeUpfront == null ? "-" : this.schedaCliente.pianoCompetenzeUpfront.successFeeGlobale)}*/
 
     ];
    }
@@ -92,7 +90,7 @@ export class ResultPageComponent implements OnInit {
 
    
   ngOnInit(): void {
-    console.log(this.segmentazioneClienti);
+    console.log(this.payload);
   }
 
 
