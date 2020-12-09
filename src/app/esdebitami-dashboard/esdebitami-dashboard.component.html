@@ -618,7 +618,19 @@
                                 <input type="text" formControlName="listaAttivitaClienteAut_redditoAnnuoCliAut">
                             </div>
                             <div class="col-12 col-sm-3">
-                                <input type="text" formControlName="listaAttivitaClienteAut_tipoLavoratoreCliAut">
+                                <select name="AttivitaClienteSub"
+                                        formControlName="listaAttivitaClienteAut_tipoLavoratoreCliAut">
+                                        <option value="ARTIGIANO">ARTIGIANO</option>
+                                        <option value="COMMERCIANTE">COMMERCIANTE</option>
+                                        <option value="AGENTE DI COMMERCIO">AGENTE DI COMMERCIO</option>
+                                        <option value="PROFESSIONISTA ISCRITTO A UN ALBO">PROFESSIONISTA ISCRITTO A UN ALBO</option>
+                                        <option value="LIBERO PROFESSIONISTA NON ISCRITTO A UN ALBO">LIBERO PROFESSIONISTA NON ISCRITTO A UN ALBO</option>
+                                        <option value="IMPRENDITORE (SOCIETA’ DI PERSONE)">IMPRENDITORE (SOCIETA’ DI PERSONE)</option>
+                                        <option value="IMPRENDITORE (SOCIETA’ DI CAPITALI)">IMPRENDITORE (SOCIETA’ DI CAPITALI)</option>
+                                        <option value="AGRICOLTORE E ALTRE ATTIVITA’ DI LAVORO AUTONOMO) ">AGRICOLTORE E ALTRE ATTIVITA’ DI LAVORO AUTONOMO) </option>
+                                </select>                                
+                                
+                                <!-- <input type="text" formControlName="listaAttivitaClienteAut_tipoLavoratoreCliAut"> -->
                             </div>
                             <div class="col-12 col-sm-3">
                                 <input type="text" formControlName="listaAttivitaClienteAut_redditoMensileRetCliAut">
@@ -626,7 +638,7 @@
                         </div>
                     </div>
 
-                    <h6>Cliente Disoccupato</h6>
+                   <!-- <h6>Cliente Disoccupato</h6>
                     <div>
                         <div class="row">
                             <div class="col-12 col-sm-12">
@@ -639,7 +651,7 @@
                                 <input type="text" formControlName="listaAttivitaClienteDis_tipoLavoratoreCliDis">
                             </div>
                         </div>
-                    </div>
+                    </div> -->
 
                     <div>
                         <h6>Cliente Subordinato</h6>
@@ -675,28 +687,28 @@
                         </div>
 
                         <div class="row">
-                            <div class="col-12 col-sm-4">
+                            <div class="col-12 col-sm-6">
                                 <label>
                                     Reddito Mensile Rettificato 
                                 </label>
                             </div>
-                            <div class="col-12 col-sm-4">
+                            <div class="col-12 col-sm-6">
                                 <label>
                                     Tipologia Contratto                                     
                                 </label>
                             </div>
-                            <div class="col-12 col-sm-4">
+                            <!-- <div class="col-12 col-sm-4">
                                 <label>
                                     Tipologia Lavoratore 
                                 </label>
-                            </div>
+                            </div> -->
                         </div>
     
                         <div class="row">
-                            <div class="col-12 col-sm-4">
+                            <div class="col-12 col-sm-6">
                                 <input type="text" formControlName="listaAttivitaClienteSub_redditoMensileRettificato">
                             </div>
-                            <div class="col-12 col-sm-4">
+                            <div class="col-12 col-sm-6">
                                 <select name="AttivitaClienteSub"
                                         formControlName="listaAttivitaClienteSub_tipoContrattoCliSub">
                                         <option value="FT - Tempo indeterminato">FT - Tempo indeterminato</option>
@@ -705,9 +717,9 @@
                                         <option value="PT - Tempo determinato">PT - Tempo determinato</option>
                                 </select>                                
                             </div>
-                            <div class="col-12 col-sm-4">
+                           <!-- <div class="col-12 col-sm-4">
                                 <input type="text" formControlName="listaAttivitaClienteSub_tipoLavoratoreCliSub">
-                            </div>
+                            </div>-->
                         </div>
                     </div>
 
@@ -775,7 +787,18 @@
                                 <input type="text" formControlName="listaAttivitaConiugeAut_redditoAnnuoConAut">                  
                             </div>
                             <div class="col-12 col-sm-4">
-                                <input type="text" formControlName="listaAttivitaConiugeAut_tipoLavoratoreConAut">
+                                <select name="AttivitaClienteSub"
+                                formControlName="listaAttivitaConiugeAut_tipoLavoratoreConAut">
+                                <option value="ARTIGIANO">ARTIGIANO</option>
+                                <option value="COMMERCIANTE">COMMERCIANTE</option>
+                                <option value="AGENTE DI COMMERCIO">AGENTE DI COMMERCIO</option>
+                                <option value="PROFESSIONISTA ISCRITTO A UN ALBO">PROFESSIONISTA ISCRITTO A UN ALBO</option>
+                                <option value="LIBERO PROFESSIONISTA NON ISCRITTO A UN ALBO">LIBERO PROFESSIONISTA NON ISCRITTO A UN ALBO</option>
+                                <option value="IMPRENDITORE (SOCIETA’ DI PERSONE)">IMPRENDITORE (SOCIETA’ DI PERSONE)</option>
+                                <option value="IMPRENDITORE (SOCIETA’ DI CAPITALI)">IMPRENDITORE (SOCIETA’ DI CAPITALI)</option>
+                                <option value="AGRICOLTORE E ALTRE ATTIVITA’ DI LAVORO AUTONOMO) ">AGRICOLTORE E ALTRE ATTIVITA’ DI LAVORO AUTONOMO) </option>
+                        </select>       
+                                <!-- <input type="text" formControlName="listaAttivitaConiugeAut_tipoLavoratoreConAut"> -->
                             </div>
                         </div>
 
@@ -788,7 +811,7 @@
                         
                     </div>
 
-                    <div>
+                    <!-- <div>
                         <h6>Coniuge Disoccupato</h6>
 
                         <div class="row">
@@ -802,7 +825,7 @@
                                 <input type="text" formControlName="listaAttivitaConiugeDis_tipoLavoratoreConDis">
                             </div>
                         </div>
-                    </div>
+                    </div>-->
 
                     <div>
                         <h6>Coniuge Subordinato</h6>
@@ -830,28 +853,28 @@
                         </div>
 
                         <div class="row">
-                            <div class="col-12 col-sm-4">
+                            <div class="col-12 col-sm-6">
                                 <label>
                                     Reddito Mensile 
                                 </label>
                             </div>
-                            <div class="col-12 col-sm-4">
+                            <div class="col-12 col-sm-6">
                                 <label>
                                     Tipologia contratto                                    
                                 </label>
                             </div>
-                            <div class="col-12 col-sm-4">
+                            <!-- <div class="col-12 col-sm-4">
                                 <label>
                                     Tipologia Lavoratore 
                                 </label>
-                            </div>
+                            </div> -->
                         </div>
     
                         <div class="row">
-                            <div class="col-12 col-sm-4">
+                            <div class="col-12 col-sm-6">
                                 <input type="text" formControlName="listaAttivitaConiugeSub_redditoAnnuoConSub">
                             </div>
-                            <div class="col-12 col-sm-4">
+                            <div class="col-12 col-sm-6">
                                 <select name="AttivitaConiugeSub"
                                         formControlName="listaAttivitaConiugeSub_tipoContrattoConSub">
                                         <option value="FT - Tempo indeterminato">FT - Tempo indeterminato</option>
@@ -860,9 +883,9 @@
                                         <option value="PT - Tempo determinato">PT - Tempo determinato</option>
                                     </select>         
                             </div>
-                            <div class="col-12 col-sm-4">
+                            <!-- <div class="col-12 col-sm-4">
                                 <input type="text" formControlName="listaAttivitaConiugeSub_tipoLavoratoreConSub">             
-                            </div>
+                            </div> -->
                         </div>
                         
                         
