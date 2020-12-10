@@ -481,11 +481,23 @@ export class EsdebitamiDashboardComponent implements OnInit {
             tipoLavoratoreCliAut: this.dataForm.get('listaAttivitaClienteAut_tipoLavoratoreCliAut').value
           }
         ],
-        /*listaAttivitaClienteDis: [
+        listaAttivitaClienteDis: [
           {
-            tipoLavoratoreCliDis: this.dataForm.get('listaAttivitaClienteDis_tipoLavoratoreCliDis').value
+            id: 0,
+            tipoLavoratoreCliDis: "DISOCCUPATO/A"
+            //tipoLavoratoreCliDis: this.dataForm.get('listaAttivitaClienteDis_tipoLavoratoreCliDis').value
+          } 
+        ],
+        listaAttivitaClientePens: [
+          {
+          id: 0,
+          numMensilitaCliPens: 13,
+          parametroPignorabilitaCliPens: 680,
+          redditoAnnuoCliPens: 10000,
+          tipoContrattoCliPens: "SUBORDINATO",
+          tipoLavoratoreCliPens: "PENSIONATO"
           }
-        ],*/
+      ],
         listaAttivitaClienteSub: [
           {
             id:0,
@@ -508,11 +520,22 @@ export class EsdebitamiDashboardComponent implements OnInit {
             tipoLavoratoreConAut: this.dataForm.get('listaAttivitaConiugeAut_tipoLavoratoreConAut').value
           }
         ],
-        /*listaAttivitaConiugeDis: [
+        listaAttivitaConiugeDis: [
           {
-            tipoLavoratoreConDis: this.dataForm.get('listaAttivitaConiugeDis_tipoLavoratoreConDis').value
+            id: 0,
+            tipoLavoratoreConDis: "DISOCCUPATO/A"
+            //tipoLavoratoreConDis: this.dataForm.get('listaAttivitaConiugeDis_tipoLavoratoreConDis').value
           }
-        ],*/
+        ],
+        listaAttivitaConiugePens: [
+          {
+          id: 0,
+          numMensilitaConPens: 10,
+          redditoAnnuoConPens: 8000,
+          tipoContrattoConPens: "SUBORDINATO",
+          tipoLavoratoreConPens: "PENSIONATO"
+          }
+        ],
         listaAttivitaConiugeSub: [
           {
             id:0,
@@ -566,7 +589,7 @@ export class EsdebitamiDashboardComponent implements OnInit {
           coefficienteCreditore: this.dataForm.get('listaCreditori_coefficiente').value,
           formaTecnica: this.dataForm.get('listaCreditori_formaTecnica').value,
           nomeCreditore: this.dataForm.get('listaCreditori_nomeCreditore').value,
-          obbligatorio: this.dataForm.get('listaCreditori_obbligatorio').value,
+          //obbligatorio: this.dataForm.get('listaCreditori_obbligatorio').value,
           posizioneTecnica: this.dataForm.get('listaCreditori_posizioneTecnica').value,
           rataCreditore: this.dataForm.get('listaCreditori_rataMensile').value,
           valoreDebito: this.dataForm.get('listaCreditori_valoreDebito').value,
