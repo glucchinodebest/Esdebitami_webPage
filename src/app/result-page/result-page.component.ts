@@ -21,17 +21,32 @@ export class ResultPageComponent implements OnInit {
 
   constructor() {
     this.payload = JSON.parse(localStorage.getItem('valutazioneCliente'));
-    console.log(this.payload);
     
     
     if(this.payload!=null){
       this.schedaCliente = this.payload.schedaCliente;
-    this.segmentazioneClienti = this.payload.segmentazioneClienti;
+      this.segmentazioneClienti = this.payload.segmentazioneClienti;
+    
+    console.log(this.payload.segmentazioneClienti);
+    
+    
       this.elementsSegmentazione = [
-        {idSeg: 'Impegni Detrimento Reddito',firstSeg : (this.segmentazioneClienti.datiEconomiciSegmentazione.impegniDetrimentoReddito == null ? "-" : this.segmentazioneClienti.datiEconomiciSegmentazione.impegniDetrimentoReddito ) },
-        {idSeg: 'Disponibilità Stimata', firstSeg :  (this.segmentazioneClienti.datiEconomiciSegmentazione.disponibilitaStimata == null ? "-" : this.segmentazioneClienti.datiEconomiciSegmentazione.disponibilitaStimata)},
-        {idSeg: 'Rapporto Montante Disponibilita Stimata', firstSeg: (this.segmentazioneClienti.datiEconomiciSegmentazione.rapportoMontanteDisponibilitaStimata == null ? "-" : this.segmentazioneClienti.datiEconomiciSegmentazione.rapportoMontanteDisponibilitaStimata)},
-        {idSeg: 'Profilo di Rischio', firstSeg: (this.segmentazioneClienti.datiEconomiciSegmentazione.profiloRischio == null ? "-" : this.segmentazioneClienti.datiEconomiciSegmentazione.profiloRischio)},
+
+        {idSeg: 'Reddito familiare complessivo', firstSeg :  (this.segmentazioneClienti.datiEconomici.entrateUscite.redditoFamiliareComplessivo == null ? "-" : this.segmentazioneClienti.datiEconomici.entrateUscite.redditoFamiliareComplessivo )},
+        {idSeg: 'Totale mensile affitti', firstSeg :  (this.segmentazioneClienti.datiEconomici.entrateUscite.totaleMensileAffitti  == null ? "-" : this.segmentazioneClienti.datiEconomici.entrateUscite.totaleMensileAffitti )},
+        {idSeg: 'Totale mensile uscite affitti', firstSeg :  (this.segmentazioneClienti.datiEconomici.entrateUscite.totaleMensileAffittiUscite  == null ? "-" : this.segmentazioneClienti.datiEconomici.entrateUscite.totaleMensileAffittiUscite )},
+        {idSeg: 'Totale mensile altre entrate', firstSeg :  (this.segmentazioneClienti.datiEconomici.entrateUscite.totaleMensileAltreEntrate  == null ? "-" : this.segmentazioneClienti.datiEconomici.entrateUscite.totaleMensileAltreEntrate )},
+        {idSeg: 'Totale mensile altre entrate da locazione immobili', firstSeg :  (this.segmentazioneClienti.datiEconomici.entrateUscite.totaleMensileAltreEntrateDaLocazioneImmobili  == null ? "-" : this.segmentazioneClienti.datiEconomici.entrateUscite.totaleMensileAltreEntrateDaLocazioneImmobili )},
+        {idSeg: 'Totale mensile uscite obbligatorie', firstSeg :  (this.segmentazioneClienti.datiEconomici.entrateUscite.totaleMensileUsciteObbligatorie  == null ? "-" : this.segmentazioneClienti.datiEconomici.entrateUscite.totaleMensileUsciteObbligatorie )},
+        {idSeg: 'Totale rate mensili mutuo', firstSeg :  (this.segmentazioneClienti.datiEconomici.entrateUscite.totaleRateMensiliMutuo  == null ? "-" : this.segmentazioneClienti.datiEconomici.entrateUscite.totaleRateMensiliMutuo )},
+
+        {idSeg: 'Totale redditi Altri familiari', firstSeg :  (this.segmentazioneClienti.datiEconomici.totaleRedditiAltriFamiliari == null ? "-" : this.segmentazioneClienti.datiEconomici.totaleRedditiAltriFamiliari)},
+        {idSeg: 'Totale redditi mensili familiari', firstSeg :  (this.segmentazioneClienti.datiEconomici.totaleRedditiMensiliFamiliari == null ? "-" : this.segmentazioneClienti.datiEconomici.totaleRedditiMensiliFamiliari)},
+
+        /*{idSeg: 'Impegni Detrimento Reddito',firstSeg : (this.segmentazioneClienti.datiEconomici.impegniDetrimentoReddito == null ? "-" : this.segmentazioneClienti.datiEconomici.impegniDetrimentoReddito ) },
+        {idSeg: 'Disponibilità Stimata', firstSeg :  (this.segmentazioneClienti.datiEconomici.disponibilitaStimata == null ? "-" : this.segmentazioneClienti.datiEconomici.disponibilitaStimata)},
+        {idSeg: 'Rapporto Montante Disponibilita Stimata', firstSeg: (this.segmentazioneClienti.datiEconomici.rapportoMontanteDisponibilitaStimata == null ? "-" : this.segmentazioneClienti.datiEconomici.rapportoMontanteDisponibilitaStimata)},
+        {idSeg: 'Profilo di Rischio', firstSeg: (this.segmentazioneClienti.datiEconomici.profiloRischio == null ? "-" : this.segmentazioneClienti.datiEconomici.profiloRischio)},
       
         {idSeg: 'Mese Inizio Piano Competenze Upfront', firstSeg: (this.schedaCliente.pianoCompetenzeUpfront == null ? "-" : this.schedaCliente.pianoCompetenzeUpfront.meseInizioPianoCompetenzeUpfront)},
         {idSeg: 'Durata Piano Competenze Upfront', firstSeg: (this.schedaCliente.pianoCompetenzeUpfront == null ? "-" : this.schedaCliente.pianoCompetenzeUpfront.durataPianoCompetenzeUpfront)},
@@ -39,17 +54,34 @@ export class ResultPageComponent implements OnInit {
         {idSeg: 'Numero Rate Piano Competenze Upfront', firstSeg: (this.schedaCliente.pianoCompetenzeUpfront == null ? "-" : this.schedaCliente.pianoCompetenzeUpfront.numeroRatePianoCompetenzeUpfront)},
         {idSeg: 'Totale Piano Competenze Upfront', firstSeg: (this.schedaCliente.pianoCompetenzeUpfront == null ? "-" : this.schedaCliente.pianoCompetenzeUpfront.totalePianoCompetenzeUpfront)},
         
-        {idSeg: 'Success Fee Globale', firstSeg: (this.segmentazioneClienti.upfrontSegmentazione == null ? "-" : this.segmentazioneClienti.upfrontSegmentazione.successFeeGlobale)},
+        {idSeg: 'Success Fee Globale', firstSeg: (this.segmentazioneClienti.upfrontSegmentazione == null ? "-" : this.segmentazioneClienti.upfrontSegmentazione.successFeeGlobale)},*/
       ];
 
       this.elementsSchedaCliente = [
         {id: 'Codice fiscale', first: (this.schedaCliente.cf == null ? "-" : this.schedaCliente.cf)},
         {id: 'Classe di Domicilio', first: (this.schedaCliente.classeDomicilio == null ? "-" : this.schedaCliente.classeDomicilio)},
-        {id: 'Nucleo Familiare', first: (this.schedaCliente.nucleoFamiliare == null ? "-" :this.schedaCliente.nucleoFamiliare)},
-        {id: 'Numero familiari a carico', first: (this.schedaCliente.numFamiliariCarico == null ? "-" : this.schedaCliente.numFamiliariCarico)},
-        {id: 'Numero figli conviventi', first: (this.schedaCliente.numFigliConviventi == null ? "-" : this.schedaCliente.numFigliConviventi)},
-        {id: 'Di cui minori', first: (this.schedaCliente.numFigliConviventiMinori == null ? "-" : this.schedaCliente.numFigliConviventiMinori)},
-        {id: 'Reddito mensile rettificato cliente sub', first: (this.schedaCliente.mensileRettificatoCliSub == null ? "-" : this.schedaCliente.mensileRettificatoCliSub)},
+
+        {id: 'Nucleo Familiare', first: (this.schedaCliente.outputCliente.nucleoFamiliare == null ? "-" :this.schedaCliente.outputCliente.nucleoFamiliare)},
+        {id: 'Numero familiari a carico', first: (this.schedaCliente.outputCliente.nFamiliariCarico == null ? "-" : this.schedaCliente.outputCliente.nFamiliariCarico)},
+        {id: 'Numero figli conviventi', first: (this.schedaCliente.outputCliente.nFigliConviventi == null ? "-" : this.schedaCliente.outputCliente.nFigliConviventi)},
+        {id: 'Di cui minori', first: (this.schedaCliente.outputCliente.nFigliConviventiMinori == null ? "-" : this.schedaCliente.outputCliente.nFigliConviventiMinori)},
+        {id: 'Regime Patrimoniale', first: (this.schedaCliente.outputCliente.regimePatrimoniale == null ? "-" : this.schedaCliente.outputCliente.regimePatrimoniale)},
+
+        {id: 'Reddito Familiare Complessivo', first: (this.schedaCliente.datiEconomici.entrateUscite.redditoFamiliareComplessivo == null ? "-" : this.schedaCliente.datiEconomici.entrateUscite.redditoFamiliareComplessivo)},
+        {id: 'Totale mensile affitti', first: (this.schedaCliente.datiEconomici.entrateUscite.totaleMensileAffitti == null ? "-" : this.schedaCliente.datiEconomici.entrateUscite.totaleMensileAffitti)},
+        {id: 'Totale mensile uscite affitti', first: (this.schedaCliente.datiEconomici.entrateUscite.totaleMensileAffittiUscite == null ? "-" : this.schedaCliente.datiEconomici.entrateUscite.totaleMensileAffittiUscite)},
+        {id: 'Totale mensile altre entrate', first: (this.schedaCliente.datiEconomici.entrateUscite.totaleMensileAltreEntrate == null ? "-" : this.schedaCliente.datiEconomici.entrateUscite.totaleMensileAltreEntrate)},
+        {id: 'Totale mensile altre entrate da locazione immobili', first: (this.schedaCliente.datiEconomici.entrateUscite.totaleMensileAltreEntrateDaLocazioneImmobili == null ? "-" : this.schedaCliente.datiEconomici.entrateUscite.totaleMensileAltreEntrateDaLocazioneImmobili)},
+        {id: 'Totale mensile uscite obbligatorie', first: (this.schedaCliente.datiEconomici.entrateUscite.totaleMensileUsciteObbligatorie == null ? "-" : this.schedaCliente.datiEconomici.entrateUscite.totaleMensileUsciteObbligatorie)},
+        {id: 'Totale rata mensile mutuo', first: (this.schedaCliente.datiEconomici.entrateUscite.totaleRateMensiliMutuo == null ? "-" : this.schedaCliente.datiEconomici.entrateUscite.totaleRateMensiliMutuo)},
+
+        {id: 'Totale reddito altri familiari', first: (this.schedaCliente.datiEconomici.totaleRedditiAltriFamiliari == null ? "-" : this.schedaCliente.datiEconomici.totaleRedditiAltriFamiliari)},
+        {id: 'Totale totale reddito mensile altri familiari', first: (this.schedaCliente.datiEconomici.totaleRedditiMensiliFamiliari == null ? "-" : this.schedaCliente.datiEconomici.totaleRedditiMensiliFamiliari)},
+
+
+
+        
+        /*{id: 'Reddito mensile rettificato cliente sub', first: (this.schedaCliente.mensileRettificatoCliSub == null ? "-" : this.schedaCliente.mensileRettificatoCliSub)},
         {id: 'Reddito mensile rettificato cliente aut', first: (this.schedaCliente.mensileRettificatoCliAut == null ? "-" : this.schedaCliente.mensileRettificatoCliAut)},
         {id: 'Importo residuo delega cliente', first: (this.schedaCliente.importoResiduoDelegaCliente == null ? "-" : this.schedaCliente.importoResiduoDelegaCliente)},
         {id: 'Importo residuo CSQ cliente', first: (this.schedaCliente.importoResiduoCsqCliente == null ? "-" : this.schedaCliente.importoResiduoCsqCliente)},
@@ -73,14 +105,14 @@ export class ResultPageComponent implements OnInit {
         {id: 'Reddito mensile altri familiari', first: (this.schedaCliente.redditiMensiliAltriFamiliari == null ? "-" : this.schedaCliente.redditiMensiliAltriFamiliari)},
         {id: 'Rata Mensile mutuo', first: (this.schedaCliente.rataMensileMutuo == null ? "-" : this.schedaCliente.rataMensileMutuo)},
         {id: 'Rendita da locazione', first: (this.schedaCliente.renditaDaLocazione == null ? "-" : this.schedaCliente.renditaDaLocazione)},
-        //{id: 'Riepilogo Creditori', first: (this.schedaCliente.riepilogoCreditori == null ? "-" : this.schedaCliente.riepilogoCreditori)},
+        {id: 'Riepilogo Creditori', first: (this.schedaCliente.riepilogoCreditori == null ? "-" : this.schedaCliente.riepilogoCreditori)},
 
         {id: 'Montante debitorio Unsecured', first: (this.schedaCliente.riepilogoCreditori == null ? "-" : this.schedaCliente.riepilogoCreditori.montanteDebitorioUnsecured)},
         {id: 'Montante debitorio secured', first: (this.schedaCliente.riepilogoCreditori == null ? "-" : this.schedaCliente.riepilogoCreditori.montanteDebitorioSecured)},
         {id: 'Montante debitorio complessivo', first: (this.schedaCliente.riepilogoCreditori == null ? "-" : this.schedaCliente.riepilogoCreditori.montanteDebitorioComplessivo)},
         {id: 'Totale rate creditore', first: (this.schedaCliente.riepilogoCreditori == null ? "-" : this.schedaCliente.riepilogoCreditori.totaleRateCreditore)},
 
-        /*{id: 'Mese Inizio Piano Competenze Upfront', first: (this.schedaCliente.pianoCompetenzeUpfront == null ? "-" : this.schedaCliente.pianoCompetenzeUpfront.meseInizioPianoCompetenzeUpfront)},
+        {id: 'Mese Inizio Piano Competenze Upfront', first: (this.schedaCliente.pianoCompetenzeUpfront == null ? "-" : this.schedaCliente.pianoCompetenzeUpfront.meseInizioPianoCompetenzeUpfront)},
         {id: 'Durata Piano Competenze Upfront', first: (this.schedaCliente.pianoCompetenzeUpfront == null ? "-" : this.schedaCliente.pianoCompetenzeUpfront.durataPianoCompetenzeUpfront)},
         {id: 'Importo Rata Piano Competenze Upfront', first: (this.schedaCliente.pianoCompetenzeUpfront == null ? "-" : this.schedaCliente.pianoCompetenzeUpfront.importoRataPianoCompetenzeUpfront)},
         {id: 'Numero Rate Piano Competenze Upfront', first: (this.schedaCliente.pianoCompetenzeUpfront == null ? "-" : this.schedaCliente.pianoCompetenzeUpfront.numeroRatePianoCompetenzeUpfront)},

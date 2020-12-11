@@ -394,8 +394,9 @@ export class EsdebitamiDashboardComponent implements OnInit {
           figliConviventi: this.dataForm.get('cliente_nFigliConviventi').value,
           figliConviventiMinori: this.dataForm.get('cliente_nFigliConviventiMinori').value,
           nucleoFamiliare: this.dataForm.get('cliente_nucleoFamiliare').value,
+          flagPensionato:true,
           regimePatrimoniale: regime_Patrimoniale,//this.dataForm.get('cliente_regimePatrimoniale').value,
-          statoCivile: this.dataForm.get('cliente_statoCivile').value
+          //statoCivile: this.dataForm.get('cliente_statoCivile').value
         },
         coniuge: {
           cf: this.dataForm.get('coniuge_cf').value
@@ -620,6 +621,8 @@ export class EsdebitamiDashboardComponent implements OnInit {
     applicationKey:"appKeyExt"
   };
 
+  //console.log("JSON" + JSON.stringify(json));
+  
     this.api.calcolo(json).subscribe((data: any) => {
       console.log(data);
       localStorage.setItem('valutazioneCliente', JSON.stringify(data["payload"]));
