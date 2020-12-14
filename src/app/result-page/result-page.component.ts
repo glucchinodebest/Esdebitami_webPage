@@ -27,7 +27,7 @@ export class ResultPageComponent implements OnInit {
       this.schedaCliente = this.payload.schedaCliente;
       this.segmentazioneClienti = this.payload.segmentazioneClienti;
     
-    console.log(this.payload.segmentazioneClienti);
+    console.log(this.payload);
     
     
       this.elementsSegmentazione = [
@@ -42,6 +42,9 @@ export class ResultPageComponent implements OnInit {
 
         {idSeg: 'Totale redditi Altri familiari', firstSeg :  (this.segmentazioneClienti.datiEconomici.totaleRedditiAltriFamiliari == null ? "-" : this.segmentazioneClienti.datiEconomici.totaleRedditiAltriFamiliari)},
         {idSeg: 'Totale redditi mensili familiari', firstSeg :  (this.segmentazioneClienti.datiEconomici.totaleRedditiMensiliFamiliari == null ? "-" : this.segmentazioneClienti.datiEconomici.totaleRedditiMensiliFamiliari)},
+
+
+
 
         /*{idSeg: 'Impegni Detrimento Reddito',firstSeg : (this.segmentazioneClienti.datiEconomici.impegniDetrimentoReddito == null ? "-" : this.segmentazioneClienti.datiEconomici.impegniDetrimentoReddito ) },
         {idSeg: 'Disponibilità Stimata', firstSeg :  (this.segmentazioneClienti.datiEconomici.disponibilitaStimata == null ? "-" : this.segmentazioneClienti.datiEconomici.disponibilitaStimata)},
@@ -58,14 +61,14 @@ export class ResultPageComponent implements OnInit {
       ];
 
       this.elementsSchedaCliente = [
-        {id: 'Codice fiscale', first: (this.schedaCliente.cf == null ? "-" : this.schedaCliente.cf)},
-        {id: 'Classe di Domicilio', first: (this.schedaCliente.classeDomicilio == null ? "-" : this.schedaCliente.classeDomicilio)},
+        {id: 'Codice fiscale', first: (this.schedaCliente.anagraficaCliente.cf == null ? "-" : this.schedaCliente.anagraficaCliente.cf)},
+        {id: 'Classe di Domicilio', first: (this.schedaCliente.anagraficaCliente.classeDomicilio == null ? "-" : this.schedaCliente.anagraficaCliente.classeDomicilio)},
 
-        {id: 'Nucleo Familiare', first: (this.schedaCliente.outputCliente.nucleoFamiliare == null ? "-" :this.schedaCliente.outputCliente.nucleoFamiliare)},
-        {id: 'Numero familiari a carico', first: (this.schedaCliente.outputCliente.nFamiliariCarico == null ? "-" : this.schedaCliente.outputCliente.nFamiliariCarico)},
-        {id: 'Numero figli conviventi', first: (this.schedaCliente.outputCliente.nFigliConviventi == null ? "-" : this.schedaCliente.outputCliente.nFigliConviventi)},
-        {id: 'Di cui minori', first: (this.schedaCliente.outputCliente.nFigliConviventiMinori == null ? "-" : this.schedaCliente.outputCliente.nFigliConviventiMinori)},
-        {id: 'Regime Patrimoniale', first: (this.schedaCliente.outputCliente.regimePatrimoniale == null ? "-" : this.schedaCliente.outputCliente.regimePatrimoniale)},
+        {id: 'Nucleo Familiare', first: (this.schedaCliente.datiEconomici.clienteDatiEconomici.nucleoFamiliare == null ? "-" :this.schedaCliente.datiEconomici.clienteDatiEconomici.nucleoFamiliare)},
+        {id: 'Numero familiari a carico', first: (this.schedaCliente.datiEconomici.clienteDatiEconomici.nFamiliariCarico == null ? "-" : this.schedaCliente.datiEconomici.clienteDatiEconomici.nFamiliariCarico)},
+        {id: 'Numero figli conviventi', first: (this.schedaCliente.datiEconomici.clienteDatiEconomici.nFigliConviventi == null ? "-" : this.schedaCliente.datiEconomici.clienteDatiEconomici.nFigliConviventi)},
+        {id: 'Di cui minori', first: (this.schedaCliente.datiEconomici.clienteDatiEconomici.nFigliConviventiMinori == null ? "-" : this.schedaCliente.datiEconomici.clienteDatiEconomici.nFigliConviventiMinori)},
+        {id: 'Regime Patrimoniale', first: (this.schedaCliente.datiEconomici.clienteDatiEconomici.regimePatrimoniale == null ? "-" : this.schedaCliente.datiEconomici.clienteDatiEconomici.regimePatrimoniale)},
 
         {id: 'Reddito Familiare Complessivo', first: (this.schedaCliente.datiEconomici.entrateUscite.redditoFamiliareComplessivo == null ? "-" : this.schedaCliente.datiEconomici.entrateUscite.redditoFamiliareComplessivo)},
         {id: 'Totale mensile affitti', first: (this.schedaCliente.datiEconomici.entrateUscite.totaleMensileAffitti == null ? "-" : this.schedaCliente.datiEconomici.entrateUscite.totaleMensileAffitti)},

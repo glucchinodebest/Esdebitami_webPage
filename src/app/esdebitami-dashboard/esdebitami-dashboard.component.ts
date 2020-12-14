@@ -379,10 +379,210 @@ export class EsdebitamiDashboardComponent implements OnInit {
     }else{
       regime_Patrimoniale = "2 - FONDO PATRIMONIALE"
     };
-    console.log('in submit ' + regime_Patrimoniale);
     
     var json =
-      {
+    {
+      requestType:"SYNC",
+      requestKey:"requestKeySYNC101091",
+      applicationKey:"RSlFAKnFaP",
+      schedaCliente: {
+          anagrafica: {
+              cf: this.dataForm.get('anagrafica_cf').value,
+              classeDomicilio: this.dataForm.get('anagrafica_classeDomicilio').value
+          },
+          datiEconomici: {
+              cliente: {
+                  familiariCarico: parseInt(this.dataForm.get('cliente_nFamiliariCarico').value),
+                  figliConviventi: parseInt(this.dataForm.get('cliente_nFigliConviventi').value),
+                  figliConviventiMinori: parseInt(this.dataForm.get('cliente_nFigliConviventiMinori').value),
+                  flagPensionato: true,
+                  nucleoFamiliare: parseInt(this.dataForm.get('cliente_nucleoFamiliare').value),
+                  regimePatrimoniale: regime_Patrimoniale
+              },
+              coniuge: {
+                  cf: this.dataForm.get('coniuge_cf').value
+              },
+              entrateUscite: {
+                  altreEntrate: [{
+                      cifraMensileAltreEntrate: parseInt(this.dataForm.get('altreEntrate_cifraMensileAltreEntrate').value),
+                      descrizioneAltreEntrate: this.dataForm.get('altreEntrate_descrizioneAltreEntrate').value,
+                      id: 0,
+                      progressivoAltreEntrate: parseInt(this.dataForm.get('altreEntrate_progressivoAltreEntrate').value)
+                  }],
+                  altreUscite: [{
+                      cifraMensileAltreUscite: parseInt(this.dataForm.get('altreUscite_cifraMensileAltreUscite').value),
+                      descrizioneAltreUscite: this.dataForm.get('altreUscite_descrizioneAltreUscite').value,
+                      id: 0,
+                      progressivoAltreUscite: parseInt(this.dataForm.get('altreUscite_progressivoAltreUscite').value)
+                  }],
+                  assegniMantEntrata: [{
+                      cifraMensileAssMantEntrata: parseInt(this.dataForm.get('assegniMantEntrata_cifraMensileAssMantEntrata').value),
+                      descrizioneAssMantEntrata:this.dataForm.get('assegniMantEntrata_descrizioneAssMantEntrata').value,
+                      id: 0,
+                      progressivoAssMantEntrata: parseInt(this.dataForm.get('assegniMantEntrata_progressivoAssMantEntrata').value)
+                  }],
+                  assegniMantUscita: [{
+                      cifraMensileAssMantUscita: parseInt(this.dataForm.get('assegniMantUscita_cifraMensileAssMantUscita').value),
+                      descrizioneAssMantUscita: this.dataForm.get('assegniMantUscita_descrizioneAssMantUscita').value,
+                      id: 0,
+                      progressivoAssMantUscita: parseInt(this.dataForm.get('assegniMantUscita_progressivoAssMantUscita').value)
+                  }],
+                  immobile: [            {
+                    id:0,
+                    bancaMutuante: this.dataForm.get('immobile_bancaMutuante').value,
+                    dataDalProprietaImmobile: this.dataForm.get('immobile_dataDalProprietaImmobile').value,
+                    descrizioneImmobile: this.dataForm.get('immobile_descrizioneImmobile').value,
+                    flPrimaCasa: this.dataForm.get('immobile_flPrimaCasa').value=="Si",
+                    localita: this.dataForm.get('immobile_localita').value,
+                    mqImmobile: this.dataForm.get('immobile_mqImmobile').value,
+                    mutuoOriginario: parseInt(this.dataForm.get('immobile_mutuoOriginario').value),
+                    rataMensileMutuo: parseInt(this.dataForm.get('immobile_rataMutuoMensile').value),
+                    renditaLocazioneMensile: parseInt(this.dataForm.get('immobile_renditaLocazioneMensile').value),
+                    residuoDebitoMutuo: parseInt(this.dataForm.get('immobile_residuoDebitoMutuo').value),
+                    scadenzaRata: this.dataForm.get('immobile_scadenzaRata').value,
+                    tipoImmobile: this.dataForm.get('immobile_tipoImmobile').value,
+                    valoreCommerciale: parseInt(this.dataForm.get('immobile_valoreCommerciale').value)
+                  }],
+                  totaleUscitePerAffitti: [{
+                    id:0,
+                    rataAffittoMensile: parseInt(this.dataForm.get('totaleUscitePerAffitti_rataAffittoMensile').value),
+                    rataCondominioMensile: parseInt(this.dataForm.get('totaleUscitePerAffitti_rataCondominioMensile').value)
+                  }]
+              },
+              listaAltriFamiliari: [
+                {
+                  id:0,
+                  cfAltriF: this.dataForm.get('listaAltriFamiliari_cfAltriF').value,
+                  cittaNascitaAltriF: this.dataForm.get('listaAltriFamiliari_cittaNascitaAltriF').value,
+                  cognomeAltriF: this.dataForm.get('listaAltriFamiliari_cognomeAltriF').value,
+                  dataNascitaAltriF: this.dataForm.get('listaAltriFamiliari_dataNascitaAltriF').value,
+                  gradoParentelaAltriF: this.dataForm.get('listaAltriFamiliari_gradoParentelaAltriF').value,
+                  nomeAltriF: this.dataForm.get('listaAltriFamiliari_nomeAltriF').value,
+                  redditoMensileAltriF:this.dataForm.get('listaAltriFamiliari_redditoMensileAltriF').value
+                }
+              ],
+              listaAttivitaClienteAut: [
+                {
+                  id:0,
+                  attivitaCliAut: this.dataForm.get('listaAttivitaClienteAut_attivitaCliAut').value,
+                  descrizioneAttivitaCliAut: this.dataForm.get('listaAttivitaClienteAut_descrizioneAttivitaCliAut').value,
+                  numAnniAttivitaEsercitataCliAut: parseInt(this.dataForm.get('listaAttivitaClienteAut_numAnniAttivitaEsercitataCliAut').value),
+                  numAnniEsercizioAttivitaCliAut: parseInt(this.dataForm.get('listaAttivitaClienteAut_numAnniEsercizioAttivitaCliAut').value),
+                  redditoAnnuoCliAut: parseInt(this.dataForm.get('listaAttivitaClienteAut_redditoAnnuoCliAut').value),
+                  redditoMensileRettificato:this.dataForm.get('listaAttivitaClienteAut_redditoMensileRetCliAut').value,
+                  tipoLavoratoreCliAut: "AUTONOMO/A"//this.dataForm.get('listaAttivitaClienteAut_tipoLavoratoreCliAut').value
+                }
+              ],
+              listaAttivitaClienteDis: [{
+                  id: 0,
+                  tipologiaLavoratoreCliDis: "DISOCCUPATO/A"
+              }],
+              listaAttivitaClientePens: [{
+                  id: 0,
+                  numMensilitaCliPens: 13,
+                  parametroPignorabilitaCliPens: 680,
+                  redditoAnnuoCliPens: 10000,
+                  tipoContrattoCliPens: "SUBORDINATO",
+                  tipoLavoratoreCliPens: "PENSIONATO"
+              }],
+              listaAttivitaClienteSub: [{
+                id:0,
+                attivitaCliSub: this.dataForm.get('listaAttivitaClienteSub_attivitaCliSub').value,
+                numMensilitaRetCliSub: parseInt(this.dataForm.get('listaAttivitaClienteSub_numMensilitaRetCliSub').value),
+                redditoMensileCliSub: parseInt(this.dataForm.get('listaAttivitaClienteSub_redditoMensileCliSub').value),
+                redditoMensileRettificato: parseInt(this.dataForm.get('listaAttivitaClienteSub_redditoMensileRettificato').value),
+                tipoContrattoCliSub: this.dataForm.get('listaAttivitaClienteSub_tipoContrattoCliSub').value,
+                tipoLavoratoreCliSub: this.dataForm.get('listaAttivitaClienteSub_tipoLavoratoreCliSub').value
+              }],
+              listaAttivitaConiugeAut: [{
+                id:0,
+                attivitaConAut: this.dataForm.get('listaAttivitaConiugeAut_attivitaConAut').value,
+                descrizioneAttivitaConAut: this.dataForm.get('listaAttivitaConiugeAut_descrizioneAttivitaConAut').value,
+                numAnniAttivitaEsercitataConAut: parseInt(this.dataForm.get('listaAttivitaConiugeAut_numAnniAttivitaEsercitataConAut').value),
+                numAnniEsercizioAttivitaConAut: parseInt(this.dataForm.get('listaAttivitaConiugeAut_numAnniEsercizioAttivitaConAut').value),
+                redditoAnnuoConAut: parseInt(this.dataForm.get('listaAttivitaConiugeAut_redditoAnnuoConAut').value),
+                tipoLavoratoreConAut: "SUBORDINATO/A"//this.dataForm.get('listaAttivitaConiugeAut_tipoLavoratoreConAut').value
+              }],
+              listaAttivitaConiugeDis: [{
+                  id: 0,
+                  tipoLavoratoreConDis: "DISOCCUPATO/A"
+              }],
+              listaAttivitaConiugePens: [{
+                  id: 0,
+                  numMensilitaConPens: 10,
+                  redditoAnnuoConPens: 8000,
+                  tipoContrattoConPens: "SUBORDINATO",
+                  tipoLavoratoreConPens: "PENSIONATO"
+              }],
+              listaAttivitaConiugeSub: [{
+                id:0,
+                attivitaConSub: this.dataForm.get('listaAttivitaConiugeSub_attivitaConSub').value,
+                numMensilitaRetConSub: parseInt(this.dataForm.get('listaAttivitaConiugeSub_numMensilitaRetConSub').value),
+                redditoMensileConSub: parseInt(this.dataForm.get('listaAttivitaConiugeSub_redditoAnnuoConSub').value),
+                tipoContrattoConSub: this.dataForm.get('listaAttivitaConiugeSub_tipoContrattoConSub').value,
+                tipoLavoratoreConSub: this.dataForm.get('listaAttivitaConiugeSub_tipoLavoratoreConSub').value
+              }],
+              listaTrattenutaCliente: [{
+                  csqCliente: {
+                    dataInizioCSQCli: this.dataForm.get('trattenutaBustaPagaCliente_csqCliente_dataInizioCSQCli').value,
+                    dataScadenzaCSQCli: this.dataForm.get('trattenutaBustaPagaCliente_csqCliente_dataScadenzaCSQCli').value,
+                    rataCSQCli: parseInt(this.dataForm.get('trattenutaBustaPagaCliente_csqCliente_rataCSQCli').value)
+                  },
+                  delegaCliente: {
+                    dataInizioDelegaCli: this.dataForm.get('trattenutaBustaPagaCliente_delegaCliente_dataInizioDelegaCli').value,
+                    dataScadenzaDelegaCli: this.dataForm.get('trattenutaBustaPagaCliente_delegaCliente_dataScadenzaDelegaCli').value,
+                    rataDelegaCli: parseInt(this.dataForm.get('trattenutaBustaPagaCliente_delegaCliente_rataDelegaCli').value)
+                  },
+                  pignoramentoCliente: {
+                    dataInizioPignoramentoCli: this.dataForm.get('trattenutaBustaPagaCliente_pignoramentoCliente_dataInizioPignoramentoCli').value,
+                    dataScadenzaPignoramentoCli: this.dataForm.get('trattenutaBustaPagaCliente_pignoramentoCliente_dataScadenzaPignoramentoCli').value,
+                    rataPignoramentoCli: parseInt(this.dataForm.get('trattenutaBustaPagaCliente_pignoramentoCliente_rataPignoramentoCli').value)
+                  }
+              }],
+              listaTrattenutaConiuge: [{
+                  csqConiuge: {
+                    dataInizioCSQCon: this.dataForm.get('trattenutaBustaPagaCon_csq_dataInizioCSQCon').value,
+                    dataScadenzaCSQCon: this.dataForm.get('trattenutaBustaPagaCon_csq_dataScadenzaCSQCon').value,
+                    rataCSQCon: parseInt(this.dataForm.get('trattenutaBustaPagaCon_csq_rataCSQCon').value)
+                  },
+                  delegaConiuge: {
+                    dataInizioDelegaCon: this.dataForm.get('trattenutaBustaPagaCon_delega_dataInizioDelegaCon').value,
+                    dataScadenzaDelegaCon: this.dataForm.get('trattenutaBustaPagaCon_delega_dataScadenzaDelegaCon').value,
+                    rataDelegaCon: parseInt(this.dataForm.get('trattenutaBustaPagaCon_delega_rataDelegaCon').value)
+                  },
+                  pignoramentoConiuge: {
+                    dataInizioPignoramentoCon: this.dataForm.get('trattenutaBustaPagaCon_pignoramento_dataInizioPignoramentoCon').value,
+                    dataScadenzaPignoramentoCon:this.dataForm.get('trattenutaBustaPagaCon_pignoramento_dataScadenzaPignoramentoCon').value,
+                    rataPignoramentoCon: parseInt(this.dataForm.get('trattenutaBustaPagaCon_pignoramento_rataPignoramentoCon').value)
+                  }
+              }]
+          },
+          listaCreditori: [{
+            id:0,
+            cObbligato: this.dataForm.get('listaCreditori_obbligatorio').value=='Si',
+            coefficienteCreditore: parseInt(this.dataForm.get('listaCreditori_coefficiente').value),
+            formaTecnica: this.dataForm.get('listaCreditori_formaTecnica').value,
+            nomeCreditore: this.dataForm.get('listaCreditori_nomeCreditore').value,
+            //obbligatorio: this.dataForm.get('listaCreditori_obbligatorio').value,
+            posizioneTecnica: this.dataForm.get('listaCreditori_posizioneTecnica').value,
+            rataCreditore: parseInt(this.dataForm.get('listaCreditori_rataMensile').value),
+            valoreDebito: parseInt(this.dataForm.get('listaCreditori_valoreDebito').value),
+            importoTransattivo: parseInt(this.dataForm.get('importoTransattivo').value),
+            rataTransattivaCreditore:parseInt( this.dataForm.get('rataTransattivaCreditore').value),
+          }
+          ],
+          upfrontSegmentazione: {
+              durataPianoCompetenzeUpfront: 0,
+              flagUpfront: false,
+              importoRataPianoCompetenzeUpfront: 305,
+              meseInizioPianoCompetenzeUpfront: 0,
+              numeroRatePianoCompetenzeUpfront: 5,
+              successFeeGlobale: 0.0,
+              totalePianoCompetenzeUpfront: 1025
+          }
+      }
+  }
+      /*{
     schedaCliente: {
       anagrafica: {
         cf: this.dataForm.get('anagrafica_cf').value,
@@ -390,10 +590,10 @@ export class EsdebitamiDashboardComponent implements OnInit {
       },
       datiEconomici: {
         cliente: {
-          familiariCarico: this.dataForm.get('cliente_nFamiliariCarico').value,
-          figliConviventi: this.dataForm.get('cliente_nFigliConviventi').value,
-          figliConviventiMinori: this.dataForm.get('cliente_nFigliConviventiMinori').value,
-          nucleoFamiliare: this.dataForm.get('cliente_nucleoFamiliare').value,
+          familiariCarico: parseInt(this.dataForm.get('cliente_nFamiliariCarico').value),
+          figliConviventi: parseInt(this.dataForm.get('cliente_nFigliConviventi').value),
+          figliConviventiMinori: parseInt(this.dataForm.get('cliente_nFigliConviventiMinori').value),
+          nucleoFamiliare: parseInt(this.dataForm.get('cliente_nucleoFamiliare').value),
           flagPensionato:true,
           regimePatrimoniale: regime_Patrimoniale,//this.dataForm.get('cliente_regimePatrimoniale').value,
           //statoCivile: this.dataForm.get('cliente_statoCivile').value
@@ -405,33 +605,33 @@ export class EsdebitamiDashboardComponent implements OnInit {
           altreEntrate: [
             {
               id:0,
-              cifraMensileAltreEntrate: this.dataForm.get('altreEntrate_cifraMensileAltreEntrate').value,
+              cifraMensileAltreEntrate: parseInt(this.dataForm.get('altreEntrate_cifraMensileAltreEntrate').value),
               descrizioneAltreEntrate: this.dataForm.get('altreEntrate_descrizioneAltreEntrate').value,
-              progressivoAltreEntrate: this.dataForm.get('altreEntrate_progressivoAltreEntrate').value
+              progressivoAltreEntrate: parseInt(this.dataForm.get('altreEntrate_progressivoAltreEntrate').value)
             }
           ],
           altreUscite: [
             {
               id:0,
-              cifraMensileAltreUscite: this.dataForm.get('altreUscite_cifraMensileAltreUscite').value,
+              cifraMensileAltreUscite: parseInt(this.dataForm.get('altreUscite_cifraMensileAltreUscite').value),
               descrizioneAltreUscite: this.dataForm.get('altreUscite_descrizioneAltreUscite').value,
-              progressivoAltreUscite: this.dataForm.get('altreUscite_progressivoAltreUscite').value
+              progressivoAltreUscite: parseInt(this.dataForm.get('altreUscite_progressivoAltreUscite').value)
             }
           ],
           assegniMantEntrata: [
             {
               id:0,
-              cifraMensileAssMantEntrata: this.dataForm.get('assegniMantEntrata_cifraMensileAssMantEntrata').value,
+              cifraMensileAssMantEntrata: parseInt(this.dataForm.get('assegniMantEntrata_cifraMensileAssMantEntrata').value),
               descrizioneAssMantEntrata: this.dataForm.get('assegniMantEntrata_descrizioneAssMantEntrata').value,
-              progressivoAssMantEntrata: this.dataForm.get('assegniMantEntrata_progressivoAssMantEntrata').value
+              progressivoAssMantEntrata: parseInt(this.dataForm.get('assegniMantEntrata_progressivoAssMantEntrata').value)
             }
           ],
           assegniMantUscita: [
             {
               id:0,
-              cifraMensileAssMantUscita: this.dataForm.get('assegniMantUscita_cifraMensileAssMantUscita').value,
+              cifraMensileAssMantUscita: parseInt(this.dataForm.get('assegniMantUscita_cifraMensileAssMantUscita').value),
               descrizioneAssMantUscita: this.dataForm.get('assegniMantUscita_descrizioneAssMantUscita').value,
-              progressivoAssMantUscita: this.dataForm.get('assegniMantUscita_progressivoAssMantUscita').value
+              progressivoAssMantUscita: parseInt(this.dataForm.get('assegniMantUscita_progressivoAssMantUscita').value)
             }
           ],
           immobile: [
@@ -443,19 +643,19 @@ export class EsdebitamiDashboardComponent implements OnInit {
               flPrimaCasa: this.dataForm.get('immobile_flPrimaCasa').value=="Si",
               localita: this.dataForm.get('immobile_localita').value,
               mqImmobile: this.dataForm.get('immobile_mqImmobile').value,
-              mutuoOriginario: this.dataForm.get('immobile_mutuoOriginario').value,
-              rataMensileMutuo: this.dataForm.get('immobile_rataMutuoMensile').value,
-              renditaLocazioneMensile: this.dataForm.get('immobile_renditaLocazioneMensile').value,
-              residuoDebitoMutuo: this.dataForm.get('immobile_residuoDebitoMutuo').value,
+              mutuoOriginario: parseInt(this.dataForm.get('immobile_mutuoOriginario').value),
+              rataMensileMutuo: parseInt(this.dataForm.get('immobile_rataMutuoMensile').value),
+              renditaLocazioneMensile: parseInt(this.dataForm.get('immobile_renditaLocazioneMensile').value),
+              residuoDebitoMutuo: parseInt(this.dataForm.get('immobile_residuoDebitoMutuo').value),
               scadenzaRata: this.dataForm.get('immobile_scadenzaRata').value,
               tipoImmobile: this.dataForm.get('immobile_tipoImmobile').value,
-              valoreCommerciale: this.dataForm.get('immobile_valoreCommerciale').value
+              valoreCommerciale: parseInt(this.dataForm.get('immobile_valoreCommerciale').value)
             }
           ],
           totaleUscitePerAffitti: [{
             id:0,
-            rataAffittoMensile: this.dataForm.get('totaleUscitePerAffitti_rataAffittoMensile').value,
-            rataCondominioMensile: this.dataForm.get('totaleUscitePerAffitti_rataCondominioMensile').value
+            rataAffittoMensile: parseInt(this.dataForm.get('totaleUscitePerAffitti_rataAffittoMensile').value),
+            rataCondominioMensile: parseInt(this.dataForm.get('totaleUscitePerAffitti_rataCondominioMensile').value)
           }]
         },
         listaAltriFamiliari: [
@@ -475,11 +675,11 @@ export class EsdebitamiDashboardComponent implements OnInit {
             id:0,
             attivitaCliAut: this.dataForm.get('listaAttivitaClienteAut_attivitaCliAut').value,
             descrizioneAttivitaCliAut: this.dataForm.get('listaAttivitaClienteAut_descrizioneAttivitaCliAut').value,
-            numAnniAttivitaEsercitataCliAut: this.dataForm.get('listaAttivitaClienteAut_numAnniAttivitaEsercitataCliAut').value,
-            numAnniEsercizioAttivitaCliAut: this.dataForm.get('listaAttivitaClienteAut_numAnniEsercizioAttivitaCliAut').value,
-            redditoAnnuoCliAut: this.dataForm.get('listaAttivitaClienteAut_redditoAnnuoCliAut').value,
+            numAnniAttivitaEsercitataCliAut: parseInt(this.dataForm.get('listaAttivitaClienteAut_numAnniAttivitaEsercitataCliAut').value),
+            numAnniEsercizioAttivitaCliAut: parseInt(this.dataForm.get('listaAttivitaClienteAut_numAnniEsercizioAttivitaCliAut').value),
+            redditoAnnuoCliAut: parseInt(this.dataForm.get('listaAttivitaClienteAut_redditoAnnuoCliAut').value),
             redditoMensileRettificato:this.dataForm.get('listaAttivitaClienteAut_redditoMensileRetCliAut').value,
-            tipoLavoratoreCliAut: this.dataForm.get('listaAttivitaClienteAut_tipoLavoratoreCliAut').value
+            tipoLavoratoreCliAut: "AUTONOMO/A"//this.dataForm.get('listaAttivitaClienteAut_tipoLavoratoreCliAut').value
           }
         ],
         listaAttivitaClienteDis: [
@@ -503,9 +703,9 @@ export class EsdebitamiDashboardComponent implements OnInit {
           {
             id:0,
             attivitaCliSub: this.dataForm.get('listaAttivitaClienteSub_attivitaCliSub').value,
-            numMensilitaRetCliSub: this.dataForm.get('listaAttivitaClienteSub_numMensilitaRetCliSub').value,
-            redditoMensileCliSub:this.dataForm.get('listaAttivitaClienteSub_redditoMensileCliSub').value,
-            redditoMensileRettificato: this.dataForm.get('listaAttivitaClienteSub_redditoMensileRettificato').value,
+            numMensilitaRetCliSub: parseInt(this.dataForm.get('listaAttivitaClienteSub_numMensilitaRetCliSub').value),
+            redditoMensileCliSub: parseInt(this.dataForm.get('listaAttivitaClienteSub_redditoMensileCliSub').value),
+            redditoMensileRettificato: parseInt(this.dataForm.get('listaAttivitaClienteSub_redditoMensileRettificato').value),
             tipoContrattoCliSub: this.dataForm.get('listaAttivitaClienteSub_tipoContrattoCliSub').value,
             tipoLavoratoreCliSub: this.dataForm.get('listaAttivitaClienteSub_tipoLavoratoreCliSub').value
           }
@@ -515,10 +715,10 @@ export class EsdebitamiDashboardComponent implements OnInit {
             id:0,
             attivitaConAut: this.dataForm.get('listaAttivitaConiugeAut_attivitaConAut').value,
             descrizioneAttivitaConAut: this.dataForm.get('listaAttivitaConiugeAut_descrizioneAttivitaConAut').value,
-            numAnniAttivitaEsercitataConAut: this.dataForm.get('listaAttivitaConiugeAut_numAnniAttivitaEsercitataConAut').value,
-            numAnniEsercizioAttivitaConAut: this.dataForm.get('listaAttivitaConiugeAut_numAnniEsercizioAttivitaConAut').value,
-            redditoAnnuoConAut: this.dataForm.get('listaAttivitaConiugeAut_redditoAnnuoConAut').value,
-            tipoLavoratoreConAut: this.dataForm.get('listaAttivitaConiugeAut_tipoLavoratoreConAut').value
+            numAnniAttivitaEsercitataConAut: parseInt(this.dataForm.get('listaAttivitaConiugeAut_numAnniAttivitaEsercitataConAut').value),
+            numAnniEsercizioAttivitaConAut: parseInt(this.dataForm.get('listaAttivitaConiugeAut_numAnniEsercizioAttivitaConAut').value),
+            redditoAnnuoConAut: parseInt(this.dataForm.get('listaAttivitaConiugeAut_redditoAnnuoConAut').value),
+            tipoLavoratoreConAut: "SUBORDINATO/A"//this.dataForm.get('listaAttivitaConiugeAut_tipoLavoratoreConAut').value
           }
         ],
         listaAttivitaConiugeDis: [
@@ -541,8 +741,8 @@ export class EsdebitamiDashboardComponent implements OnInit {
           {
             id:0,
             attivitaConSub: this.dataForm.get('listaAttivitaConiugeSub_attivitaConSub').value,
-            numMensilitaRetConSub: this.dataForm.get('listaAttivitaConiugeSub_numMensilitaRetConSub').value,
-            redditoMensileConSub: this.dataForm.get('listaAttivitaConiugeSub_redditoAnnuoConSub').value,
+            numMensilitaRetConSub: parseInt(this.dataForm.get('listaAttivitaConiugeSub_numMensilitaRetConSub').value),
+            redditoMensileConSub: parseInt(this.dataForm.get('listaAttivitaConiugeSub_redditoAnnuoConSub').value),
             tipoContrattoConSub: this.dataForm.get('listaAttivitaConiugeSub_tipoContrattoConSub').value,
             tipoLavoratoreConSub: this.dataForm.get('listaAttivitaConiugeSub_tipoLavoratoreConSub').value
           }
@@ -552,34 +752,34 @@ export class EsdebitamiDashboardComponent implements OnInit {
           csqCliente: {
             dataInizioCSQCli: this.dataForm.get('trattenutaBustaPagaCliente_csqCliente_dataInizioCSQCli').value,
             dataScadenzaCSQCli: this.dataForm.get('trattenutaBustaPagaCliente_csqCliente_dataScadenzaCSQCli').value,
-            rataCSQCli: this.dataForm.get('trattenutaBustaPagaCliente_csqCliente_rataCSQCli').value
+            rataCSQCli: parseInt(this.dataForm.get('trattenutaBustaPagaCliente_csqCliente_rataCSQCli').value)
           },
           delegaCliente: {
             dataInizioDelegaCli: this.dataForm.get('trattenutaBustaPagaCliente_delegaCliente_dataInizioDelegaCli').value,
             dataScadenzaDelegaCli: this.dataForm.get('trattenutaBustaPagaCliente_delegaCliente_dataScadenzaDelegaCli').value,
-            rataDelegaCli: this.dataForm.get('trattenutaBustaPagaCliente_delegaCliente_rataDelegaCli').value
+            rataDelegaCli: parseInt(this.dataForm.get('trattenutaBustaPagaCliente_delegaCliente_rataDelegaCli').value)
           },
           pignoramentoCliente: {
             dataInizioPignoramentoCli: this.dataForm.get('trattenutaBustaPagaCliente_pignoramentoCliente_dataInizioPignoramentoCli').value,
             dataScadenzaPignoramentoCli: this.dataForm.get('trattenutaBustaPagaCliente_pignoramentoCliente_dataScadenzaPignoramentoCli').value,
-            rataPignoramentoCli: this.dataForm.get('trattenutaBustaPagaCliente_pignoramentoCliente_rataPignoramentoCli').value
+            rataPignoramentoCli: parseInt(this.dataForm.get('trattenutaBustaPagaCliente_pignoramentoCliente_rataPignoramentoCli').value)
           }
         },
         trattenutaBustaPagaConiuge: {
           csqConiuge: {
             dataInizioCSQCon: this.dataForm.get('trattenutaBustaPagaCon_csq_dataInizioCSQCon').value,
             dataScadenzaCSQCon: this.dataForm.get('trattenutaBustaPagaCon_csq_dataScadenzaCSQCon').value,
-            rataCSQCon: this.dataForm.get('trattenutaBustaPagaCon_csq_rataCSQCon').value
+            rataCSQCon: parseInt(this.dataForm.get('trattenutaBustaPagaCon_csq_rataCSQCon').value)
           },
           delegaConiuge: {
             dataInizioDelegaCon: this.dataForm.get('trattenutaBustaPagaCon_delega_dataInizioDelegaCon').value,
             dataScadenzaDelegaCon: this.dataForm.get('trattenutaBustaPagaCon_delega_dataScadenzaDelegaCon').value,
-            rataDelegaCon: this.dataForm.get('trattenutaBustaPagaCon_delega_rataDelegaCon').value
+            rataDelegaCon: parseInt(this.dataForm.get('trattenutaBustaPagaCon_delega_rataDelegaCon').value)
           },
           pignoramentoConiuge: {
             dataInizioPignoramentoCon: this.dataForm.get('trattenutaBustaPagaCon_pignoramento_dataInizioPignoramentoCon').value,
             dataScadenzaPignoramentoCon:this.dataForm.get('trattenutaBustaPagaCon_pignoramento_dataScadenzaPignoramentoCon').value,
-            rataPignoramentoCon: this.dataForm.get('trattenutaBustaPagaCon_pignoramento_rataPignoramentoCon').value
+            rataPignoramentoCon: parseInt(this.dataForm.get('trattenutaBustaPagaCon_pignoramento_rataPignoramentoCon').value)
           }
         }
       },
@@ -587,23 +787,23 @@ export class EsdebitamiDashboardComponent implements OnInit {
         {
           id:0,
           cObbligato: this.dataForm.get('listaCreditori_obbligatorio').value=='Si',
-          coefficienteCreditore: this.dataForm.get('listaCreditori_coefficiente').value,
+          coefficienteCreditore: parseInt(this.dataForm.get('listaCreditori_coefficiente').value),
           formaTecnica: this.dataForm.get('listaCreditori_formaTecnica').value,
           nomeCreditore: this.dataForm.get('listaCreditori_nomeCreditore').value,
           //obbligatorio: this.dataForm.get('listaCreditori_obbligatorio').value,
           posizioneTecnica: this.dataForm.get('listaCreditori_posizioneTecnica').value,
-          rataCreditore: this.dataForm.get('listaCreditori_rataMensile').value,
-          valoreDebito: this.dataForm.get('listaCreditori_valoreDebito').value,
-          importoTransattivo: this.dataForm.get('importoTransattivo').value,
-          rataTransattivaCreditore: this.dataForm.get('rataTransattivaCreditore').value,
+          rataCreditore: parseInt(this.dataForm.get('listaCreditori_rataMensile').value),
+          valoreDebito: parseInt(this.dataForm.get('listaCreditori_valoreDebito').value),
+          importoTransattivo: parseInt(this.dataForm.get('importoTransattivo').value),
+          rataTransattivaCreditore:parseInt( this.dataForm.get('rataTransattivaCreditore').value),
         }
       ],
-      /*riepilogoCreditori: {
-        montanteDebitorioComplessivo: this.dataForm.get('riepilogoCreditori_montanteDebitorioComplessivo').value,
-        montanteDebitorioSecured: this.dataForm.get('riepilogoCreditori_montanteDebitorioSecured').value,
-        montanteDebitorioUnsecured: this.dataForm.get('riepilogoCreditori_montanteDebitorioUnsecured').value,
-        totaleRataCreditore: this.dataForm.get('riepilogoCreditori_totaleRataCreditore').value
-      },*/
+      //riepilogoCreditori: {
+       // montanteDebitorioComplessivo: this.dataForm.get('riepilogoCreditori_montanteDebitorioComplessivo').value,
+        //montanteDebitorioSecured: this.dataForm.get('riepilogoCreditori_montanteDebitorioSecured').value,
+        //montanteDebitorioUnsecured: this.dataForm.get('riepilogoCreditori_montanteDebitorioUnsecured').value,
+        //totaleRataCreditore: this.dataForm.get('riepilogoCreditori_totaleRataCreditore').value
+      //},
       pianoCompetenzeUpfront:{
         meseInizioPianoCompetenzeUpfront:0,
         durataPianoCompetenzeUpfront:0,
@@ -619,7 +819,7 @@ export class EsdebitamiDashboardComponent implements OnInit {
     requestType:"SYNC",
     requestKey:"requestKeySYNC101091",
     applicationKey:"appKeyExt"
-  };
+  };*/
 
   //console.log("JSON" + JSON.stringify(json));
   
