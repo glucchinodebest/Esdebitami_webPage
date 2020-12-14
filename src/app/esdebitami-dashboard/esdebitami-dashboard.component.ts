@@ -231,22 +231,22 @@ export class EsdebitamiDashboardComponent implements OnInit {
         //altreEntrate
         altreEntrate_cifraMensileAltreEntrate: sCliente[77][4] == undefined ? "" : sCliente[77][4],
         altreEntrate_descrizioneAltreEntrate: sCliente[77][5] == undefined ? "" : sCliente[77][5],
-        altreEntrate_progressivoAltreEntrate: "",
+        altreEntrate_progressivoAltreEntrate: 0,
 
         //altreUscite
         altreUscite_cifraMensileAltreUscite: sCliente[72][4] == undefined ? "" : sCliente[72][4],
         altreUscite_descrizioneAltreUscite: sCliente[72][5] == undefined ? "" : sCliente[72][5],
-        altreUscite_progressivoAltreUscite: "",
+        altreUscite_progressivoAltreUscite: 0,
 
         //assegniMantenimentoEntrata
         assegniMantEntrata_cifraMensileAssMantEntrata: sCliente[76][4] == undefined ? "" : sCliente[76][4],
         assegniMantEntrata_descrizioneAssMantEntrata: sCliente[76][5] == undefined ? "" : sCliente[76][5],
-        assegniMantEntrata_progressivoAssMantEntrata: "",
+        assegniMantEntrata_progressivoAssMantEntrata: 0,
 
         //assegniMantenimentoUscita
         assegniMantUscita_cifraMensileAssMantUscita: sCliente[71][4] == undefined ? "" : sCliente[71][4],
         assegniMantUscita_descrizioneAssMantUscita: sCliente[71][5] == undefined ? "" : sCliente[71][5],
-        assegniMantUscita_progressivoAssMantUscita: "",
+        assegniMantUscita_progressivoAssMantUscita: 0,
 
         //immobile
         immobile_bancaMutuante: sCliente[80][1] == undefined ? "" : sCliente[80][1],
@@ -282,7 +282,7 @@ export class EsdebitamiDashboardComponent implements OnInit {
         listaAttivitaClienteAut_numAnniAttivitaEsercitataCliAut: sCliente[50][1] == undefined ? "" : sCliente[50][1],
         listaAttivitaClienteAut_numAnniEsercizioAttivitaCliAut: sCliente[49][1] == undefined ? "" : sCliente[49][1],
         listaAttivitaClienteAut_redditoAnnuoCliAut: sCliente[48][4] == undefined ? "" : sCliente[48][4],
-        listaAttivitaClienteAut_redditoMensileRetCliAut:"",
+        listaAttivitaClienteAut_redditoMensileRetCliAut:0,
         listaAttivitaClienteAut_tipoLavoratoreCliAut: "",
 
         //attività cliente Dis
@@ -301,14 +301,14 @@ export class EsdebitamiDashboardComponent implements OnInit {
         listaAttivitaConiugeAut_descrizioneAttivitaConAut: sCliente[47][4] == undefined ? "" : sCliente[47][4],
         listaAttivitaConiugeAut_numAnniAttivitaEsercitataConAut: sCliente[50][4] == undefined ? "" : sCliente[50][4],
         listaAttivitaConiugeAut_numAnniEsercizioAttivitaConAut: sCliente[49][4] == undefined ? "" : sCliente[49][4],
-        listaAttivitaConiugeAut_redditoAnnuoConAut: "",
+        listaAttivitaConiugeAut_redditoAnnuoConAut: 0,
         listaAttivitaConiugeAut_tipoLavoratoreConAut: "",
         //attività coniuge Dis
         listaAttivitaConiugeDis_tipoLavoratoreConDis: "",
 
         //attività coniuge sub
         listaAttivitaConiugeSub_attivitaConSub: sCliente[46][1] == undefined ? "" : sCliente[46][1],
-        listaAttivitaConiugeSub_numMensilitaRetConSub: "",
+        listaAttivitaConiugeSub_numMensilitaRetConSub: 0,
         listaAttivitaConiugeSub_redditoAnnuoConSub: sCliente[49][1] == undefined ? "" : sCliente[49][1],
         listaAttivitaConiugeSub_tipoContrattoConSub: sCliente[47][1] == undefined ? "" : sCliente[47][1],
         listaAttivitaConiugeSub_tipoLavoratoreConSub: "",
@@ -347,7 +347,7 @@ export class EsdebitamiDashboardComponent implements OnInit {
         trattenutaBustaPagaCon_pignoramento_rataPignoramentoCon: sCliente[56][3] == undefined ? "" : sCliente[56][3],
 
         //lista creditori
-        listaCreditori_coefficiente: "",
+        listaCreditori_coefficiente: 0,
         listaCreditori_formaTecnica: sCliente[91][1] == undefined ? "" : sCliente[91][1],
         listaCreditori_nomeCreditore: sCliente[91][0] == undefined ? "" : sCliente[91][0],
         listaCreditori_obbligatorio: sCliente[91][5] == undefined ? "" : sCliente[91][5],
@@ -357,10 +357,10 @@ export class EsdebitamiDashboardComponent implements OnInit {
         importoTransattivo:0,
         rataTransattivaCreditore:0,
         //riepilogo creditori
-        riepilogoCreditori_montanteDebitorioComplessivo: "",
-        riepilogoCreditori_montanteDebitorioSecured: "",
-        riepilogoCreditori_montanteDebitorioUnsecured: "",
-        riepilogoCreditori_totaleRataCreditore: "",
+        riepilogoCreditori_montanteDebitorioComplessivo: 0,
+        riepilogoCreditori_montanteDebitorioSecured: 0,
+        riepilogoCreditori_montanteDebitorioUnsecured: 0,
+        riepilogoCreditori_totaleRataCreditore: 0,
       })
     };
     reader.readAsBinaryString(target.files[0]);  
