@@ -500,7 +500,7 @@ export class EsdebitamiDashboardComponent implements OnInit {
                     id: 0,
                     numAnniAttivitaEsercitataConAut: parseInt(this.dataForm.get('listaAttivitaConiugeAut_numAnniAttivitaEsercitataConAut').value),
                     numAnniEsercizioAttivitaConAut: parseInt(this.dataForm.get('listaAttivitaConiugeAut_numAnniEsercizioAttivitaConAut').value),
-                    redditoAnnuoConAut: 700,
+                    redditoAnnuoConAut: parseInt(this.dataForm.get('listaAttivitaConiugeAut_redditoAnnuoConAut').value),
                     tipoLavoratoreConAut: "AUTONOMO/A"
                 }],
                 listaAttivitaConiugeDis: [{
@@ -518,7 +518,7 @@ export class EsdebitamiDashboardComponent implements OnInit {
                   id:0,
                   attivitaConSub: this.dataForm.get('listaAttivitaConiugeSub_attivitaConSub').value,
                   numMensilitaRetConSub: parseInt(this.dataForm.get('listaAttivitaConiugeSub_numMensilitaRetConSub').value),
-                    redditoAnnuoConSub: 30000,
+                    redditoAnnuoConSub: parseInt(this.dataForm.get('listaAttivitaConiugeSub_redditoAnnuoConSub').value),
                     tipoContrattoConSub: this.dataForm.get('listaAttivitaConiugeSub_tipoContrattoConSub').value,
             tipoLavoratoreConSub: this.dataForm.get('listaAttivitaConiugeSub_tipoLavoratoreConSub').value
                 }],
@@ -821,7 +821,7 @@ export class EsdebitamiDashboardComponent implements OnInit {
     applicationKey:"appKeyExt"
   };*/
 
-  //console.log("JSON" + JSON.stringify(json));
+  console.log("JSON" + JSON.stringify(json));
   
     this.api.calcolo(json).subscribe((data: any) => {
       console.log(data);
