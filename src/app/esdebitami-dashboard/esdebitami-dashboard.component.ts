@@ -27,16 +27,16 @@ export class EsdebitamiDashboardComponent implements OnInit {
 
   dataForm = new FormGroup({
     //anagrafica
-    anagrafica_cf: new FormControl('',[Validators.required,Validators.pattern("^[a-zA-Z0-9]*$")]),
-    anagrafica_nome: new FormControl('',[Validators.required,Validators.pattern("^[ A-Za-z']+$")]),
-    anagrafica_cognome: new FormControl('',[Validators.required,Validators.pattern("^[ A-Za-z']+$")]),
+    anagrafica_cf: new FormControl('',[Validators.pattern("^[a-zA-Z0-9]*$")]),
+    anagrafica_nome: new FormControl('',[Validators.pattern("^[ A-Za-z']+$")]),
+    anagrafica_cognome: new FormControl('',[Validators.pattern("^[ A-Za-z']+$")]),
 
     anagrafica_classeDomicilio: new FormControl(''),
     //cliente
-    cliente_nFamiliariCarico: new FormControl('',[Validators.required,Validators.pattern("[0-9 ]+")]),
-    cliente_nFigliConviventi: new FormControl('',[Validators.required,Validators.pattern("[0-9 ]+")]),
-    cliente_nFigliConviventiMinori: new FormControl('',[Validators.required,Validators.pattern("[0-9 ]+")]),
-    cliente_nucleoFamiliare: new FormControl('',[Validators.required,Validators.pattern("[0-9 ]+")]),
+    cliente_nFamiliariCarico: new FormControl('',[Validators.pattern("[0-9 ]+")]),
+    cliente_nFigliConviventi: new FormControl('',[,Validators.pattern("[0-9 ]+")]),
+    cliente_nFigliConviventiMinori: new FormControl('',[Validators.pattern("[0-9 ]+")]),
+    cliente_nucleoFamiliare: new FormControl('',[Validators.pattern("[0-9 ]+")]),
     cliente_regimePatrimoniale: new FormControl(''),
     cliente_statoCivile: new FormControl(''),
 
