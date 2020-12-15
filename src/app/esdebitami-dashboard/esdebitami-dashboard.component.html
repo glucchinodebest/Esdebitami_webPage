@@ -40,9 +40,19 @@
                     <div class="row">
                         <div class="col-12 col-sm-6">
                             <input type="text" formControlName="anagrafica_nome">
+                            <div *ngIf="dataForm.controls['anagrafica_nome'].invalid && (dataForm.controls['anagrafica_nome'].dirty || dataForm.controls['anagrafica_nome'].touched)"
+                            class="help is-danger">
+                            <span *ngIf="dataForm.controls['anagrafica_nome'].errors.required" style="color:red" >Campo obbligatorio</span>
+                            <span *ngIf="dataForm.controls['anagrafica_nome'].errors.pattern" style="color:red">Formato non valido</span>
+                            </div>
                         </div>
                         <div class="col-12 col-sm-6">
                             <input type="text" formControlName="anagrafica_cognome">
+                            <div *ngIf="dataForm.controls['anagrafica_cognome'].invalid && (dataForm.controls['anagrafica_cognome'].dirty || dataForm.controls['anagrafica_cognome'].touched)"
+                            class="help is-danger">
+                            <span *ngIf="dataForm.controls['anagrafica_cognome'].errors.required" style="color:red">Campo obbligatorio</span>
+                            <span *ngIf="dataForm.controls['anagrafica_cognome'].errors.pattern" style="color:red">Formato non valido</span>
+                            </div>
                         </div>
                     </div>
 
@@ -70,13 +80,28 @@
                     <div class="row">
                         <div class="col-12 col-sm-4">
                             <input type="text" formControlName="anagrafica_cf">
+                            <div *ngIf="dataForm.controls['anagrafica_cf'].invalid && (dataForm.controls['anagrafica_cf'].dirty || dataForm.controls['anagrafica_cf'].touched)"
+                            class="help is-danger">
+                            <span *ngIf="dataForm.controls['anagrafica_cf'].errors.required" style="color:red">Campo obbligatorio</span>
+                            <span *ngIf="dataForm.controls['anagrafica_cf'].errors.pattern" style="color:red">Formato non valido</span>
+                            </div>
                         </div>
+                        
                         <div class="col-12 col-sm-4">
                             <input type="text" formControlName="cliente_nFamiliariCarico">
-
+                            <div *ngIf="dataForm.controls['cliente_nFamiliariCarico'].invalid && (dataForm.controls['cliente_nFamiliariCarico'].dirty || dataForm.controls['cliente_nFamiliariCarico'].touched)"
+                            class="help is-danger">
+                            <span *ngIf="dataForm.controls['cliente_nFamiliariCarico'].errors.required" style="color:red">Campo obbligatorio</span>
+                            <span *ngIf="dataForm.controls['cliente_nFamiliariCarico'].errors.pattern" style="color:red">Formato non valido</span>
+                            </div>
                         </div>
                         <div class="col-12 col-sm-4">
                             <input type="text" formControlName="cliente_nFigliConviventi">
+                            <div *ngIf="dataForm.controls['cliente_nFigliConviventi'].invalid && (dataForm.controls['cliente_nFigliConviventi'].dirty || dataForm.controls['cliente_nFigliConviventi'].touched)"
+                            class="help is-danger">
+                            <span *ngIf="dataForm.controls['cliente_nFigliConviventi'].errors.required" style="color:red">Campo obbligatorio</span>
+                            <span *ngIf="dataForm.controls['cliente_nFigliConviventi'].errors.pattern" style="color:red">Formato non valido</span>
+                            </div>
                         </div>
 
                     </div>
@@ -105,10 +130,20 @@
                     <div class="row">
                         <div class="col-12 col-sm-4">
                                 <input type="text" formControlName="cliente_nFigliConviventiMinori">
+                                <div *ngIf="dataForm.controls['cliente_nFigliConviventiMinori'].invalid && (dataForm.controls['cliente_nFigliConviventiMinori'].dirty || dataForm.controls['cliente_nFigliConviventiMinori'].touched)"
+                            class="help is-danger">
+                            <span *ngIf="dataForm.controls['cliente_nFigliConviventiMinori'].errors.required" style="color:red">Campo obbligatorio</span>
+                            <span *ngIf="dataForm.controls['cliente_nFigliConviventiMinori'].errors.pattern" style="color:red">Formato non valido</span>
+                            </div>
                         </div>
                         <div class="col-12 col-sm-4">
 
                             <input type="text" formControlName="cliente_nucleoFamiliare">
+                            <div *ngIf="dataForm.controls['cliente_nucleoFamiliare'].invalid && (dataForm.controls['cliente_nucleoFamiliare'].dirty || dataForm.controls['cliente_nucleoFamiliare'].touched)"
+                            class="help is-danger">
+                            <span *ngIf="dataForm.controls['cliente_nucleoFamiliare'].errors.required" style="color:red">Campo obbligatorio</span>
+                            <span *ngIf="dataForm.controls['cliente_nucleoFamiliare'].errors.pattern" style="color:red">Formato non valido</span>
+                            </div>
                         </div>
                         <div class="col-12 col-sm-4">
                                 <select name="RegimePatrimoniale" formControlName="cliente_regimePatrimoniale">
@@ -148,6 +183,11 @@
                         </div>
                         <div class="col-12 col-sm-4">
                             <input type="text" formControlName="coniuge_cf">
+                            <div *ngIf="dataForm.controls['coniuge_cf'].invalid && (dataForm.controls['coniuge_cf'].dirty || dataForm.controls['coniuge_cf'].touched)"
+                            class="help is-danger">
+                            <span *ngIf="dataForm.controls['coniuge_cf'].errors.required" style="color:red">Campo obbligatorio</span>
+                            <span *ngIf="dataForm.controls['coniuge_cf'].errors.pattern" style="color:red">Formato non valido</span>
+                            </div>
                         </div>
                         <div class="col-12 col-sm-4">
                             <select name="classeDomicilio" formControlName="anagrafica_classeDomicilio">
@@ -193,12 +233,22 @@
                     <div class="row">
                         <div class="col-12 col-sm-4">
                             <input type="text" formControlName="altreEntrate_cifraMensileAltreEntrate">
+                            <div *ngIf="dataForm.controls['altreEntrate_cifraMensileAltreEntrate'].invalid && (dataForm.controls['altreEntrate_cifraMensileAltreEntrate'].dirty || dataForm.controls['altreEntrate_cifraMensileAltreEntrate'].touched)"
+                            class="help is-danger">
+                            <span *ngIf="dataForm.controls['altreEntrate_cifraMensileAltreEntrate'].errors.required" style="color:red">Campo obbligatorio</span>
+                            <span *ngIf="dataForm.controls['altreEntrate_cifraMensileAltreEntrate'].errors.pattern" style="color:red">Formato non valido</span>
+                            </div>
                         </div>
                         <div class="col-12 col-sm-4">
                             <input type="text" formControlName="altreEntrate_descrizioneAltreEntrate">
                         </div>
                         <div class="col-12 col-sm-4">
                             <input type="text" formControlName="altreEntrate_progressivoAltreEntrate">
+                            <div *ngIf="dataForm.controls['altreEntrate_progressivoAltreEntrate'].invalid && (dataForm.controls['altreEntrate_progressivoAltreEntrate'].dirty || dataForm.controls['altreEntrate_progressivoAltreEntrate'].touched)"
+                            class="help is-danger">
+                            <span *ngIf="dataForm.controls['altreEntrate_progressivoAltreEntrate'].errors.required" style="color:red">Campo obbligatorio</span>
+                            <span *ngIf="dataForm.controls['altreEntrate_progressivoAltreEntrate'].errors.pattern" style="color:red">Formato non valido</span>
+                            </div>
                         </div>
                     </div>
 
@@ -229,12 +279,22 @@
                     <div class="row">
                         <div class="col-12 col-sm-4">
                             <input type="text" formControlName="altreUscite_cifraMensileAltreUscite">
+                            <div *ngIf="dataForm.controls['altreUscite_cifraMensileAltreUscite'].invalid && (dataForm.controls['altreUscite_cifraMensileAltreUscite'].dirty || dataForm.controls['altreUscite_cifraMensileAltreUscite'].touched)"
+                            class="help is-danger">
+                            <span *ngIf="dataForm.controls['altreUscite_cifraMensileAltreUscite'].errors.required" style="color:red">Campo obbligatorio</span>
+                            <span *ngIf="dataForm.controls['altreUscite_cifraMensileAltreUscite'].errors.pattern" style="color:red">Formato non valido</span>
+                            </div>
                         </div>
                         <div class="col-12 col-sm-4">
                             <input type="text" formControlName="altreUscite_descrizioneAltreUscite">
                         </div>
                         <div class="col-12 col-sm-4">
                             <input type="text" formControlName="altreUscite_progressivoAltreUscite">
+                            <div *ngIf="dataForm.controls['altreUscite_progressivoAltreUscite'].invalid && (dataForm.controls['altreUscite_progressivoAltreUscite'].dirty || dataForm.controls['altreUscite_progressivoAltreUscite'].touched)"
+                            class="help is-danger">
+                            <span *ngIf="dataForm.controls['altreUscite_progressivoAltreUscite'].errors.required" style="color:red">Campo obbligatorio</span>
+                            <span *ngIf="dataForm.controls['altreUscite_progressivoAltreUscite'].errors.pattern" style="color:red">Formato non valido</span>
+                            </div>
                         </div>
                     </div>
 
@@ -264,12 +324,22 @@
                     <div class="row">
                         <div class="col-12 col-sm-4">
                             <input type="text" formControlName="assegniMantEntrata_cifraMensileAssMantEntrata">
+                            <div *ngIf="dataForm.controls['assegniMantEntrata_cifraMensileAssMantEntrata'].invalid && (dataForm.controls['assegniMantEntrata_cifraMensileAssMantEntrata'].dirty || dataForm.controls['assegniMantEntrata_cifraMensileAssMantEntrata'].touched)"
+                            class="help is-danger">
+                            <span *ngIf="dataForm.controls['assegniMantEntrata_cifraMensileAssMantEntrata'].errors.required" style="color:red">Campo obbligatorio</span>
+                            <span *ngIf="dataForm.controls['assegniMantEntrata_cifraMensileAssMantEntrata'].errors.pattern" style="color:red">Formato non valido</span>
+                            </div>
                         </div>
                         <div class="col-12 col-sm-4">
                             <input type="text" formControlName="assegniMantEntrata_descrizioneAssMantEntrata">
                         </div>
                         <div class="col-12 col-sm-4">
                             <input type="text" formControlName="assegniMantEntrata_progressivoAssMantEntrata">
+                            <div *ngIf="dataForm.controls['assegniMantEntrata_progressivoAssMantEntrata'].invalid && (dataForm.controls['assegniMantEntrata_progressivoAssMantEntrata'].dirty || dataForm.controls['assegniMantEntrata_progressivoAssMantEntrata'].touched)"
+                            class="help is-danger">
+                            <span *ngIf="dataForm.controls['assegniMantEntrata_progressivoAssMantEntrata'].errors.required" style="color:red">Campo obbligatorio</span>
+                            <span *ngIf="dataForm.controls['assegniMantEntrata_progressivoAssMantEntrata'].errors.pattern" style="color:red">Formato non valido</span>
+                            </div>
                         </div>
                     </div>
 
@@ -299,12 +369,22 @@
                     <div class="row">
                         <div class="col-12 col-sm-4">
                             <input type="text" formControlName="assegniMantUscita_cifraMensileAssMantUscita">
+                            <div *ngIf="dataForm.controls['assegniMantUscita_cifraMensileAssMantUscita'].invalid && (dataForm.controls['assegniMantUscita_cifraMensileAssMantUscita'].dirty || dataForm.controls['assegniMantUscita_cifraMensileAssMantUscita'].touched)"
+                            class="help is-danger">
+                            <span *ngIf="dataForm.controls['assegniMantUscita_cifraMensileAssMantUscita'].errors.required" style="color:red">Campo obbligatorio</span>
+                            <span *ngIf="dataForm.controls['assegniMantUscita_cifraMensileAssMantUscita'].errors.pattern" style="color:red">Formato non valido</span>
+                            </div>
                         </div>
                         <div class="col-12 col-sm-4">
                             <input type="text" formControlName="assegniMantUscita_descrizioneAssMantUscita">
                         </div>
                         <div class="col-12 col-sm-4">
                             <input type="text" formControlName="assegniMantUscita_progressivoAssMantUscita">
+                            <div *ngIf="dataForm.controls['assegniMantUscita_progressivoAssMantUscita'].invalid && (dataForm.controls['assegniMantUscita_progressivoAssMantUscita'].dirty || dataForm.controls['assegniMantUscita_progressivoAssMantUscita'].touched)"
+                            class="help is-danger">
+                            <span *ngIf="dataForm.controls['assegniMantUscita_progressivoAssMantUscita'].errors.required" style="color:red">Campo obbligatorio</span>
+                            <span *ngIf="dataForm.controls['assegniMantUscita_progressivoAssMantUscita'].errors.pattern" style="color:red">Formato non valido</span>
+                            </div>
                         </div>
                     </div>
 
@@ -372,6 +452,11 @@
                         </div>
                         <div class="col-12 col-sm-4">
                             <input type="text" formControlName="immobile_mqImmobile">
+                            <div *ngIf="dataForm.controls['immobile_mqImmobile'].invalid && (dataForm.controls['immobile_mqImmobile'].dirty || dataForm.controls['immobile_mqImmobile'].touched)"
+                            class="help is-danger">
+                            <span *ngIf="dataForm.controls['immobile_mqImmobile'].errors.required" style="color:red">Campo obbligatorio</span>
+                            <span *ngIf="dataForm.controls['immobile_mqImmobile'].errors.pattern" style="color:red">Formato non valido</span>
+                            </div>
                         </div>
                     </div>
 
@@ -396,12 +481,27 @@
                     <div class="row">
                         <div class="col-12 col-sm-4">
                             <input type="text" formControlName="immobile_mutuoOriginario">
+                            <div *ngIf="dataForm.controls['immobile_mutuoOriginario'].invalid && (dataForm.controls['immobile_mutuoOriginario'].dirty || dataForm.controls['immobile_mutuoOriginario'].touched)"
+                            class="help is-danger">
+                            <span *ngIf="dataForm.controls['immobile_mutuoOriginario'].errors.required" style="color:red">Campo obbligatorio</span>
+                            <span *ngIf="dataForm.controls['immobile_mutuoOriginario'].errors.pattern" style="color:red">Formato non valido</span>
+                            </div>
                         </div>
                         <div class="col-12 col-sm-4">
                             <input type="text" formControlName="immobile_rataMutuoMensile">
+                            <div *ngIf="dataForm.controls['immobile_rataMutuoMensile'].invalid && (dataForm.controls['immobile_rataMutuoMensile'].dirty || dataForm.controls['immobile_rataMutuoMensile'].touched)"
+                            class="help is-danger">
+                            <span *ngIf="dataForm.controls['immobile_rataMutuoMensile'].errors.required" style="color:red">Campo obbligatorio</span>
+                            <span *ngIf="dataForm.controls['immobile_rataMutuoMensile'].errors.pattern" style="color:red">Formato non valido</span>
+                            </div>
                         </div>
                         <div class="col-12 col-sm-4">
                             <input type="text" formControlName="immobile_renditaLocazioneMensile">
+                            <div *ngIf="dataForm.controls['immobile_renditaLocazioneMensile'].invalid && (dataForm.controls['immobile_renditaLocazioneMensile'].dirty || dataForm.controls['immobile_renditaLocazioneMensile'].touched)"
+                            class="help is-danger">
+                            <span *ngIf="dataForm.controls['immobile_renditaLocazioneMensile'].errors.required" style="color:red">Campo obbligatorio</span>
+                            <span *ngIf="dataForm.controls['immobile_renditaLocazioneMensile'].errors.pattern" style="color:red">Formato non valido</span>
+                            </div>
                         </div>
                     </div>
 
@@ -431,6 +531,11 @@
                     <div class="row">
                         <div class="col-12 col-sm-3">
                             <input type="text" formControlName="immobile_residuoDebitoMutuo">
+                            <div *ngIf="dataForm.controls['immobile_residuoDebitoMutuo'].invalid && (dataForm.controls['immobile_residuoDebitoMutuo'].dirty || dataForm.controls['immobile_residuoDebitoMutuo'].touched)"
+                            class="help is-danger">
+                            <span *ngIf="dataForm.controls['immobile_residuoDebitoMutuo'].errors.required" style="color:red">Campo obbligatorio</span>
+                            <span *ngIf="dataForm.controls['immobile_residuoDebitoMutuo'].errors.pattern" style="color:red">Formato non valido</span>
+                            </div>
                         </div>
                         <div class="col-12 col-sm-3">
                             <input type="date" formControlName="immobile_scadenzaRata">
@@ -440,6 +545,11 @@
                         </div>
                         <div class="col-12 col-sm-3">
                             <input type="text" formControlName="immobile_valoreCommerciale">
+                            <div *ngIf="dataForm.controls['immobile_valoreCommerciale'].invalid && (dataForm.controls['immobile_valoreCommerciale'].dirty || dataForm.controls['immobile_valoreCommerciale'].touched)"
+                            class="help is-danger">
+                            <span *ngIf="dataForm.controls['immobile_valoreCommerciale'].errors.required" style="color:red">Campo obbligatorio</span>
+                            <span *ngIf="dataForm.controls['immobile_valoreCommerciale'].errors.pattern" style="color:red">Formato non valido</span>
+                            </div>
                         </div>
                     </div>
 
@@ -465,9 +575,19 @@
                     <div class="row">
                         <div class="col-12 col-sm-6">
                             <input type="text" formControlName="totaleUscitePerAffitti_rataAffittoMensile">
+                            <div *ngIf="dataForm.controls['totaleUscitePerAffitti_rataAffittoMensile'].invalid && (dataForm.controls['totaleUscitePerAffitti_rataAffittoMensile'].dirty || dataForm.controls['totaleUscitePerAffitti_rataAffittoMensile'].touched)"
+                            class="help is-danger">
+                            <span *ngIf="dataForm.controls['totaleUscitePerAffitti_rataAffittoMensile'].errors.required" style="color:red">Campo obbligatorio</span>
+                            <span *ngIf="dataForm.controls['totaleUscitePerAffitti_rataAffittoMensile'].errors.pattern" style="color:red">Formato non valido</span>
+                            </div>
                         </div>
                         <div class="col-12 col-sm-6">
                             <input type="text" formControlName="totaleUscitePerAffitti_rataCondominioMensile">
+                            <div *ngIf="dataForm.controls['totaleUscitePerAffitti_rataCondominioMensile'].invalid && (dataForm.controls['totaleUscitePerAffitti_rataCondominioMensile'].dirty || dataForm.controls['totaleUscitePerAffitti_rataCondominioMensile'].touched)"
+                            class="help is-danger">
+                            <span *ngIf="dataForm.controls['totaleUscitePerAffitti_rataCondominioMensile'].errors.required" style="color:red">Campo obbligatorio</span>
+                            <span *ngIf="dataForm.controls['totaleUscitePerAffitti_rataCondominioMensile'].errors.pattern" style="color:red">Formato non valido</span>
+                            </div>
                         </div>
                     </div>
 
@@ -535,6 +655,11 @@
                         </div>
                         <div class="col-12 col-sm-3">
                             <input type="text" formControlName="listaAltriFamiliari_cfAltriF">
+                            <div *ngIf="dataForm.controls['listaAltriFamiliari_cfAltriF'].invalid && (dataForm.controls['listaAltriFamiliari_cfAltriF'].dirty || dataForm.controls['listaAltriFamiliari_cfAltriF'].touched)"
+                            class="help is-danger">
+                            <span *ngIf="dataForm.controls['listaAltriFamiliari_cfAltriF'].errors.required" style="color:red">Campo obbligatorio</span>
+                            <span *ngIf="dataForm.controls['listaAltriFamiliari_cfAltriF'].errors.pattern" style="color:red">Formato non valido</span>
+                            </div>
                         </div>
                         <div class="col-12 col-sm-3">
                             <select name="Grado di parentela"
@@ -545,6 +670,11 @@
                         </div>
                         <div class="col-12 col-sm-3">
                             <input type="text" formControlName="listaAltriFamiliari_redditoMensileAltriF">
+                            <div *ngIf="dataForm.controls['listaAltriFamiliari_redditoMensileAltriF'].invalid && (dataForm.controls['listaAltriFamiliari_redditoMensileAltriF'].dirty || dataForm.controls['listaAltriFamiliari_redditoMensileAltriF'].touched)"
+                            class="help is-danger">
+                            <span *ngIf="dataForm.controls['listaAltriFamiliari_redditoMensileAltriF'].errors.required" style="color:red">Campo obbligatorio</span>
+                            <span *ngIf="dataForm.controls['listaAltriFamiliari_redditoMensileAltriF'].errors.pattern" style="color:red">Formato non valido</span>
+                            </div>
                         </div>
                     </div>
 
@@ -582,6 +712,11 @@
                             </div>
                             <div class="col-12 col-sm-4">
                                 <input type="text" formControlName="listaAttivitaClienteAut_numAnniAttivitaEsercitataCliAut">
+                                <div *ngIf="dataForm.controls['listaAttivitaClienteAut_numAnniAttivitaEsercitataCliAut'].invalid && (dataForm.controls['listaAttivitaClienteAut_numAnniAttivitaEsercitataCliAut'].dirty || dataForm.controls['listaAttivitaClienteAut_numAnniAttivitaEsercitataCliAut'].touched)"
+                            class="help is-danger">
+                            <span *ngIf="dataForm.controls['listaAttivitaClienteAut_numAnniAttivitaEsercitataCliAut'].errors.required" style="color:red">Campo obbligatorio</span>
+                            <span *ngIf="dataForm.controls['listaAttivitaClienteAut_numAnniAttivitaEsercitataCliAut'].errors.pattern" style="color:red">Formato non valido</span>
+                            </div>
                             </div>
                         </div>
     
@@ -613,9 +748,19 @@
                         <div class="row">
                             <div class="col-12 col-sm-3">
                                 <input type="text" formControlName="listaAttivitaClienteAut_numAnniEsercizioAttivitaCliAut">
+                                <div *ngIf="dataForm.controls['listaAttivitaClienteAut_numAnniEsercizioAttivitaCliAut'].invalid && (dataForm.controls['listaAttivitaClienteAut_numAnniEsercizioAttivitaCliAut'].dirty || dataForm.controls['listaAttivitaClienteAut_numAnniEsercizioAttivitaCliAut'].touched)"
+                            class="help is-danger">
+                            <span *ngIf="dataForm.controls['listaAttivitaClienteAut_numAnniEsercizioAttivitaCliAut'].errors.required" style="color:red">Campo obbligatorio</span>
+                            <span *ngIf="dataForm.controls['listaAttivitaClienteAut_numAnniEsercizioAttivitaCliAut'].errors.pattern" style="color:red">Formato non valido</span>
+                            </div>
                             </div>
                             <div class="col-12 col-sm-3">
                                 <input type="text" formControlName="listaAttivitaClienteAut_redditoAnnuoCliAut">
+                                <div *ngIf="dataForm.controls['listaAttivitaClienteAut_redditoAnnuoCliAut'].invalid && (dataForm.controls['listaAttivitaClienteAut_redditoAnnuoCliAut'].dirty || dataForm.controls['listaAttivitaClienteAut_redditoAnnuoCliAut'].touched)"
+                            class="help is-danger">
+                            <span *ngIf="dataForm.controls['listaAttivitaClienteAut_redditoAnnuoCliAut'].errors.required" style="color:red">Campo obbligatorio</span>
+                            <span *ngIf="dataForm.controls['listaAttivitaClienteAut_redditoAnnuoCliAut'].errors.pattern" style="color:red">Formato non valido</span>
+                            </div>
                             </div>
                             <div class="col-12 col-sm-3">
                                 <select name="AttivitaClienteSub"
@@ -630,29 +775,19 @@
                                         <option value="AGRICOLTORE E ALTRE ATTIVITA’ DI LAVORO AUTONOMO) ">AGRICOLTORE E ALTRE ATTIVITA’ DI LAVORO AUTONOMO) </option>
                                 </select>                                
                                 
-                                <!-- <input type="text" formControlName="listaAttivitaClienteAut_tipoLavoratoreCliAut"> -->
                             </div>
                             <div class="col-12 col-sm-3">
                                 <input type="text" formControlName="listaAttivitaClienteAut_redditoMensileRetCliAut">
+                                <div *ngIf="dataForm.controls['listaAttivitaClienteAut_redditoMensileRetCliAut'].invalid && (dataForm.controls['listaAttivitaClienteAut_redditoMensileRetCliAut'].dirty || dataForm.controls['listaAttivitaClienteAut_redditoMensileRetCliAut'].touched)"
+                            class="help is-danger">
+                            <span *ngIf="dataForm.controls['listaAttivitaClienteAut_redditoMensileRetCliAut'].errors.required" style="color:red">Campo obbligatorio</span>
+                            <span *ngIf="dataForm.controls['listaAttivitaClienteAut_redditoMensileRetCliAut'].errors.pattern" style="color:red">Formato non valido</span>
+                            </div>
                             </div>
                         </div>
                     </div>
 
-                   <!-- <h6>Cliente Disoccupato</h6>
-                    <div>
-                        <div class="row">
-                            <div class="col-12 col-sm-12">
-                                <label> Tipologia Lavoratore
-                                </label>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-12 col-sm-12">
-                                <input type="text" formControlName="listaAttivitaClienteDis_tipoLavoratoreCliDis">
-                            </div>
-                        </div>
-                    </div> -->
-
+                   
                     <div>
                         <h6>Cliente Subordinato</h6>
 
@@ -680,9 +815,19 @@
                             </div>
                             <div class="col-12 col-sm-4">
                                 <input type="text" formControlName="listaAttivitaClienteSub_numMensilitaRetCliSub">   
+                                <div *ngIf="dataForm.controls['listaAttivitaClienteSub_numMensilitaRetCliSub'].invalid && (dataForm.controls['listaAttivitaClienteSub_numMensilitaRetCliSub'].dirty || dataForm.controls['listaAttivitaClienteSub_numMensilitaRetCliSub'].touched)"
+                            class="help is-danger">
+                            <span *ngIf="dataForm.controls['listaAttivitaClienteSub_numMensilitaRetCliSub'].errors.required" style="color:red">Campo obbligatorio</span>
+                            <span *ngIf="dataForm.controls['listaAttivitaClienteSub_numMensilitaRetCliSub'].errors.pattern" style="color:red">Formato non valido</span>
+                            </div>
                             </div>
                             <div class="col-12 col-sm-4">
                                 <input type="text" formControlName="listaAttivitaClienteSub_redditoMensileCliSub">
+                                <div *ngIf="dataForm.controls['listaAttivitaClienteSub_redditoMensileCliSub'].invalid && (dataForm.controls['listaAttivitaClienteSub_redditoMensileCliSub'].dirty || dataForm.controls['listaAttivitaClienteSub_redditoMensileCliSub'].touched)"
+                            class="help is-danger">
+                            <span *ngIf="dataForm.controls['listaAttivitaClienteSub_redditoMensileCliSub'].errors.required" style="color:red">Campo obbligatorio</span>
+                            <span *ngIf="dataForm.controls['listaAttivitaClienteSub_redditoMensileCliSub'].errors.pattern" style="color:red">Formato non valido</span>
+                            </div>
                             </div>
                         </div>
 
@@ -697,16 +842,17 @@
                                     Tipologia Contratto                                     
                                 </label>
                             </div>
-                            <!-- <div class="col-12 col-sm-4">
-                                <label>
-                                    Tipologia Lavoratore 
-                                </label>
-                            </div> -->
+
                         </div>
     
                         <div class="row">
                             <div class="col-12 col-sm-6">
                                 <input type="text" formControlName="listaAttivitaClienteSub_redditoMensileRettificato">
+                                <div *ngIf="dataForm.controls['listaAttivitaClienteSub_redditoMensileRettificato'].invalid && (dataForm.controls['listaAttivitaClienteSub_redditoMensileRettificato'].dirty || dataForm.controls['listaAttivitaClienteSub_redditoMensileRettificato'].touched)"
+                            class="help is-danger">
+                            <span *ngIf="dataForm.controls['listaAttivitaClienteSub_redditoMensileRettificato'].errors.required" style="color:red">Campo obbligatorio</span>
+                            <span *ngIf="dataForm.controls['listaAttivitaClienteSub_redditoMensileRettificato'].errors.pattern" style="color:red">Formato non valido</span>
+                            </div>
                             </div>
                             <div class="col-12 col-sm-6">
                                 <select name="AttivitaClienteSub"
@@ -717,9 +863,6 @@
                                         <option value="PT - Tempo determinato">PT - Tempo determinato</option>
                                 </select>                                
                             </div>
-                           <!-- <div class="col-12 col-sm-4">
-                                <input type="text" formControlName="listaAttivitaClienteSub_tipoLavoratoreCliSub">
-                            </div>-->
                         </div>
                     </div>
 
@@ -757,6 +900,11 @@
                             </div>
                             <div class="col-12 col-sm-4">
                                 <input type="text" formControlName="listaAttivitaConiugeAut_numAnniAttivitaEsercitataConAut">
+                                <div *ngIf="dataForm.controls['listaAttivitaConiugeAut_numAnniAttivitaEsercitataConAut'].invalid && (dataForm.controls['listaAttivitaConiugeAut_numAnniAttivitaEsercitataConAut'].dirty || dataForm.controls['listaAttivitaConiugeAut_numAnniAttivitaEsercitataConAut'].touched)"
+                            class="help is-danger">
+                            <span *ngIf="dataForm.controls['listaAttivitaConiugeAut_numAnniAttivitaEsercitataConAut'].errors.required" style="color:red">Campo obbligatorio</span>
+                            <span *ngIf="dataForm.controls['listaAttivitaConiugeAut_numAnniAttivitaEsercitataConAut'].errors.pattern" style="color:red">Formato non valido</span>
+                            </div>
                             </div>
                         </div>
 
@@ -782,9 +930,19 @@
                         <div class="row">
                             <div class="col-12 col-sm-4">
                                 <input type="text" formControlName="listaAttivitaConiugeAut_numAnniEsercizioAttivitaConAut">
+                                <div *ngIf="dataForm.controls['listaAttivitaConiugeAut_numAnniEsercizioAttivitaConAut'].invalid && (dataForm.controls['listaAttivitaConiugeAut_numAnniEsercizioAttivitaConAut'].dirty || dataForm.controls['listaAttivitaConiugeAut_numAnniEsercizioAttivitaConAut'].touched)"
+                            class="help is-danger">
+                            <span *ngIf="dataForm.controls['listaAttivitaConiugeAut_numAnniEsercizioAttivitaConAut'].errors.required" style="color:red">Campo obbligatorio</span>
+                            <span *ngIf="dataForm.controls['listaAttivitaConiugeAut_numAnniEsercizioAttivitaConAut'].errors.pattern" style="color:red">Formato non valido</span>
+                            </div>
                             </div>
                             <div class="col-12 col-sm-4">
-                                <input type="text" formControlName="listaAttivitaConiugeAut_redditoAnnuoConAut">                  
+                                <input type="text" formControlName="listaAttivitaConiugeAut_redditoAnnuoConAut">   
+                                <div *ngIf="dataForm.controls['listaAttivitaConiugeAut_redditoAnnuoConAut'].invalid && (dataForm.controls['listaAttivitaConiugeAut_redditoAnnuoConAut'].dirty || dataForm.controls['listaAttivitaConiugeAut_redditoAnnuoConAut'].touched)"
+                            class="help is-danger">
+                            <span *ngIf="dataForm.controls['listaAttivitaConiugeAut_redditoAnnuoConAut'].errors.required" style="color:red">Campo obbligatorio</span>
+                            <span *ngIf="dataForm.controls['listaAttivitaConiugeAut_redditoAnnuoConAut'].errors.pattern" style="color:red">Formato non valido</span>
+                            </div>               
                             </div>
                             <div class="col-12 col-sm-4">
                                 <select name="AttivitaClienteSub"
@@ -798,7 +956,6 @@
                                 <option value="IMPRENDITORE (SOCIETA’ DI CAPITALI)">IMPRENDITORE (SOCIETA’ DI CAPITALI)</option>
                                 <option value="AGRICOLTORE E ALTRE ATTIVITA’ DI LAVORO AUTONOMO) ">AGRICOLTORE E ALTRE ATTIVITA’ DI LAVORO AUTONOMO) </option>
                         </select>       
-                                <!-- <input type="text" formControlName="listaAttivitaConiugeAut_tipoLavoratoreConAut"> -->
                             </div>
                         </div>
 
@@ -811,21 +968,7 @@
                         
                     </div>
 
-                    <!-- <div>
-                        <h6>Coniuge Disoccupato</h6>
-
-                        <div class="row">
-                            <div class="col-12 col-sm-12">
-                                <label> Tipologia Lavoratore 
-                            </label>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-12 col-sm-12">
-                                <input type="text" formControlName="listaAttivitaConiugeDis_tipoLavoratoreConDis">
-                            </div>
-                        </div>
-                    </div>-->
+                   
 
                     <div>
                         <h6>Coniuge Subordinato</h6>
@@ -848,7 +991,12 @@
                                 <input type="text" formControlName="listaAttivitaConiugeSub_attivitaConSub">
                             </div>
                             <div class="col-12 col-sm-6">
-                                <input type="text" formControlName="listaAttivitaConiugeSub_numMensilitaRetConSub">              
+                                <input type="text" formControlName="listaAttivitaConiugeSub_numMensilitaRetConSub">  
+                                <div *ngIf="dataForm.controls['listaAttivitaConiugeSub_numMensilitaRetConSub'].invalid && (dataForm.controls['listaAttivitaConiugeSub_numMensilitaRetConSub'].dirty || dataForm.controls['listaAttivitaConiugeSub_numMensilitaRetConSub'].touched)"
+                            class="help is-danger">
+                            <span *ngIf="dataForm.controls['listaAttivitaConiugeSub_numMensilitaRetConSub'].errors.required" style="color:red">Campo obbligatorio</span>
+                            <span *ngIf="dataForm.controls['listaAttivitaConiugeSub_numMensilitaRetConSub'].errors.pattern" style="color:red">Formato non valido</span>
+                            </div>               
                             </div>
                         </div>
 
@@ -863,16 +1011,16 @@
                                     Tipologia contratto                                    
                                 </label>
                             </div>
-                            <!-- <div class="col-12 col-sm-4">
-                                <label>
-                                    Tipologia Lavoratore 
-                                </label>
-                            </div> -->
                         </div>
     
                         <div class="row">
                             <div class="col-12 col-sm-6">
                                 <input type="text" formControlName="listaAttivitaConiugeSub_redditoAnnuoConSub">
+                                <div *ngIf="dataForm.controls['listaAttivitaConiugeSub_redditoAnnuoConSub'].invalid && (dataForm.controls['listaAttivitaConiugeSub_redditoAnnuoConSub'].dirty || dataForm.controls['listaAttivitaConiugeSub_redditoAnnuoConSub'].touched)"
+                            class="help is-danger">
+                            <span *ngIf="dataForm.controls['listaAttivitaConiugeSub_redditoAnnuoConSub'].errors.required" style="color:red">Campo obbligatorio</span>
+                            <span *ngIf="dataForm.controls['listaAttivitaConiugeSub_redditoAnnuoConSub'].errors.pattern" style="color:red">Formato non valido</span>
+                            </div>   
                             </div>
                             <div class="col-12 col-sm-6">
                                 <select name="AttivitaConiugeSub"
@@ -883,9 +1031,7 @@
                                         <option value="PT - Tempo determinato">PT - Tempo determinato</option>
                                     </select>         
                             </div>
-                            <!-- <div class="col-12 col-sm-4">
-                                <input type="text" formControlName="listaAttivitaConiugeSub_tipoLavoratoreConSub">             
-                            </div> -->
+                            
                         </div>
                         
                         
@@ -904,6 +1050,11 @@
                         <div class="row">
                             <div class="col-12 col-sm-12">
                                 <input type="text" formControlName="redditiFamiliariMensili">
+                                <div *ngIf="dataForm.controls['redditiFamiliariMensili'].invalid && (dataForm.controls['redditiFamiliariMensili'].dirty || dataForm.controls['redditiFamiliariMensili'].touched)"
+                            class="help is-danger">
+                            <span *ngIf="dataForm.controls['redditiFamiliariMensili'].errors.required" style="color:red">Campo obbligatorio</span>
+                            <span *ngIf="dataForm.controls['redditiFamiliariMensili'].errors.pattern" style="color:red">Formato non valido</span>
+                            </div>   
                             </div>
                         </div>
 
@@ -936,7 +1087,12 @@
                                 <input type="date" formControlName="trattenutaBustaPagaCliente_csqCliente_dataScadenzaCSQCli">
                             </div>
                             <div class="col-12 col-sm-4">
-                                <input type="text" formControlName="trattenutaBustaPagaCliente_csqCliente_rataCSQCli">      
+                                <input type="text" formControlName="trattenutaBustaPagaCliente_csqCliente_rataCSQCli">
+                                <div *ngIf="dataForm.controls['trattenutaBustaPagaCliente_csqCliente_rataCSQCli'].invalid && (dataForm.controls['trattenutaBustaPagaCliente_csqCliente_rataCSQCli'].dirty || dataForm.controls['trattenutaBustaPagaCliente_csqCliente_rataCSQCli'].touched)"
+                            class="help is-danger">
+                            <span *ngIf="dataForm.controls['trattenutaBustaPagaCliente_csqCliente_rataCSQCli'].errors.required" style="color:red">Campo obbligatorio</span>
+                            <span *ngIf="dataForm.controls['trattenutaBustaPagaCliente_csqCliente_rataCSQCli'].errors.pattern" style="color:red">Formato non valido</span>
+                            </div>        
                             </div>
                         </div>
 
@@ -972,6 +1128,11 @@
                             </div>
                             <div class="col-12 col-sm-4">
                                 <input type="text" formControlName="trattenutaBustaPagaCliente_delegaCliente_rataDelegaCli">    
+                                <div *ngIf="dataForm.controls['trattenutaBustaPagaCliente_delegaCliente_rataDelegaCli'].invalid && (dataForm.controls['trattenutaBustaPagaCliente_delegaCliente_rataDelegaCli'].dirty || dataForm.controls['trattenutaBustaPagaCliente_delegaCliente_rataDelegaCli'].touched)"
+                            class="help is-danger">
+                            <span *ngIf="dataForm.controls['trattenutaBustaPagaCliente_delegaCliente_rataDelegaCli'].errors.required" style="color:red">Campo obbligatorio</span>
+                            <span *ngIf="dataForm.controls['trattenutaBustaPagaCliente_delegaCliente_rataDelegaCli'].errors.pattern" style="color:red">Formato non valido</span>
+                            </div>     
                             </div>
                         </div>
                     
@@ -1004,7 +1165,12 @@
                             </div>
                             <div class="col-12 col-sm-4">
                                 <input type="text"
-                                formControlName="trattenutaBustaPagaCliente_pignoramentoCliente_rataPignoramentoCli">    
+                                formControlName="trattenutaBustaPagaCliente_pignoramentoCliente_rataPignoramentoCli">
+                                <div *ngIf="dataForm.controls['trattenutaBustaPagaCliente_pignoramentoCliente_rataPignoramentoCli'].invalid && (dataForm.controls['trattenutaBustaPagaCliente_pignoramentoCliente_rataPignoramentoCli'].dirty || dataForm.controls['trattenutaBustaPagaCliente_pignoramentoCliente_rataPignoramentoCli'].touched)"
+                            class="help is-danger">
+                            <span *ngIf="dataForm.controls['trattenutaBustaPagaCliente_pignoramentoCliente_rataPignoramentoCli'].errors.required" style="color:red">Campo obbligatorio</span>
+                            <span *ngIf="dataForm.controls['trattenutaBustaPagaCliente_pignoramentoCliente_rataPignoramentoCli'].errors.pattern" style="color:red">Formato non valido</span>
+                            </div>       
                             </div>
                         </div>
                     </div>
@@ -1043,6 +1209,11 @@
                             <div class="col-12 col-sm-4">
                                 <input type="text"
                                 formControlName="trattenutaBustaPagaCon_csq_rataCSQCon">
+                                <div *ngIf="dataForm.controls['trattenutaBustaPagaCon_csq_rataCSQCon'].invalid && (dataForm.controls['trattenutaBustaPagaCon_csq_rataCSQCon'].dirty || dataForm.controls['trattenutaBustaPagaCon_csq_rataCSQCon'].touched)"
+                                class="help is-danger">
+                                <span *ngIf="dataForm.controls['trattenutaBustaPagaCon_csq_rataCSQCon'].errors.required" style="color:red">Campo obbligatorio</span>
+                                <span *ngIf="dataForm.controls['trattenutaBustaPagaCon_csq_rataCSQCon'].errors.pattern" style="color:red">Formato non valido</span>
+                                </div>   
                             </div>
                         </div>
                         
@@ -1078,6 +1249,11 @@
                             <div class="col-12 col-sm-4">
                                 <input type="text"
                                 formControlName="trattenutaBustaPagaCon_delega_rataDelegaCon">
+                                <div *ngIf="dataForm.controls['trattenutaBustaPagaCon_delega_rataDelegaCon'].invalid && (dataForm.controls['trattenutaBustaPagaCon_delega_rataDelegaCon'].dirty || dataForm.controls['trattenutaBustaPagaCon_delega_rataDelegaCon'].touched)"
+                                class="help is-danger">
+                                <span *ngIf="dataForm.controls['trattenutaBustaPagaCon_delega_rataDelegaCon'].errors.required" style="color:red">Campo obbligatorio</span>
+                                <span *ngIf="dataForm.controls['trattenutaBustaPagaCon_delega_rataDelegaCon'].errors.pattern" style="color:red">Formato non valido</span>
+                                </div>   
                             </div>
                         </div>
 
@@ -1111,6 +1287,11 @@
                             <div class="col-12 col-sm-4">
                                 <input type="text"
                                 formControlName="trattenutaBustaPagaCon_pignoramento_rataPignoramentoCon">
+                                <div *ngIf="dataForm.controls['trattenutaBustaPagaCon_pignoramento_rataPignoramentoCon'].invalid && (dataForm.controls['trattenutaBustaPagaCon_pignoramento_rataPignoramentoCon'].dirty || dataForm.controls['trattenutaBustaPagaCon_delega_rataDelegaCon'].touched)"
+                                class="help is-danger">
+                                <span *ngIf="dataForm.controls['trattenutaBustaPagaCon_pignoramento_rataPignoramentoCon'].errors.required" style="color:red">Campo obbligatorio</span>
+                                <span *ngIf="dataForm.controls['trattenutaBustaPagaCon_pignoramento_rataPignoramentoCon'].errors.pattern" style="color:red">Formato non valido</span>
+                                </div>   
                             </div>
                         </div>
                     </div>
@@ -1177,9 +1358,19 @@
                         <div class="row">
                             <div class="col-12 col-sm-4">
                                 <input type="text" formControlName="listaCreditori_valoreDebito">
+                                <div *ngIf="dataForm.controls['listaCreditori_valoreDebito'].invalid && (dataForm.controls['listaCreditori_valoreDebito'].dirty || dataForm.controls['listaCreditori_valoreDebito'].touched)"
+                                class="help is-danger">
+                                <span *ngIf="dataForm.controls['listaCreditori_valoreDebito'].errors.required" style="color:red">Campo obbligatorio</span>
+                                <span *ngIf="dataForm.controls['listaCreditori_valoreDebito'].errors.pattern" style="color:red">Formato non valido</span>
+                                </div>  
                             </div>
                             <div class="col-12 col-sm-4">
                                 <input type="text" formControlName="listaCreditori_rataMensile">
+                                <div *ngIf="dataForm.controls['listaCreditori_rataMensile'].invalid && (dataForm.controls['listaCreditori_rataMensile'].dirty || dataForm.controls['listaCreditori_rataMensile'].touched)"
+                                class="help is-danger">
+                                <span *ngIf="dataForm.controls['listaCreditori_rataMensile'].errors.required" style="color:red">Campo obbligatorio</span>
+                                <span *ngIf="dataForm.controls['listaCreditori_rataMensile'].errors.pattern" style="color:red">Formato non valido</span>
+                                </div>  
                             </div>
                             <div class="col-12 col-sm-4">
                                 <select name="RegimePatrimoniale" formControlName="listaCreditori_obbligatorio">
@@ -1211,9 +1402,19 @@
                             </div>
                             <div class="col-12 col-sm-4">
                                 <input type="text" formControlName="importoTransattivo">
+                                <div *ngIf="dataForm.controls['importoTransattivo'].invalid && (dataForm.controls['importoTransattivo'].dirty || dataForm.controls['importoTransattivo'].touched)"
+                                class="help is-danger">
+                                <span *ngIf="dataForm.controls['importoTransattivo'].errors.required" style="color:red">Campo obbligatorio</span>
+                                <span *ngIf="dataForm.controls['importoTransattivo'].errors.pattern" style="color:red">Formato non valido</span>
+                                </div>
                             </div>
                             <div class="col-12 col-sm-4">
                                 <input type="text" formControlName="rataTransattivaCreditore">
+                                <div *ngIf="dataForm.controls['rataTransattivaCreditore'].invalid && (dataForm.controls['rataTransattivaCreditore'].dirty || dataForm.controls['rataTransattivaCreditore'].touched)"
+                                class="help is-danger">
+                                <span *ngIf="dataForm.controls['rataTransattivaCreditore'].errors.required" style="color:red">Campo obbligatorio</span>
+                                <span *ngIf="dataForm.controls['rataTransattivaCreditore'].errors.pattern" style="color:red">Formato non valido</span>
+                                </div>
                             </div>
                         </div>
 
@@ -1228,26 +1429,7 @@
 
                     </div>
 
-                    <!-- <div>
-                        <h5>Riepilogo Creditori</h5>
-                        <label>Debito Complessivo: <input type="text"
-                                formControlName="riepilogoCreditori_montanteDebitorioComplessivo">
-                        </label>
-                        <label>Debito Secured: <input type="text"
-                                formControlName="riepilogoCreditori_montanteDebitorioSecured">
-                        </label>
-                        <label> Debito Unsecured: <input type="text"
-                                formControlName="riepilogoCreditori_montanteDebitorioUnsecured">
-                        </label>
-                        <label> Totale Rata Creditore: <input type="text"
-                                formControlName="riepilogoCreditori_totaleRataCreditore">
-                        </label>
-                    </div>
-                    -->
-
-
-
-
+        
                 </div>
 
 
