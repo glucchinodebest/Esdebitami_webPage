@@ -13,15 +13,28 @@
                         <label> Username </label>
                     </div>
                     <div class="row">
-                        <input type="text" formControlName="username" > 
+                        <input  type="text" required formControlName="username" > 
                     </div>
+
+                    <div class="row">
+                        <label id="usernameRequired">
+                            {{usernameRequired}}
+                        </label>
+                    </div>
+
 
                     <div class="row">
                         <label> Password </label>
                     </div>
 
                     <div class="row">
-                        <input type="password" formControlName="password" >
+                        <input type="password" required formControlName="password"  >
+                    </div>
+
+                    <div class="row">
+                        <label id="passwordRequired">
+                            {{passwordRequired}}
+                        </label>
                     </div>
 
                     <div class="row">
