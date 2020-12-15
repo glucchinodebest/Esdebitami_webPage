@@ -29,7 +29,7 @@ export class ResultPageComponent implements OnInit {
 
       console.log(this.payload);
 
-      if (this.segmentazioneClienti.datiEconomici != null) {
+      if (this.segmentazioneClienti.datiEconomici != null && this.segmentazioneClienti.datiEconomiciSegmentazione!=null) {
 
         this.elementsSegmentazione = [
 
@@ -43,6 +43,19 @@ export class ResultPageComponent implements OnInit {
 
           { idSeg: 'Totale redditi Altri familiari', firstSeg: (this.segmentazioneClienti.datiEconomici.totaleRedditiAltriFamiliari == null ? "-" : this.segmentazioneClienti.datiEconomici.totaleRedditiAltriFamiliari) },
           { idSeg: 'Totale redditi mensili familiari', firstSeg: (this.segmentazioneClienti.datiEconomici.totaleRedditiMensiliFamiliari == null ? "-" : this.segmentazioneClienti.datiEconomici.totaleRedditiMensiliFamiliari) },
+        
+          { idSeg: 'Profilo rischio', firstSeg: (this.segmentazioneClienti.datiEconomiciSegmentazione.profiloRischio == null ? "-" : this.segmentazioneClienti.datiEconomiciSegmentazione.profiloRischio) },
+          { idSeg: 'Quota non pignorabile', firstSeg: (this.segmentazioneClienti.datiEconomiciSegmentazione.quotaNonPignorabile == null ? "-" : this.segmentazioneClienti.datiEconomiciSegmentazione.quotaNonPignorabile) },
+          { idSeg: 'Reddito complessivo', firstSeg: (this.segmentazioneClienti.datiEconomiciSegmentazione.redditoComplessivo == null ? "-" : this.segmentazioneClienti.datiEconomiciSegmentazione.redditoComplessivo) },
+          { idSeg: 'Totale rata CSQ cliente', firstSeg: (this.segmentazioneClienti.datiEconomiciSegmentazione.totaleRataCQSCli == null ? "-" : this.segmentazioneClienti.datiEconomiciSegmentazione.totaleRataCQSCli) },
+          { idSeg: 'Totale rata CSQ coniuge', firstSeg: (this.segmentazioneClienti.datiEconomiciSegmentazione.totaleRataCQSCon == null ? "-" : this.segmentazioneClienti.datiEconomiciSegmentazione.totaleRataCQSCon) },
+          { idSeg: 'Totale rata delega cliente', firstSeg: (this.segmentazioneClienti.datiEconomiciSegmentazione.totaleRataDelegaCli == null ? "-" : this.segmentazioneClienti.datiEconomiciSegmentazione.totaleRataDelegaCli) },
+          { idSeg: 'Totale rata delega coniuge', firstSeg: (this.segmentazioneClienti.datiEconomiciSegmentazione.totaleRataDelegaCon == null ? "-" : this.segmentazioneClienti.datiEconomiciSegmentazione.totaleRataDelegaCon) },
+          { idSeg: 'Totale rata mensile mutuo', firstSeg: (this.segmentazioneClienti.datiEconomiciSegmentazione.totaleRataMensileMutuo == null ? "-" : this.segmentazioneClienti.datiEconomiciSegmentazione.totaleRataMensileMutuo) },
+          { idSeg: 'Totale rata pignoramento cliente', firstSeg: (this.segmentazioneClienti.datiEconomiciSegmentazione.totaleRataPignoramentoCli == null ? "-" : this.segmentazioneClienti.datiEconomiciSegmentazione.totaleRataPignoramentoCli) },
+          { idSeg: 'Totale rata pignoramento coniuge', firstSeg: (this.segmentazioneClienti.datiEconomiciSegmentazione.totaleRataPignoramentoCon == null ? "-" : this.segmentazioneClienti.datiEconomiciSegmentazione.totaleRataPignoramentoCon) },
+
+        
         ];
       } else {
         this.elementsSegmentazione = [
@@ -58,6 +71,17 @@ export class ResultPageComponent implements OnInit {
           { idSeg: 'Totale Piano Competenze Upfront', firstSeg: "-" },
 
           { idSeg: 'Success Fee Globale', firstSeg: "-" },
+          { idSeg: 'Profilo rischio', firstSeg: "-" },
+          { idSeg: 'Quota non pignorabile', firstSeg: "-" },
+          { idSeg: 'Reddito complessivo', firstSeg: "-" },
+          { idSeg: 'Totale rata CSQ cliente', firstSeg: "-" },
+          { idSeg: 'Totale rata CSQ coniuge', firstSeg: "-" },
+          { idSeg: 'Totale rata delega cliente', firstSeg: "-" },
+          { idSeg: 'Totale rata delega coniuge', firstSeg: "-" },
+          { idSeg: 'Totale rata mensile mutuo', firstSeg: "-" },
+          { idSeg: 'Totale rata pignoramento cliente', firstSeg: "-" },
+          { idSeg: 'Totale rata pignoramento coniuge', firstSeg: "-" },
+
         ];
       }
 
