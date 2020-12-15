@@ -80,6 +80,15 @@
         font-weight: 400;
         color: #fff;
     }
+    button[disabled]{
+        width: 40%;
+        padding: 10px;
+        border: none;
+        background: #666;
+        font-size: 16px;
+        font-weight: 400;
+        color: #fff;
+    }
 
     button:hover {
         background: #2371a0;
