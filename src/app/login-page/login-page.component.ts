@@ -9,22 +9,28 @@ import { Router } from '@angular/router';
 })
 export class LoginPageComponent implements OnInit {
 
-  constructor(public router : Router) { }
+  constructor(public router: Router) { }
 
 
   ngOnInit(): void {
   }
 
 
+  public name:any;
+
   loginForm = new FormGroup({
-    username : new FormControl(''),
-    password : new FormControl('')
+    username: new FormControl(''),
+    password: new FormControl('')
   });
 
 
 
-  onLogin(){
-    this.router.navigate(['/dashBoard'])
+  onLogin() {
+    if (this.loginForm.get('username').value === 'esdebitami' && this.loginForm.get('password').value === 'esdebitami') {
+      this.router.navigate(['/dashBoard'])
+    } else {
+      this.name = "Credenziali errate";
+    }
   }
 
 }
