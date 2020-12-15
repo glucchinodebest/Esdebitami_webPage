@@ -41,27 +41,27 @@ export class EsdebitamiDashboardComponent implements OnInit {
     cliente_statoCivile: new FormControl(''),
 
     //coniuge
-    coniuge_cf: new FormControl('',[Validators.required,Validators.pattern("^[a-zA-Z0-9]*$")]),
+    coniuge_cf: new FormControl('',[Validators.pattern("^[a-zA-Z0-9]*$")]),
 
     //altreEntrate^(?!,$)[\d,.]+$
-    altreEntrate_cifraMensileAltreEntrate: new FormControl('',[Validators.required,Validators.pattern("^[0-9,.]+$")]),
+    altreEntrate_cifraMensileAltreEntrate: new FormControl('',[Validators.pattern("^[0-9,.]+$")]),
     altreEntrate_descrizioneAltreEntrate: new FormControl(''),
-    altreEntrate_progressivoAltreEntrate: new FormControl('',[Validators.required,Validators.pattern("^[0-9,.]+$")]),
+    altreEntrate_progressivoAltreEntrate: new FormControl('',[Validators.pattern("^[0-9,.]+$")]),
 
     //altreUscite
-    altreUscite_cifraMensileAltreUscite: new FormControl('',[Validators.required,Validators.pattern("^[0-9,.]+$")]),
+    altreUscite_cifraMensileAltreUscite: new FormControl('',[Validators.pattern("^[0-9,.]+$")]),
     altreUscite_descrizioneAltreUscite: new FormControl(''),
-    altreUscite_progressivoAltreUscite: new FormControl('',[Validators.required,Validators.pattern("^[0-9,.]+$")]),
+    altreUscite_progressivoAltreUscite: new FormControl('',[Validators.pattern("^[0-9,.]+$")]),
 
     //assegniMantenimentoEntrata
-    assegniMantEntrata_cifraMensileAssMantEntrata: new FormControl('',[Validators.required,Validators.pattern("^[0-9,.]+$")]),
+    assegniMantEntrata_cifraMensileAssMantEntrata: new FormControl('',[Validators.pattern("^[0-9,.]+$")]),
     assegniMantEntrata_descrizioneAssMantEntrata: new FormControl(''),
-    assegniMantEntrata_progressivoAssMantEntrata: new FormControl('',[Validators.required,Validators.pattern("^[0-9,.]+$")]),
+    assegniMantEntrata_progressivoAssMantEntrata: new FormControl('',[Validators.pattern("^[0-9,.]+$")]),
 
     //assegniMantenimentoUscita
-    assegniMantUscita_cifraMensileAssMantUscita: new FormControl('',[Validators.required,Validators.pattern("^[0-9,.]+$")]),
+    assegniMantUscita_cifraMensileAssMantUscita: new FormControl('',[Validators.pattern("^[0-9,.]+$")]),
     assegniMantUscita_descrizioneAssMantUscita: new FormControl(''),
-    assegniMantUscita_progressivoAssMantUscita: new FormControl('',[Validators.required,Validators.pattern("^[0-9,.]+$")]),
+    assegniMantUscita_progressivoAssMantUscita: new FormControl('',[Validators.pattern("^[0-9,.]+$")]),
 
     //immobile
     immobile_bancaMutuante: new FormControl(''),
@@ -69,35 +69,35 @@ export class EsdebitamiDashboardComponent implements OnInit {
     immobile_descrizioneImmobile: new FormControl(''),
     immobile_flPrimaCasa: new FormControl(''),
     immobile_localita: new FormControl(''),
-    immobile_mqImmobile: new FormControl('',[Validators.required,Validators.pattern("^[0-9,.]+$")]),
-    immobile_mutuoOriginario:new FormControl('',[Validators.required,Validators.pattern("^[0-9,.]+$")]),
-    immobile_rataMutuoMensile: new FormControl('',[Validators.required,Validators.pattern("^[0-9,.]+$")]),
-    immobile_renditaLocazioneMensile: new FormControl('',[Validators.required,Validators.pattern("^[0-9,.]+$")]),
-    immobile_residuoDebitoMutuo: new FormControl('',[Validators.required,Validators.pattern("^[0-9,.]+$")]),
+    immobile_mqImmobile: new FormControl('',[Validators.pattern("^[0-9,.]+$")]),
+    immobile_mutuoOriginario:new FormControl('',[Validators.pattern("^[0-9,.]+$")]),
+    immobile_rataMutuoMensile: new FormControl('',[,Validators.pattern("^[0-9,.]+$")]),
+    immobile_renditaLocazioneMensile: new FormControl('',[Validators.pattern("^[0-9,.]+$")]),
+    immobile_residuoDebitoMutuo: new FormControl('',[Validators.pattern("^[0-9,.]+$")]),
     immobile_scadenzaRata: new FormControl(''),
     immobile_tipoImmobile: new FormControl(''),
-    immobile_valoreCommerciale: new FormControl('',[Validators.required,Validators.pattern("^[0-9,.]+$")]),
+    immobile_valoreCommerciale: new FormControl('',[Validators.pattern("^[0-9,.]+$")]),
 
     //totaleUscitePerAffitti
-    totaleUscitePerAffitti_rataAffittoMensile: new FormControl('',[Validators.required,Validators.pattern("^[0-9,.]+$")]),
-    totaleUscitePerAffitti_rataCondominioMensile:new FormControl('',[Validators.required,Validators.pattern("^[0-9,.]+$")]),
+    totaleUscitePerAffitti_rataAffittoMensile: new FormControl('',[Validators.pattern("^[0-9,.]+$")]),
+    totaleUscitePerAffitti_rataCondominioMensile:new FormControl('',[Validators.pattern("^[0-9,.]+$")]),
 
     //altriFamiliari
-    listaAltriFamiliari_cfAltriF: new FormControl('',[Validators.required,Validators.pattern("^[a-zA-Z0-9]*$")]),
+    listaAltriFamiliari_cfAltriF: new FormControl('',[Validators.pattern("^[a-zA-Z0-9]*$")]),
     listaAltriFamiliari_cittaNascitaAltriF: new FormControl(''),
     listaAltriFamiliari_cognomeAltriF: new FormControl(''),
     listaAltriFamiliari_dataNascitaAltriF: new FormControl(''),
     listaAltriFamiliari_gradoParentelaAltriF: new FormControl(''),
     listaAltriFamiliari_nomeAltriF: new FormControl(''),
-    listaAltriFamiliari_redditoMensileAltriF: new FormControl('',[Validators.required,Validators.pattern("^[0-9,.]+$")]),
+    listaAltriFamiliari_redditoMensileAltriF: new FormControl('',[Validators.pattern("^[0-9,.]+$")]),
 
     //attività cliente Autonomo
     listaAttivitaClienteAut_attivitaCliAut: new FormControl(''),
-    listaAttivitaClienteAut_redditoMensileRetCliAut:  new FormControl('',[Validators.required,Validators.pattern("^[0-9,.]+$")]),
+    listaAttivitaClienteAut_redditoMensileRetCliAut:  new FormControl('',[Validators.pattern("^[0-9,.]+$")]),
     listaAttivitaClienteAut_descrizioneAttivitaCliAut: new FormControl(''),
-    listaAttivitaClienteAut_numAnniAttivitaEsercitataCliAut: new FormControl('',[Validators.required,Validators.pattern("^[0-9,.]+$")]),
-    listaAttivitaClienteAut_numAnniEsercizioAttivitaCliAut: new FormControl('',[Validators.required,Validators.pattern("^[0-9,.]+$")]),
-    listaAttivitaClienteAut_redditoAnnuoCliAut: new FormControl('',[Validators.required,Validators.pattern("^[0-9,.]+$")]),
+    listaAttivitaClienteAut_numAnniAttivitaEsercitataCliAut: new FormControl('',[Validators.pattern("^[0-9,.]+$")]),
+    listaAttivitaClienteAut_numAnniEsercizioAttivitaCliAut: new FormControl('',[Validators.pattern("^[0-9,.]+$")]),
+    listaAttivitaClienteAut_redditoAnnuoCliAut: new FormControl('',[Validators.pattern("^[0-9,.]+$")]),
     listaAttivitaClienteAut_tipoLavoratoreCliAut: new FormControl(''),
 
     //attività cliente Dis
@@ -105,18 +105,18 @@ export class EsdebitamiDashboardComponent implements OnInit {
 
     //attività cliente sub
     listaAttivitaClienteSub_attivitaCliSub: new FormControl(''),
-    listaAttivitaClienteSub_numMensilitaRetCliSub: new FormControl('',[Validators.required,Validators.pattern("^[0-9,.]+$")]),
-    listaAttivitaClienteSub_redditoMensileCliSub: new FormControl('',[Validators.required,Validators.pattern("^[0-9,.]+$")]),
-    listaAttivitaClienteSub_redditoMensileRettificato: new FormControl('',[Validators.required,Validators.pattern("^[0-9,.]+$")]),
+    listaAttivitaClienteSub_numMensilitaRetCliSub: new FormControl('',[Validators.pattern("^[0-9,.]+$")]),
+    listaAttivitaClienteSub_redditoMensileCliSub: new FormControl('',[Validators.pattern("^[0-9,.]+$")]),
+    listaAttivitaClienteSub_redditoMensileRettificato: new FormControl('',[Validators.pattern("^[0-9,.]+$")]),
     listaAttivitaClienteSub_tipoContrattoCliSub: new FormControl(''),
     listaAttivitaClienteSub_tipoLavoratoreCliSub: new FormControl(''),
 
     //attività Coniuge aut
     listaAttivitaConiugeAut_attivitaConAut: new FormControl(''),
     listaAttivitaConiugeAut_descrizioneAttivitaConAut: new FormControl(''),
-    listaAttivitaConiugeAut_numAnniAttivitaEsercitataConAut: new FormControl('',[Validators.required,Validators.pattern("^[0-9,.]+$")]),
-    listaAttivitaConiugeAut_numAnniEsercizioAttivitaConAut: new FormControl('',[Validators.required,Validators.pattern("^[0-9,.]+$")]),
-    listaAttivitaConiugeAut_redditoAnnuoConAut: new FormControl('',[Validators.required,Validators.pattern("^[0-9,.]+$")]),
+    listaAttivitaConiugeAut_numAnniAttivitaEsercitataConAut: new FormControl('',[Validators.pattern("^[0-9,.]+$")]),
+    listaAttivitaConiugeAut_numAnniEsercizioAttivitaConAut: new FormControl('',[Validators.pattern("^[0-9,.]+$")]),
+    listaAttivitaConiugeAut_redditoAnnuoConAut: new FormControl('',[Validators.pattern("^[0-9,.]+$")]),
     listaAttivitaConiugeAut_tipoLavoratoreConAut: new FormControl(''),
 
     //attività coniuge Dis
@@ -124,43 +124,43 @@ export class EsdebitamiDashboardComponent implements OnInit {
 
     //attività coniuge sub
     listaAttivitaConiugeSub_attivitaConSub: new FormControl(''),
-    listaAttivitaConiugeSub_numMensilitaRetConSub: new FormControl('',[Validators.required,Validators.pattern("^[0-9,.]+$")]),
-    listaAttivitaConiugeSub_redditoAnnuoConSub: new FormControl('',[Validators.required,Validators.pattern("^[0-9,.]+$")]),
+    listaAttivitaConiugeSub_numMensilitaRetConSub: new FormControl('',[Validators.pattern("^[0-9,.]+$")]),
+    listaAttivitaConiugeSub_redditoAnnuoConSub: new FormControl('',[Validators.pattern("^[0-9,.]+$")]),
     listaAttivitaConiugeSub_tipoContrattoConSub: new FormControl(''),
     listaAttivitaConiugeSub_tipoLavoratoreConSub: new FormControl(''),
 
     // redditi familiari mensili
-    redditiFamiliariMensili: new FormControl('',[Validators.required,Validators.pattern("^[0-9,.]+$")]),
+    redditiFamiliariMensili: new FormControl('',[Validators.pattern("^[0-9,.]+$")]),
 
     //trattenuta busta paga CSQ cliente
     trattenutaBustaPagaCliente_csqCliente_dataInizioCSQCli: new FormControl(''),
     trattenutaBustaPagaCliente_csqCliente_dataScadenzaCSQCli: new FormControl(''),
-    trattenutaBustaPagaCliente_csqCliente_rataCSQCli: new FormControl('',[Validators.required,Validators.pattern("^[0-9,.]+$")]),
+    trattenutaBustaPagaCliente_csqCliente_rataCSQCli: new FormControl('',[Validators.pattern("^[0-9,.]+$")]),
 
     //trattenuta busta paga delega cliente
     trattenutaBustaPagaCliente_delegaCliente_dataInizioDelegaCli: new FormControl(''),
     trattenutaBustaPagaCliente_delegaCliente_dataScadenzaDelegaCli: new FormControl(''),
-    trattenutaBustaPagaCliente_delegaCliente_rataDelegaCli: new FormControl('',[Validators.required,Validators.pattern("^[0-9,.]+$")]),
+    trattenutaBustaPagaCliente_delegaCliente_rataDelegaCli: new FormControl('',[Validators.pattern("^[0-9,.]+$")]),
 
     //trattenuta busta paga pignoramento cliente
     trattenutaBustaPagaCliente_pignoramentoCliente_dataInizioPignoramentoCli: new FormControl(''),
     trattenutaBustaPagaCliente_pignoramentoCliente_dataScadenzaPignoramentoCli: new FormControl(''),
-    trattenutaBustaPagaCliente_pignoramentoCliente_rataPignoramentoCli: new FormControl('',[Validators.required,Validators.pattern("^[0-9,.]+$")]),
+    trattenutaBustaPagaCliente_pignoramentoCliente_rataPignoramentoCli: new FormControl('',[Validators.pattern("^[0-9,.]+$")]),
 
     //trattenuta busta paga CSQ coniuge
     trattenutaBustaPagaCon_csq_dataInizioCSQCon: new FormControl(''),
     trattenutaBustaPagaCon_csq_dataScadenzaCSQCon: new FormControl(''),
-    trattenutaBustaPagaCon_csq_rataCSQCon: new FormControl('',[Validators.required,Validators.pattern("^[0-9,.]+$")]),
+    trattenutaBustaPagaCon_csq_rataCSQCon: new FormControl('',[Validators.pattern("^[0-9,.]+$")]),
 
     //trattenuta busta paga delega coniuge
     trattenutaBustaPagaCon_delega_dataInizioDelegaCon: new FormControl(''),
     trattenutaBustaPagaCon_delega_dataScadenzaDelegaCon: new FormControl(''),
-    trattenutaBustaPagaCon_delega_rataDelegaCon: new FormControl('',[Validators.required,Validators.pattern("^[0-9,.]+$")]),
+    trattenutaBustaPagaCon_delega_rataDelegaCon: new FormControl('',[Validators.pattern("^[0-9,.]+$")]),
 
     //trattenuta busta paga pignoramento coniuge
     trattenutaBustaPagaCon_pignoramento_dataInizioPignoramentoCon: new FormControl(''),
     trattenutaBustaPagaCon_pignoramento_dataScadenzaPignoramentoCon: new FormControl(''),
-    trattenutaBustaPagaCon_pignoramento_rataPignoramentoCon: new FormControl('',[Validators.required,Validators.pattern("^[0-9,.]+$")]),
+    trattenutaBustaPagaCon_pignoramento_rataPignoramentoCon: new FormControl('',[Validators.pattern("^[0-9,.]+$")]),
 
     //lista creditori
     listaCreditori_coefficiente: new FormControl(''),
@@ -168,10 +168,10 @@ export class EsdebitamiDashboardComponent implements OnInit {
     listaCreditori_nomeCreditore: new FormControl(''),
     listaCreditori_obbligatorio: new FormControl(''),
     listaCreditori_posizioneTecnica: new FormControl(''),
-    listaCreditori_rataMensile: new FormControl('',[Validators.required,Validators.pattern("^[0-9,.]+$")]),
-    listaCreditori_valoreDebito: new FormControl('',[Validators.required,Validators.pattern("^[0-9,.]+$")]),
-    importoTransattivo:new FormControl('',[Validators.required,Validators.pattern("^[0-9,.]+$")]),
-    rataTransattivaCreditore:new FormControl('',[Validators.required,Validators.pattern("^[0-9,.]+$")]),
+    listaCreditori_rataMensile: new FormControl('',[Validators.pattern("^[0-9,.]+$")]),
+    listaCreditori_valoreDebito: new FormControl('',[Validators.pattern("^[0-9,.]+$")]),
+    importoTransattivo:new FormControl('',[Validators.pattern("^[0-9,.]+$")]),
+    rataTransattivaCreditore:new FormControl('',[Validators.pattern("^[0-9,.]+$")]),
 
     //riepilogo creditori
     riepilogoCreditori_montanteDebitorioComplessivo: new FormControl(''),
