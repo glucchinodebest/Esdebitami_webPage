@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, FormsModule, Validators } from '@angular/forms';
 import { ApiRestService } from '../../servicesRest/api-rest.service'
 import * as XLSX from 'xlsx';

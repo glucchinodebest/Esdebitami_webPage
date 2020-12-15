@@ -17,20 +17,26 @@
     </span>
 
 
+    
+
+
     <span class="border">
         <div class="col-12">
-            <form [formGroup]="dataForm">
 
+        <accordion>
+            <form [formGroup]="dataForm">     
                 <div class="text-center">
-                    <h3>Dati Nucleo Familiare</h3>
+ 
+                <accordion-group heading="Dati Nucleo Familiare">
+
 
                     <div class="row">
-                        <div class="col-12 col-sm-6">
+                        <div class="col-12 col-sm-4 offset-sm-2">
                             <label>
                                 Nome
                             </label>
                         </div>
-                        <div class="col-12 col-sm-6">
+                        <div class="col-12 col-sm-4">
                             <label>
                                 Cognome
                             </label>
@@ -38,14 +44,14 @@
                     </div>
 
                     <div class="row">
-                        <div class="col-12 col-sm-6">
+                        <div class="col-12 col-sm-4 offset-sm-2">
                             <input type="text" formControlName="anagrafica_nome">
                             <div *ngIf="dataForm.controls['anagrafica_nome'].invalid && (dataForm.controls['anagrafica_nome'].dirty || dataForm.controls['anagrafica_nome'].touched)"
                             class="help is-danger">
                             <span *ngIf="dataForm.controls['anagrafica_nome'].errors.pattern" style="color:red">Formato non valido</span>
                             </div>
                         </div>
-                        <div class="col-12 col-sm-6">
+                        <div class="col-12 col-sm-4">
                             <input type="text" formControlName="anagrafica_cognome">
                             <div *ngIf="dataForm.controls['anagrafica_cognome'].invalid && (dataForm.controls['anagrafica_cognome'].dirty || dataForm.controls['anagrafica_cognome'].touched)"
                             class="help is-danger">
@@ -192,61 +198,61 @@
                             </select>
                         </div>
                     </div>
-                </div>
+            </accordion-group> 
 
 
 
 
+                
 
-                <div class="text-center">
-                    <h3>Entrate - Uscite</h3>
-
-                    <h5>Entrate Mensili</h5>
-
-
-                    <div class="row">
-                        <div class="col-12 col-sm-4">
-                            <label>
-                                Altre Entrate Mensili :
-                            </label>
-                        </div>
-                        <div class="col-12 col-sm-4">
-                            <label>
-                                Descrizione Altre Entrate :
-                            </label>
-                        </div>
-                        <div class="col-12 col-sm-4">
-                            <label>
-                                Progressivo Altre Entrate :
-                            </label>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-12 col-sm-4">
-                            <input type="text" formControlName="altreEntrate_cifraMensileAltreEntrate">
-                            <div *ngIf="dataForm.controls['altreEntrate_cifraMensileAltreEntrate'].invalid && (dataForm.controls['altreEntrate_cifraMensileAltreEntrate'].dirty || dataForm.controls['altreEntrate_cifraMensileAltreEntrate'].touched)"
-                            class="help is-danger">
-                            <span *ngIf="dataForm.controls['altreEntrate_cifraMensileAltreEntrate'].errors.pattern" style="color:red">Formato non valido</span>
+                    <accordion-group heading="Entrate Mensili ">
+                        <div class="row">
+                            <div class="col-12 col-sm-4">
+                                <label>
+                                    Altre Entrate Mensili :
+                                </label>
+                            </div>
+                            <div class="col-12 col-sm-4">
+                                <label>
+                                    Descrizione Altre Entrate :
+                                </label>
+                            </div>
+                            <div class="col-12 col-sm-4">
+                                <label>
+                                    Progressivo Altre Entrate :
+                                </label>
                             </div>
                         </div>
-                        <div class="col-12 col-sm-4">
-                            <input type="text" formControlName="altreEntrate_descrizioneAltreEntrate">
-                        </div>
-                        <div class="col-12 col-sm-4">
-                            <input type="text" formControlName="altreEntrate_progressivoAltreEntrate">
-                            <div *ngIf="dataForm.controls['altreEntrate_progressivoAltreEntrate'].invalid && (dataForm.controls['altreEntrate_progressivoAltreEntrate'].dirty || dataForm.controls['altreEntrate_progressivoAltreEntrate'].touched)"
-                            class="help is-danger">
-                            <span *ngIf="dataForm.controls['altreEntrate_progressivoAltreEntrate'].errors.pattern" style="color:red">Formato non valido</span>
+    
+                        <div class="row">
+                            <div class="col-12 col-sm-4">
+                                <input type="text" formControlName="altreEntrate_cifraMensileAltreEntrate">
+                                <div *ngIf="dataForm.controls['altreEntrate_cifraMensileAltreEntrate'].invalid && (dataForm.controls['altreEntrate_cifraMensileAltreEntrate'].dirty || dataForm.controls['altreEntrate_cifraMensileAltreEntrate'].touched)"
+                                class="help is-danger">
+                                <span *ngIf="dataForm.controls['altreEntrate_cifraMensileAltreEntrate'].errors.pattern" style="color:red">Formato non valido</span>
+                                </div>
+                            </div>
+                            <div class="col-12 col-sm-4">
+                                <input type="text" formControlName="altreEntrate_descrizioneAltreEntrate">
+                            </div>
+                            <div class="col-12 col-sm-4">
+                                <input type="text" formControlName="altreEntrate_progressivoAltreEntrate">
+                                <div *ngIf="dataForm.controls['altreEntrate_progressivoAltreEntrate'].invalid && (dataForm.controls['altreEntrate_progressivoAltreEntrate'].dirty || dataForm.controls['altreEntrate_progressivoAltreEntrate'].touched)"
+                                class="help is-danger">
+                                <span *ngIf="dataForm.controls['altreEntrate_progressivoAltreEntrate'].errors.pattern" style="color:red">Formato non valido</span>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    </accordion-group>
+
+
+
 
 
                     
                    
 
-                    <h5>Uscite Mensili</h5>
+                <accordion-group heading="Uscite Mensili">
                    
                     <div class="row">
                         <div class="col-12 col-sm-4">
@@ -285,11 +291,12 @@
                             </div>
                         </div>
                     </div>
+                </accordion-group>
 
                     
 
 
-                    <h5>Assegni Mantenimento In Entrata</h5>
+                <accordion-group heading="Assegni Mantenimento In Entrata">
 
                     <div class="row">
                         <div class="col-12 col-sm-4">
@@ -328,10 +335,11 @@
                             </div>
                         </div>
                     </div>
+                </accordion-group>
 
 
 
-                    <h5>Assegni Mantenimento In Uscita</h5>
+                <accordion-group heading="Assegni Mantenimento In Uscita">   
 
 
                     <div class="row">
@@ -371,10 +379,11 @@
                             </div>
                         </div>
                     </div>
+                </accordion-group>
 
 
-
-                    <h5>Dati Immobile</h5>
+                <accordion-group heading="Dati Immobile"> 
+                    
 
                     <div class="row">
                         <div class="col-12 col-sm-4">
@@ -530,12 +539,11 @@
                             </div>
                         </div>
                     </div>
-
+                </accordion-group>
 
  
 
-
-                    <h5>Uscite Per Affitti</h5>
+                <accordion-group heading="Uscite Per Affitti"> 
 
                     <div class="row">
                         <div class="col-12 col-sm-6">
@@ -566,9 +574,10 @@
                             </div>
                         </div>
                     </div>
-
+                </accordion-group>
                     
-                    <h5>Dati Altri Familiari</h5>
+                <accordion-group heading="Dati Altri Familiari"> 
+                    
 
                     <div class="row">
                         <div class="col-12 col-sm-4">
@@ -599,8 +608,6 @@
                             <input type="date" formControlName="listaAltriFamiliari_dataNascitaAltriF">
                         </div>
                     </div>
-
-
 
                     <div class="row">
                         <div class="col-12 col-sm-3">
@@ -651,12 +658,11 @@
                             </div>
                         </div>
                     </div>
+                </accordion-group>
 
-
-                    <h5>Dati Attività</h5>
-
+                <accordion-group heading="Cliente Autonomo"> 
+                
                     <div>
-                        <h6>Cliente Autonomo</h6>
 
 
                         <div class="row">
@@ -756,10 +762,11 @@
                             </div>
                         </div>
                     </div>
-
+                </accordion-group>
                    
+            
+                <accordion-group heading="Cliente Subordinato"> 
                     <div>
-                        <h6>Cliente Subordinato</h6>
 
                         <div class="row">
                             <div class="col-12 col-sm-4">
@@ -832,12 +839,11 @@
                             </div>
                         </div>
                     </div>
+                </accordion-group>
 
 
-
-
+                <accordion-group heading="Coniuge Autonomo"> 
                     <div>
-                        <h6>Coniuge Autonomo</h6>
 
 
                         <div class="row">
@@ -931,11 +937,11 @@
                         
                         
                     </div>
-
+                </accordion-group>
                    
 
+                <accordion-group heading="Coniuge Subordinato"> 
                     <div>
-                        <h6>Coniuge Subordinato</h6>
 
                         <div class="row">
                             <div class="col-12 col-sm-6">
@@ -998,10 +1004,10 @@
                         
                         
                     </div>
+                </accordion-group>
 
-
+                <accordion-group heading="Redditi Familiari Mensili">
                     <div>
-                        <h5>Redditi Familiari Mensili</h5>
 
                         <div class="row">
                             <div class="col-12 col-sm-12">
@@ -1022,10 +1028,11 @@
 
                        
                     </div>
+                </accordion-group>
 
-                    <div>
-                        <h5>Trattenute Busta Paga Cliente</h5>
-                        <h6>CSQ</h6>
+                <accordion-group heading="Trattenute Busta Paga Cliente CSQ">
+
+                        <h5></h5>
                         <div class="row">
                             <div class="col-12 col-sm-4">
                                 <label> Data Inizio
@@ -1057,14 +1064,14 @@
                             </div>        
                             </div>
                         </div>
+                </accordion-group>
 
                         
                         
-                        
+                <accordion-group heading="Trattenute Busta Paga Cliente Delega">      
 
 
 
-                        <h6>Delega</h6>
 
                         <div class="row">
                             <div class="col-12 col-sm-4">
@@ -1097,10 +1104,11 @@
                             </div>     
                             </div>
                         </div>
+                    </accordion-group> 
                     
 
+                    <accordion-group heading="Trattenute Busta Paga Cliente Pignoramento">
 
-                        <h6>Pignoramento</h6>
                         <div class="row">
                             <div class="col-12 col-sm-4">
                                 <label> Data Inizio
@@ -1135,15 +1143,14 @@
                             </div>       
                             </div>
                         </div>
-                    </div>
+                    </accordion-group>
 
 
 
 
+                    <accordion-group heading="Trattenute Busta Paga Coniuge CSQ">
 
-                    <div>
-                        <h5>Trattenute Busta Paga Coniuge</h5>
-                        <h6>CSQ</h6>
+
                         <div class="row">
                             <div class="col-12 col-sm-4">
                                 <label> Data Inizio
@@ -1178,11 +1185,11 @@
                                 </div>   
                             </div>
                         </div>
+                    </accordion-group>  
+
+
+                    <accordion-group heading="Trattenute Busta Paga Coniuge Delega">
                         
-
-
-
-                        <h6>Delega</h6>
 
                         <div class="row">
                             <div class="col-12 col-sm-4">
@@ -1218,9 +1225,9 @@
                                 </div>   
                             </div>
                         </div>
+                    </accordion-group>  
 
-
-                        <h6>Pignoramento</h6>
+                    <accordion-group heading="Trattenute Busta Paga Coniuge Pignoramento">
 
                         <div class="row">
                             <div class="col-12 col-sm-4">
@@ -1256,10 +1263,10 @@
                                 </div>   
                             </div>
                         </div>
-                    </div>
+                    </accordion-group>  
 
+                    <accordion-group heading="Lista Creditori">
                     <div>
-                        <h5>Lista Creditori</h5>
                         <div class="row">
                             <div class="col-12 col-sm-4">
                                 <label> Nome Creditore 
@@ -1390,12 +1397,14 @@
                         
 
                     </div>
-
+                </accordion-group> 
         
                 </div>
 
 
             </form>
+        </accordion>
+
 
         </div>
 

@@ -8,6 +8,8 @@ import { EsdebitamiDashboardComponent } from './esdebitami-dashboard/esdebitami-
 import { HttpClientModule} from '@angular/common/http';
 import { LoginPageComponent } from './login-page/login-page.component';
 import { ResultPageComponent } from './result-page/result-page.component';
+import { AccordionModule } from 'ngx-bootstrap/accordion';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -21,7 +23,9 @@ import { ResultPageComponent } from './result-page/result-page.component';
     AppRoutingModule,
     ReactiveFormsModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    BrowserAnimationsModule,
+    AccordionModule.forRoot(),
   ],
   providers: [],
   bootstrap: [AppComponent]
