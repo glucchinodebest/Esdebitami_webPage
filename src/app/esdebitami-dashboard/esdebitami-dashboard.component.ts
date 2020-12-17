@@ -510,7 +510,7 @@ export class EsdebitamiDashboardComponent implements OnInit {
                 listaAttivitaConiugePens: [{
                     id: 0,
                     numMensilitaConPens: 10,
-                    redditoAnnuoConPens: 8000,
+                    redditoAnnuoConPens: 0,
                     tipoContrattoConPens: "SUBORDINATO",
                     tipoLavoratoreConPens: "PENSIONATO"
                 }],
@@ -524,35 +524,35 @@ export class EsdebitamiDashboardComponent implements OnInit {
                 }],
                 listaTrattenutaCliente: [{
                   csqCliente: {
-                    dataInizioCSQCli: this.dataForm.get('trattenutaBustaPagaCliente_csqCliente_dataInizioCSQCli').value,
-                    dataScadenzaCSQCli: this.dataForm.get('trattenutaBustaPagaCliente_csqCliente_dataScadenzaCSQCli').value,
+                    dataInizioCSQCli: this.dataForm.get('trattenutaBustaPagaCliente_csqCliente_dataInizioCSQCli').value +"T00:00:00.004Z",
+                    dataScadenzaCSQCli: this.dataForm.get('trattenutaBustaPagaCliente_csqCliente_dataScadenzaCSQCli').value+"T00:00:00.004Z",
                     rataCSQCli: parseInt(this.dataForm.get('trattenutaBustaPagaCliente_csqCliente_rataCSQCli').value)
                   },
                   delegaCliente: {
-                    dataInizioDelegaCli: this.dataForm.get('trattenutaBustaPagaCliente_delegaCliente_dataInizioDelegaCli').value,
-                    dataScadenzaDelegaCli: this.dataForm.get('trattenutaBustaPagaCliente_delegaCliente_dataScadenzaDelegaCli').value,
+                    dataInizioDelegaCli: this.dataForm.get('trattenutaBustaPagaCliente_delegaCliente_dataInizioDelegaCli').value+"T00:00:00.004Z",
+                    dataScadenzaDelegaCli:null,// this.dataForm.get('trattenutaBustaPagaCliente_delegaCliente_dataScadenzaDelegaCli').value+"T00:00:00.004Z",
                     rataDelegaCli: parseInt(this.dataForm.get('trattenutaBustaPagaCliente_delegaCliente_rataDelegaCli').value)
                   },
                   pignoramentoCliente: {
-                    dataInizioPignoramentoCli: this.dataForm.get('trattenutaBustaPagaCliente_pignoramentoCliente_dataInizioPignoramentoCli').value,
-                    dataScadenzaPignoramentoCli: this.dataForm.get('trattenutaBustaPagaCliente_pignoramentoCliente_dataScadenzaPignoramentoCli').value,
+                    dataInizioPignoramentoCli: this.dataForm.get('trattenutaBustaPagaCliente_pignoramentoCliente_dataInizioPignoramentoCli').value+"T00:00:00.004Z",
+                    dataScadenzaPignoramentoCli:null,// this.dataForm.get('trattenutaBustaPagaCliente_pignoramentoCliente_dataScadenzaPignoramentoCli').value+"T00:00:00.004Z",
                     rataPignoramentoCli: parseInt(this.dataForm.get('trattenutaBustaPagaCliente_pignoramentoCliente_rataPignoramentoCli').value)
                   }
                 }],
                 listaTrattenutaConiuge: [{
                   csqConiuge: {
-                    dataInizioCSQCon: this.dataForm.get('trattenutaBustaPagaCon_csq_dataInizioCSQCon').value,
-                    dataScadenzaCSQCon: this.dataForm.get('trattenutaBustaPagaCon_csq_dataScadenzaCSQCon').value,
+                    dataInizioCSQCon: this.dataForm.get('trattenutaBustaPagaCon_csq_dataInizioCSQCon').value+"T00:00:00.004Z",
+                    dataScadenzaCSQCon: null,//this.dataForm.get('trattenutaBustaPagaCon_csq_dataScadenzaCSQCon').value+"T00:00:00.004Z",
                     rataCSQCon: parseInt(this.dataForm.get('trattenutaBustaPagaCon_csq_rataCSQCon').value)
                   },
                   delegaConiuge: {
-                    dataInizioDelegaCon: this.dataForm.get('trattenutaBustaPagaCon_delega_dataInizioDelegaCon').value,
-                    dataScadenzaDelegaCon: this.dataForm.get('trattenutaBustaPagaCon_delega_dataScadenzaDelegaCon').value,
+                    dataInizioDelegaCon: this.dataForm.get('trattenutaBustaPagaCon_delega_dataInizioDelegaCon').value+"T00:00:00.004Z",
+                    dataScadenzaDelegaCon: null,//this.dataForm.get('trattenutaBustaPagaCon_delega_dataScadenzaDelegaCon').value+"T00:00:00.004Z",
                     rataDelegaCon: parseInt(this.dataForm.get('trattenutaBustaPagaCon_delega_rataDelegaCon').value)
                   },
                   pignoramentoConiuge: {
-                    dataInizioPignoramentoCon: this.dataForm.get('trattenutaBustaPagaCon_pignoramento_dataInizioPignoramentoCon').value,
-                    dataScadenzaPignoramentoCon:this.dataForm.get('trattenutaBustaPagaCon_pignoramento_dataScadenzaPignoramentoCon').value,
+                    dataInizioPignoramentoCon: this.dataForm.get('trattenutaBustaPagaCon_pignoramento_dataInizioPignoramentoCon').value+"T00:00:00.004Z",
+                    dataScadenzaPignoramentoCon:null,//this.dataForm.get('trattenutaBustaPagaCon_pignoramento_dataScadenzaPignoramentoCon').value+"T00:00:00.004Z",
                     rataPignoramentoCon: parseInt(this.dataForm.get('trattenutaBustaPagaCon_pignoramento_rataPignoramentoCon').value)
                   }
                 }]
@@ -571,16 +571,17 @@ export class EsdebitamiDashboardComponent implements OnInit {
             }
             ],
             upfrontSegmentazione: {
-                durataPianoCompetenzeUpfront: 0,
-                flagUpfront: false,
-                importoRataPianoCompetenzeUpfront: 305,
-                meseInizioPianoCompetenzeUpfront: 0,
-                numeroRatePianoCompetenzeUpfront: 5,
-                successFeeGlobale: 0.0,
-                totalePianoCompetenzeUpfront: 1025
+              flagUpfront: true,
+              importoRataPianoCompetenzeUpfront: 305,
+              numeroRatePianoCompetenzeUpfront: 5,
+              successFeeGlobale: 0.0,
+              totalePianoCompetenzeUpfront: 1025
             }
         }
     }
+
+    console.log(json);
+    
       
 
   

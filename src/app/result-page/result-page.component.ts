@@ -18,6 +18,8 @@ export class ResultPageComponent implements OnInit {
   segmentazioneClienti: any
   elementsSegmentazione: any
   elementsSchedaCliente: any
+  elementsEstinzioneDebito: any;
+  headElementsDeb = ['Mesi Estinzione', 'Rate Simulazione', 'Residuo Montante'];
 
   constructor() {
     this.payload = JSON.parse(localStorage.getItem('valutazioneCliente'));
@@ -26,6 +28,7 @@ export class ResultPageComponent implements OnInit {
     if (this.payload != null) {
       this.schedaCliente = this.payload.schedaCliente;
       this.segmentazioneClienti = this.payload.segmentazioneClienti;
+      this.elementsEstinzioneDebito = this.segmentazioneClienti ? this.segmentazioneClienti.listaDettaglioEstinzioneDebito : [];
 
       console.log(this.payload);
 

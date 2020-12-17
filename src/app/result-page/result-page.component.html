@@ -5,7 +5,6 @@
 </div>
 
 <div class="row">
-    <div class="col-12 col-sm-1"></div>
     <div class="col-12 col-sm-4">
         <table mdbTable>
             <thead>
@@ -20,10 +19,8 @@
                 </tr>
             </tbody>
         </table>
+        
     </div>
-    <div class="col-12 col-sm-1"></div>
-
-    <div class="col-12 col-sm-1"></div>
     <div class="col-12 col-sm-4">
         <table mdbTable>
             <thead>
@@ -40,6 +37,26 @@
                 </tr>
             </tbody>
         </table>
+    </div>
+
+    <div class="col-12 col-sm-4">
+        
+
+        <table class="table" >
+            <thead>
+              <tr>
+                <th *ngFor="let headDeb of headElementsDeb" scope="col">{{headDeb}} </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let elSeg of elementsEstinzioneDebito">
+                <th scope="row">{{elSeg.mesiEstinzione}}</th>
+                <td>{{elSeg.rateSimulazioneEstinzione}}</td>
+                <td>{{elSeg.residuoMontante}}</td>
+              </tr>
+            </tbody>
+          </table>
+
     </div>
     <div class="col-12 col-sm-1"></div>
 </div>
