@@ -381,6 +381,240 @@ export class EsdebitamiDashboardComponent implements OnInit {
     };
     
     var json =
+    /*{
+      "applicationKey": "RSlFAKnFaP",
+      "requestKey": "RSlFAKnFaP",
+      "requestType": "SYNC",
+      "schedaCliente": {
+          "anagrafica": {
+              "cf": "cf cliente",
+              "classeDomicilio": "ZONA A"
+          },
+          "datiEconomici": {
+              "cliente": {
+                  "familiariCarico": 3,
+                  "figliConviventi": 2,
+                  "figliConviventiMinori": 1,
+                  "flagPensionato": true,
+                  "nucleoFamiliare": 5,
+                  "regimePatrimoniale": ""
+              },
+              "coniuge": {
+                  "cf": "cf coniuge"
+              },
+              "entrateUscite": {
+                  "altreEntrate": [{
+                      "cifraMensileAltreEntrate": 200,
+                      "descrizioneAltreEntrate": "pensione genitore cliente",
+                      "id": 0,
+                      "progressivoAltreEntrate": 2
+                  }],
+                  "altreUscite": [{
+                      "cifraMensileAltreUscite": 300,
+                      "descrizioneAltreUscite": "assicurazione efis",
+                      "id": 0,
+                      "progressivoAltreUscite": 3
+                  }],
+                  "assegniMantEntrata": [{
+                      "cifraMensileAssMantEntrata": 400,
+                      "descrizioneAssMantEntrata": "quota associativa mensile scout cngei",
+                      "id": 0,
+                      "progressivoAssMantEntrata": 14
+                  }],
+                  "assegniMantUscita": [{
+                      "cifraMensileAssMantUscita": 20,
+                      "descrizioneAssMantUscita": "assegno per figlio minore",
+                      "id": 0,
+                      "progressivoAssMantUscita": 12
+                  }],
+                  "immobile": [{
+                      "bancaMutuante": "fineco",
+                      "dataDalProprietaImmobile": "2020-12-09T11:35:44.814Z",
+                      "descrizioneImmobile": "villa  ferraioli",
+                      "flPrimaCasa": true,
+                      "id": 0,
+                      "localita": "milano",
+                      "mqImmobile": 140,
+                      "mutuoOriginario": 500000,
+                      "rataMensileMutuo": 200,
+                      "renditaLocazioneMensile": 100,
+                      "residuoDebitoMutuo": 0,
+                      "scadenzaRata": "2020-12-09T11:35:44.814Z",
+                      "tipoImmobile": "villa",
+                      "valoreCommerciale": 3000000
+                  }],
+                  "totaleUscitePerAffitti": [{
+                          "id": 0,
+                          "rataAffittoMensile": 500,
+                          "rataCondominioMensile": 10
+                      },
+                      {
+                          "id": 0,
+                          "rataAffittoMensile": 600,
+                          "rataCondominioMensile": 50
+                      }
+                  ]
+              },
+              "listaAltriFamiliari": [{
+                      "cfAltriF": "cf padre cliente",
+                      "cittaNascitaAltriF": "roma",
+                      "cognomeAltriF": "rossi",
+                      "dataNascitaAltriF": "1950-12-09T11:35:44.814Z",
+                      "gradoParentelaAltriF": "string",
+                      "id": 0,
+                      "nomeAltriF": "mario",
+                      "redditoMensileAltriF": 0
+                  },
+                  {
+                      "cfAltriF": "cf madre cliente",
+                      "cittaNascitaAltriF": "roma",
+                      "cognomeAltriF": "verdi",
+                      "dataNascitaAltriF": "1970-12-03T22:12:06.159Z",
+                      "gradoParentelaAltriF": "madre",
+                      "id": 0,
+                      "nomeAltriF": "mariella",
+                      "redditoMensileAltriF": 3000
+                  }
+              ],
+              "listaAttivitaClienteAut": [{
+                  "attivitaCliAut": "ARTIGIANO",
+                  "descrizioneAttivitaCliAut": "ARTIGIANO laboratorio",
+                  "id": 0,
+                  "numAnniAttivitaEsercitataCliAut": 0,
+                  "numAnniEsercizioAttivitaCliAut": 0,
+                  "redditoAnnuoCliAut": 8000,
+                  "tipoLavoratoreCliAut": "AUTONOMO/A"
+              }],
+              "listaAttivitaClienteDis": [{
+                  "id": 0,
+                  "tipologiaLavoratoreCliDis": "DISOCCUPATO/A"
+              }],
+              "listaAttivitaClientePens": [{
+                  "id": 0,
+                  "numMensilitaCliPens": 13,
+                  "parametroPignorabilitaCliPens": 0,
+                  "redditoAnnuoCliPens": 6000,
+                  "tipoContrattoCliPens": "SUBORDINATO",
+                  "tipoLavoratoreCliPens": "PENSIONATO"
+              }],
+              "listaAttivitaClienteSub": [{
+                  "attivitaCliSub": "impiegato",
+                  "id": 0,
+                  "numMensilitaRetCliSub": 16,
+                  "parametroPignorabilitaCliSub": 2,
+                  "redditoAnnuoCliSub": 0,
+                  "tipoContrattoCliSub": "FT - Tempo indeterminato",
+                  "tipoLavoratoreCliSub": "SUBORDINATO/A"
+              }],
+              "listaAttivitaConiugeAut": [{
+                  "attivitaConAut": "COMMERCIANTE",
+                  "descrizioneAttivitaConAut": "COMMERCIANTE ingrosso",
+                  "id": 0,
+                  "numAnniAttivitaEsercitataConAut": 0,
+                  "numAnniEsercizioAttivitaConAut": 0,
+                  "redditoAnnuoConAut": 6000,
+                  "tipoLavoratoreConAut": "AUTONOMO/A"
+              }],
+              "listaAttivitaConiugeDis": [{
+                  "id": 0,
+                  "tipoLavoratoreConDis": "DISOCCUPATO/A"
+              }],
+              "listaAttivitaConiugePens": [{
+                  "id": 0,
+                  "numMensilitaConPens": 10,
+                  "redditoAnnuoConPens": 0,
+                  "tipoContrattoConPens": "SUBORDINATO",
+                  "tipoLavoratoreConPens": "PENSIONATO"
+              }],
+              "listaAttivitaConiugeSub": [{
+                  "attivitaConSub": "commessa",
+                  "id": 0,
+                  "numMensilitaRetConSub": 21,
+                  "redditoAnnuoConSub": 12000,
+                  "tipoContrattoConSub": "PT - Tempo indeterminato",
+                  "tipoLavoratoreConSub": "SUBORDINATO/A"
+              }],
+              "listaTrattenutaCliente": [{
+                  "csqCliente": {
+                      "dataInizioCSQCli": "2020-12-15T07:51:35.974Z",
+                      "dataScadenzaCSQCli": "2021-02-28T07:51:35.974Z",
+                      "rataCSQCli": 500
+                  },
+                  "delegaCliente": {
+                      "dataInizioDelegaCli": "2020-12-15T07:51:35.974Z",
+                      "dataScadenzaDelegaCli": null,
+                      "rataDelegaCli": 77
+                  },
+                  "pignoramentoCliente": {
+                      "dataInizioPignoramentoCli": "2020-12-15T07:51:35.974Z",
+                      "dataScadenzaPignoramentoCli": null,
+                      "rataPignoramentoCli": 19
+                  }
+              }],
+              "listaTrattenutaConiuge": [{
+                  "csqConiuge": {
+                      "dataInizioCSQCon": "2020-12-15T07:51:35.974Z",
+                      "dataScadenzaCSQCon": null,
+                      "rataCSQCon": 51
+                  },
+                  "delegaConiuge": {
+                      "dataInizioDelegaCon": "2020-12-15T07:51:35.974Z",
+                      "dataScadenzaDelegaCon": null,
+                      "rataDelegaCon": 50
+                  },
+                  "pignoramentoConiuge": {
+                      "dataInizioPignoramentoCon": "2020-12-15T07:51:35.974Z",
+                      "dataScadenzaPignoramentoCon": null,
+                      "rataPignoramentoCon": 88
+                  }
+              }]
+          },
+          "listaCreditori": [{
+                  "cObbligato": true,
+                  "coefficienteCreditore": 0,
+                  "formaTecnica": "PRESTITO PERSONALE",
+                  "id": 0,
+                  "importoTransattivo": 0,
+                  "nomeCreditore": "marinari",
+                  "posizioneTecnica": "u",
+                  "rataCreditore": 10,
+                  "rataTransattivaCreditore": 0,
+                  "valoreDebito": 600
+              },
+              {
+                  "cObbligato": true,
+                  "coefficienteCreditore": 0,
+                  "formaTecnica": "CARTA DI CREDITO - REVOLVING",
+                  "id": 0,
+                  "importoTransattivo": 0,
+                  "nomeCreditore": "nuvolari",
+                  "posizioneTecnica": "u",
+                  "rataCreditore": 60,
+                  "rataTransattivaCreditore": 0,
+                  "valoreDebito": 6000
+              },
+              {
+                  "cObbligato": true,
+                  "coefficienteCreditore": 0,
+                  "formaTecnica": "GARANZIA DI PEGNO",
+                  "id": 0,
+                  "importoTransattivo": 0,
+                  "nomeCreditore": "milletti",
+                  "posizioneTecnica": "s",
+                  "rataCreditore": 80,
+                  "rataTransattivaCreditore": 0,
+                  "valoreDebito": 4000
+              }
+          ],
+          "upfrontSegmentazione": {
+              "flagUpfront": true,
+              "importoRataPianoCompetenzeUpfront": 305,
+              "numeroRatePianoCompetenzeUpfront": 5,
+              "successFeeGlobale": 0.0,
+              "totalePianoCompetenzeUpfront": 1025
+          }
+      }
+  }*/
     {
       requestType:"SYNC",
       requestKey:"requestKeySYNC101091",
@@ -480,7 +714,7 @@ export class EsdebitamiDashboardComponent implements OnInit {
                 listaAttivitaClientePens: [{
                   id: 0,
                   numMensilitaCliPens: 13,
-                  parametroPignorabilitaCliPens: 680,
+                  parametroPignorabilitaCliPens: 0,
                   redditoAnnuoCliPens: 10000,
                   tipoContrattoCliPens: "SUBORDINATO",
                   tipoLavoratoreCliPens: "PENSIONATO"
